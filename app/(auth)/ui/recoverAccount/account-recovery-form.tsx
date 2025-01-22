@@ -64,7 +64,7 @@ const AccountRecoveryForm = () => {
                                     type="tel"
                                     error={errors.phone}
                                     isRequired={true}
-                                    classNames="pl-20"
+                                    className="pl-20"
                                     data-testid="phone"
                                 />
                             </div>

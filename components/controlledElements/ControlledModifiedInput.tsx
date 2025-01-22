@@ -12,13 +12,14 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
     rules,
     error,
     isRequired,
-    classNames,
+    className,
     labelClassNames,
     onValueChange,
     disabled,
+    containerClassName,
 }: ControlledModifiedInputProps<TFormValue>) => {
     return (
-        <div>
+        <div className={containerClassName ? containerClassName : ""}>
             <Controller
                 name={name}
                 control={control}
@@ -31,7 +32,7 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
                             value={field.value}
                             onChange={field.onChange}
                             isRequired={isRequired}
-                            classNames={cn("w-full", classNames)}
+                            className={cn("w-full", className)}
                             onValueChange={onValueChange}
                             placeholder={placeholder}
                             label={label}
@@ -39,7 +40,7 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
                             disabled={disabled}
                         />
                         {error && (
-                            <p className="text-[10px] text-left mt-1 font-light text-kaiglo_critical-base">
+                            <p className="text-sm text-left mt-1 font-light text-kaiglo_critical-base">
                                 {error.message}
                             </p>
                         )}

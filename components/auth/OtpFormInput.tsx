@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
 import OtpTimer from "@/components/auth/OtpTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { useRouter } from "next/navigation";
 // import { useVerifyOtp } from "@/hooks/mutation/auth/verifyOtp";
 
 const FormSchema = z.object({
@@ -37,9 +38,11 @@ const OtpFormInput = ({
 
     // temporal verifyOtp
     const verifyingOtp = false;
+    const router = useRouter();
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
         // verifyOtp({ otp: data.otp, email, phone });
+        router.push("register/store-setup");
     }
 
     return (

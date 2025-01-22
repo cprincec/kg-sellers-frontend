@@ -65,6 +65,7 @@ const paymentoptionSchema = yup.object({
 })
 
 /*********** STORE SETUP FORM SCHEMA ***********/
+
 export const storeSetupSchemas = [
   storeDetailsSchema,
   productCategoriesSchema,

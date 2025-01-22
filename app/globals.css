@@ -161,4 +161,36 @@ body {
     }
 
     input {}
+
+    div :has(> .multi-select) {
+        @apply p-0 border-0
+    }
+
+
+    /* Do not remove */
+    button.multi-select {
+        @apply px-3 py-6
+    }
+
+    button[data-state="open"] {
+        @apply focus:outline-none border-[1.5px] border-kaiglo_success-600 shadow-input-shadow
+    }
+
+    /* multiselect dropdown item */
+    div [data-highlighted] {
+        @apply focus:bg-transparent
+    }
+
+    /* multiselect dropdown item */
+    div [data-radix-collection-item] {
+        @apply cursor-pointer hover:bg-kaiglo_grey-50
+    }
+
+    /* multiselect dropdown */
+    div [data-side="bottom"] {
+
+        @apply mt-1
+    }
+
+    /* Do not remove */
 }

@@ -1,14 +1,7 @@
 // import { ProductStatus } from "@/types/app.type";
 // import { ButtonVariants } from "@/types/element.type";
-import { OrderStatus } from "@/enums/orderStatus.enum";
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { IAddress, IState } from "./address.interface";
 
-/********** MODIFIED BADGE PROPS ***********/
-export interface ModifiedBadgeProps {
-  status?: OrderStatus;
-  className?: string;
-}
 
 /********** MODIFIED BUTTON PROPS ***********/
 export interface ModifiedButtonProps {
@@ -52,14 +45,15 @@ export interface ModifiedInputProps {
   type?: string;
   placeholder?: string;
   value: string;
-  onChange: (value: string) => void;
-  classNames?: string;
+  onChange?: (value: string) => void;
+  className?: string;
   onValueChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputRef?: React.ForwardedRef<HTMLInputElement>;
   label?: string;
   labelClassNames?: string;
   isRequired?: boolean;
   disabled?: boolean;
+  accept?: string;
 }
 
 /*********** MODIFIED TEXT AREA PROPS *********/
@@ -68,7 +62,7 @@ export interface ModifiedTextAreaProps {
   placeholder?: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  classNames?: string;
+  className?: string;
   required?: boolean;
   rows: number;
 }
@@ -93,23 +87,6 @@ export interface AuthFormProps {
   setPhone: Dispatch<SetStateAction<string>>;
 }
 
-/****************** MODIFIED DROPDOWN ******************/
-export interface ModifiedDropdownProps {
-  trigger: string | ReactNode;
-  triggerClassName?: string;
-  className?: string;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  data: any[];
-  itemClassName?: string;
-  contentClassName?: string;
-  hasLabel?: boolean;
-  label?: string;
-  labelClassName?: string;
-  type?: "notification" | "user";
-  notificationCount?: number;
-  onOpenChange?: (open: boolean) => void;
-}
-
 /****************** USER DROPDOWN MENU PROPS ******************/
 export interface UserDropdownMenuProps {
   title: string;
@@ -119,15 +96,4 @@ export interface UserDropdownMenuProps {
   itemClassName?: string;
 }
 
-/*********** ADD ADDRESS FORM PROPS ***********/
-export interface AddAddressFormProps {
-  stateAndCities: IState[];
-  setOpen: React.Dispatch<SetStateAction<boolean>>;
-}
 
-/*********** UPDATE ADDRESS FORM PROPS ***********/
-export interface UpdateAddressFormProps {
-  stateAndCities: IState[];
-  setOpen: React.Dispatch<SetStateAction<boolean>>;
-  initialValues: IAddress;
-}

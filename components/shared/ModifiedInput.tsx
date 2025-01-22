@@ -3,38 +3,38 @@ import { ModifiedInputProps } from "@/interfaces/elements.interface";
 import { cn } from "@/lib/utils";
 
 const ModifiedInput = ({
-  placeholder,
-  type,
-  id,
-  classNames,
-  inputRef,
-  value,
-  onChange,
-  onValueChange,
-  isRequired,
-  disabled,
+    placeholder,
+    type,
+    id,
+    className,
+    inputRef,
+    value,
+    onChange,
+    onValueChange,
+    isRequired,
+    disabled,
+    accept,
 }: ModifiedInputProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) onChange(e.target.value);
 
-    if (onValueChange) {
-      onValueChange(e);
-    }
-  };
+        if (onValueChange) onValueChange(e);
+    };
 
-  return (
-    <Input
-      id={id}
-      ref={inputRef}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={handleChange}
-      className={cn("h-12 w-full", classNames)}
-      required={isRequired}
-      maxLength={id === "phone" ? 11 : undefined}
-      disabled={disabled}
-    />
-  );
+    return (
+        <Input
+            id={id}
+            ref={inputRef}
+            type={type}
+            accept={accept}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            className={cn("h-12 w-full", className)}
+            required={isRequired}
+            maxLength={id === "phone" ? 11 : undefined}
+            disabled={disabled}
+        />
+    );
 };
 export default ModifiedInput;

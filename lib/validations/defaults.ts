@@ -29,16 +29,19 @@ export const otpDefaultValues: IOtpFormDTO = {
   otp: "",
 };
 
-export const storeSetupDefaultValues: IStoreSetupFormDTO =  {
-  storeName: "kaiglo",
-  address: "ojuelegba",
+// Default values for the "Store Details" step
+export const storeSetupDefaultValues: IStoreSetupFormDTO = {
+  storeName: "Kaiglo",
+  address: "Ojuelegba",
   email: "kaiglo@gmail.com",
-  phone: "36768968527",
-  state: "Abuja",
-  logo: "logo",
-  banner: "logo",
-  category: ["Men's wear"],   
+  phone: "689708071968",
+  state: "Lagos",
+  logo: null,
+  banner: undefined,
+  productCategories: [],
   beneficiaryName: "Ademola Lookman",
-  accountNumber: "12565348347",
-  bankName: "first bank of Nigeria",
-}
+  accountNumber: "11124455",
+  bankName: "",
+};
+
+

@@ -42,7 +42,7 @@ const RegisterationForm = () => {
     return (
         <div className="pt-6 transition-all duration-300 ease-in-out">
             <form onSubmit={handleSubmit(createAccount)}>
-                <div className="grid grid-cols-1 space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4 md:gap-y-4 md:items-center md:justify-center space-y-4 md:space-y-0">
                     {/* Firstname */}
                     <ControlledModifiedInput
                         name="firstName"
@@ -51,7 +51,6 @@ const RegisterationForm = () => {
                         type="text"
                         error={errors.firstName}
                         isRequired={true}
-                        classNames="col-span-4"
                         rules={{ required: true }}
                         data-testid="firstName"
                     />
@@ -64,7 +63,6 @@ const RegisterationForm = () => {
                         type="text"
                         error={errors.lastName}
                         isRequired={true}
-                        classNames="col-span-4"
                         rules={{ required: true }}
                         data-testid="lastName"
                     />
@@ -75,6 +73,7 @@ const RegisterationForm = () => {
                         control={control}
                         rules={{ required: true }}
                         placeholder="Email"
+                        // containerClassName="md:col-span-2"
                         type="email"
                         error={errors.email}
                         isRequired={true}
@@ -82,7 +81,7 @@ const RegisterationForm = () => {
                     />
 
                     {/* Phone */}
-                    <div className="relative">
+                    <div className="relative md:col-span-2">
                         <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-base text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
                             +234
                         </span>
@@ -94,7 +93,7 @@ const RegisterationForm = () => {
                             type="tel"
                             error={errors.phone}
                             isRequired={true}
-                            classNames="pl-20"
+                            className="pl-20"
                             data-testid="phone"
                         />
                     </div>

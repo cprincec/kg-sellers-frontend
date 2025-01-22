@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StoreDetails from "../../ui/register/storeSetup/StoreDetails";
 import { ArrowBackButton } from "../../ui/buttons";
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,13 @@ import { Control, FieldErrors, useForm } from "react-hook-form";
 import { storeSetupSchemas } from "@/lib/validations/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { storeSetupDefaultValues } from "@/lib/validations/defaults";
-
-export interface UseFormHookProps {
-    control: Control<IStoreSetupFormDTO>;
-    errors: FieldErrors<IStoreSetupFormDTO>;
-}
+import ConfirmAccountModal from "../../ui/register/storeSetup/ConfirmAccountModal";
+import TermsOfContract from "../../ui/register/storeSetup/TermOfContract";
+import Stepper from "../../ui/register/storeSetup/Stepper";
+import { useRouter } from "next/navigation";
 
 const StoreSetup = () => {
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState(0);
     const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
 
@@ -27,9 +27,10 @@ const StoreSetup = () => {
     };
 
     const navigateToNextStep = async () => {
-        const stepIsValid = await trigger();
+        const stepIsValid = await trigger(); // Validate visible form fields
+
         if (stepIsValid) {
-            if (currentStep === 3) confirmAccountDetails(); // Show confirm account details modal
+            if (currentStep === 2) setShowConfirmAccountModal(true); // Confirm payment details
             else setCurrentStep((prevStep) => prevStep + 1);
         }
     };
@@ -40,22 +41,15 @@ const StoreSetup = () => {
 
     const saveStoreSetup = (data) => {
         console.log(data);
+        router.push("/dashboard");
     };
-
-    const confirmAccountDetails = () => {};
-
-    // const steps = [
-    //     <StoreDetails key={0} navigateToNextStep={navigateToNextStep} />,
-    //     <ProductCategory key={1} navigateToNextStep={navigateToNextStep} />,
-    //     <PaymentOption key={2} navigateToNextStep={navigateToNextStep} />,
-    // ];
 
     const currentResolver = storeSetupSchemas[currentStep];
 
     const {
         control,
-        handleSubmit,
         trigger,
+        getValues,
         formState: { errors },
     } = useForm<IStoreSetupFormDTO>({
         defaultValues: storeSetupDefaultValues,
@@ -63,8 +57,16 @@ const StoreSetup = () => {
         resolver: yupResolver(currentResolver),
     });
 
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null; // Skip rendering until the client has mounted
+
     return (
-        <div className="p-4">
+        <div className="p-4 mt-4">
             {currentStep === 0 ? (
                 <section>
                     <h1>Name, Welcome to Kaiglo SellersHub!</h1>
@@ -77,21 +79,28 @@ const StoreSetup = () => {
                 <ArrowBackButton
                     type="button"
                     variant="ghost"
-                    className="w-max bg-transparent"
-                    onClick={() => navigateToSpecificStep(1)}
+                    className="w-max bg-transparent -ml-4"
+                    onClick={() => navigateToSpecificStep(0)}
                     value="Back"
                 />
             )}
 
-            <div className="py-8">
-                <form onSubmit={handleSubmit(saveStoreSetup)}>
+            {/* Stepper starts icons starts */}
+            <Stepper currentStep={currentStep} />
+            {/* Stepper icons ends  */}
+
+            <div className="">
+                <form>
+                    {/* Form fields starts */}
                     {currentStep === 0 && <StoreDetails formProps={{ control, errors }} />}
-                    {currentStep === 1 && <ProductCategory formProps={{ control, errors }} />}
-                    {currentStep === 2 && <PaymentOption formProps={{ control, errors }} />}
+                    {currentStep === 1 && <ProductCategory control={control} errors={errors} />}
+                    {currentStep === 2 && <PaymentOption control={control} errors={errors} />}
+                    {currentStep === 3 && <TermsOfContract />}
+                    {/* Form fields ends */}
 
                     {/* Navigation Buttons starts*/}
-                    <div className="grid grid-flow-col items-center gap-3 my-6 ">
-                        {currentStep === 0 ? (
+                    <div className="grid grid-flow-col items-center gap-3 mt-12 ">
+                        {currentStep === 0 || currentStep === 3 ? (
                             <Link
                                 href="/"
                                 className="flex justify-center items-center p-3 rounded-full border border-kaiglo_grey-disabled text-kaiglo_grey-700"
@@ -108,9 +117,13 @@ const StoreSetup = () => {
                                 Back
                             </Button>
                         )}
-                        {currentStep === 2 ? (
-                            <Button type="submit" className="p-3 rounded-full">
-                                Submit
+                        {currentStep === 3 ? (
+                            <Button
+                                type="button"
+                                className="p-3 rounded-full"
+                                onClick={() => saveStoreSetup(getValues())}
+                            >
+                                I agree
                             </Button>
                         ) : (
                             <Button type="button" className="p-3 rounded-full" onClick={navigateToNextStep}>
@@ -121,9 +134,16 @@ const StoreSetup = () => {
                     {/* Navigation Buttons ends*/}
                 </form>
 
-                {/* {steps.map((step, index) => {
-                    return index + 1 === currentStep && step;
-                })} */}
+                {showConfirmAccountModal && (
+                    <ConfirmAccountModal
+                        showConfirmAccountModal={showConfirmAccountModal}
+                        setShowConfirmAccountModal={setShowConfirmAccountModal}
+                        navigateToSpecificStep={navigateToSpecificStep}
+                        beneficiaryName={getValues()?.beneficiaryName}
+                        accountNumber={getValues()?.accountNumber}
+                        bankName={getValues()?.bankName}
+                    />
+                )}
             </div>
         </div>
     );

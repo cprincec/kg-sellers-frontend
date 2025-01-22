@@ -1,3 +1,5 @@
+"use client";
+
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import {
     IPaymentOptionFormDTO,
@@ -5,10 +7,16 @@ import {
     IStoreDetailsFormDTO,
 } from "@/interfaces/dtos/auth.dto.interface";
 
-import { Resolver, useForm } from "react-hook-form";
+import { Controller, Resolver, useForm } from "react-hook-form";
 import ConfirmAccountModal from "./ConfirmAccountModal";
 import { useState } from "react";
 import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
+import ControlledModifiedSelect from "@/components/controlledElements/ControlledModifiedSelect";
+import ModifiedMultiSelect from "@/components/shared/ModifiedSelect";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Check, CheckIcon, X } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { ImageUploadInput } from "@/components/ui/icons/image-upload-icons";
 
 export const StoreDetailsForm = ({ navigateToNextStep }) => {
     const {
@@ -36,7 +44,7 @@ export const StoreDetailsForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.storeName}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="storeName"
                     />
@@ -66,7 +74,7 @@ export const StoreDetailsForm = ({ navigateToNextStep }) => {
                             type="tel"
                             error={errors.phone}
                             isRequired={true}
-                            classNames="pl-20"
+                            className="pl-20"
                             data-testid="phone"
                         />
                     </div>
@@ -79,7 +87,7 @@ export const StoreDetailsForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.state}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="state"
                     />
@@ -92,7 +100,7 @@ export const StoreDetailsForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.address}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="address"
                     />
@@ -105,7 +113,7 @@ export const StoreDetailsForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.logo}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="logo"
                     />
@@ -118,7 +126,7 @@ export const StoreDetailsForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.banner}
                         isRequired={false}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: false }}
                         data-testid="banner"
                     />
@@ -154,7 +162,7 @@ export const ProductCategoryForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.category}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="category"
                     />
@@ -192,7 +200,7 @@ export const PaymentOptionForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.beneficiaryName}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="beneficiaryName"
                     />
@@ -217,7 +225,7 @@ export const PaymentOptionForm = ({ navigateToNextStep }) => {
                         type="text"
                         error={errors.bankName}
                         isRequired={true}
-                        classNames="col-span-4"
+                        className="col-span-4"
                         rules={{ required: true }}
                         data-testid="bankName"
                     />
@@ -251,7 +259,7 @@ export const StoreDetailsFormFields = ({ formProps }: { formProps: UseFormHookPr
                 type="text"
                 error={errors.storeName}
                 isRequired={true}
-                classNames="col-span-4"
+                className="col-span-4"
                 rules={{ required: true }}
                 data-testid="storeName"
             />
@@ -281,7 +289,7 @@ export const StoreDetailsFormFields = ({ formProps }: { formProps: UseFormHookPr
                     type="tel"
                     error={errors.phone}
                     isRequired={true}
-                    classNames="pl-20"
+                    className="pl-20"
                     data-testid="phone"
                 />
             </div>
@@ -294,7 +302,7 @@ export const StoreDetailsFormFields = ({ formProps }: { formProps: UseFormHookPr
                 type="text"
                 error={errors.state}
                 isRequired={true}
-                classNames="col-span-4"
+                className="col-span-4"
                 rules={{ required: true }}
                 data-testid="state"
             />
@@ -307,62 +315,129 @@ export const StoreDetailsFormFields = ({ formProps }: { formProps: UseFormHookPr
                 type="text"
                 error={errors.address}
                 isRequired={true}
-                classNames="col-span-4"
+                className="col-span-4"
                 rules={{ required: true }}
                 data-testid="address"
             />
 
             {/* Business logo */}
-            <ControlledModifiedInput
-                name="logo"
-                control={control}
-                placeholder="Logo"
-                type="text"
-                error={errors.logo}
-                isRequired={true}
-                classNames="col-span-4"
-                rules={{ required: true }}
-                data-testid="logo"
-            />
+            <div>
+                <p className="font-medium text-sm text-kaiglo_grey-900 mb-2">BUSINESS LOGO</p>
+                <ImageUploadInput
+                    name="logo"
+                    control={control}
+                    error={errors.logo}
+                    rules={{ required: true }}
+                />
+            </div>
 
             {/* Banner */}
-            <ControlledModifiedInput
-                name="banner"
-                control={control}
-                placeholder="Banner"
-                type="text"
-                error={errors.banner}
-                isRequired={false}
-                classNames="col-span-4"
-                rules={{ required: false }}
-                data-testid="banner"
-            />
+            <div>
+                <p className="font-medium text-sm text-kaiglo_grey-900 mb-2">STORE BANNER</p>
+                <ImageUploadInput
+                    name="banner"
+                    control={control}
+                    error={errors.banner}
+                    rules={{ required: false }}
+                />
+            </div>
         </div>
     );
 };
 
-export const ProductCategoryFormFields = ({ formProps }: { formProps: UseFormHookProps }) => {
-    const { control, errors } = formProps;
+export const ProductCategoryFormFields = ({ control, errors }) => {
+    // const { control, errors } = formProps;
+
+    const options = ["Men's Fashion", "Women's Fashion", "Health & Beauty", "Office & School"];
+
     return (
         <div className="grid grid-cols-1 space-y-4">
-            {/* Category */}
-            <ControlledModifiedInput
-                name="category"
+            <Controller
                 control={control}
-                placeholder="Select Category"
-                type="text"
-                error={errors.category}
-                isRequired={true}
-                classNames="col-span-4"
-                rules={{ required: true }}
-                data-testid="category"
+                name={"productCategories"}
+                render={({ field }) => {
+                    const handleChange = (value: string) => {
+                        const currentValues = field.value || [];
+                        if (currentValues.includes(value)) {
+                            field.onChange(currentValues.filter((item: string) => item !== value));
+                        } else {
+                            field.onChange([...currentValues, value]);
+                        }
+                    };
+
+                    const removeItem = (option: string) => {
+                        field.onChange(field.value.filter((item: string) => item !== option));
+                    };
+
+                    return (
+                        <div>
+                            <div className="border rounded-md p-2">
+                                <Select name="productCatgories" value="" onValueChange={handleChange}>
+                                    <SelectTrigger>
+                                        <span className="">Select Categories</span>
+                                    </SelectTrigger>
+                                    <SelectContent className="grid grid-cols-3 ">
+                                        {options.map((option, index) => {
+                                            const isSelected = field.value?.includes(option);
+                                            return (
+                                                <SelectItem key={index} value={option}>
+                                                    <div className="flex items-center p-0">
+                                                        <span
+                                                            className={`mb-0.5 w-4 h-4 p-0.5 mr-2 flex items-center justify-center rounded-sm border ${
+                                                                isSelected
+                                                                    ? "border-kaiglo_success-base"
+                                                                    : "border-kaiglo_grey-900"
+                                                            }`}
+                                                        >
+                                                            {isSelected && (
+                                                                <Check className="text-kaiglo_success-base" />
+                                                            )}
+                                                        </span>
+                                                        {option}
+                                                    </div>
+                                                </SelectItem>
+                                            );
+                                        })}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            {field.value?.length > 0 && (
+                                <div className="mt-3">
+                                    <ul className="flex gap-2 flex-wrap text-sm text-kaiglo_grey-base">
+                                        {field.value.map((item: string, index: number) => (
+                                            <li
+                                                className="flex justify-between items-center gap-2 text-sm rounded-lg border border-kaiglo_grey-200 p-2"
+                                                key={index}
+                                                role="listitem"
+                                            >
+                                                <p>{item}</p>
+                                                <button
+                                                    type="button"
+                                                    aria-label={`Remove ${item}`}
+                                                    className="text-sm font-medium"
+                                                    onClick={() => removeItem(item)}
+                                                >
+                                                    <X className="w-4" />
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                            {errors?.productCategories && (
+                                <p className="text-sm mt-1 font-light text-kaiglo_critical-base">
+                                    {errors.productCategories.message}
+                                </p>
+                            )}
+                        </div>
+                    );
+                }}
             />
         </div>
     );
 };
 
-export const PaymentOptionFormFields = ({ formProps }: { formProps: UseFormHookProps }) => {
-    const { control, errors } = formProps;
+export const PaymentOptionFormFields = ({ control, errors }) => {
     return (
         <div>
             <h3 className="text-sm mt-6 mb-4">Bank Account Details</h3>
@@ -374,9 +449,9 @@ export const PaymentOptionFormFields = ({ formProps }: { formProps: UseFormHookP
                     control={control}
                     placeholder="Beneficiary Name"
                     type="text"
-                    error={errors.beneficiaryName}
+                    error={errors?.beneficiaryName}
                     isRequired={true}
-                    classNames="col-span-4"
+                    className="col-span-4"
                     rules={{ required: true }}
                     data-testid="beneficiaryName"
                 />
@@ -388,7 +463,7 @@ export const PaymentOptionFormFields = ({ formProps }: { formProps: UseFormHookP
                     rules={{ required: true }}
                     placeholder="Bank Account Number"
                     type="number"
-                    error={errors.accountNumber}
+                    error={errors?.accountNumber}
                     isRequired={true}
                     data-testid="accountNumber"
                 />
@@ -399,9 +474,9 @@ export const PaymentOptionFormFields = ({ formProps }: { formProps: UseFormHookP
                     control={control}
                     placeholder="Bank Name"
                     type="text"
-                    error={errors.bankName}
+                    error={errors?.bankName}
                     isRequired={true}
-                    classNames="col-span-4"
+                    className="col-span-4"
                     rules={{ required: true }}
                     data-testid="bankName"
                 />

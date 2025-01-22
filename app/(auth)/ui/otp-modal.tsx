@@ -1,3 +1,5 @@
+"use client";
+
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SetStateAction } from "react";
 import OtpFormInput from "@/components/auth/OtpFormInput";

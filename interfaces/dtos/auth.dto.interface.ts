@@ -41,16 +41,31 @@ export type IStoreSetupFormDTO =
       email: string;
       phone: string;
       state: string;
-      logo: string;
-      banner?: string;
+      logo: Blob | null;
+      banner?: Blob | null;
     }
   | {
-      category: string[];
+      productCategories: string[];
     }
   | {
       beneficiaryName: string;
       accountNumber: string;
       bankName: string;
-    };
+};
 
+
+/*********** STORE SETUP FORM DTO ***********/
+// export interface IStoreSetupFormDTO {
+//       storeName: string;
+//       address: string;
+//       email: string;
+//       phone: string;
+//       state: string;
+//       logo: string;
+//       banner?: string;
+//       productCategories: string[];  
+//       beneficiaryName: string;
+//       accountNumber: string;
+//       bankName: string;
+// };
 

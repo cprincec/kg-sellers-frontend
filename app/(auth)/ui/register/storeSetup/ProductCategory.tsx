@@ -1,12 +1,13 @@
 import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
 import { ProductCategoryForm, ProductCategoryFormFields } from "./forms";
 
-const ProductCategory = ({ formProps }: { formProps: UseFormHookProps }) => {
+// const ProductCategory = ({ formProps }: { formProps: UseFormHookProps }) => {
+const ProductCategory = ({ control, errors }) => {
     return (
         <div>
             <h2 className="mb-4 text-xl font-bold">PRODUCT CATEGORY</h2>
             {/* <ProductCategoryForm navigateToNextStep={navigateToNextStep} /> */}
-            <ProductCategoryFormFields formProps={formProps} />
+            <ProductCategoryFormFields control={control} errors={errors} />
         </div>
     );
 };

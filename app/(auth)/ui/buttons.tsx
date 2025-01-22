@@ -11,7 +11,7 @@ export const GoogleButton = () => {
     return (
         <Button
             variant={"outline"}
-            className="flex items-center justify-center py-6 text-kaiglo_grey-base text-base rounded-lg w-full border-kaiglo_grey-disabled"
+            className="flex items-center justify-center py-4 md:py-4 text-kaiglo_grey-base text-base rounded-lg w-full border-kaiglo_grey-disabled"
         >
             <Image src={GoogleIcon} alt="google-icon" width={19.54} height={20} />
             <Image src={Continue} alt="continue-with-google" className="mt-1" width={159} height={20} />
