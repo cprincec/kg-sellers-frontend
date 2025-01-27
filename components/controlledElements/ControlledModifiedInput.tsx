@@ -1,10 +1,9 @@
-// import { ControlledModifiedInputProps } from "@/interfaces/controlledElements.interface";
-import { Controller } from "react-hook-form";
-// import { Controller, FieldValues } from "react-hook-form";
+import { ControlledModifiedInputProps } from "@/interfaces/controlledElements.interface";
+import { Controller, FieldValues } from "react-hook-form";
 import ModifiedInput from "@/components/shared/ModifiedInput";
 import { cn } from "@/lib/utils";
 
-const ControlledModifiedInput = ({
+const ControlledModifiedInput = <TFormValue extends FieldValues>({
     name,
     label,
     placeholder,
@@ -18,9 +17,7 @@ const ControlledModifiedInput = ({
     onValueChange,
     disabled,
     containerClassName,
-}) => {
-    // }: ControlledModifiedInputProps<TFormValue>) => {
-
+}: ControlledModifiedInputProps<TFormValue>) => {
     return (
         <div className={containerClassName ? containerClassName : ""}>
             <Controller
