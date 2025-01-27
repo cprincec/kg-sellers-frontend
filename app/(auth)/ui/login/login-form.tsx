@@ -13,6 +13,10 @@ import { OtpContext } from "@/contexts/otpContext";
 const LoginForm = () => {
     const { showOtpModal, setShowOtpModal } = useContext(OtpContext);
 
+    // Temporal
+    const email = "";
+    const phone = "";
+
     const {
         control,
         handleSubmit,
@@ -91,7 +95,14 @@ const LoginForm = () => {
                 />
             </form>
 
-            {showOtpModal && <OtpModal showOtpModal={showOtpModal} setShowOtpModal={setShowOtpModal} />}
+            {showOtpModal && (
+                <OtpModal
+                    showOtpModal={showOtpModal}
+                    setShowOtpModal={setShowOtpModal}
+                    email={email}
+                    phone={phone}
+                />
+            )}
         </div>
     );
 };

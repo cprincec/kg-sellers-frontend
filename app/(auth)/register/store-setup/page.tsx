@@ -39,6 +39,7 @@ const StoreSetup = () => {
     } = useForm<IStoreSetupFormDTO>({
         defaultValues: storeSetupDefaultValues,
         shouldUnregister: false,
+        // @ts-expect-error to be reviewed
         resolver: yupResolver(currentResolver),
     });
 
@@ -146,6 +147,7 @@ const StoreSetup = () => {
                             showConfirmAccountModal={showConfirmAccountModal}
                             setShowConfirmAccountModal={setShowConfirmAccountModal}
                             navigateToSpecificStep={navigateToSpecificStep}
+                            // @ts-expect-error This needs to change
                             getValues={getValues}
                             // beneficiaryName={getValues()?.beneficiaryName}
                             // accountNumber={getValues()?.accountNumber}
