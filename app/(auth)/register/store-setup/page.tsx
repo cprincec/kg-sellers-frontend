@@ -29,6 +29,10 @@ const StoreSetup = () => {
 
     const currentResolver = storeSetupSchemas[currentStep];
 
+    if (!currentResolver) {
+        return null;
+    }
+
     console.log(currentStep);
 
     const {
