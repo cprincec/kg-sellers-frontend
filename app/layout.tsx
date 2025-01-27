@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { StoreSetupContextProvider } from "@/contexts/storeSetupContext";
 
 const gotham = localFont({
     src: [
@@ -51,7 +52,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${gotham.className}`}>{children}</body>
+            <StoreSetupContextProvider>
+                <body className={`${gotham.className}`}>{children}</body>
+            </StoreSetupContextProvider>
         </html>
     );
 }

@@ -51,37 +51,38 @@ export const ImageUploadInput = ({ name, control, rules, error }) => {
             rules={rules}
             render={({ field }) => (
                 <div>
-                    <div className="min-h-52 p-2 flex items-center justify-center border border-dashed border-kaiglo_success-base rounded-xl">
-                        <Label className="w-full h-full">
-                            {field.value ? (
-                                <div className="relative flex flex-col items-center gap-4">
+                    <div className="h-[210px] w-full p-2 border border-dashed border-kaiglo_success-base rounded-xl">
+                        {field.value ? (
+                            <div className="relative h-full flex flex-col items-center gap-4">
+                                <div className="relative w-full h-full">
                                     <Image
                                         src={URL.createObjectURL(field.value)}
                                         alt={name}
-                                        width={1000}
-                                        height={190}
-                                        className="rounded-lg"
+                                        fill
+                                        className="rounded-lg object-fill"
                                     />
-                                    <Button
-                                        variant={"ghost"}
-                                        className="z-50 absolute top-4 right-4 bg-transparent p-0 w-8 h-8"
-                                        onClick={() => field.onChange(null)}
-                                    >
-                                        <Trash2 className="min-w-full min-h-full text-white bg-kaiglo_critical-base p-1.5  rounded-full" />
-                                    </Button>
-                                    <div className="z-1 absolute top-0 bottom-0 right-0 left-0 bg-black rounded-lg opacity-50 flex items-center justify-center"></div>
-                                    <Button
-                                        type="button"
-                                        variant="info"
-                                        className="bg-transparent z-1 absolute top-0 bottom-0 right-0 left-0 p-0 text-sm text-white hover:bg-transparent"
-                                        onClick={handleBrowseClick}
-                                    >
-                                        Click to browse
-                                    </Button>
                                 </div>
-                            ) : (
-                                <div className="grid justify-center items-center">
-                                    <ImageGalleryIcon className="w-12 h-12 mx-auto -mt-4" />
+                                <Button
+                                    variant={"ghost"}
+                                    className="z-50 absolute top-4 right-4 bg-transparent p-0 w-8 h-8"
+                                    onClick={() => field.onChange("")}
+                                >
+                                    <Trash2 className="min-w-full min-h-full text-white bg-kaiglo_critical-base p-1.5  rounded-full" />
+                                </Button>
+                                <div className="z-1 absolute top-0 bottom-0 right-0 left-0 bg-black rounded-lg opacity-50 flex items-center justify-center"></div>
+                                <Button
+                                    type="button"
+                                    variant="info"
+                                    className="bg-transparent underline z-1 absolute top-0 bottom-0 right-0 left-0 p-0 text-sm text-white hover:bg-transparent"
+                                    onClick={handleBrowseClick}
+                                >
+                                    Click to browse
+                                </Button>
+                            </div>
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <div className="mb-4 flex flex-col justify-center">
+                                    <ImageGalleryIcon className="w-12 h-12 mx-auto" />
                                     <p className="text-sm font-normal">Drop file here to upload, or</p>
                                     <Button
                                         type="button"
@@ -92,19 +93,20 @@ export const ImageUploadInput = ({ name, control, rules, error }) => {
                                         Click to browse
                                     </Button>
                                 </div>
-                            )}
-                            {/* Hidden file input */}
-                            <Input
-                                id={name}
-                                ref={fileInputRef}
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => handleFileChange(e, field.onChange)}
-                                className="hidden"
-                                required={rules.required}
-                            />
-                        </Label>
+                            </div>
+                        )}
+                        {/* Hidden file input */}
+                        <Input
+                            id={name}
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleFileChange(e, field.onChange)}
+                            className="hidden"
+                            required={rules.required}
+                        />
                     </div>
+
                     {error && (
                         <p className="text-sm text-left mt-1 font-light text-kaiglo_critical-base">
                             {error.message}

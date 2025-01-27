@@ -73,7 +73,7 @@ const RegisterationForm = () => {
                         control={control}
                         rules={{ required: true }}
                         placeholder="Email"
-                        // containerClassName="md:col-span-2"
+                        containerClassName="md:col-span-2"
                         type="email"
                         error={errors.email}
                         isRequired={true}

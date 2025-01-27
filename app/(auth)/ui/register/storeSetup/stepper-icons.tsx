@@ -1,5 +1,3 @@
-import { Divide } from "lucide-react";
-
 export const PackageIcon = ({
     strokeColor = "#98A2B3",
     className,
@@ -130,6 +128,20 @@ export const LineIcon = ({
     return (
         <svg className={className} viewBox="0 0 40 1" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="0.5" y1="0.5" x2="32.5" y2="0.5" stroke={strokeColor} />
+        </svg>
+    );
+};
+
+export const VerticalLineIcon = ({
+    strokeColor = "#D0D5DD",
+    className,
+}: {
+    strokeColor?: string;
+    className: string;
+}) => {
+    return (
+        <svg className={className} viewBox="0 0 1 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0.5" y1="0.5" x2="0.499999" y2="19.5" stroke={strokeColor} />
         </svg>
     );
 };

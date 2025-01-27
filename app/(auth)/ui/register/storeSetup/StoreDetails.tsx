@@ -1,5 +1,4 @@
-import { StoreDetailsForm, StoreDetailsFormFields } from "./forms";
-import { IStoreSetupFormDTO } from "@/interfaces/dtos/auth.dto.interface";
+import { StoreDetailsFormFields } from "./forms";
 import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
 
 const StoreDetails = ({ formProps }: { formProps: UseFormHookProps }) => {

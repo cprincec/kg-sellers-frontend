@@ -8,7 +8,11 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+	
   	extend: {
+		screens: {
+			'lg': '1060px',
+		},
 		boxShadow: {
 			'input-shadow': '0px 0px 0px 3px #C6EDDD',
 			'box': '0px 0.75px 2.25px 0px #1018281A 0px 0.75px 1.5px 0px #1018280F',
@@ -56,7 +60,7 @@ export default {
   			kaiglo_success: {
 				'5': '#C6EDDD',
 				'25': '#F6FEF9',
-  				'50': '#E5FFE5',
+  				'50': '#ECFDF3',
   				'100': '#D1FFD1',
   				'200': '#A3FFA3',
   				'300': '#75FF75',

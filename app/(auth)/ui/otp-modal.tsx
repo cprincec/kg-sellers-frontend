@@ -14,10 +14,13 @@ interface EnterOtpProps {
 const OtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
     return (
         <Dialog open={showOtpModal} onOpenChange={setShowOtpModal}>
-            <DialogContent className="w-[90%] outline-none px-4 py-8 rounded-2xl" data-testid="otp-dialog">
+            <DialogContent
+                className="w-[90%] md:w-[450px] outline-none px-4 py-8 rounded-2xl"
+                data-testid="otp-dialog"
+            >
                 <div className="lg:px-8 space-y-4 text-center">
                     <DialogHeader>
-                        <DialogTitle className="text-lg">Verification</DialogTitle>
+                        <DialogTitle className="text-lg text-center">Verification</DialogTitle>
                         <DialogDescription />
                     </DialogHeader>
 

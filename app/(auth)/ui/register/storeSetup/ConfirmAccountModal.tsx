@@ -1,25 +1,28 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
-import { LineIcon } from "./stepper-icons";
+import { VerticalLineIcon } from "./stepper-icons";
 
 interface ConfirmAccountModalProps {
     showConfirmAccountModal: boolean;
     setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
     navigateToSpecificStep: (int: number) => void;
-    beneficiaryName: string;
-    accountNumber: string;
-    bankName: string;
+    getValues: () => { beneficiaryName: string; accountNumber: string; bankName: string };
+    // beneficiaryName: string;
+    // accountNumber: string;
+    // bankName: string;
 }
 
 const ConfirmAccountModal = ({
     showConfirmAccountModal,
     setShowConfirmAccountModal,
-    beneficiaryName,
-    accountNumber,
-    bankName,
+    getValues,
+    // beneficiaryName,
+    // accountNumber,
+    // bankName,
     navigateToSpecificStep,
 }: ConfirmAccountModalProps) => {
+    const { beneficiaryName, bankName, accountNumber } = getValues();
     return (
         <Dialog open={showConfirmAccountModal} onOpenChange={setShowConfirmAccountModal}>
             <DialogContent
@@ -37,10 +40,10 @@ const ConfirmAccountModal = ({
                 </p>
                 <section className="grid gap-2 mt-2 border border-kaiglo_grey-100 rounded-lg p-2 bg-kaiglo_grey-50">
                     <h4 className="font-medium text-kaiglo_grey-800">{beneficiaryName}</h4>
-                    <div className="flex justify-between items-baseline">
+                    <div className="flex gap-1 items-baseline">
                         <p>{accountNumber}</p>
                         <span className="text-kaiglo_grey-disabled">
-                            <LineIcon className="w-6 h-1 rotate-90" />
+                            <VerticalLineIcon className="w-1 h-5 -mb-1" />
                         </span>
                         <p>{bankName}</p>
                     </div>
