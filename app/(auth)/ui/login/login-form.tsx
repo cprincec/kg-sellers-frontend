@@ -3,7 +3,7 @@ import Link from "next/link";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { ISignInFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import { Resolver, useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ModifiedButton from "@/components/shared/ModifiedButton";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
@@ -34,6 +34,7 @@ const LoginForm = () => {
     const login = (values: ISignInFormDTO) => {
         // setEmail(values.email);
         // setPhone(values.phone);
+        console.log(values);
         setShowOtpModal(true);
         // signup(values);
     };

@@ -11,6 +11,7 @@ interface OtpTimerProps {
 }
 
 const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
+    console.log(email, phone);
     const initialTime = 60;
     const [timeLeft, setTimeLeft] = useState(initialTime);
     // const { resend } = useResendOtp();

@@ -1,5 +1,4 @@
-import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
-import { ProductCategoryForm, ProductCategoryFormFields } from "./forms";
+import { ProductCategoryFormFields } from "./forms";
 
 // const ProductCategory = ({ formProps }: { formProps: UseFormHookProps }) => {
 const ProductCategory = ({ control, errors }) => {

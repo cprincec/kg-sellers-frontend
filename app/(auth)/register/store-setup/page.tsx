@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import StoreDetails from "../../ui/register/storeSetup/StoreDetails";
 // import { ArrowBackButton } from "../../ui/buttons";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import ProductCategory from "../../ui/register/storeSetup/ProductCategory";
 import PaymentOption from "../../ui/register/storeSetup/PaymentOption";
 import { IStoreSetupFormDTO } from "@/interfaces/dtos/auth.dto.interface";
-import { FieldErrors, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { storeSetupSchemas } from "@/lib/validations/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { storeSetupDefaultValues } from "@/lib/validations/defaults";
@@ -16,9 +16,9 @@ import ConfirmAccountModal from "../../ui/register/storeSetup/ConfirmAccountModa
 import TermsOfContract from "../../ui/register/storeSetup/TermOfContract";
 import Stepper from "../../ui/register/storeSetup/Stepper";
 import { useRouter } from "next/navigation";
-import { StoreSetupContext, useStoreSetupContext } from "@/contexts/storeSetupContext";
+import { useStoreSetupContext } from "@/contexts/storeSetupContext";
 import { ArrowBackButton } from "../../ui/buttons";
-import { Logo, SellersHubLogo } from "../../ui/logos";
+import { SellersHubLogo } from "../../ui/logos";
 
 const StoreSetup = () => {
     const { currentStep, navigateToNextStep, navigateToPreviousStep, navigateToSpecificStep } =

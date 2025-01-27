@@ -1,7 +1,7 @@
 "use client";
 
 import { AccountRecoveryIcon } from "../ui/logos";
-import { ArrowBack, ArrowBackLink } from "../ui/buttons";
+import { ArrowBackLink } from "../ui/buttons";
 import AccountRecoveryForm from "../ui/recoverAccount/account-recovery-form";
 
 const RecoverAccount = () => {

@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import OtpTimer from "@/components/auth/OtpTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,6 @@ const FormSchema = z.object({
 const OtpFormInput = ({
     email,
     phone,
-    setShowOtpModal,
 }: {
     email: string;
     phone: string;
@@ -41,6 +40,7 @@ const OtpFormInput = ({
     const router = useRouter();
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
+        console.log(data);
         // verifyOtp({ otp: data.otp, email, phone });
         router.push("register/store-setup");
     }

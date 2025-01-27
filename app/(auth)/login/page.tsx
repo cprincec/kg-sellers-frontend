@@ -3,9 +3,6 @@ import { LogoIcon } from "../ui/logos";
 import { GoogleButton } from "../ui/buttons";
 import LoginForm from "../ui/login/login-form";
 import Link from "next/link";
-import { Fragment, useContext } from "react";
-import { OtpContext } from "@/contexts/otpContext";
-import OtpModal from "../ui/otp-modal";
 
 const Login = () => {
     return (

@@ -1,12 +1,12 @@
-import React, { memo } from "react";
+// import React, { memo } from "react";
 
-interface SelectInputProps {
-    options: string[] | undefined;
-    selectedValue: string;
-    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    placeholder: string;
-    required: boolean;
-}
+// interface SelectInputProps {
+//     options: string[] | undefined;
+//     selectedValue: string;
+//     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+//     placeholder: string;
+//     required: boolean;
+// }
 
 // const ModifiedSelect: React.FC<SelectInputProps> = memo(
 //     ({ options, selectedValue, onChange, placeholder, required }) => {

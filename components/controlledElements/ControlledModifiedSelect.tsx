@@ -1,6 +1,5 @@
 import { ControlledModifiedSelectProps } from "@/interfaces/controlledElements.interface";
 import { Controller, FieldValues } from "react-hook-form";
-import ModifiedSelect from "../shared/ModifiedSelect";
 import { useCallback } from "react";
 import ModifiedMultiSelect from "../shared/ModifiedSelect";
 
@@ -11,11 +10,10 @@ const ControlledModifiedSelect = <TFormValue extends FieldValues>({
     rules,
     error,
     options,
-    onChange,
     required,
 }: ControlledModifiedSelectProps<TFormValue>) => {
     const renderSelect = useCallback(
-        ({ field }: { field: any }) => (
+        ({ field }) => (
             <div>
                 <ModifiedMultiSelect
                     options={options}

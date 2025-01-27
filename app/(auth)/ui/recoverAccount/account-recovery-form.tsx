@@ -11,8 +11,12 @@ import OtpModal from "../otp-modal";
 
 const AccountRecoveryForm = () => {
     const [recoverPhone, setRecoverPhone] = useState(false);
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [phone, setPhone] = useState("");
+
+    // temporal
+    const email = "";
+    const phone = "";
 
     const {
         control,
@@ -28,6 +32,7 @@ const AccountRecoveryForm = () => {
     const [showOtpModal, setShowOtpModal] = useState(false);
 
     const recoverAccount = (values: IAccountRecoveryFormDTO) => {
+        console.log(values);
         setShowOtpModal(true);
     };
 
