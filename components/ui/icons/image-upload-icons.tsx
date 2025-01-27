@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form";
-import { Label } from "../label";
 import { Button } from "../button";
 import Image from "next/image";
 import { useRef } from "react";

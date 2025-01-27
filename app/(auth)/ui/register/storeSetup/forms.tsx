@@ -1,16 +1,14 @@
 "use client";
 
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-import {
-    IPaymentOptionFormDTO,
-    IProductCategoryFormDTO,
-    IStoreDetailsFormDTO,
-} from "@/interfaces/dtos/auth.dto.interface";
+// import {
+//     IPaymentOptionFormDTO,
+//     IProductCategoryFormDTO,
+//     IStoreDetailsFormDTO,
+// } from "@/interfaces/dtos/auth.dto.interface";
 
-import { Controller, useForm } from "react-hook-form";
-import ConfirmAccountModal from "./ConfirmAccountModal";
-import { useState } from "react";
-import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
+import { Controller } from "react-hook-form";
+// import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { Check, X } from "lucide-react";
 import { ImageUploadInput } from "@/components/ui/icons/image-upload-icons";
@@ -244,7 +242,7 @@ import { ImageUploadInput } from "@/components/ui/icons/image-upload-icons";
 //     );
 // };
 
-export const StoreDetailsFormFields = ({ formProps }: { formProps: UseFormHookProps }) => {
+export const StoreDetailsFormFields = ({ formProps }) => {
     const { control, errors } = formProps;
     return (
         <div className="grid grid-cols-1 space-y-4">
