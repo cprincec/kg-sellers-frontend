@@ -1,6 +1,7 @@
 import { ProductCategoryFormFields } from "./forms";
 
 // const ProductCategory = ({ formProps }: { formProps: UseFormHookProps }) => {
+// @ts-expect-error to be changed
 const ProductCategory = ({ control, errors }) => {
     return (
         <div>
