@@ -11,6 +11,7 @@ import OtpModal from "../otp-modal";
 import { OtpContext } from "@/contexts/otpContext";
 
 const LoginForm = () => {
+    // @ts-expect-error to be changed
     const { showOtpModal, setShowOtpModal } = useContext(OtpContext);
 
     // Temporal

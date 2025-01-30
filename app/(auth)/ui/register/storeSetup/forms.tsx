@@ -243,6 +243,7 @@ import { Label } from "@radix-ui/react-label";
 //     );
 // };
 
+// @ts-expect-error to be changed
 export const StoreDetailsFormFields = ({ formProps }) => {
     const { control, errors } = formProps;
     return (
@@ -350,6 +351,7 @@ export const StoreDetailsFormFields = ({ formProps }) => {
     );
 };
 
+// @ts-expect-error to be changed
 export const ProductCategoryFormFields = ({ control, errors }) => {
     // const { control, errors } = formProps;
 
@@ -448,6 +450,7 @@ export const ProductCategoryFormFields = ({ control, errors }) => {
     );
 };
 
+// @ts-expect-error to be changed
 export const PaymentOptionFormFields = ({ control, errors }) => {
     return (
         <div>

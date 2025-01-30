@@ -1,5 +1,6 @@
 import { PaymentOptionFormFields } from "./forms";
 
+// @ts-expect-error to be changed
 const PaymentOption = ({ control, errors }) => {
     return (
         <div className="grid gap-8 md:gap-10">

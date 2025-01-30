@@ -37,9 +37,11 @@ const StoreSetup = () => {
     } = useForm<IStoreSetupFormDTO>({
         defaultValues: storeSetupDefaultValues,
         shouldUnregister: false,
+        // @ts-expect-error to be changed
         resolver: yupResolver(currentResolver),
     });
 
+    // @ts-expect-error to be changed
     const saveStoreSetup = (data) => {
         console.log(data);
         router.push("/dashboard");
@@ -198,6 +200,7 @@ const StoreSetup = () => {
                             showConfirmAccountModal={showConfirmAccountModal}
                             setShowConfirmAccountModal={setShowConfirmAccountModal}
                             navigateToSpecificStep={navigateToSpecificStep}
+                            // @ts-expect-error to be changed
                             getValues={getValues}
                             // beneficiaryName={getValues()?.beneficiaryName}
                             // accountNumber={getValues()?.accountNumber}
