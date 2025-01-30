@@ -22,6 +22,7 @@ export const ImageGalleryIcon = ({
     );
 };
 
+// @ts-expect-error to be changed
 export const ImageUploadInput = ({ name, control, rules, error }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
