@@ -46,7 +46,7 @@ const LoginForm = () => {
     return (
         <div className="pt-6 transition-all duration-300 ease-in-out">
             <form onSubmit={handleSubmit(login)}>
-                <div className="grid grid-cols-1 space-y-4">
+                <div className="grid md:gap-y-4 space-y-4 md:space-y-0">
                     {/* Email */}
                     <ControlledModifiedInput
                         name="email"
@@ -61,9 +61,6 @@ const LoginForm = () => {
 
                     {/* Phone */}
                     <div className="relative">
-                        <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-base text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
-                            +234
-                        </span>
                         <ControlledModifiedInput
                             name="phone"
                             control={control}

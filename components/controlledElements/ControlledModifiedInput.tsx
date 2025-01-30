@@ -25,7 +25,7 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
                 control={control}
                 rules={rules}
                 render={({ field }) => (
-                    <div>
+                    <div className="text-left">
                         <ModifiedInput
                             id={name}
                             type={type}
@@ -40,7 +40,7 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
                             disabled={disabled}
                         />
                         {error && (
-                            <p className="text-sm text-left mt-1 font-light text-kaiglo_critical-base">
+                            <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">
                                 {error.message}
                             </p>
                         )}

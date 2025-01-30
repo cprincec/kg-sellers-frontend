@@ -12,6 +12,7 @@ import { Controller } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { Check, X } from "lucide-react";
 import { ImageUploadInput } from "@/components/ui/icons/image-upload-icons";
+import { Label } from "@radix-ui/react-label";
 
 // export const StoreDetailsForm = ({ navigateToNextStep }) => {
 //     const {
@@ -245,22 +246,24 @@ import { ImageUploadInput } from "@/components/ui/icons/image-upload-icons";
 export const StoreDetailsFormFields = ({ formProps }) => {
     const { control, errors } = formProps;
     return (
-        <div className="grid grid-cols-1 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 ">
             {/* Store Name */}
             <ControlledModifiedInput
+                label="Store name"
                 name="storeName"
                 control={control}
                 placeholder="Store Name"
                 type="text"
                 error={errors.storeName}
                 isRequired={true}
-                className="col-span-4"
+                className="col-span-4 "
                 rules={{ required: true }}
                 data-testid="storeName"
             />
 
             {/* Email */}
             <ControlledModifiedInput
+                label="Email"
                 name="email"
                 control={control}
                 rules={{ required: true }}
@@ -273,10 +276,8 @@ export const StoreDetailsFormFields = ({ formProps }) => {
 
             {/* Phone */}
             <div className="relative">
-                <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-base text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
-                    +234
-                </span>
                 <ControlledModifiedInput
+                    label="Phone number"
                     name="phone"
                     control={control}
                     rules={{ required: true }}
@@ -291,6 +292,7 @@ export const StoreDetailsFormFields = ({ formProps }) => {
 
             {/* State */}
             <ControlledModifiedInput
+                label="State"
                 name="state"
                 control={control}
                 placeholder="State"
@@ -304,37 +306,45 @@ export const StoreDetailsFormFields = ({ formProps }) => {
 
             {/* Address */}
             <ControlledModifiedInput
+                label="Store address"
                 name="address"
                 control={control}
-                placeholder="Address"
+                placeholder="Store address"
                 type="text"
                 error={errors.address}
                 isRequired={true}
                 className="col-span-4"
+                containerClassName="lg:col-span-2"
                 rules={{ required: true }}
                 data-testid="address"
             />
 
-            {/* Business logo */}
-            <div>
-                <p className="font-medium text-sm text-kaiglo_grey-900 mb-2">BUSINESS LOGO</p>
-                <ImageUploadInput
-                    name="logo"
-                    control={control}
-                    error={errors.logo}
-                    rules={{ required: true }}
-                />
-            </div>
+            <div className="mt-4 grid lg:grid-cols-2 lg:items-baseline gap-6 lg:gap-8 lg:col-span-2">
+                {/* Business logo */}
+                <div>
+                    <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
+                        Business Logo<span className="text-kaiglo_critical-error font-medium">*</span>
+                    </p>
+                    <ImageUploadInput
+                        name="logo"
+                        control={control}
+                        error={errors.logo}
+                        rules={{ required: true }}
+                    />
+                </div>
 
-            {/* Banner */}
-            <div>
-                <p className="font-medium text-sm text-kaiglo_grey-900 mb-2">STORE BANNER</p>
-                <ImageUploadInput
-                    name="banner"
-                    control={control}
-                    error={errors.banner}
-                    rules={{ required: false }}
-                />
+                {/* Banner */}
+                <div>
+                    <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
+                        Store Banner<span className="text-kaiglo_critical-error font-medium">*</span>
+                    </p>
+                    <ImageUploadInput
+                        name="banner"
+                        control={control}
+                        error={errors.banner}
+                        rules={{ required: false }}
+                    />
+                </div>
             </div>
         </div>
     );
@@ -366,7 +376,13 @@ export const ProductCategoryFormFields = ({ control, errors }) => {
 
                     return (
                         <div>
-                            <div className="border rounded-md p-2">
+                            <div className="grid gap-1 md:gap-2">
+                                <Label
+                                    className={`text-sm md:text-base text-kaiglo_grey-700 capitalize font-normal`}
+                                >
+                                    Category <span className="text-kaiglo_critical-error font-medium">*</span>
+                                </Label>
+
                                 <Select name="productCatgories" value="" onValueChange={handleChange}>
                                     <SelectTrigger>
                                         <span className="">Select Categories</span>
@@ -435,24 +451,31 @@ export const ProductCategoryFormFields = ({ control, errors }) => {
 export const PaymentOptionFormFields = ({ control, errors }) => {
     return (
         <div>
-            <h3 className="text-sm mt-6 mb-4">Bank Account Details</h3>
+            {/* <h3 className="text-sm mt-6 mb-4">Bank Account Details</h3> */}
 
-            <div className="grid grid-cols-1 space-y-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
                 {/* Beneficiary Name */}
-                <ControlledModifiedInput
-                    name="beneficiaryName"
-                    control={control}
-                    placeholder="Beneficiary Name"
-                    type="text"
-                    error={errors?.beneficiaryName}
-                    isRequired={true}
-                    className="col-span-4"
-                    rules={{ required: true }}
-                    data-testid="beneficiaryName"
-                />
+                <div className="lg:order-4 lg:col-span-2">
+                    <ControlledModifiedInput
+                        label="Beneficiary name"
+                        name="beneficiaryName"
+                        control={control}
+                        placeholder="Beneficiary Name"
+                        type="text"
+                        error={errors?.beneficiaryName}
+                        isRequired={true}
+                        className=""
+                        rules={{ required: true }}
+                        data-testid="beneficiaryName"
+                    />
+                    <p className="text-xs text-[.65rem] leading-3 md:text-sm text-kaiglo_grey-700 mt-1 md:mt-2">
+                        Ensure that the account provided matches the account name
+                    </p>
+                </div>
 
                 {/* Account Number */}
                 <ControlledModifiedInput
+                    label="Account number"
                     name="accountNumber"
                     control={control}
                     rules={{ required: true }}
@@ -465,6 +488,7 @@ export const PaymentOptionFormFields = ({ control, errors }) => {
 
                 {/* Bank Name */}
                 <ControlledModifiedInput
+                    label="Bank name"
                     name="bankName"
                     control={control}
                     placeholder="Bank Name"

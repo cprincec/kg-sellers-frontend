@@ -50,7 +50,7 @@ export const Logo = ({ className }: { className: string }) => {
 
 export const SellersHubLogo = ({ className }: { className: string }) => {
     return (
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-wrap gap-2 items-center justify-center lg:justify-start  ">
             <Logo className={className} />
             <svg width="144" height="22" viewBox="0 0 146 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

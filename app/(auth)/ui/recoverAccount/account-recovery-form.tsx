@@ -58,9 +58,6 @@ const AccountRecoveryForm = () => {
                         {/* Phone */}
                         {!recoverPhone && (
                             <div className="relative">
-                                <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-base text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
-                                    +234
-                                </span>
                                 <ControlledModifiedInput
                                     name="phone"
                                     control={control}

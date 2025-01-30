@@ -6,7 +6,12 @@ export const PackageIcon = ({
     className: string;
 }) => {
     return (
-        <svg className={className} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            className={`ml-0.5 ${className}`}
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
                 d="M7 14.667C6.45455 14.667 5.93346 14.4469 4.89129 14.0066C2.2971 12.9108 1 12.3628 1 11.4412C1 11.1831 1 6.71 1 4.66699M7 14.667C7.54546 14.667 8.06654 14.4469 9.10872 14.0066C11.7029 12.9108 13 12.3628 13 11.4412V4.66699M7 14.667L7 7.57022"
                 stroke={strokeColor}

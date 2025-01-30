@@ -29,8 +29,6 @@ const StoreSetup = () => {
 
     const currentResolver = storeSetupSchemas[currentStep];
 
-    console.log(currentStep);
-
     const {
         control,
         trigger,
@@ -39,7 +37,6 @@ const StoreSetup = () => {
     } = useForm<IStoreSetupFormDTO>({
         defaultValues: storeSetupDefaultValues,
         shouldUnregister: false,
-        // @ts-expect-error to be reviewed
         resolver: yupResolver(currentResolver),
     });
 
@@ -57,16 +54,19 @@ const StoreSetup = () => {
     if (!isMounted) return null; // Skip rendering until the client has mounted
 
     return (
-        <div className="md:grid md:grid-cols-5">
-            <div className="hidden md:flex md:flex-col md:gap-12 md:col-span-2 md:bg-kaiglo_success-50 md:p-2 md:m-2 lg:m-8 lg:p-4 ">
-                <div className="md:px-3 md:py-2 ">
-                    <SellersHubLogo className="w-32 h-10" />
-                </div>
-                <div className="">
-                    <Stepper currentStep={currentStep} />
+        <div className="">
+            <div className="hidden md:block md:fixed md:top-4 lg:top-6 md:left-4 lg:left-6 md:right-[60%] lg:right-[60%] md:bottom-4 lg:bottom-6 md:col-span-1 lg:col-span-2 md:bg-kaiglo_success-50 md:p-4 md:m-0 lg:m-0 rounded-md">
+                <div className="md:sticky md:top-0 lg:top-0 md:flex md:flex-col md:gap-12 md:bg-kaiglo_success-50">
+                    <div className="md:px-3 md:py-2 ">
+                        <SellersHubLogo className="w-32 h-10" />
+                    </div>
+                    <div className="">
+                        <Stepper currentStep={currentStep} />
+                    </div>
                 </div>
             </div>
-            <div className="md:col-span-3 p-4 mt-4">
+
+            <div className="md:w-[60%] lg:w-[57%] md:ml-auto p-4 md:px-8 md:py-10 lg:p-10 mt-4 md:space-y-8">
                 {currentStep === 0 ? (
                     <section>
                         <h1>Name, Welcome to Kaiglo SellersHub!</h1>
@@ -100,7 +100,9 @@ const StoreSetup = () => {
                         {/* Form fields ends */}
 
                         {/* Navigation Buttons starts*/}
-                        <div className="grid grid-flow-col items-center gap-3 mt-12 ">
+
+                        {/* Small view navigation buttons starts */}
+                        <div className="grid md:hidden grid-flow-col items-center gap-3 mt-12">
                             {currentStep === 0 || currentStep === 3 ? (
                                 <Link
                                     href="/"
@@ -112,12 +114,13 @@ const StoreSetup = () => {
                                 <Button
                                     type="button"
                                     variant={"outline"}
-                                    className="p-3 rounded-full text-kaiglo_grey-700 border-kaiglo_grey-disabled"
+                                    className="p-3 rounded-full font-normal text-kaiglo_grey-700 border-kaiglo_grey-disabled"
                                     onClick={navigateToPreviousStep}
                                 >
                                     Back
                                 </Button>
                             )}
+
                             {currentStep === 3 ? (
                                 <Button
                                     type="button"
@@ -131,7 +134,6 @@ const StoreSetup = () => {
                                     type="button"
                                     className="p-3 rounded-full"
                                     onClick={() => {
-                                        console.log(navigateToNextStep);
                                         navigateToNextStep({ trigger, setShowConfirmAccountModal });
                                     }}
                                 >
@@ -139,6 +141,55 @@ const StoreSetup = () => {
                                 </Button>
                             )}
                         </div>
+                        {/* Small view navigation buttons ends */}
+
+                        {/* Large view navigation buttons starts */}
+
+                        <div className="hidden md:flex items-center gap-3 mt-12">
+                            {(currentStep === 0 || currentStep === 3) && (
+                                <Link
+                                    href="/"
+                                    className="w-[120px] flex justify-center items-center p-3 rounded-full border border-kaiglo_grey-disabled text-kaiglo_grey-700"
+                                >
+                                    Cancel
+                                </Link>
+                            )}
+
+                            <div className="flex items-center justify-end gap-3 ml-auto">
+                                {currentStep !== 0 && (
+                                    <Button
+                                        type="button"
+                                        variant={"outline"}
+                                        className="w-[120px] p-3 rounded-full font-normal text-kaiglo_grey-700 border-kaiglo_grey-disabled"
+                                        onClick={navigateToPreviousStep}
+                                    >
+                                        Back
+                                    </Button>
+                                )}
+                                {currentStep === 3 ? (
+                                    <Button
+                                        type="button"
+                                        className="w-[120px] p-3 rounded-full"
+                                        onClick={() => saveStoreSetup(getValues())}
+                                    >
+                                        I agree
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        type="button"
+                                        className="w-[120px] p-3 rounded-full"
+                                        onClick={() => {
+                                            navigateToNextStep({ trigger, setShowConfirmAccountModal });
+                                        }}
+                                    >
+                                        Next
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Large view navigation buttons ends */}
+
                         {/* Navigation Buttons ends*/}
                     </form>
 
@@ -147,7 +198,6 @@ const StoreSetup = () => {
                             showConfirmAccountModal={showConfirmAccountModal}
                             setShowConfirmAccountModal={setShowConfirmAccountModal}
                             navigateToSpecificStep={navigateToSpecificStep}
-                            // @ts-expect-error This needs to change
                             getValues={getValues}
                             // beneficiaryName={getValues()?.beneficiaryName}
                             // accountNumber={getValues()?.accountNumber}

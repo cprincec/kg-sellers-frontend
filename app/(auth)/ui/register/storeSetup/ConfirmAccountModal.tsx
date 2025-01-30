@@ -26,7 +26,7 @@ const ConfirmAccountModal = ({
     return (
         <Dialog open={showConfirmAccountModal} onOpenChange={setShowConfirmAccountModal}>
             <DialogContent
-                className="w-[90%] md:w-[45%] outline-none px-4 py-4 rounded-2xl"
+                className="w-[90%] md:w-[400px] md:h-[268px] outline-none px-4 py-4 rounded-2xl"
                 data-testid="otp-dialog"
             >
                 <DialogHeader>

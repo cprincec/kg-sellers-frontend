@@ -22,6 +22,7 @@ export default {
   				'50': '#F9FAFB',
 				'200': '#EAECF0',
   				'100': '#F2F4F7',
+				'400': '#98A2B3',
   				'500': '#A3A3A3',
 				'600': '#667085',
   				'700': '#344054',
@@ -97,7 +98,8 @@ export default {
   				'700': '#BD0009',
   				'800': '#8F0007',
   				'900': '#610005',
-  				base: '#FF242C'
+  				base: '#FF242C',
+				error: '#F04438'
   			},
   			kaiglo_accent: {
   				'50': '#FFF7E5',
@@ -179,11 +181,11 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		// borderRadius: {
+  		// 	lg: 'var(--radius)',
+  		// 	md: 'calc(var(--radius) - 2px)',
+  		// 	sm: 'calc(var(--radius) - 4px)'
+  		// }
   	}
   },
   plugins: [require("tailwindcss-animate")],

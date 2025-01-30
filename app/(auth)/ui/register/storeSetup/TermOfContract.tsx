@@ -1,9 +1,10 @@
 const TermsOfContract = () => {
     return (
-        <div className="text-sm font-medium grid gap-8">
+        <div className="grid gap-8">
+            <h2 className="text-xl font-bold">Kaiglo’s Terms of Contract</h2>
             <section>
-                <h1 className="text-base mb-2">TERMS OF CONTRACTS</h1>
-                <p>
+                <h3 className="text-xl font-bold text-kaiglo_grey-900 mb-1 md:mb-2">INTRODUCTION</h3>
+                <p className="">
                     Lorem ipsum dolor sit amet consectetur. Ornare malesuada et viverra a. Praesent lacus
                     sagittis pretium eget. Tristique arcu leo sed sit sit quam erat ultrices. Ultricies tempus
                     in quisque euismod venenatis maecenas fames. Tristique in iaculis bibendum nec aliquam sit
@@ -18,7 +19,7 @@ const TermsOfContract = () => {
                 </p>
             </section>
             <section>
-                <h2 className="text-base font-bold mb-2">TERMS OF CONTRACTS 2</h2>
+                <h3 className="text-base font-medium mb-1 md:mb-2">AGREEMENT</h3>
                 <p>
                     Vestibulum ut a risus magna ut maecenas. Sit mattis praesent eget posuere sit duis. Risus
                     tellus enim phasellus faucibus semper ut aliquet. Elementum ligula ut pharetra lorem quis
