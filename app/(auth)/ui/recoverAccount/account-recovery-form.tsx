@@ -2,28 +2,27 @@
 
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { IAccountRecoveryFormDTO } from "@/interfaces/dtos/auth.dto.interface";
-import { Resolver, useForm } from "react-hook-form";
-import { useState } from "react";
+import { Controller, Resolver, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import ModifiedButton from "@/components/shared/ModifiedButton";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
-import OtpModal from "../otp-modal";
+import AccountRecoveryOtpModal from "./AccountRecoveryOtpModal";
+import { Input } from "@/components/ui/input";
 
 const AccountRecoveryForm = () => {
-    const [recoverPhone, setRecoverPhone] = useState(false);
-    // const [email, setEmail] = useState("");
-    // const [phone, setPhone] = useState("");
-
-    // temporal
-    const email = "";
-    const phone = "";
+    const [recoveryChannel, setRecoveryChannel] = useState("email");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
 
     const {
         control,
         handleSubmit,
+        setValue,
+        setError,
         formState: { errors },
     } = useForm<IAccountRecoveryFormDTO>({
-        defaultValues: signInDefaultValues,
+        defaultValues: { ...signInDefaultValues },
         resolver: signInResolver as Resolver<IAccountRecoveryFormDTO>,
     });
 
@@ -33,8 +32,33 @@ const AccountRecoveryForm = () => {
 
     const recoverAccount = (values: IAccountRecoveryFormDTO) => {
         console.log(values);
+
+        // Handle attempt to bypass email or phone number
+        if (recoveryChannel === "email") {
+            if (!values.email) {
+                setError("email", { type: "manual", message: "Email is required for account recovery." });
+                return;
+            }
+            setEmail(values.email);
+            setPhone("");
+        } else {
+            if (!values.phone) {
+                setError("phone", {
+                    type: "manual",
+                    message: "Phone number is required for account recovery.",
+                });
+                return;
+            }
+            setPhone(values.phone);
+            setEmail(""); // Reset email
+        }
+
         setShowOtpModal(true);
     };
+
+    useEffect(() => {
+        setValue("otpChannel", recoveryChannel);
+    }, [recoveryChannel, setValue]);
 
     return (
         <>
@@ -42,7 +66,7 @@ const AccountRecoveryForm = () => {
                 <form onSubmit={handleSubmit(recoverAccount)}>
                     <div className="grid grid-cols-1 space-y-4">
                         {/* Email */}
-                        {recoverPhone && (
+                        {recoveryChannel === "email" && (
                             <ControlledModifiedInput
                                 name="email"
                                 control={control}
@@ -56,7 +80,7 @@ const AccountRecoveryForm = () => {
                         )}
 
                         {/* Phone */}
-                        {!recoverPhone && (
+                        {recoveryChannel === "phone" && (
                             <div className="relative">
                                 <ControlledModifiedInput
                                     name="phone"
@@ -71,16 +95,31 @@ const AccountRecoveryForm = () => {
                                 />
                             </div>
                         )}
+
+                        <Controller
+                            name="otpChannel"
+                            control={control}
+                            rules={{ required: true }}
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    value={recoveryChannel} // Ensure it always has the correct value
+                                    type="hidden" // Hidden input ensures it's submitted
+                                />
+                            )}
+                        />
                     </div>
 
                     {/* Recovery method starts */}
                     <div className="text-right pt-2">
                         <button
                             type="button"
-                            onClick={() => setRecoverPhone((prevValue) => !prevValue)}
+                            onClick={() =>
+                                setRecoveryChannel((prevValue) => (prevValue === "email" ? "phone" : "email"))
+                            }
                             className="text-kaiglo_brand-base font-medium"
                         >
-                            {recoverPhone ? "Use phone number instead" : "Use email instead"}
+                            {recoveryChannel === "email" ? "Use phone number instead" : "Use email instead"}
                         </button>
                     </div>
                     {/* Recovery method ends */}
@@ -95,7 +134,7 @@ const AccountRecoveryForm = () => {
                 </form>
             </div>
             {showOtpModal && (
-                <OtpModal
+                <AccountRecoveryOtpModal
                     showOtpModal={showOtpModal}
                     setShowOtpModal={setShowOtpModal}
                     email={email}

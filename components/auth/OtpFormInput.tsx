@@ -21,9 +21,11 @@ const FormSchema = z.object({
 const OtpFormInput = ({
     email,
     phone,
+    continueTo,
 }: {
     email: string;
     phone: string;
+    continueTo: string;
     setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -41,8 +43,8 @@ const OtpFormInput = ({
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
         console.log(data);
-        // verifyOtp({ otp: data.otp, email, phone });
-        router.push("register/store-setup");
+        // validate string before using
+        router.push(continueTo);
     }
 
     return (

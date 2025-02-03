@@ -34,7 +34,7 @@ const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
     };
 
     return (
-        <div className="flex flex-col items-center space-y-1.5">
+        <div className="flex flex-col items-center space-y-2">
             <div className="w-12 font-bold">
                 <CircularProgressbar
                     value={timeLeft}

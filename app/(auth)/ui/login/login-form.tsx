@@ -10,20 +10,22 @@ import { signInResolver } from "@/lib/validations/resolvers";
 import OtpModal from "../otp-modal";
 import { OtpContext } from "@/contexts/otpContext";
 
-const LoginForm = () => {
+const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
     // @ts-expect-error to be changed
     const { showOtpModal, setShowOtpModal } = useContext(OtpContext);
 
-    // Temporal
-    const email = "";
-    const phone = "";
+    const defaultValues = {
+        ...signInDefaultValues,
+        email: email ? email : signInDefaultValues.email,
+        phone: phone ? phone : signInDefaultValues.phone,
+    };
 
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm<ISignInFormDTO>({
-        defaultValues: signInDefaultValues,
+        defaultValues: defaultValues,
         resolver: signInResolver as Resolver<ISignInFormDTO>,
     });
 
@@ -34,7 +36,6 @@ const LoginForm = () => {
 
     // temporal
     const signingUp = false;
-    // const [showOtpModal, setShowOtpModal] = useState(false);
 
     const login = (values: ISignInFormDTO) => {
         // setEmail(values.email);
@@ -97,8 +98,8 @@ const LoginForm = () => {
                 <OtpModal
                     showOtpModal={showOtpModal}
                     setShowOtpModal={setShowOtpModal}
-                    email={email}
-                    phone={phone}
+                    email={email || ""}
+                    phone={phone || ""}
                 />
             )}
         </div>

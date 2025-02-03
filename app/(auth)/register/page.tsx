@@ -15,19 +15,20 @@ const Register = () => {
     }, []);
 
     if (!isMounted) return null; // Skip rendering until the client has mounted
+
     return (
-        <div className="md:grid lg:grid-cols-2 md:h-full">
-            <div className="relative hidden lg:block">
+        <div className="md:grid lg:grid-cols-2 lg:fixed lg:left-0 lg:right-0 lg:top-0 lg:bottom-0">
+            <div className="relative hidden lg:block lg:h-full">
                 <Image
                     src={image1}
                     alt="easy-wireless-yechnology-payment 1"
                     fill
                     sizes="100%"
-                    className="object-fill"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
             </div>
             <div className="text-center mx-4 my-16 md:m-auto md:w-[70%] lg:w-[75%] md:max-lg:h-[80%] md:grid md:items-center">
-                <section className="md:max-lg:pb-12">
+                <section className="md:max-lg:pb-12 lg:my-4">
                     <div>
                         <LogoIcon className="mx-auto rounded-lg p-4 shadow mb-8" />
                         <div>

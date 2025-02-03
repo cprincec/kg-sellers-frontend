@@ -12,6 +12,7 @@ interface EnterOtpProps {
 }
 
 const OtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
+    const continueTo = "/register/store-setup";
     return (
         <Dialog open={showOtpModal} onOpenChange={setShowOtpModal}>
             <DialogContent
@@ -36,7 +37,12 @@ const OtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps
                     </div>
 
                     <div className="flex lg:justify-center lg:mx-auto">
-                        <OtpFormInput email={email} phone={phone} setShowOtpModal={setShowOtpModal} />
+                        <OtpFormInput
+                            email={email}
+                            phone={phone}
+                            setShowOtpModal={setShowOtpModal}
+                            continueTo={continueTo}
+                        />
                     </div>
                 </div>
             </DialogContent>
