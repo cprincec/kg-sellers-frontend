@@ -25,7 +25,7 @@ const Login = () => {
 
             {/* Login Form Section */}
             <div className="text-center mx-4 my-16 md:m-auto md:w-[70%] lg:w-[75%] md:max-lg:h-[80%] md:grid md:items-center">
-                <section>
+                <section className="lg:my-4">
                     <LogoIcon className="mx-auto rounded-lg p-4 shadow mb-8" />
                     <h1 className="mb-2">Welcome to Kaiglo</h1>
                     <p>Enter your details to start selling</p>
