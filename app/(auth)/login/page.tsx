@@ -12,7 +12,7 @@ const Login = () => {
     const searchParams = useSearchParams();
 
     return (
-        <Suspense>
+        <Suspense fallback={<div>loading</div>}>
             <div className="md:grid lg:grid-cols-2 md:h-full">
                 {/* Sidebar Image */}
                 <div className="relative hidden lg:block">
