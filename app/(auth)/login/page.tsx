@@ -19,7 +19,7 @@ const Login = () => {
                     alt="Easy wireless technology payment"
                     fill
                     sizes="100%"
-                    className="object-contain"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
             </div>
 

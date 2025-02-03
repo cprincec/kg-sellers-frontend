@@ -4,7 +4,7 @@ import { GoogleButton } from "../ui/buttons";
 import RegisterationForm from "../ui/register/registeration-form";
 import Link from "next/link";
 import Image from "next/image";
-import image1 from "@/public/images/auth/easy-wireless-yechnology-payment 1.png";
+import image1 from "@/public/images/auth/easy-wireless-yechnology-payment 1.1.png";
 import { useEffect, useState } from "react";
 
 const Register = () => {
@@ -17,7 +17,7 @@ const Register = () => {
     if (!isMounted) return null; // Skip rendering until the client has mounted
 
     return (
-        <div className="md:grid lg:grid-cols-2 lg:fixed lg:left-0 lg:right-0 lg:top-0 lg:bottom-0">
+        <div className="md:grid lg:grid-cols-2 md:h-full">
             <div className="relative hidden lg:block lg:h-full">
                 <Image
                     src={image1}
