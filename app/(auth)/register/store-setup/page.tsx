@@ -44,7 +44,7 @@ const StoreSetup = () => {
     // @ts-expect-error to be changed
     const saveStoreSetup = (data) => {
         console.log(data);
-        router.push("/dashboard");
+        router.push("/dashboard?from=register");
     };
 
     const [isMounted, setIsMounted] = useState(false);
