@@ -11,7 +11,7 @@ const ProductPerformance = ({ empty }: { empty: boolean }) => {
 
             <div>
                 <Tabs defaultValue="topSelling" className="">
-                    {/* TAB */}
+                    {/* TABS */}
                     <TabsList className="flex gap-4 bg-transparent w-[80%] px-0 justify-start mb-8">
                         <TabsTrigger value="topSelling">Top selling</TabsTrigger>
                         <TabsTrigger value="leastSelling">Least selling</TabsTrigger>

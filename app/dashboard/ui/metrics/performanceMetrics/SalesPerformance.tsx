@@ -9,7 +9,7 @@ const SalesPerformance = ({ empty }: { empty: boolean }) => {
     const date = "yesterday";
     const percentage = "1.3%";
     const amount = "₦309,000";
-    // const amount = "";
+
     return (
         <div className="grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
             <div className="flex justify-between items-start">
@@ -37,12 +37,15 @@ const SalesPerformance = ({ empty }: { empty: boolean }) => {
                     )}
                 </div>
 
+                {/* View Report Button */}
                 {!empty && (
                     <Button type="button" className="">
                         View report
                     </Button>
                 )}
             </div>
+
+            {/* Bar Chart */}
             {!empty ? (
                 <div>
                     <Image src={barChart} alt="bar chart" />

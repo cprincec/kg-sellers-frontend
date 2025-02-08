@@ -40,7 +40,7 @@ const Metric = ({
                 <div className="grid gap-1">
                     <p className="text-2xl text-kaiglo_grey-900 font-medium">{body}</p>
                     {comparism && (
-                        <p className="text-sm text-kaiglo_grey-700 font-medium">
+                        <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">
                             {comparism.isPositive ? (
                                 <span className="flex items-center gap-0.5 text-kaiglo_success-light">
                                     <ArrowUp className="w-4 h-4" /> {comparism.value}
@@ -50,7 +50,7 @@ const Metric = ({
                                     <ArrowDown className="w-4 h-4" /> {comparism.value}
                                 </span>
                             )}
-                            from {comparism.date}
+                            <span>from {comparism.date}</span>
                         </p>
                     )}
                 </div>
