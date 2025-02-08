@@ -15,7 +15,7 @@ const Dashboard = () => {
 
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
 
-    const empty = searchParams.get("from") === "register";
+    const showEmptyState = searchParams.get("from") === "register";
 
     return (
         <div className="py-2 md:pt-0 grid gap-6">
@@ -43,16 +43,16 @@ const Dashboard = () => {
 
             <div className="grid gap-5 px-4">
                 {/* Sales Summary */}
-                <SalesSummary empty={empty} />
+                <SalesSummary showEmptyState={showEmptyState} />
 
                 {/* Weekly Store Performance */}
-                <StorePerformance empty={empty} />
+                <StorePerformance showEmptyState={showEmptyState} />
 
                 {/* Product Summary */}
-                <ProductSummary empty={empty} />
+                <ProductSummary showEmptyState={showEmptyState} />
             </div>
 
-            <PerformanceMetrics empty={empty} />
+            <PerformanceMetrics showEmptyState={showEmptyState} />
         </div>
     );
 };

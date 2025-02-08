@@ -1,6 +1,6 @@
 import Metric from "./Metric";
 
-const SalesSummary = ({ empty }: { empty: boolean }) => {
+const SalesSummary = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const salesSummaryMock = [
         {
             title: "COMPLETED SALES",
@@ -26,7 +26,7 @@ const SalesSummary = ({ empty }: { empty: boolean }) => {
                             title={item.title || ""}
                             body={item.body || ""}
                             tip={item.tip || ""}
-                            empty={empty}
+                            showEmptyState={showEmptyState}
                         />
                     </div>
                 ))}

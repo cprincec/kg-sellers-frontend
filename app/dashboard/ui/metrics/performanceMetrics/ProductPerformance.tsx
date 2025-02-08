@@ -4,7 +4,7 @@ import { NoResultsIcon } from "../../icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductPerformanceTable from "./ProductPerformanceTable";
 
-const ProductPerformance = ({ empty }: { empty: boolean }) => {
+const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     return (
         <div className="grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
             <h3 className="text-sm font-normal">Product Performance</h3>
@@ -18,7 +18,7 @@ const ProductPerformance = ({ empty }: { empty: boolean }) => {
                     </TabsList>
 
                     {/* Tables */}
-                    {!empty ? (
+                    {!showEmptyState ? (
                         <>
                             <TabsContent value="topSelling">
                                 <ProductPerformanceTable sortBy={"topSelling"} />

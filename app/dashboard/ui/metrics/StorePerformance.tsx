@@ -1,6 +1,6 @@
 import Metric from "./Metric";
 
-const StorePerformance = ({ empty }: { empty: boolean }) => {
+const StorePerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const weeklyPerformance = [
         {
             title: "STORE VISITORS",
@@ -36,7 +36,7 @@ const StorePerformance = ({ empty }: { empty: boolean }) => {
                             title={item.title || ""}
                             body={item.body || ""}
                             comparism={item.comparism || null}
-                            empty={empty}
+                            showEmptyState={showEmptyState}
                         />
                     </div>
                 ))}

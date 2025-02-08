@@ -4,7 +4,7 @@ import Image from "next/image";
 import barChart from "@/public/images/dashboard/Basic Bar Chart.svg";
 import { NoResultsIcon } from "../../icons";
 
-const SalesPerformance = ({ empty }: { empty: boolean }) => {
+const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const isPositive = false;
     const date = "yesterday";
     const percentage = "1.3%";
@@ -15,7 +15,7 @@ const SalesPerformance = ({ empty }: { empty: boolean }) => {
             <div className="flex justify-between items-start">
                 <div>
                     <h3 className="text-sm text-kaiglo_grey-800 capitalize">Sales Performance</h3>
-                    {!empty ? (
+                    {!showEmptyState ? (
                         <div className="grid gap-0.5">
                             <p className="text-2xl text-kaiglo_grey-900 font-medium">{amount}</p>
 
@@ -38,7 +38,7 @@ const SalesPerformance = ({ empty }: { empty: boolean }) => {
                 </div>
 
                 {/* View Report Button */}
-                {!empty && (
+                {!showEmptyState && (
                     <Button type="button" className="">
                         View report
                     </Button>
@@ -46,7 +46,7 @@ const SalesPerformance = ({ empty }: { empty: boolean }) => {
             </div>
 
             {/* Bar Chart */}
-            {!empty ? (
+            {!showEmptyState ? (
                 <div>
                     <Image src={barChart} alt="bar chart" />
                 </div>

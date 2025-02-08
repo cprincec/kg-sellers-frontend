@@ -7,7 +7,7 @@ const Metric = ({
     comparism,
     tip,
     variant,
-    empty,
+    showEmptyState,
 }: {
     title: string;
     body?: string;
@@ -18,7 +18,7 @@ const Metric = ({
         date: string;
     } | null;
     variant?: string;
-    empty: boolean;
+    showEmptyState: boolean;
 }) => {
     return (
         <section className="grid gap-3 rounded-xl border border-kaiglo_grey-100 px-4 py-3 bg-white">
@@ -36,7 +36,7 @@ const Metric = ({
                 </h3>
                 {tip && <TootlTip info={tip} />}
             </div>
-            {!empty ? (
+            {!showEmptyState ? (
                 <div className="grid gap-1">
                     <p className="text-2xl text-kaiglo_grey-900 font-medium">{body}</p>
                     {comparism && (
