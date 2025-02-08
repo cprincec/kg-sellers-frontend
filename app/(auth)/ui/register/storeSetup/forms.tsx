@@ -11,7 +11,7 @@ import { Controller } from "react-hook-form";
 // import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { Check, X } from "lucide-react";
-import { ImageUploadInput } from "@/components/ui/icons/image-upload-icons";
+import { ImageUploadInput } from "@/app/(auth)/ui/storeSetup/image-upload-icons";
 import { Label } from "@radix-ui/react-label";
 
 // export const StoreDetailsForm = ({ navigateToNextStep }) => {

@@ -1,4 +1,4 @@
-import TootlTip from "@/components/shared/TootTip";
+import TootlTip from "@/app/dashboard/ui/TootTip";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
 const Metric = ({

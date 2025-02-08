@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SetStateAction } from "react";
-import OtpFormInput from "@/components/auth/OtpFormInput";
+import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
 import { AccountRecoveryIcon } from "../logos";
 import { ArrowBackLink } from "../buttons";
 

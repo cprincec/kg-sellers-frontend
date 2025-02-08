@@ -16,7 +16,7 @@ import ConfirmAccountModal from "../../ui/register/storeSetup/ConfirmAccountModa
 import TermsOfContract from "../../ui/register/storeSetup/TermOfContract";
 import Stepper from "../../ui/register/storeSetup/Stepper";
 import { useRouter } from "next/navigation";
-import { useStoreSetupContext } from "@/contexts/storeSetupContext";
+import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import { ArrowBackButton } from "../../ui/buttons";
 import { SellersHubLogo } from "../../ui/logos";
 

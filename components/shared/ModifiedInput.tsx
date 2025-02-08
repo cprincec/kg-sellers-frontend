@@ -38,7 +38,7 @@ const ModifiedInput = ({
             )}
             <div>
                 {id === "phone" && (
-                    <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-700 text-sm md:text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
+                    <span className="absolute left-3 pr-3 mt-[1.5px] border-r border-kaiglo_grey-disabled text-kaiglo_grey-700 text-sm md:text-base rounded-l-lg h-[46px] flex justify-center items-center">
                         +234
                     </span>
                 )}
@@ -50,7 +50,7 @@ const ModifiedInput = ({
                     placeholder={placeholder}
                     value={value}
                     onChange={handleChange}
-                    className={cn("h-12 w-full", className)}
+                    className={cn("h-12 w-full", className, `${id === "phone" && "pl-[75px]"}`)}
                     required={isRequired}
                     maxLength={id === "phone" ? 11 : undefined}
                     disabled={disabled}

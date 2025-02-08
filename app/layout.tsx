@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { StoreSetupContextProvider } from "@/contexts/storeSetupContext";
+import { StoreSetupContextProvider } from "@/app/(auth)/contexts/storeSetupContext";
 
 const gotham = localFont({
     src: [

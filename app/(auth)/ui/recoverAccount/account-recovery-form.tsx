@@ -90,7 +90,6 @@ const AccountRecoveryForm = () => {
                                     type="tel"
                                     error={errors.phone}
                                     isRequired={true}
-                                    className="pl-20"
                                     data-testid="phone"
                                 />
                             </div>

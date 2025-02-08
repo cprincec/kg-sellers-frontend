@@ -1,4 +1,4 @@
-import { OtpContextProvider } from "@/contexts/otpContext";
+import { OtpContextProvider } from "@/app/(auth)/contexts/otpContext";
 import { Suspense } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

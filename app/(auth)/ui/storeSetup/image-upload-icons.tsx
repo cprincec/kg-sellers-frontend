@@ -1,8 +1,8 @@
 import { Controller } from "react-hook-form";
-import { Button } from "../button";
+import { Button } from "../../../../components/ui/button";
 import Image from "next/image";
 import { useRef } from "react";
-import { Input } from "../input";
+import { Input } from "../../../../components/ui/input";
 import { Trash2 } from "lucide-react";
 
 export const ImageGalleryIcon = ({
@@ -95,6 +95,7 @@ export const ImageUploadInput = ({ name, control, rules, error }) => {
                                 </div>
                             </div>
                         )}
+
                         {/* Hidden file input */}
                         <Input
                             id={name}

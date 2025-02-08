@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import OtpTimer from "@/components/auth/OtpTimer";
+import OtpTimer from "@/app/(auth)/ui/OtpTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useRouter } from "next/navigation";
 // import { useVerifyOtp } from "@/hooks/mutation/auth/verifyOtp";

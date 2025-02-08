@@ -8,7 +8,7 @@ import ModifiedButton from "@/components/shared/ModifiedButton";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
 import OtpModal from "../otp-modal";
-import { OtpContext } from "@/contexts/otpContext";
+import { OtpContext } from "@/app/(auth)/contexts/otpContext";
 
 const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
     // @ts-expect-error to be changed
@@ -71,7 +71,6 @@ const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
                             type="tel"
                             error={errors.phone}
                             isRequired={true}
-                            className="pl-20"
                             data-testid="phone"
                         />
                     </div>
