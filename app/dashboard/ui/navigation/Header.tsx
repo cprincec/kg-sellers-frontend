@@ -9,6 +9,7 @@ const Header = () => {
         <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/40 flex justify-between p-4 border-b border-kaiglo_grey-200 ">
             {/* Navigation Bar */}
             <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
+
             <div className="flex gap-2 items-center">
                 <div className="lg:hidden" onClick={() => setShowSideBar(true)}>
                     <MenuIcon />
