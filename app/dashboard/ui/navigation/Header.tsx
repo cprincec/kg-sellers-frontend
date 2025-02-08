@@ -11,12 +11,13 @@ const Header = () => {
             <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
 
             <div className="flex gap-2 items-center">
-                <div className="lg:hidden" onClick={() => setShowSideBar(true)}>
+                <div className="lg:hidden mt-0.5" onClick={() => setShowSideBar(true)}>
                     <MenuIcon />
                 </div>
                 <h1 className="font-medium text-lg">Overview</h1>
             </div>
 
+            {/* Notifications and Profile buttons */}
             <div className="flex items-center gap-3">
                 <NotificationIcon />
                 <div className="w-8 h-8 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]">
