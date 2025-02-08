@@ -82,9 +82,6 @@ const RegisterationForm = () => {
 
                     {/* Phone */}
                     <div className="relative md:col-span-2">
-                        {/* <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-base text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
-                            +234
-                        </span> */}
                         <ControlledModifiedInput
                             name="phone"
                             control={control}
@@ -93,7 +90,6 @@ const RegisterationForm = () => {
                             type="tel"
                             error={errors.phone}
                             isRequired={true}
-                            className="pl-20"
                             data-testid="phone"
                         />
                     </div>
