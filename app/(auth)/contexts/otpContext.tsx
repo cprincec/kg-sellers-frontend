@@ -16,13 +16,13 @@ const OtpContext = createContext<OtpContextType | undefined>(undefined);
 
 const OtpContextProvider: React.FC<OtpContextProviderProps> = ({ children }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [phone, setPhone] = useState("");
 
     const resetOtpModal = () => {
         setShowOtpModal(false);
-        setEmail("");
-        setPhone("");
+        // setEmail("");
+        // setPhone("");
     };
 
     return (
