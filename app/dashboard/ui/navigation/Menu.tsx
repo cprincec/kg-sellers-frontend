@@ -27,11 +27,11 @@ const Menu = () => {
                     <li
                         key={link.name}
                         className={clsx(
-                            "group px-3 py-2.5 rounded-xl text-kaiglo_grey-700 text-base hover:bg-kaiglo_success-base hover:text-white hover:font-medium",
+                            "group rounded-xl text-kaiglo_grey-700 text-base hover:bg-kaiglo_success-base hover:text-white hover:font-medium",
                             pathname === link.href && "bg-kaiglo_success-base text-white font-medium"
                         )}
                     >
-                        <Link href={link.href} className="flex gap-3 items-center">
+                        <Link href={link.href} className="px-3 py-2.5 flex gap-3 items-center">
                             <LinkIcon
                                 className={clsx(
                                     "font-normal",
