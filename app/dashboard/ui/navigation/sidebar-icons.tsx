@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface IconProps {
     className?: string;
@@ -219,44 +219,61 @@ export const MenuIcon = ({ className }: IconProps) => {
 };
 
 export const ProfileIcon = () => {
-    const [showDropDown, SetShowDropDown] = useState<boolean>(false);
+    const [showDropDown, setShowDropDown] = useState<boolean>(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            setShowDropDown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div className="">
+        <div className="relative" ref={dropdownRef}>
             <Button
-                variant={"ghost"}
-                onClick={() => SetShowDropDown((prevValue) => !prevValue)}
+                variant="ghost"
+                onClick={() => setShowDropDown((prev) => !prev)}
                 className="relative w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]"
             >
                 <strong>IU</strong>
             </Button>
 
-            <div
-                className={clsx(
-                    "z-20 absolute top-16 md:top-20 right-4 w-[250px] p-4 grid gap-6 bg-white border border-kaiglo_grey-200 rounded-xl shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300",
-                    showDropDown ? "animate-slideDownFade" : "hidden"
-                )}
-            >
-                <div className="flex gap-2 items-center">
-                    <div className="w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]">
-                        <strong>IU</strong>
+            {showDropDown && (
+                <div
+                    className={clsx(
+                        "z-20 absolute top-16 md:top-20 right-4 w-[250px] p-4 grid gap-6 bg-white border border-kaiglo_grey-200 rounded-xl shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300",
+                        "animate-slideDownFade"
+                    )}
+                >
+                    <div className="flex gap-2 items-center">
+                        <div className="w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]">
+                            <strong>IU</strong>
+                        </div>
+                        <div>
+                            <h3 className="font-medium text-sm">Isaac Udom</h3>
+                            <p className="text-sm">Samson@gmail.com</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 className="font-medium text-sm">Isaac Udom</h3>
-                        <p className="text-sm">Samson@gmail.com</p>
+                    <div className="grid gap-4 font-medium">
+                        <div className="flex gap-2 items-center">
+                            <SettingsIcon2 className="w-5 h-5" /> Settings
+                        </div>
+                        <div className="flex gap-2 items-center">
+                            <HelpCenterIcon className="w-5 h-5" /> Help Center
+                        </div>
+                        <div className="flex gap-2 items-center text-kaiglo_critical-base">
+                            <LogOutIcon className="w-5 h-5" /> Log Out
+                        </div>
                     </div>
                 </div>
-                <div className="grid gap-4 font-medium">
-                    <div className="flex gap-2 items-center">
-                        <SettingsIcon2 className="w-5 h-5" /> Settings
-                    </div>
-                    <div className="flex gap-2 items-center">
-                        <HelpCenterIcon className="w-5 h-5" /> Help Center
-                    </div>
-                    <div className="flex gap-2 items-center text-kaiglo_critical-base ">
-                        <LogOutIcon className="w-5 h-5" /> Log Out
-                    </div>
-                </div>
-            </div>
+            )}
         </div>
     );
 };
