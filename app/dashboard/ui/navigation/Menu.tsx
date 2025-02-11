@@ -34,7 +34,7 @@ const Menu = () => {
                         <Link href={link.href} className="px-3 py-2.5 flex gap-3 items-center">
                             <LinkIcon
                                 className={clsx(
-                                    "font-normal",
+                                    "font-light w-5 h-5",
                                     link.name === "Orders"
                                         ? "group-hover:fill-white"
                                         : "group-hover:stroke-white",
