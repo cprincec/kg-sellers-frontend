@@ -47,7 +47,7 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
 
             {/* Bar Chart */}
             {!showEmptyState ? (
-                <div>
+                <div className="overflow-x-auto">
                     <Image src={barChart} alt="bar chart" />
                 </div>
             ) : (

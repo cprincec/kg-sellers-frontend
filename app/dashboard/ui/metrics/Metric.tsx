@@ -1,5 +1,6 @@
-import TootlTip from "@/app/dashboard/ui/TootTip";
 import { ArrowDown, ArrowUp } from "lucide-react";
+import TootlTip from "../TootTip";
+import clsx from "clsx";
 
 const Metric = ({
     title,
@@ -8,6 +9,7 @@ const Metric = ({
     tip,
     variant,
     showEmptyState,
+    className,
 }: {
     title: string;
     body?: string;
@@ -19,10 +21,16 @@ const Metric = ({
     } | null;
     variant?: string;
     showEmptyState: boolean;
+    className?: string;
 }) => {
     return (
-        <section className="grid gap-3 rounded-xl border border-kaiglo_grey-100 px-4 py-3 bg-white">
-            <div className="flex items-center gap-3">
+        <section
+            className={clsx(
+                "grid gap-3 rounded-xl border md:border-0 border-kaiglo_grey-100 px-4 py-3 md:p-6 lg:p-0 bg-white",
+                className && className
+            )}
+        >
+            <div className="flex items-center gap-3 md:px-4">
                 <h3
                     className={`uppercase text-sm font-medium ${
                         variant?.toLowerCase() === "warning"
@@ -37,7 +45,7 @@ const Metric = ({
                 {tip && <TootlTip info={tip} />}
             </div>
             {!showEmptyState ? (
-                <div className="grid gap-1">
+                <div className="grid gap-1 md:px-4">
                     <p className="text-2xl text-kaiglo_grey-900 font-medium">{body}</p>
                     {comparism && (
                         <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">
@@ -55,7 +63,7 @@ const Metric = ({
                     )}
                 </div>
             ) : (
-                <strong className="text-3xl text-kaiglo_grey-900">--</strong>
+                <strong className="text-3xl text-kaiglo_grey-900 lg:px-4">--</strong>
             )}
         </section>
     );

@@ -1,15 +1,27 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import SideBarContent from "./SideBarContent";
 
-interface SideBarModalProps {
+export interface SideBarModalProps {
     showModal: boolean;
     setShowModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const SideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) => {
+    const pathname = usePathname();
+
+    /******* Close the sidebar after click a link in the navigation bar
+     * This component is contained in the header which is in the dashboard layout.
+     * Hence, it is not rerendered when navigating around the dashboard, thus the sidebar will remain
+     * open even after navigating to a new page within the dashboard.
+     ** ********/
+    useEffect(() => {
+        setShowModal(false);
+    }, [pathname, setShowModal]);
+
     return (
         <Dialog open={showModal} onOpenChange={setShowModal}>
             <DialogContent

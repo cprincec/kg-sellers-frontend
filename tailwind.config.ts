@@ -181,11 +181,20 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
-  		// borderRadius: {
-  		// 	lg: 'var(--radius)',
-  		// 	md: 'calc(var(--radius) - 2px)',
-  		// 	sm: 'calc(var(--radius) - 4px)'
-  		// }
+		keyframes: {
+			slideDownFade: {
+			  '0%': { opacity: "0", transform: 'translateY(-10px)' },
+			  '100%': { opacity: "1", transform: 'translateY(0)' },
+			},
+			slideUpFade: {
+			  '0%': { opacity: "1", transform: 'translateY(0)' },
+			  '100%': { opacity: "0", transform: 'translateY(-10px)' },
+			},
+		},
+		animation: {
+			slideDownFade: 'slideDownFade 0.3s ease-out',
+			slideUpFade: 'slideUpFade 0.2s ease-in',
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

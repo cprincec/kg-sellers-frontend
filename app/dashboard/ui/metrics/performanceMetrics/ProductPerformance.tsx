@@ -20,10 +20,10 @@ const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => 
                     {/* Tables */}
                     {!showEmptyState ? (
                         <>
-                            <TabsContent value="topSelling">
+                            <TabsContent value="topSelling" className="overflow-x-auto">
                                 <ProductPerformanceTable sortBy={"topSelling"} />
                             </TabsContent>
-                            <TabsContent value="leastSelling">
+                            <TabsContent value="leastSelling" className="overflow-x-auto">
                                 <ProductPerformanceTable sortBy={"leastSelling"} />
                             </TabsContent>
                         </>

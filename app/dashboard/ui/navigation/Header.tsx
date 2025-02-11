@@ -1,28 +1,36 @@
+"use client";
+
 import { useState } from "react";
-import { MenuIcon, NotificationIcon } from "./sidebar-icons";
+import { MenuIcon, NotificationIcon, ProfileIcon } from "./sidebar-icons";
 import SideBarMobile from "./SideBarMobile";
 
-const Header = () => {
+const Header = ({ heading, description }: { heading: string; description: string }) => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
 
     return (
-        <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/40 flex justify-between p-4 border-b border-kaiglo_grey-200 ">
-            {/* Navigation Bar */}
-            <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
-
+        <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/50 flex justify-between p-4 border-b border-kaiglo_grey-200 ">
             <div className="flex gap-2 items-center">
-                <div className="lg:hidden mt-0.5" onClick={() => setShowSideBar(true)}>
+                <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
+
+                <div
+                    className="md:hidden mt-0.5"
+                    onClick={() => {
+                        setShowSideBar(true);
+                        console.log("clicked", setShowSideBar);
+                    }}
+                >
                     <MenuIcon />
                 </div>
-                <h1 className="font-medium text-lg">Overview</h1>
+                <div>
+                    <h1 className="font-medium text-lg md:text-2xl capitalize">{heading}</h1>
+                    <p className="hidden md:block">{description}</p>
+                </div>
             </div>
 
             {/* Notifications and Profile buttons */}
             <div className="flex items-center gap-3">
-                <NotificationIcon />
-                <div className="w-8 h-8 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]">
-                    <strong>IU</strong>
-                </div>
+                <NotificationIcon className="w-4 md:w-5 lg:w-6 h-4 md:h-5 lg:h-6 " />
+                <ProfileIcon />
             </div>
         </header>
     );

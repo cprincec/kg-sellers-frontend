@@ -14,14 +14,15 @@ const Dashboard = () => {
     const showEmptyState = searchParams.get("from") === "register";
 
     return (
-        <div className="pb-4 grid gap-6">
-            {/* Header */}
-            <Header />
+        <div className="pb-4 grid gap-2 md:gap-1">
+            {/* I decided to not to place the header component in the layout so that it will be rerendered after every navigation.
+            This rerendering will allow for update of data in some header components such as the notifications */}
+            <Header heading={"Overview"} description={"Track, manage your orders."} />
 
             {searchParams.get("from") === "register" && <TermsOfContractNotice />}
             <BlackFridaySalesNotice />
 
-            <div className="grid gap-5 px-4">
+            <div className="grid gap-5 lg:gap-y-1 px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:py-1 md:max-lg:bg-white">
                 {/* Sales Summary */}
                 <SalesSummary showEmptyState={showEmptyState} />
 
@@ -30,9 +31,9 @@ const Dashboard = () => {
 
                 {/* Product Summary */}
                 <ProductSummary showEmptyState={showEmptyState} />
-            </div>
 
-            <PerformanceMetrics showEmptyState={showEmptyState} />
+                <PerformanceMetrics showEmptyState={showEmptyState} />
+            </div>
         </div>
     );
 };

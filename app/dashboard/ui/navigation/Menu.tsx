@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { BoxIcon, HomeIcon, MoneyExchangeIcon, SettingsIcon, TagIcon, WalletIcon } from "./sidebar-icons";
 import clsx from "clsx";
@@ -9,7 +11,7 @@ const Menu = () => {
     const links = [
         { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
         { name: "Products", href: "/products", icon: BoxIcon },
-        { name: "Orders", href: "/orders", icon: TagIcon },
+        { name: "Orders", href: "/dashboard/orders", icon: TagIcon },
         { name: "Transactions", href: "/transactions", icon: MoneyExchangeIcon },
         { name: "Wallet", href: "/wallet", icon: WalletIcon },
         { name: "Settings", href: "/settings", icon: SettingsIcon },
@@ -19,6 +21,8 @@ const Menu = () => {
         <ul className="grid gap-y-3">
             {links.map((link) => {
                 const LinkIcon = link.icon;
+
+                console.log(link.href, pathname);
                 return (
                     <li
                         key={link.name}
@@ -30,6 +34,7 @@ const Menu = () => {
                         <Link href={link.href} className="flex gap-3 items-center">
                             <LinkIcon
                                 className={clsx(
+                                    "font-normal",
                                     link.name === "Orders"
                                         ? "group-hover:fill-white"
                                         : "group-hover:stroke-white",
