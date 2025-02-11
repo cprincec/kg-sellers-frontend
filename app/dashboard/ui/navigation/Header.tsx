@@ -29,7 +29,7 @@ const Header = ({ heading, description }: { heading: string; description: string
 
             {/* Notifications and Profile buttons */}
             <div className="flex items-center gap-3">
-                <NotificationIcon className="w-4 md:w-5 lg:w-6 h-4 md:h-5 lg:h-6 " />
+                <NotificationIcon className="w-4 md:w-5 h-4 md:h-5 " />
                 <ProfileIcon />
             </div>
         </header>
