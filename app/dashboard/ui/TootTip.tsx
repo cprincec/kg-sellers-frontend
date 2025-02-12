@@ -2,7 +2,7 @@
 
 const TootlTip = ({ info, className }: { info: string; className?: string }) => {
     return (
-        <div className="group relative">
+        <div className="group relative cursor-pointer">
             <svg
                 className={`w-5 h-5 ${className}`}
                 viewBox="0 0 20 20"

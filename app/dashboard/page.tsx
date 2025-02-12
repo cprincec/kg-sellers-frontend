@@ -21,7 +21,7 @@ const Dashboard = () => {
 
             {searchParams.get("from") === "register" && <TermsOfContractNotice />}
             <BlackFridaySalesNotice />
-                
+
             <div className="grid gap-5 lg:gap-y-1 px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:py-0 md:max-lg:bg-white">
                 {/* Sales Summary */}
                 <SalesSummary showEmptyState={showEmptyState} />
