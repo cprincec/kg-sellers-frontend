@@ -246,11 +246,11 @@ export const ProfileIcon = () => {
             {showDropDown && (
                 <div
                     className={clsx(
-                        "z-20 absolute top-10 md:top-14 right-0 min-w-[250px] p-4 grid gap-6 bg-white border border-kaiglo_grey-200 rounded-xl shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300",
+                        "z-20 absolute top-10 md:top-14 right-0 min-w-[250px] grid bg-white border border-kaiglo_grey-200 rounded-2xl shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300",
                         "animate-slideDownFade"
                     )}
                 >
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center px-2 py-3 border-b border-kaiglo_grey-200">
                         <div className="w-10 lg:w-12 h-10 lg:h-12 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]">
                             <strong>IU</strong>
                         </div>
@@ -259,14 +259,14 @@ export const ProfileIcon = () => {
                             <p className="text-sm">Samson@gmail.com</p>
                         </div>
                     </div>
-                    <div className="grid gap-4 font-medium text-sm">
-                        <div className="flex gap-2 items-center justify-start">
+                    <div className="grid gap-2 px-2 py-3 font-medium text-sm">
+                        <div className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100">
                             <SettingsIcon2 className="w-5 h-5" /> Settings
                         </div>
-                        <div className="flex gap-2 items-center">
+                        <div className="flex gap-2 items-center p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100">
                             <HelpCenterIcon className="w-5 h-5" /> Help Center
                         </div>
-                        <div className="flex gap-2 items-center justify-start text-kaiglo_critical-base">
+                        <div className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer  hover:bg-kaiglo_grey-100 text-kaiglo_critical-base">
                             <LogOutIcon className="w-5 h-5" /> Log Out
                         </div>
                     </div>

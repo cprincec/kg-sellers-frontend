@@ -92,14 +92,17 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-[180px]">Product</TableHead>
-                    <TableHead className="text-center whitespace-nowrap">Qty sold</TableHead>
+                    <TableHead className="text-center whitespace-nowrap lg:hidden">Qty sold</TableHead>
+                    <TableHead className="text-center whitespace-nowrap hidden lg:table-cell">
+                        Quantity sold
+                    </TableHead>
                     <TableHead>Amount</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {products.map((product, index) => (
                     <TableRow key={index}>
-                        <TableCell className="font-medium">{product.product}</TableCell>
+                        <TableCell className="">{product.product}</TableCell>
                         <TableCell className="text-center">{product.quantitySold}</TableCell>
                         <TableCell>{product.amount}</TableCell>
                     </TableRow>

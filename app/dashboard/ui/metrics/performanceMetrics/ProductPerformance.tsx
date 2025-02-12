@@ -6,13 +6,13 @@ import ProductPerformanceTable from "./ProductPerformanceTable";
 
 const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     return (
-        <div className="grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
-            <h3 className="text-sm font-normal">Product Performance</h3>
+        <div className="relative grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
+            <h3 className="relative text-sm font-normal">Product Performance</h3>
 
-            <div>
+            <div className="">
                 <Tabs defaultValue="topSelling" className="">
                     {/* TABS */}
-                    <TabsList className="flex gap-4 bg-transparent w-[80%] px-0 justify-start mb-8">
+                    <TabsList className="flex gap-4 bg-transparent w-[80%] px-0 justify-start lg:justify-end mb-8 lg:absolute lg:right-0 lg:top-1">
                         <TabsTrigger value="topSelling">Top selling</TabsTrigger>
                         <TabsTrigger value="leastSelling">Least selling</TabsTrigger>
                     </TabsList>

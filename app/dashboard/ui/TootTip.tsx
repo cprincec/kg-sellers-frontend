@@ -1,6 +1,6 @@
 "use client";
 
-const TootlTip = ({ info, className }: { info: string; className?: string }) => {
+const TootlTip = ({ heading, info, className }: { heading?: string; info: string; className?: string }) => {
     return (
         <div className="group relative cursor-pointer">
             <svg
@@ -23,9 +23,10 @@ const TootlTip = ({ info, className }: { info: string; className?: string }) => 
                 />
             </svg>
 
-            <div className="hidden group-hover:block absolute left-1/2 transform -translate-x-1/2">
-                <div className="w-[12px] h-[12px] rotate-45 bg-kaiglo_grey-base mx-auto"></div>
-                <p className="relative -top-2 bg-kaiglo_grey-base text-white p-3 rounded-lg text-sm min-w-[250px]">
+            <div className="hidden group-hover:block absolute left-1/2 transform -translate-x-1/2 animate-fadeIn">
+                <div className="w-[12px] h-[12px] rotate-45 bg-kaiglo_grey-200 mx-auto"></div>
+                {heading && <h3 className="text-kaiglo_grey-700 text-sm font-medium">{heading}</h3>}
+                <p className="relative -top-2 bg-kaiglo_grey-200 text-kaiglo_grey-800 p-3 rounded-lg text-sm min-w-[250px]">
                     {info}
                 </p>
             </div>
