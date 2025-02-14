@@ -136,6 +136,7 @@ const SalesPerformanceChart = () => {
                         // ticks={[0, 50000, 100000, 200000, 300000, 400000]}
                         className=""
                     />
+                    {/* @ts-expect-error CustomTooltip */}
                     <Tooltip content={<CustomTooltip />} />
                     <Bar radius={[2, 2, 0, 0]} dataKey="thisWeek" fill="#027A48" />
                     <Bar radius={[2, 2, 0, 0]} dataKey="lastWeek" fill="#A6F4C5" />
