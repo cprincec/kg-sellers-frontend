@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import Image from "next/image";
 import barChart from "@/public/images/dashboard/Basic Bar Chart.svg";
 import { NoResultsIcon } from "../../icons";
+import SalesPerformanceChart from "./SalesPerformanceChart";
 
 const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const isPositive = false;
@@ -13,10 +14,12 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     return (
         <div className="grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
             <div className="flex justify-between items-start">
-                <div>
-                    <h3 className="text-sm text-kaiglo_grey-800 capitalize">Sales Performance</h3>
+                <div className="grid gap-y-1">
+                    <h3 className="text-sm text-kaiglo_grey-base lg:font-medium capitalize">
+                        Sales Performance
+                    </h3>
                     {!showEmptyState ? (
-                        <div className="grid gap-0.5">
+                        <div className="grid gap-1">
                             <p className="text-2xl text-kaiglo_grey-900 font-medium">{amount}</p>
 
                             <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">
@@ -47,10 +50,11 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
 
             {/* Bar Chart */}
             {!showEmptyState ? (
-                <div className="overflow-x-auto">
-                    <Image src={barChart} alt="bar chart" />
-                </div>
+                <SalesPerformanceChart />
             ) : (
+                // <div className="overflow-x-auto">
+                //     <Image src={barChart} alt="bar chart" />
+                // </div>
                 <NoResultsIcon
                     className="grid items-center justify-center -mt-8 py-6"
                     title="No results Yet"

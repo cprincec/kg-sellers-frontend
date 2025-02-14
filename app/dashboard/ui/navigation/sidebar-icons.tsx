@@ -238,7 +238,7 @@ export const ProfileIcon = () => {
             <Button
                 variant="ghost"
                 onClick={() => setShowDropDown((prev) => !prev)}
-                className="relative w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]"
+                className="relative w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center rounded-full lg:text-kaiglo_critical-700 bg-[#D0F5FC] lg:bg-kaiglo_attention-100 shadow-[0px_1px_2px_0px_#E4FBFF]"
             >
                 <strong>IU</strong>
             </Button>
@@ -251,7 +251,7 @@ export const ProfileIcon = () => {
                     )}
                 >
                     <div className="flex gap-2 items-center px-2 py-3 border-b border-kaiglo_grey-200">
-                        <div className="w-10 lg:w-12 h-10 lg:h-12 flex justify-center items-center rounded-full bg-[#D0F5FC] shadow-[0px_1px_2px_0px_#E4FBFF]">
+                        <div className="w-10 lg:w-12 h-10 lg:h-12 flex justify-center items-center rounded-full lg:text-kaiglo_critical-700 bg-[#D0F5FC] lg:bg-kaiglo_attention-100 shadow-[0px_1px_2px_0px_#E4FBFF]">
                             <strong>IU</strong>
                         </div>
                         <div>
@@ -259,7 +259,7 @@ export const ProfileIcon = () => {
                             <p className="text-sm">Samson@gmail.com</p>
                         </div>
                     </div>
-                    <div className="grid gap-2 px-2 py-3 font-medium text-sm">
+                    <div className="grid gap-2 px-2 py-3 font-medium text-sm text-kaiglo_grey-700">
                         <div className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100">
                             <SettingsIcon2 className="w-5 h-5" /> Settings
                         </div>

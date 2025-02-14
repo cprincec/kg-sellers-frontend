@@ -7,7 +7,7 @@ const PerformanceMetrics = ({ showEmptyState }: { showEmptyState: boolean }) => 
             <h2 className="md:p-[12px_12px_12px_12px] text-base text-kaiglo_grey-800 font-medium md:border-b border-kaiglo_grey-200 uppercase">
                 PERFORMANCE METRICS
             </h2>
-            <div className="grid lg:grid-cols-2 gap-6 lg:px-6 md:py-4">
+            <div className="grid lg:grid-cols-2 gap-6 lg:px-6 md:py-4 lg:mt-2">
                 <SalesPerformance showEmptyState={showEmptyState} />
                 <ProductPerformance showEmptyState={showEmptyState} />
             </div>

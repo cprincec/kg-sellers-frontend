@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 {/* Navigation Bar */}
                 <SideBarDesktop />
 
-                <div className="md:w-[65%] lg:w-[80%] ml-auto">{children}</div>
+                <div className="md:w-[65%] lg:w-[83%] ml-auto">{children}</div>
             </div>
         </Suspense>
     );

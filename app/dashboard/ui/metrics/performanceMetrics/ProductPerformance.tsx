@@ -7,7 +7,9 @@ import ProductPerformanceTable from "./ProductPerformanceTable";
 const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     return (
         <div className="relative grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
-            <h3 className="relative text-sm font-normal">Product Performance</h3>
+            <h3 className="relative text-sm font-normal lg:font-medium text-kaiglo_grey-800">
+                Product Performance
+            </h3>
 
             <div className="">
                 <Tabs defaultValue="topSelling" className="">

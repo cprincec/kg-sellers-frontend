@@ -30,7 +30,7 @@ const Metric = ({
                 className && className
             )}
         >
-            <div className="flex items-center gap-3 md:px-4">
+            <div className="flex items-center gap-3 md:px-4 lg:px-2">
                 <h3
                     className={`uppercase text-sm font-medium ${
                         variant?.toLowerCase() === "warning"
@@ -45,7 +45,7 @@ const Metric = ({
                 {tip && <TootlTip info={tip} />}
             </div>
             {!showEmptyState ? (
-                <div className="grid gap-1 md:px-4">
+                <div className="grid gap-1 md:px-4 lg:px-2">
                     <p className="text-2xl text-kaiglo_grey-900 font-medium">{body}</p>
                     {comparism && (
                         <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">

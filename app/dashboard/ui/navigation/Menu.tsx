@@ -31,7 +31,7 @@ const Menu = () => {
                             pathname === link.href && "bg-kaiglo_success-base text-white font-medium"
                         )}
                     >
-                        <Link href={link.href} className="px-3 py-2.5 flex gap-3 items-center">
+                        <Link href={link.href} className="px-3 py-2 flex gap-3 items-center">
                             <LinkIcon
                                 className={clsx(
                                     "font-light w-5 h-5",
