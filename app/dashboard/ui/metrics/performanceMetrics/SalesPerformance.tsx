@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import Image from "next/image";
-import barChart from "@/public/images/dashboard/Basic Bar Chart.svg";
 import { NoResultsIcon } from "../../icons";
 import SalesPerformanceChart from "./SalesPerformanceChart";
 
@@ -52,9 +50,6 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
             {!showEmptyState ? (
                 <SalesPerformanceChart />
             ) : (
-                // <div className="overflow-x-auto">
-                //     <Image src={barChart} alt="bar chart" />
-                // </div>
                 <NoResultsIcon
                     className="grid items-center justify-center -mt-8 py-6"
                     title="No results Yet"
