@@ -10,8 +10,8 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const amount = "₦309,000";
 
     return (
-        <div className="grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
-            <div className="flex justify-between items-start">
+        <div className="relative grid rounded-xl border border-kaiglo_grey-200 p-3">
+            <div className=" flex justify-between items-start">
                 <div className="grid gap-y-1">
                     <h3 className="text-sm text-kaiglo_grey-base lg:font-medium capitalize">
                         Sales Performance
@@ -48,7 +48,7 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
 
             {/* Bar Chart */}
             {!showEmptyState ? (
-                <SalesPerformanceChart />
+                <SalesPerformanceChart className="mt-6 md:mt-10 lg:-mt-5" />
             ) : (
                 <NoResultsIcon
                     className="grid items-center justify-center -mt-8 py-6"
