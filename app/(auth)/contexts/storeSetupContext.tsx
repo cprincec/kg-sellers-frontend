@@ -30,7 +30,7 @@ const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefi
 
 const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ children }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
-    const [currentStep, setCurrentStep] = useState<number>(0);
+    const [currentStep, setCurrentStep] = useState<number>(1);
 
     // const router = useRouter();
 

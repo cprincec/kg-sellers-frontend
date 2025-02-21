@@ -2,7 +2,7 @@
 import clsx from "clsx";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import CustomTooltip from "./chart/CustomTootip";
+import CustomTooltip from "./CustomTootip";
 
 const SalesPerformanceChart = ({ className }: { className?: string }) => {
     const data = [

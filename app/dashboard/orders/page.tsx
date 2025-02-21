@@ -1,4 +1,4 @@
-import SalesPerformanceChart from "../ui/metrics/performanceMetrics/SalesPerformanceChart";
+import SalesPerformanceChart from "../ui/metrics/performanceMetrics/chart/SalesPerformanceChart";
 
 const Orders = () => {
     return (

@@ -21,21 +21,26 @@ const CustomTooltip = ({ payload, active }: { payload: [{ value: number }]; acti
             <div className="transform-none">
                 <div className="relative bg-white rounded-lg p-2 grid gap-1.5">
                     <h3 className="font-medium text-xs text-kaiglo_grey-900">{currenMonthAndYear}</h3>
-                    {payload.map((entry, index) => (
-                        <div key={index} className="flex items-center gap-4">
-                            <div className="flex items-center gap-1">
-                                <span
-                                    className={`w-2 h-2 ${
-                                        index % 2 === 0 ? "bg-kaiglo_success-700" : "bg-kaiglo_success-200"
-                                    } rounded-sm`}
-                                ></span>
-                                <p className="text-xs text-kaiglo_grey-500">
-                                    {index % 2 === 0 ? "This week" : "Last week"}
-                                </p>
+                    {payload.map((entry, index) => {
+                        const value = entry.value.toLocaleString();
+                        return (
+                            <div key={index} className="flex items-center gap-4">
+                                <div className="flex items-center gap-1">
+                                    <span
+                                        className={`w-2 h-2 ${
+                                            index % 2 === 0
+                                                ? "bg-kaiglo_success-700"
+                                                : "bg-kaiglo_success-200"
+                                        } rounded-sm`}
+                                    ></span>
+                                    <p className="text-xs text-kaiglo_grey-500">
+                                        {index % 2 === 0 ? "This week" : "Last week"}
+                                    </p>
+                                </div>
+                                <span className="text-xs font-medium">₦{value}</span>
                             </div>
-                            <span className="text-xs font-medium">₦{entry.value}</span>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 <div className="absolute -bottom-1.5 left-1/2 w-3 h-3 bg-white rotate-45"></div>
