@@ -236,6 +236,7 @@ export const ProfileIcon = () => {
     return (
         <div className="relative" ref={dropdownRef}>
             <Button
+                type="button"
                 variant="ghost"
                 onClick={() => setShowDropDown((prev) => !prev)}
                 className="relative w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 flex justify-center items-center rounded-full lg:text-kaiglo_critical-700 bg-[#D0F5FC] lg:bg-kaiglo_attention-100 shadow-[0px_1px_2px_0px_#E4FBFF]"

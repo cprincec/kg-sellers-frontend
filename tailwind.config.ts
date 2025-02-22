@@ -129,7 +129,7 @@ export default {
   			},
   			kaiglo_success: {
 				'5': '#C6EDDD',
-				'25': '#F6FEF9',
+				'25': '#EDF3FA',
   				'50': '#ECFDF3',
   				'100': '#D1FFD1',
   				'200': '#A6F4C5',
@@ -157,19 +157,24 @@ export default {
   				base: '#FF6617'
   			},
   			kaiglo_critical: {
-  				'50': '#FFE5E7',
+  				'50': '#FEF3F2',
   				'100': '#FFD1D3',
-  				'200': '#FFA3A8',
+  				'200': '#FECDCA',
   				'300': '#FF757C',
   				'400': '#FF4751',
   				'500': '#FF1A25',
-  				'600': '#EB000C',
+  				'600': '#D92D20',
   				'700': '#B11F1F',
   				'800': '#8F0007',
   				'900': '#610005',
   				base: '#FF242C',
 				error: '#F04438'
   			},
+			  kaiglo_warning: {
+				'25': '#FFFCF5',
+				'200': '#FEDF89',
+				'500': '#F79009',
+			},
   			kaiglo_accent: {
   				'50': '#FFF7E5',
   				'100': '#FFF1D1',

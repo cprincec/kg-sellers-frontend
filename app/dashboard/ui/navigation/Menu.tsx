@@ -22,7 +22,6 @@ const Menu = () => {
             {links.map((link) => {
                 const LinkIcon = link.icon;
 
-                console.log(link.href, pathname);
                 return (
                     <li
                         key={link.name}

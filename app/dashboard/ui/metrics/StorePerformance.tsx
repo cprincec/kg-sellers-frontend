@@ -27,7 +27,8 @@ const StorePerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     ];
 
     return (
-        <section className="grid gap-2 md:gap-0 py-3 px-2 lg:px-0 rounded-xl bg-kaiglo_grey-100 lg:bg-white">
+        // <section className="grid gap-2 md:gap-0 py-3 px-2 lg:px-0 rounded-xl bg-kaiglo_grey-100 lg:bg-white">
+        <section className="grid gap-2 md:gap-0 py-3 px-2 lg:px-0 rounded-xl lg:bg-white">
             <h2 className="md:p-[12px_24px_12px_24px] text-base text-kaiglo_grey-800 font-medium md:border-b border-kaiglo_grey-200 uppercase">
                 WEEKLY STORE PERFOMANCE
             </h2>

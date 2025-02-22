@@ -1,12 +1,12 @@
 "use client";
 
-import PerformanceMetrics from "./ui/metrics/PerformanceMetrics";
+import PerformanceMetrics from "../ui/metrics/PerformanceMetrics";
 import { useSearchParams } from "next/navigation";
-import { BlackFridaySalesNotice, TermsOfContractNotice } from "./ui/icons";
-import SalesSummary from "./ui/metrics/SalesSummary";
-import ProductSummary from "./ui/metrics/ProductSummary";
-import StorePerformance from "./ui/metrics/StorePerformance";
-import Header from "./ui/navigation/Header";
+import { BlackFridaySalesNotice, TermsOfContractNotice } from "../ui/icons";
+import SalesSummary from "../ui/metrics/SalesSummary";
+import ProductSummary from "../ui/metrics/ProductSummary";
+import StorePerformance from "../ui/metrics/StorePerformance";
+import Header from "../ui/navigation/Header";
 
 const Dashboard = () => {
     const searchParams = useSearchParams();

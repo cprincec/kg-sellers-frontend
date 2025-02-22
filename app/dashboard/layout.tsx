@@ -4,7 +4,8 @@ import SideBarDesktop from "./ui/navigation/SideBarDesktop";
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <div className="md:grid grid-flow-col md:bg-kaiglo_grey-100">
+            {/* <div className="md:grid grid-flow-col md:bg-kaiglo_grey-100"> */}
+            <div className="md:grid grid-flow-col">
                 {/* Navigation Bar */}
                 <SideBarDesktop />
 

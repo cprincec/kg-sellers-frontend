@@ -26,7 +26,7 @@ const Metric = ({
     return (
         <section
             className={clsx(
-                "grid gap-3 rounded-xl border md:border-0 border-kaiglo_grey-100 px-4 py-3 md:p-6 lg:p-0 bg-white",
+                "grid gap-3 rounded-xl border md:border-0 border-kaiglo_grey-100 px-4 py-3 md:p-6 lg:px-4 lg:py-3 bg-white",
                 className && className
             )}
         >

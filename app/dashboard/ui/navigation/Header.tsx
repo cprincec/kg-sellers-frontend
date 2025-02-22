@@ -16,7 +16,6 @@ const Header = ({ heading, description }: { heading: string; description: string
                     className="md:hidden mt-0.5"
                     onClick={() => {
                         setShowSideBar(true);
-                        console.log("clicked", setShowSideBar);
                     }}
                 >
                     <MenuIcon />
