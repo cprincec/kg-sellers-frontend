@@ -1,6 +1,6 @@
+import { IconKey, IconLogo } from "@/public/icons/icons";
+
 import Image from "next/image";
-import logoIcon from "@/public/images/svgs/logoIcon.svg";
-import key from "@/public/images/svgs/key.svg";
 
 // Kaiglo Logo with icon
 export const Logo = ({ className }: { className: string }) => {
@@ -96,7 +96,7 @@ export const SellersHubLogo = ({ className }: { className: string }) => {
 export const LogoIcon = ({ className }: { className: string }) => {
     return (
         <div className={`w-fit ${className}`}>
-            <Image src={logoIcon} alt="kaiglo-logo" width={33} height={36} />
+            <Image src={IconLogo} alt="kaiglo-logo" width={33} height={36} />
         </div>
     );
 };
@@ -104,7 +104,7 @@ export const LogoIcon = ({ className }: { className: string }) => {
 export const AccountRecoveryIcon = ({ className }: { className: string }) => {
     return (
         <div className={`rounded-lg p-4 shadow ${className}`}>
-            <Image src={key} alt="key" width={24} height={24} />
+            <Image src={IconKey} alt="key" width={24} height={24} />
         </div>
     );
 };

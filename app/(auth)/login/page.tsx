@@ -1,10 +1,11 @@
 "use client";
-import { LogoIcon } from "../ui/logos";
+
 import { GoogleButton } from "../ui/buttons";
-import LoginForm from "../ui/login/login-form";
-import Link from "next/link";
-import image1 from "@/public/images/auth/easy-wireless-yechnology-payment 1.1.png";
 import Image from "next/image";
+import { ImageSmilingWoman } from "@/public/images/images";
+import Link from "next/link";
+import LoginForm from "../ui/login/login-form";
+import { LogoIcon } from "../ui/logos";
 import { useSearchParams } from "next/navigation";
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
             {/* Sidebar Image */}
             <div className="relative hidden lg:block">
                 <Image
-                    src={image1}
+                    src={ImageSmilingWoman}
                     alt="Easy wireless technology payment"
                     fill
                     sizes="100%"

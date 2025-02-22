@@ -1,5 +1,4 @@
 import Metric from "./Metric";
-import { VerticalLineIcon2 } from "../orders/icons";
 
 const SalesSummary = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const salesSummaryMock = [
@@ -28,8 +27,8 @@ const SalesSummary = ({ showEmptyState }: { showEmptyState: boolean }) => {
                 SALES SUMMARY
             </h2>
 
-            <div className="grid lg:grid-cols-[1fr_2%_1fr] gap-2 lg:gap-4 lg:px-4 lg:py-3">
-                {salesSummaryMock.map((item, index) => (
+            <div className="grid lg:grid-cols-[1fr_2%_1fr] gap-2 lg:gap-4 lg:px-4 lg:py-3 divide-x">
+                {salesSummaryMock.map((item) => (
                     <div key={item.title} className="flex items-center">
                         <div className="flex-1">
                             <Metric
@@ -40,11 +39,6 @@ const SalesSummary = ({ showEmptyState }: { showEmptyState: boolean }) => {
                                 showEmptyState={showEmptyState}
                             />
                         </div>
-                        {index !== salesSummaryMock.length - 1 && (
-                            <div className="hidden lg:flex items-center justify-center mx-2">
-                                <VerticalLineIcon2 />
-                            </div>
-                        )}
                     </div>
                 ))}
             </div>

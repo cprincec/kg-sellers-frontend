@@ -1,9 +1,9 @@
-import { Controller } from "react-hook-form";
 import { Button } from "../../../../components/ui/button";
+import { Controller } from "react-hook-form";
 import Image from "next/image";
-import { useRef } from "react";
 import { Input } from "../../../../components/ui/input";
 import { Trash2 } from "lucide-react";
+import { useRef } from "react";
 
 export const ImageGalleryIcon = ({
     strokeColor = "#151716",
