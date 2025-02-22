@@ -1,10 +1,10 @@
 "use client";
 
+import { ImageProduct1, ImageProduct2 } from "@/public/images/images";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import Image from "next/image";
-import product1 from "@/public/images/dashboard/product-1.png";
-import product2 from "@/public/images/dashboard/product-2.png";
 import { useEffect, useState } from "react";
+
+import Image from "next/image";
 
 const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
     const [isMounted, setIsMounted] = useState(false);
@@ -19,7 +19,7 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
         {
             product: (
                 <div className="flex gap-1.5">
-                    <Image src={product1} alt="headphone" width={40} height={40} />
+                    <Image src={ImageProduct1} alt="headphone" width={40} height={40} />
                     <div className="grid">
                         <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
                         <p className="text-xs">Order ID -KG10001</p>
@@ -32,7 +32,7 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
         {
             product: (
                 <div className="flex gap-1.5">
-                    <Image src={product2} alt="headphone" width={40} height={40} />
+                    <Image src={ImageProduct2} alt="headphone" width={40} height={40} />
                     <div className="grid">
                         <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
                         <p className="text-xs">Order ID -KG10001</p>
@@ -45,7 +45,7 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
         {
             product: (
                 <div className="flex gap-1.5">
-                    <Image src={product1} alt="headphone" width={40} height={40} />
+                    <Image src={ImageProduct1} alt="headphone" width={40} height={40} />
                     <div className="grid">
                         <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
                         <p className="text-xs">Order ID -KG10001</p>
@@ -58,7 +58,7 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
         {
             product: (
                 <div className="flex gap-1.5">
-                    <Image src={product2} alt="headphone" width={40} height={40} />
+                    <Image src={ImageProduct2} alt="headphone" width={40} height={40} />
                     <div className="grid">
                         <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
                         <p className="text-xs">Order ID -KG10001</p>
@@ -71,7 +71,7 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
         {
             product: (
                 <div className="flex gap-1.5">
-                    <Image src={product1} alt="headphone" width={40} height={40} />
+                    <Image src={ImageProduct1} alt="headphone" width={40} height={40} />
                     <div className="grid">
                         <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
                         <p className="text-xs">Order ID -KG10001</p>

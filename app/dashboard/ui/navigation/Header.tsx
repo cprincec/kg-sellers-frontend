@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { MenuIcon, NotificationIcon, ProfileIcon } from "./sidebar-icons";
+import { IconMenu, IconNotification } from "@/public/icons/icons";
+
+import Image from "next/image";
+import { ProfileIcon } from "./sidebar-icons";
 import SideBarMobile from "./SideBarMobile";
+import { useState } from "react";
 
 const Header = ({ heading, description }: { heading: string; description: string }) => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
@@ -18,7 +21,7 @@ const Header = ({ heading, description }: { heading: string; description: string
                         setShowSideBar(true);
                     }}
                 >
-                    <MenuIcon />
+                    <Image src={IconMenu} alt="menu" className="w-4 md:w-5 h-4 md:h-5 " />
                 </div>
                 <div>
                     <h1 className="font-medium text-lg md:text-2xl capitalize">{heading}</h1>
@@ -28,7 +31,7 @@ const Header = ({ heading, description }: { heading: string; description: string
 
             {/* Notifications and Profile buttons */}
             <div className="flex items-center gap-3">
-                <NotificationIcon className="w-4 md:w-5 h-4 md:h-5 " />
+                <Image src={IconNotification} alt="notification" className="w-4 md:w-5 h-4 md:h-5 " />
                 <ProfileIcon />
             </div>
         </header>

@@ -1,11 +1,13 @@
 "use client";
-import { LogoIcon } from "../ui/logos";
-import { GoogleButton } from "../ui/buttons";
-import RegisterationForm from "../ui/register/registeration-form";
-import Link from "next/link";
-import Image from "next/image";
-import image1 from "@/public/images/auth/easy-wireless-yechnology-payment 1.1.png";
+
 import { useEffect, useState } from "react";
+
+import { GoogleButton } from "../ui/buttons";
+import Image from "next/image";
+import { ImageSmilingWoman } from "@/public/images/images";
+import Link from "next/link";
+import { LogoIcon } from "../ui/logos";
+import RegisterationForm from "../ui/register/registeration-form";
 
 const Register = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -20,8 +22,8 @@ const Register = () => {
         <div className="md:grid lg:grid-cols-2 md:h-full">
             <div className="relative hidden lg:block lg:h-full">
                 <Image
-                    src={image1}
-                    alt="easy-wireless-yechnology-payment 1"
+                    src={ImageSmilingWoman}
+                    alt="smiling woman with shopping bags"
                     fill
                     sizes="100%"
                     className="absolute inset-0 w-full h-full object-cover"

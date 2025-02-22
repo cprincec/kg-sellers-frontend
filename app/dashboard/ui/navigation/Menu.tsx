@@ -1,46 +1,62 @@
 "use client";
 
+import { IconBox, IconBoxActive, IconCog, IconCogActive, IconHome, IconHomeActive, IconTag, IconTagActive, IconTransaction, IconTransactionActive, IconWallet, IconWalletActive } from "@/public/icons/icons";
+
+import Image from "next/image";
 import Link from "next/link";
-import { BoxIcon, HomeIcon, MoneyExchangeIcon, SettingsIcon, TagIcon, WalletIcon } from "./sidebar-icons";
+import React from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
+interface NavLink {
+    name: string;
+    href: string;
+    icon: string;
+    activeIcon: string;
+    active: boolean;
+}
+
 const Menu = () => {
     const pathname = usePathname();
-
-    const links = [
-        { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
-        { name: "Products", href: "/products", icon: BoxIcon },
-        { name: "Orders", href: "/dashboard/orders", icon: TagIcon },
-        { name: "Transactions", href: "/transactions", icon: MoneyExchangeIcon },
-        { name: "Wallet", href: "/wallet", icon: WalletIcon },
-        { name: "Settings", href: "/settings", icon: SettingsIcon },
+    const links: NavLink[] = [
+        { name: "Dashboard", href: "/dashboard", icon: IconHome, activeIcon: IconHomeActive, active: pathname === "/dashboard" },
+        { name: "Products", href: "/products", icon: IconBox, activeIcon: IconBoxActive, active: pathname === "/products" },
+        { name: "Orders", href: "/dashboard/orders", icon: IconTag, activeIcon: IconTagActive, active: pathname === "/dashboard/orders" },
+        { name: "Transactions", href: "/transactions", icon: IconTransaction, activeIcon: IconTransactionActive, active: pathname === "/transactions" },
+        { name: "Wallet", href: "/wallet", icon: IconWallet, activeIcon: IconWalletActive, active: pathname === "/wallet" },
+        { name: "Settings", href: "/settings", icon: IconCog, activeIcon: IconCogActive, active: pathname === "/settings" },
     ];
 
     return (
         <ul className="grid gap-y-3">
             {links.map((link) => {
-                const LinkIcon = link.icon;
+                const iconSrc = link.active ? link.activeIcon : link.icon;
 
                 return (
                     <li
                         key={link.name}
                         className={clsx(
                             "group rounded-xl text-kaiglo_grey-700 text-base hover:bg-kaiglo_success-base hover:text-white hover:font-medium",
-                            pathname === link.href && "bg-kaiglo_success-base text-white font-medium"
+                            link.active && "bg-kaiglo_success-base text-white font-medium"
                         )}
                     >
                         <Link href={link.href} className="px-3 py-2 flex gap-3 items-center">
-                            <LinkIcon
-                                className={clsx(
-                                    "font-light w-5 h-5",
-                                    link.name === "Orders"
-                                        ? "group-hover:fill-white"
-                                        : "group-hover:stroke-white",
-                                    link.href === pathname &&
-                                        (link.name === "Orders" ? "fill-white" : "stroke-white")
-                                )}
-                            />
+                            <div className="w-5 h-5">
+                                <Image
+                                    src={iconSrc}
+                                    alt={link.name}
+                                    className="font-light w-5 h-5 group-hover:hidden transition-opacity duration-200 ease-in-out"
+                                    width={20}
+                                    height={20}
+                                />
+                                <Image
+                                    src={link.activeIcon}
+                                    alt={link.name}
+                                    className="font-light w-5 h-5 hidden group-hover:block transition-opacity duration-200 ease-in-out"
+                                    width={20}
+                                    height={20}
+                                />
+                            </div>
                             {link.name}
                         </Link>
                     </li>
