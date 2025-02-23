@@ -1,30 +1,8 @@
 "use client";
 
 // import { useRouter } from "next/navigation";
-import React, { createContext, SetStateAction, useContext, useState } from "react";
-
-interface StoreSetupContextDTO {
-    currentStep: number;
-    setCurrentStep: React.Dispatch<SetStateAction<number>>;
-    navigateToPreviousStep: () => void;
-    navigateToNextStep: ({ trigger, setShowConfirmAccountModal }: navigateTpNextStepProps) => void;
-    navigateToSpecificStep: (step: number) => void;
-
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
-    resetOtpModal: () => void;
-
-    // saveStoreSetup: (data: any) => void;
-}
-
-interface StoreSetupContextProviderProps {
-    children: React.ReactNode;
-}
-
-interface navigateTpNextStepProps {
-    trigger: () => Promise<boolean>;
-    setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
-}
+import React, { SetStateAction, createContext, useContext, useState } from "react";
+import { StoreSetupContextDTO, StoreSetupContextProviderProps, navigateTpNextStepProps } from "../interface";
 
 const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefined);
 

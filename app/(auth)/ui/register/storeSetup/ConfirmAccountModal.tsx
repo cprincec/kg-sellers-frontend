@@ -1,17 +1,9 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { SetStateAction } from "react";
-import { Button } from "@/components/ui/button";
-import { VerticalLineIcon } from "./stepper-icons";
 
-interface ConfirmAccountModalProps {
-    showConfirmAccountModal: boolean;
-    setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
-    navigateToSpecificStep: (int: number) => void;
-    getValues: () => { beneficiaryName: string; accountNumber: string; bankName: string };
-    // beneficiaryName: string;
-    // accountNumber: string;
-    // bankName: string;
-}
+import { Button } from "@/components/ui/button";
+import { ConfirmAccountModalProps } from "@/app/(auth)/interface";
+import { SetStateAction } from "react";
+import { VerticalLineIcon } from "./stepper-icons";
 
 const ConfirmAccountModal = ({
     showConfirmAccountModal,

@@ -2,13 +2,10 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SetStateAction, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import SideBarContent from "./SideBarContent";
 
-export interface SideBarModalProps {
-    showModal: boolean;
-    setShowModal: React.Dispatch<SetStateAction<boolean>>;
-}
+import SideBarContent from "./SideBarContent";
+import { SideBarModalProps } from "@/app/(auth)/interface";
+import { usePathname } from "next/navigation";
 
 const SideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) => {
     const pathname = usePathname();

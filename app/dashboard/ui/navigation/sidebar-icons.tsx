@@ -1,47 +1,43 @@
 "use client";
 
-import { IconBox, IconCog, IconHelpCenter, IconHome, IconLogout, IconMenu, IconNotification, IconTag, IconTransaction, IconWallet } from "@/public/icons/icons";
+import { IconCog, IconHelpCenter, IconLogout } from "@/public/icons/icons";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import clsx from "clsx";
 
-interface IconProps {
-    className?: string;
-}
+// export const HomeIcon = ({ className }: IconProps) => {
+//     return <Image src={IconHome} alt="home" className={`stroke-[#344054] ${className}`} />;
+// };
 
-export const HomeIcon = ({ className }: IconProps) => {
-    return <Image src={IconHome} alt="home" className={`stroke-[#344054] ${className}`} />;
-};
+// export const BoxIcon = ({ className }: IconProps) => {
+//     return <Image src={IconBox} alt="box" className={`stroke-[#344054] ${className}`} />;
+// };
 
-export const BoxIcon = ({ className }: IconProps) => {
-    return <Image src={IconBox} alt="box" className={`stroke-[#344054] ${className}`} />;
-};
+// export const TagIcon = ({ className }: IconProps) => {
+//     return <Image src={IconTag} alt="tag" className={`fill-[#344054] ${className}`} />;
+// };
 
-export const TagIcon = ({ className }: IconProps) => {
-    return <Image src={IconTag} alt="tag" className={`fill-[#344054] ${className}`} />;
-};
+// export const TransactionIcon = ({ className }: IconProps) => {
+//     return <Image src={IconTransaction} alt="money-exchange" className={`stroke-[#344054] ${className}`} />;
+// };
 
-export const TransactionIcon = ({ className }: IconProps) => {
-    return <Image src={IconTransaction} alt="money-exchange" className={`stroke-[#344054] ${className}`} />;
-};
+// export const WalletIcon = ({ className }: IconProps) => {
+//     return <Image src={IconWallet} alt="wallet" className={`stroke-[#344054] ${className}`} />;
+// };
 
-export const WalletIcon = ({ className }: IconProps) => {
-    return <Image src={IconWallet} alt="wallet" className={`stroke-[#344054] ${className}`} />;
-};
+// export const SettingsIcon = ({ className }: IconProps) => {
+//     return <Image src={IconCog} alt="settings" className={`stroke-[#344054] ${className}`} />;
+// };
 
-export const SettingsIcon = ({ className }: IconProps) => {
-    return <Image src={IconCog} alt="settings" className={`stroke-[#344054] ${className}`} />;
-};
+// export const NotificationIcon = ({ className }: IconProps) => {
+//     return <Image src={IconNotification} alt="notification" className={className} />;
+// };
 
-export const NotificationIcon = ({ className }: IconProps) => {
-    return <Image src={IconNotification} alt="notification" className={className} />;
-};
-
-export const MenuIcon = ({ className }: IconProps) => {
-    return <Image src={IconMenu} alt="menu" className={className} />;
-};
+// export const MenuIcon = ({ className }: IconProps) => {
+//     return <Image src={IconMenu} alt="menu" className={className} />;
+// };
 
 export const ProfileIcon = () => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);

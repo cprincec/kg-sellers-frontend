@@ -1,18 +1,13 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import Image from "next/image";
-import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper-icons";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
-import { OrderStatus } from "@/components/ui/order-status";
-import { getOrderStatusType } from "./utils";
 
-type OrderDetailProps = {
-    order: IOrderDTO;
-    showOrderDetail: boolean;
-    setShowOrderDetail: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import Image from "next/image";
+import { OrderDetailProps } from "@/app/(auth)/interface";
+import { OrderStatus } from "@/components/ui/order-status";
+import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper-icons";
+import { getOrderStatusType } from "./utils";
 
 /*******************************************************
  * When closing an order detail modal ,

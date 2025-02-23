@@ -1,16 +1,7 @@
 "use client";
 
-import React, { createContext, SetStateAction, useState } from "react";
-
-interface OtpContextType {
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
-    resetOtpModal: () => void;
-}
-
-interface OtpContextProviderProps {
-    children: React.ReactNode;
-}
+import { OtpContextProviderProps, OtpContextType } from "../interface";
+import React, { createContext, useState } from "react";
 
 const OtpContext = createContext<OtpContextType | undefined>(undefined);
 
