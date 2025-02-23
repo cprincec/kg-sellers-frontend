@@ -1,7 +1,7 @@
 "use client";
 
 // import { useRouter } from "next/navigation";
-import React, { SetStateAction, createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { StoreSetupContextDTO, StoreSetupContextProviderProps, navigateTpNextStepProps } from "../interface";
 
 const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefined);

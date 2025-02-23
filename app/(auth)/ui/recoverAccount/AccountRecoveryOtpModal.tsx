@@ -6,7 +6,6 @@ import { AccountRecoveryIcon } from "../logos";
 import { ArrowBackLink } from "../buttons";
 import { EnterOtpProps } from "../../interface";
 import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
-import { SetStateAction } from "react";
 
 const AccountRecoveryOtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
     const loginUrl = `/login?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;

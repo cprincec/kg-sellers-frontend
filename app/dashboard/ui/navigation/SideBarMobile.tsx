@@ -1,10 +1,10 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { SetStateAction, useEffect } from "react";
 
 import SideBarContent from "./SideBarContent";
 import { SideBarModalProps } from "@/app/(auth)/interface";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const SideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) => {
