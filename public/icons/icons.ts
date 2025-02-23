@@ -21,6 +21,7 @@ import IconKey from "@/public/icons/key.svg";
 import IconLicense from "@/public/icons/license.svg";
 import IconLine from "@/public/icons/Line 50.svg";
 import IconLineVertical from "@/public/icons/Line-vertical.svg";
+import IconLoader from "@/public/icons/loader.svg";
 import IconLogo from "@/public/icons/logoIcon.svg";
 import IconLogout from "@/public/icons/logout.svg";
 import IconMenu from "@/public/icons/menu.svg";
@@ -83,5 +84,6 @@ export {
     IconTransactionActive,
     IconVerticalLine,
     IconWallet,
-    IconWalletActive
+    IconWalletActive,
+    IconLoader,
 };
