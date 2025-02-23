@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 import { GoogleButton } from "../ui/buttons";
-import Image from "next/image";
-import { ImageSmilingWoman } from "@/public/images/images";
-import Link from "next/link";
-import { LogoIcon } from "../ui/logos";
-import RegisterationForm from "../ui/register/registeration-form";
+import LogoWithWelcomeText from "../ui/common/LogoWithWelcomeText";
+import RegisterationForm from "../ui/register/RegisterationForm";
+import { SIGNUP_TEXTS } from "@/lib/consts";
+import SmilingWomanImage from "../ui/common/SmilingWomanImage";
+import TermsAndConditionsAndPrivacyPolicy from "../ui/common/TermsAndConditionsAndPrivacyPolicy";
 
 const Register = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -20,55 +20,31 @@ const Register = () => {
 
     return (
         <div className="md:grid lg:grid-cols-2 md:h-full">
-            <div className="relative hidden lg:block lg:h-full">
-                <Image
-                    src={ImageSmilingWoman}
-                    alt="smiling woman with shopping bags"
-                    fill
-                    sizes="100%"
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-            </div>
+            <SmilingWomanImage />
+
             <div className="text-center mx-4 my-16 md:m-auto md:w-[70%] lg:w-[75%] md:max-lg:h-[80%] md:grid md:items-center">
                 <section className="md:max-lg:pb-12 lg:my-4">
-                    <div>
-                        <LogoIcon className="mx-auto rounded-lg p-4 shadow mb-8" />
-                        <div>
-                            <h1 className="mb-2">Welcome to Kaiglo</h1>
-                            <p>Enter your details to start selling</p>
+                    <div className="flex flex-col gap-8">
+                        <div className="flex flex-col gap-8">
+                            <LogoWithWelcomeText title={SIGNUP_TEXTS.title} subtitle={SIGNUP_TEXTS.subtitle} />
+
+                            <div className="flex flex-col gap-5">
+                                <div className="flex flex-col gap-5">
+                                    <GoogleButton />
+
+                                    <div className="flex items-center gap-1">
+                                        <hr className="flex-1" />
+                                        <p className="text-kaiglo_grey-700 text-sm font-medium">OR</p>
+                                        <hr className="flex-1" />
+                                    </div>
+                                </div>
+
+                                <RegisterationForm />
+                            </div>
                         </div>
-
-                        {/* Google login */}
-                        <section className="my-6">
-                            <GoogleButton />
-                        </section>
-
-                        <div className="flex items-center gap-2">
-                            <hr className="flex-1" />
-                            <p className="text-kaiglo_grey-700 text-sm font-medium">OR</p>
-                            <hr className="flex-1" />
-                        </div>
-
-                        {/* Registration form */}
-                        <RegisterationForm />
-
-                        <p className="text-kaiglo_grey-700 mt-4">
-                            Already have an account?{" "}
-                            <Link href={"/login"} className="text-kaiglo_brand-base font-medium">
-                                Log in
-                            </Link>
-                        </p>
                     </div>
-                    <p className="text-kaiglo_grey-600 text-sm mt-6 md:mt-8 text-center">
-                        By continuing, you agree to Kaiglo’s{" "}
-                        <Link href={"/terms-of-service"} className="text-kaiglo_info-base">
-                            Terms of Service
-                        </Link>{" "}
-                        and{" "}
-                        <Link href={"/terms-of-service"} className="text-kaiglo_info-base">
-                            Privacy Policy
-                        </Link>
-                    </p>
+
+                    <TermsAndConditionsAndPrivacyPolicy />
                 </section>
             </div>
         </div>

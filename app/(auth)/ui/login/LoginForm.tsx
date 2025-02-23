@@ -1,14 +1,17 @@
 "use client";
-import Link from "next/link";
+
+import { LOGIN_TEXTS, ROUTES } from "@/lib/consts";
+import { Resolver, useForm } from "react-hook-form";
+
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { ISignInFormDTO } from "@/interfaces/dtos/auth.dto.interface";
-import { Resolver, useForm } from "react-hook-form";
-import { useContext } from "react";
+import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
+import { OtpContext } from "@/app/(auth)/contexts/otpContext";
+import OtpModal from "../otp-modal";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
-import OtpModal from "../otp-modal";
-import { OtpContext } from "@/app/(auth)/contexts/otpContext";
+import { useContext } from "react";
 
 const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
     // @ts-expect-error to be changed
@@ -46,8 +49,8 @@ const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
     };
 
     return (
-        <div className="pt-6 transition-all duration-300 ease-in-out">
-            <form onSubmit={handleSubmit(login)}>
+        <div className="transition-all duration-300 ease-in-out">
+            <form onSubmit={handleSubmit(login)} className="flex flex-col gap-10">
                 <div className="grid md:gap-y-4 space-y-4 md:space-y-0">
                     {/* Email */}
                     <ControlledModifiedInput
@@ -74,23 +77,31 @@ const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
                             data-testid="phone"
                         />
                     </div>
+
+                    <div className="text-right">
+                        <Link href={ROUTES.accountRecovery} className="text-kaiglo_brand-base font-medium">
+                            {LOGIN_TEXTS.forgotCredentials}
+                        </Link>
+                    </div>
                 </div>
 
-                {/* forgort credentials starts */}
-                <div className="text-right pt-2">
-                    <Link href={"/recover-account"} className="text-kaiglo_brand-base font-medium">
-                        Forgot your login credentials?
-                    </Link>
-                </div>
-                {/* forgort credentials ends */}
+                <div className="flex flex-col gap-5">
+                    <ModifiedButton
+                        type="submit"
+                        value={signingUp ? "Please wait..." : "Login"}
+                        className="w-full p-3 rounded-full font-medium"
+                        disabled={signingUp}
+                        data-testid="login-submit-button"
+                    />
 
-                <ModifiedButton
-                    type="submit"
-                    value={signingUp ? "Please wait..." : "Login"}
-                    className="mt-12 w-full p-3 rounded-full font-medium"
-                    disabled={signingUp}
-                    data-testid="login-submit-button"
-                />
+                    {/* Registration Link */}
+                    <p className="text-kaiglo_grey-700">
+                        {LOGIN_TEXTS.dontHaveAccount}{" "}
+                        <Link href={ROUTES.register} className="text-kaiglo_brand-base font-medium">
+                            {LOGIN_TEXTS.createAccount}
+                        </Link>
+                    </p>
+                </div>
             </form>
 
             {showOtpModal && (
