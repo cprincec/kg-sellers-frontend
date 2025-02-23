@@ -16,6 +16,11 @@ export const LOGIN_TEXTS = {
     forgotCredentials: "Forgot your login credentials?",
 }
 
+export const RECOVER_ACCOUNT_TEXTS = {
+    title: "Account Recovery",
+    subtitle: "No worries, we will get it back.",
+}
+
 export const ROUTES = {
     login: "/login",
     register: "/register",

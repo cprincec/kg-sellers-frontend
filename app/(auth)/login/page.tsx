@@ -3,9 +3,9 @@
 import { GoogleButton } from "../ui/buttons";
 import { LOGIN_TEXTS } from "@/lib/consts";
 import LoginForm from "../ui/login/LoginForm";
-import LogoWithWelcomeText from "../ui/common/LogoWithWelcomeText";
-import SmilingWomanImage from "../ui/common/SmilingWomanImage";
-import TermsAndConditionsAndPrivacyPolicy from "../ui/common/TermsAndConditionsAndPrivacyPolicy";
+import { LogoWithWelcomeText } from "../ui/shared/LogoWithWelcomeText";
+import SmilingWomanImage from "../ui/shared/SmilingWomanImage";
+import TermsAndConditionsAndPrivacyPolicy from "../ui/shared/TermsAndConditionsAndPrivacyPolicy";
 import { useSearchParams } from "next/navigation";
 
 const Login = () => {

@@ -1,15 +1,9 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { SetStateAction } from "react";
-import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
 
-interface EnterOtpProps {
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
-    email: string;
-    phone: string;
-}
+import { EnterOtpProps } from "@/app/(auth)/interface";
+import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
 
 const OtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
     const continueTo = "/register/store-setup";

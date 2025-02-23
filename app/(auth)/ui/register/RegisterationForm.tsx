@@ -7,7 +7,7 @@ import ControlledModifiedInput from "@/components/controlledElements/ControlledM
 import { ISignUpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
-import OtpModal from "../otp-modal";
+import OtpModal from "../OtpModal";
 import { signUpDefaultValues } from "@/lib/validations/defaults";
 import { signUpResolver } from "@/lib/validations/resolvers";
 import { useState } from "react";

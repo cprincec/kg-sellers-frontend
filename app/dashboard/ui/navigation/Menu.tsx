@@ -4,17 +4,10 @@ import { IconBox, IconBoxActive, IconCog, IconCogActive, IconHome, IconHomeActiv
 
 import Image from "next/image";
 import Link from "next/link";
+import { NavLink } from "@/app/(auth)/interface";
 import React from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-
-interface NavLink {
-    name: string;
-    href: string;
-    icon: string;
-    activeIcon: string;
-    active: boolean;
-}
 
 const Menu = () => {
     const pathname = usePathname();

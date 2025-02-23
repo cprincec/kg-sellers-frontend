@@ -1,17 +1,11 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { SetStateAction } from "react";
-import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
+
 import { AccountRecoveryIcon } from "../logos";
 import { ArrowBackLink } from "../buttons";
-
-interface EnterOtpProps {
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
-    email: string;
-    phone: string;
-}
+import { EnterOtpProps } from "../../interface";
+import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
 
 const AccountRecoveryOtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
     const loginUrl = `/login?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;

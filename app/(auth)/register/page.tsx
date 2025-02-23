@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 import { GoogleButton } from "../ui/buttons";
-import LogoWithWelcomeText from "../ui/common/LogoWithWelcomeText";
+import { LogoWithWelcomeText } from "../ui/shared/LogoWithWelcomeText";
 import RegisterationForm from "../ui/register/RegisterationForm";
 import { SIGNUP_TEXTS } from "@/lib/consts";
-import SmilingWomanImage from "../ui/common/SmilingWomanImage";
-import TermsAndConditionsAndPrivacyPolicy from "../ui/common/TermsAndConditionsAndPrivacyPolicy";
+import SmilingWomanImage from "../ui/shared/SmilingWomanImage";
+import TermsAndConditionsAndPrivacyPolicy from "../ui/shared/TermsAndConditionsAndPrivacyPolicy";
 
 const Register = () => {
     const [isMounted, setIsMounted] = useState(false);

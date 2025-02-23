@@ -103,8 +103,8 @@ export const LogoIcon = ({ className }: { className: string }) => {
 
 export const AccountRecoveryIcon = ({ className }: { className: string }) => {
     return (
-        <div className={`rounded-lg p-4 shadow ${className}`}>
-            <Image src={IconKey} alt="key" width={24} height={24} />
+        <div className={`w-fit ${className}`}>
+            <Image src={IconKey} alt="account recovery icoon" width={32} height={32} />
         </div>
     );
 };
