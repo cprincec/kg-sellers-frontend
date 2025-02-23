@@ -1,12 +1,16 @@
 "use client";
+
+import { ROUTES, SIGNUP_TEXTS } from "@/lib/consts";
+import { Resolver, useForm } from "react-hook-form";
+
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { ISignUpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
-import { Resolver, useForm } from "react-hook-form";
-import { useState } from "react";
+import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
+import OtpModal from "../otp-modal";
 import { signUpDefaultValues } from "@/lib/validations/defaults";
 import { signUpResolver } from "@/lib/validations/resolvers";
-import OtpModal from "../otp-modal";
+import { useState } from "react";
 
 const RegisterationForm = () => {
     const [email, setEmail] = useState("");
@@ -40,8 +44,8 @@ const RegisterationForm = () => {
     };
 
     return (
-        <div className="pt-6 transition-all duration-300 ease-in-out">
-            <form onSubmit={handleSubmit(createAccount)}>
+        <div className="transition-all duration-300 ease-in-out">
+            <form onSubmit={handleSubmit(createAccount)} className="flex flex-col gap-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4 md:gap-y-4 md:items-center md:justify-center space-y-4 md:space-y-0">
                     {/* Firstname */}
                     <ControlledModifiedInput
@@ -95,13 +99,21 @@ const RegisterationForm = () => {
                     </div>
                 </div>
 
-                <ModifiedButton
-                    type="submit"
-                    value={signingUp ? "Please wait..." : "Create account"}
-                    className="mt-12 w-full p-3 rounded-full font-medium"
-                    disabled={signingUp}
-                    data-testid="signup-submit-button"
-                />
+                <div className="flex flex-col gap-5">
+                    <ModifiedButton
+                        type="submit"
+                        value={signingUp ? "Please wait..." : "Create account"}
+                        className="w-full p-3 rounded-full font-medium"
+                        disabled={signingUp}
+                        data-testid="signup-submit-button"
+                    />
+                    <p className="text-kaiglo_grey-700">
+                        {SIGNUP_TEXTS.alreadyHaveAccount}{" "}
+                        <Link href={ROUTES.login} className="text-kaiglo_brand-base font-medium">
+                            {SIGNUP_TEXTS.login}
+                        </Link>
+                    </p>
+                </div>
             </form>
 
             {showOtpModal && (
