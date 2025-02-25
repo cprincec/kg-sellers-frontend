@@ -18,7 +18,7 @@ export const NoResultsIcon = ({
 }) => {
     return (
         <div className={`text-center ${className}`}>
-            <Image src={IconNoResults} alt="no results" className="mx-auto" width={20} height={20} />
+            <Image src={IconNoResults} alt="no results" className="mx-auto" width={200} height={112} />
             {title && <h3 className="mb-2 text-base text-kaiglo_grey-900 font-bold">{title}</h3>}
             {description && <p className="text-base text-kaiglo_grey-900 text-center">{description}</p>}
         </div>
@@ -49,7 +49,7 @@ export const TermsOfContractNotice = () => {
 
 export const BlackFridaySalesNotice = () => {
     return (
-        <div className="md:p-6 md:bg-white">
+        <div className="md:px-6 lg:p-6 md:bg-white">
             <div className="flex gap-3 p-4 md:rounded-xl bg-[linear-gradient(99.21deg,#C8FFE9_0%,#C8FEFF_50%,#C0E0FD_100%)]">
                 <div className="w-[70px] h-[60px] lg:w-[80px] lg:h-[80px] mt-1 lg:mt-0 bg-white rounded-lg"></div>
                 <div className="w-full grid lg:grid-cols-2 lg:justify-between gap-6">

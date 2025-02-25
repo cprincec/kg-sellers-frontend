@@ -41,7 +41,7 @@ const OrderHistoryTable = ({ orders }: { orders: IOrderDTO[] }) => {
 
     return (
         <div className="overflow-auto">
-            <Table className="w-[950px] md:w-[1100px] lg:w-full">
+            <Table className="w-[950px] lg:w-full">
                 <TableHeader>
                     <TableRow className="hover:bg-transparent">
                         <TableHead className="font-medium text-kaiglo_grey-700 text-xs md:text-base p-3 whitespace-nowrap">

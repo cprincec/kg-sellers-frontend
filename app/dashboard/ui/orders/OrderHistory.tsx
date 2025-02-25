@@ -3,10 +3,12 @@
 import { Button } from "@/components/ui/button";
 import SearchBar from "./SearchBar";
 import SortBy from "./sort/SortBy";
-import { CalendarIcon, DownloadIcon } from "./icons";
+import { DownloadIcon } from "./icons";
 import OrderHistoryTableWrapper from "./OrderHistoryTableWrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { IconCalendar } from "@/public/icons/icons";
 const OrderHistory = () => {
     const tabs = [
         { label: "All", value: "all" },
@@ -33,13 +35,13 @@ const OrderHistory = () => {
 
     return (
         <div className="grid gap-2 md:gap-3 border border-kaiglo_grey-200 py-3 rounded-xl">
-            <h3 className="text-base font-medium lg:px-3 lg:py-3 lg:border-b border-kaiglo_grey-200">
+            <h3 className="text-base font-medium px-3 lg:py-3 lg:border-b border-kaiglo_grey-200">
                 Order History
             </h3>
 
             <Tabs defaultValue={activeTab || "all"} className="grid gap-2 md:gap-5">
                 {/* TABS */}
-                <TabsList className="hidden md:flex items-center justify-start pt-0 border-b border-kaiglo_grey-200 bg-transparent rounded-none">
+                <TabsList className="hidden md:lg items-center justify-start pt-0 border-b border-kaiglo_grey-200 bg-transparent rounded-none">
                     {tabs.map((tab) => (
                         <TabsTrigger
                             key={tab.label}
@@ -52,7 +54,7 @@ const OrderHistory = () => {
                     ))}
                 </TabsList>
 
-                <div className="grid grid-cols-[3fr_1fr] md:grid-cols-[3fr_1fr] lg:grid-cols-[35%_65%] gap-3 lg:px-3">
+                <div className="grid grid-cols-[3fr_1fr] md:grid-cols-[3fr_1fr] lg:grid-cols-[35%_65%] gap-3 px-3">
                     {/* Search bar */}
                     <SearchBar placeholder="Search" className="md:hidden" scroll={false} />
                     <SearchBar
@@ -64,14 +66,16 @@ const OrderHistory = () => {
                     <div className="flex gap-3 justify-end lg:px-3">
                         {/* filter */}
                         <Button variant={"outline"}>
-                            <CalendarIcon className="" />
+                            <div className="relative w-5 h-5">
+                                <Image src={IconCalendar} alt="calendar" />
+                            </div>
                         </Button>
 
                         {/* Sort */}
                         <SortBy />
 
                         {/* Download */}
-                        <Button className="text-base rounded-3xl hidden md:flex">
+                        <Button className="text-base rounded-3xl hidden lg:flex">
                             <DownloadIcon width="24px" height="24px" />
                             <span>Download</span>
                         </Button>
@@ -81,11 +85,7 @@ const OrderHistory = () => {
                 {/* Tables */}
                 <>
                     {tabs.map((tab) => (
-                        <TabsContent
-                            key={`${tab.value}-orders`}
-                            value={tab.value}
-                            className="overflow-x-auto"
-                        >
+                        <TabsContent key={`${tab.value}-orders`} value={tab.value} className="overflow-auto">
                             <OrderHistoryTableWrapper />
                         </TabsContent>
                     ))}

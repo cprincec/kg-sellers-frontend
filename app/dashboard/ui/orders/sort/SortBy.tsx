@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { SortDescIcon } from "../icons";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SortDropDown from "./SortDropDown";
+import Image from "next/image";
+import { IconSortDesc } from "@/public/icons/icons";
 
 const SortBy = () => {
     const searchParams = useSearchParams();
@@ -24,7 +25,7 @@ const SortBy = () => {
         // Close the dropdown
         setShowDropDown(false);
 
-        // Prevent prevent sorting if the items are already sorted by user preference
+        // Prevent sorting if the items are already sorted by user preference
         if (searchParams.get("sort-by") === sortBy && searchParams.get("sort-range") === sortRange) {
             return;
         }
@@ -56,11 +57,13 @@ const SortBy = () => {
                 onClick={() => setShowDropDown((prev) => !prev)}
                 className="flex items-center gap-2 p-3 bg-white hover:bg-kaiglo_grey-200 cursor-pointer"
             >
-                <SortDescIcon className="w-8 h-8" />
-                <span className="hidden md:block text-kaiglo_grey-500 text-base font-normal">Sort</span>
+                <div className="relative w-5 h-5">
+                    <Image src={IconSortDesc} alt="sort" sizes="100%" fill />
+                </div>
+                <span className="hidden lg:block text-kaiglo_grey-500 text-base font-normal">Sort</span>
             </Button>
 
-            {/* Dropdown */}
+            {/* Sort Dropdown */}
             <SortDropDown showDropDown={showDropDown} handleSort={handleSort} />
         </div>
     );

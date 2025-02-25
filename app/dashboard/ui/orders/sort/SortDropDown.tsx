@@ -9,7 +9,7 @@ const SortDropDown = ({
 }) => {
     return (
         showDropDown && (
-            <div className="absolute top-12 md:top-14 right-0 z-20 w-[160px] grid gap-2 py-2 bg-white rounded-lg shadow-[0px_2px_12px_0px_#00000014] animate-slideDownFade">
+            <div className="absolute top-12 md:top-16 right-0 z-20 w-[160px] grid gap-2 py-2 bg-white rounded-lg shadow-[0px_2px_12px_0px_#00000014] animate-slideDownFade">
                 <div>
                     <h4 className="text-sm text-kaiglo_grey-800 font-medium px-2 py-1">Quantity</h4>
                     <ul>
