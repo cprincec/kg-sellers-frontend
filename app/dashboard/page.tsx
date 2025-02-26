@@ -1,12 +1,12 @@
 "use client";
 
-import PerformanceMetrics from "../ui/metrics/PerformanceMetrics";
+import PerformanceMetrics from "./ui/metrics/PerformanceMetrics";
 import { useSearchParams } from "next/navigation";
-import { BlackFridaySalesNotice, TermsOfContractNotice } from "../ui/icons";
-import SalesSummary from "../ui/metrics/SalesSummary";
-import ProductSummary from "../ui/metrics/ProductSummary";
-import StorePerformance from "../ui/metrics/StorePerformance";
-import Header from "../ui/navigation/Header";
+import { BlackFridaySalesNotice, TermsOfContractNotice } from "./ui/icons";
+import SalesSummary from "./ui/metrics/SalesSummary";
+import ProductSummary from "./ui/metrics/ProductSummary";
+import StorePerformance from "./ui/metrics/StorePerformance";
+import Header from "./ui/navigation/Header";
 
 const Dashboard = () => {
     const searchParams = useSearchParams();
@@ -22,15 +22,15 @@ const Dashboard = () => {
             {searchParams.get("from") === "register" && <TermsOfContractNotice />}
             <BlackFridaySalesNotice />
 
-            <div className="grid gap-5 lg:gap-y-1 px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:py-0 md:max-lg:bg-white">
+            <div className="grid gap-5 px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:py-0 md:max-lg:bg-white">
                 {/* Sales Summary */}
-                <SalesSummary showEmptyState={showEmptyState} />
+                <SalesSummary className="bg-kaiglo_grey-100" showEmptyState={showEmptyState} />
 
                 {/* Weekly Store Performance */}
-                <StorePerformance showEmptyState={showEmptyState} />
+                <StorePerformance className="bg-kaiglo_grey-100" showEmptyState={showEmptyState} />
 
                 {/* Product Summary */}
-                <ProductSummary showEmptyState={showEmptyState} />
+                <ProductSummary className="bg-kaiglo_grey-100" showEmptyState={showEmptyState} />
 
                 <PerformanceMetrics showEmptyState={showEmptyState} />
             </div>

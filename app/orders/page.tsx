@@ -1,6 +1,6 @@
-import Header from "../ui/navigation/Header";
-import OrderHistory from "../ui/orders/OrderHistory";
-import SalesSummary from "../ui/metrics/SalesSummary";
+import Header from "../dashboard/ui/navigation/Header";
+import OrderHistory from "./ui/OrderHistory";
+import SalesSummary from "../dashboard/ui/metrics/SalesSummary";
 
 const Orders = () => {
     return (

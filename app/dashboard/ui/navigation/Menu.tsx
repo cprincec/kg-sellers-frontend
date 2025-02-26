@@ -1,6 +1,19 @@
 "use client";
 
-import { IconBox, IconBoxActive, IconCog, IconCogActive, IconHome, IconHomeActive, IconTag, IconTagActive, IconTransaction, IconTransactionActive, IconWallet, IconWalletActive } from "@/public/icons/icons";
+import {
+    IconBox,
+    IconBoxActive,
+    IconCog,
+    IconCogActive,
+    IconHome,
+    IconHomeActive,
+    IconTag,
+    IconTagActive,
+    IconTransaction,
+    IconTransactionActive,
+    IconWallet,
+    IconWalletActive,
+} from "@/public/icons/icons";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -12,12 +25,48 @@ import { usePathname } from "next/navigation";
 const Menu = () => {
     const pathname = usePathname();
     const links: NavLink[] = [
-        { name: "Dashboard", href: "/dashboard", icon: IconHome, activeIcon: IconHomeActive, active: pathname === "/dashboard" },
-        { name: "Products", href: "/products", icon: IconBox, activeIcon: IconBoxActive, active: pathname === "/products" },
-        { name: "Orders", href: "/dashboard/orders", icon: IconTag, activeIcon: IconTagActive, active: pathname === "/dashboard/orders" },
-        { name: "Transactions", href: "/transactions", icon: IconTransaction, activeIcon: IconTransactionActive, active: pathname === "/transactions" },
-        { name: "Wallet", href: "/wallet", icon: IconWallet, activeIcon: IconWalletActive, active: pathname === "/wallet" },
-        { name: "Settings", href: "/settings", icon: IconCog, activeIcon: IconCogActive, active: pathname === "/settings" },
+        {
+            name: "Dashboard",
+            href: "/dashboard",
+            icon: IconHome,
+            activeIcon: IconHomeActive,
+            active: pathname === "/dashboard",
+        },
+        {
+            name: "Products",
+            href: "/products",
+            icon: IconBox,
+            activeIcon: IconBoxActive,
+            active: pathname === "/products",
+        },
+        {
+            name: "Orders",
+            href: "/orders",
+            icon: IconTag,
+            activeIcon: IconTagActive,
+            active: pathname === "/orders",
+        },
+        {
+            name: "Transactions",
+            href: "/transactions",
+            icon: IconTransaction,
+            activeIcon: IconTransactionActive,
+            active: pathname === "/transactions",
+        },
+        {
+            name: "Wallet",
+            href: "/wallet",
+            icon: IconWallet,
+            activeIcon: IconWalletActive,
+            active: pathname === "/wallet",
+        },
+        {
+            name: "Settings",
+            href: "/settings",
+            icon: IconCog,
+            activeIcon: IconCogActive,
+            active: pathname === "/settings",
+        },
     ];
 
     return (
