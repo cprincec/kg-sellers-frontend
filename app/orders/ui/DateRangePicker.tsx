@@ -43,7 +43,7 @@ const DateRangePicker = ({ className }: React.HTMLAttributes<HTMLDivElement>) =>
                                     format(date.from, "dd/MM/yyyy")
                                 )
                             ) : (
-                                <span>Pick a date</span>
+                                <span>Filter by date</span>
                             )}
                         </div>
                     </Button>
