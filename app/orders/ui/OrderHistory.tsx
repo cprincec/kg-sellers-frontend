@@ -1,25 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import SearchBar from "./SearchBar";
-import SortBy from "./sort/SortBy";
-import { DownloadIcon } from "./icons";
 import OrderHistoryTableWrapper from "./OrderHistoryTableWrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
-import { IconCalendar } from "@/public/icons/icons";
-const OrderHistory = () => {
-    const tabs = [
-        { label: "All", value: "all" },
-        { label: "New", value: "new" },
-        { label: "Pending", value: "pending" },
-        { label: "Shipped", value: "shipped" },
-        { label: "Delivered", value: "delivered" },
-        { label: "Cancelled", value: "cancelled" },
-        { label: "Returned", value: "returned" },
-    ];
+import { tabs } from "../lib/data";
+import OrderHistoryToolsBar from "./OrderHistoryToolsBar";
 
+const OrderHistory = () => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
@@ -54,33 +41,7 @@ const OrderHistory = () => {
                     ))}
                 </TabsList>
 
-                <div className="grid grid-cols-[3fr_1fr] md:grid-cols-[3fr_1fr] lg:grid-cols-[35%_65%] gap-3 px-3 py-3 lg:py-5 border-y border-kaiglo_grey-200">
-                    {/* Search bar */}
-                    <SearchBar placeholder="Search" className="md:hidden" scroll={false} />
-                    <SearchBar
-                        placeholder="Search product by name or SKU"
-                        className="hidden md:block"
-                        scroll={false}
-                    />
-
-                    <div className="flex gap-3 justify-end lg:px-3">
-                        {/* filter */}
-                        <Button variant={"outline"}>
-                            <div className="relative w-5 h-5">
-                                <Image src={IconCalendar} alt="calendar" />
-                            </div>
-                        </Button>
-
-                        {/* Sort */}
-                        <SortBy />
-
-                        {/* Download */}
-                        <Button className="text-base rounded-3xl hidden lg:flex">
-                            <DownloadIcon width="24px" height="24px" />
-                            <span>Download</span>
-                        </Button>
-                    </div>
-                </div>
+                <OrderHistoryToolsBar />
 
                 {/* Tables */}
                 <>

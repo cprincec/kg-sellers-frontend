@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import SideBarDesktop from "./ui/navigation/SideBarDesktop";
+import SideBarDesktop from "../dashboard/ui/navigation/SideBarDesktop";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
