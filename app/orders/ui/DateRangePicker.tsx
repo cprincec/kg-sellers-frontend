@@ -13,53 +13,51 @@ import { IconCalendar } from "@/public/icons/icons";
 import Image from "next/image";
 import { handleDateChange } from "../utils/datePicker.utils";
 
-const DateRangePicker = ({ className }: React.HTMLAttributes<HTMLDivElement>) => {
+const DateRangePicker = () => {
     const [date, setDate] = React.useState<DateRange | undefined>(undefined);
     const router = useRouter();
     const searchParams = useSearchParams();
 
     return (
-        <div className={cn("grid gap-2", className)}>
-            <Popover>
-                <PopoverTrigger asChild>
-                    <Button
-                        id="date"
-                        variant={"outline"}
-                        className={cn(
-                            "lg:w-[300px] justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
-                        )}
-                    >
-                        <div className="relative w-5 h-5">
-                            <Image src={IconCalendar} alt="calendar" />
-                        </div>
-                        <div className="hidden md:block">
-                            {date?.from ? (
-                                date.to ? (
-                                    <>
-                                        {format(date.from, "dd/MM/yyyy")} - {format(date.to, "dd/MM/yyyy")}
-                                    </>
-                                ) : (
-                                    format(date.from, "dd/MM/yyyy")
-                                )
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button
+                    id="date"
+                    variant={"outline"}
+                    className={cn(
+                        "lg:w-auto justify-start text-left font-normal",
+                        !date && "text-muted-foreground"
+                    )}
+                >
+                    <div className="relative w-5 h-5">
+                        <Image src={IconCalendar} alt="calendar" />
+                    </div>
+                    <div className="hidden md:block">
+                        {date?.from ? (
+                            date.to ? (
+                                <>
+                                    {format(date.from, "dd/MM/yyyy")} - {format(date.to, "dd/MM/yyyy")}
+                                </>
                             ) : (
-                                <span>Filter by date</span>
-                            )}
-                        </div>
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                        initialFocus
-                        mode="range"
-                        defaultMonth={date?.from}
-                        selected={date}
-                        onSelect={(newDate) => handleDateChange(setDate, newDate, router, searchParams)}
-                        numberOfMonths={2}
-                    />
-                </PopoverContent>
-            </Popover>
-        </div>
+                                format(date.from, "dd/MM/yyyy")
+                            )
+                        ) : (
+                            <span>Filter by date</span>
+                        )}
+                    </div>
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+                <Calendar
+                    initialFocus
+                    mode="range"
+                    defaultMonth={date?.from}
+                    selected={date}
+                    onSelect={(newDate) => handleDateChange(setDate, newDate, router, searchParams)}
+                    numberOfMonths={2}
+                />
+            </PopoverContent>
+        </Popover>
     );
 };
 
