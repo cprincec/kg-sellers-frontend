@@ -1,81 +1,19 @@
 "use client";
 
-import { ImageProduct1 } from "@/public/images/images";
 import { NoResultsIcon } from "../../dashboard/ui/icons";
 import OrderHistoryTable from "./OrderHistoryTable";
 import { useSearchParams } from "next/navigation";
+import { ordersList } from "../lib/data";
 
-/********
+/******************************************************************************
  * This component fetches orders
  * Filters the product for search results
  * Sorts the orders as needed
- * Renders the order history table with list of  filter or/and sorted orders
- */
+ * Renders the order history table with list of  filterd or/and sorted orders
+ ******************************************************************************/
 const OrderHistoryTableWrapper = () => {
     const searchParams = useSearchParams();
-
-    let orders = [
-        {
-            productImage: ImageProduct1,
-            orderId: "KG-6445496452",
-            productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
-            dateOfPurchase: "01 Aug 2024",
-            amount: "2,400",
-            paymentStatus: "paid",
-            orderStatus: "new",
-            quantity: 4,
-            orderDate: "12 August 2024",
-            deliveryDate: "14 August 2024",
-        },
-        {
-            productImage: ImageProduct1,
-            orderId: "KG-6445496452",
-            productName: "Bose Gold Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
-            dateOfPurchase: "01 Aug 2024",
-            amount: "2,300",
-            paymentStatus: "paid",
-            orderStatus: "cancelled",
-            quantity: 1,
-            orderDate: "12 August 2024",
-            deliveryDate: "14 August 2024",
-        },
-        {
-            productImage: ImageProduct1,
-            orderId: "KG-6445496452",
-            productName: "Bose Diamond Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
-            dateOfPurchase: "01 Aug 2024",
-            amount: "2,200",
-            paymentStatus: "paid",
-            orderStatus: "processing",
-            quantity: 14,
-            orderDate: "12 August 2024",
-            deliveryDate: "14 August 2024",
-        },
-        {
-            productImage: ImageProduct1,
-            orderId: "KG-6445496452",
-            productName: "Bose Red Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
-            dateOfPurchase: "01 Aug 2024",
-            amount: "2,100",
-            paymentStatus: "paid",
-            orderStatus: "shipped",
-            quantity: 8,
-            orderDate: "12 August 2024",
-            deliveryDate: "14 August 2024",
-        },
-        {
-            productImage: ImageProduct1,
-            orderId: "KG-6445496452",
-            productName: "Bose Green Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
-            dateOfPurchase: "01 Aug 2024",
-            amount: "2,000",
-            paymentStatus: "paid",
-            orderStatus: "delivered",
-            quantity: 9,
-            orderDate: "12 August 2024",
-            deliveryDate: "14 August 2024",
-        },
-    ];
+    let orders = ordersList;
 
     const searchingFor = searchParams.get("searching-for");
     const sortBy = searchParams.get("sort-by");
