@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { DownloadIcon } from "./icons";
-import SortBy from "./sort/SortBy";
 import DateRangePicker from "./DateRangePicker";
 import SearchBar from "./SearchBar";
+import SortButton from "./sort/SortButton";
 
 const OrderHistoryToolsBar = () => {
     return (
@@ -20,7 +20,7 @@ const OrderHistoryToolsBar = () => {
                 <DateRangePicker />
 
                 {/* Sort */}
-                <SortBy />
+                <SortButton />
 
                 {/* Download */}
                 <Button className="text-base rounded-3xl hidden lg:flex">
