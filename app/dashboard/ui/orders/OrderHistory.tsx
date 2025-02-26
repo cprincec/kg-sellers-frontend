@@ -39,9 +39,9 @@ const OrderHistory = () => {
                 Order History
             </h3>
 
-            <Tabs defaultValue={activeTab || "all"} className="grid gap-2 md:gap-5">
+            <Tabs defaultValue={activeTab || "all"} className="grid gap-2 lg:gap-0">
                 {/* TABS */}
-                <TabsList className="hidden md:lg items-center justify-start pt-0 border-b border-kaiglo_grey-200 bg-transparent rounded-none">
+                <TabsList className="hidden lg:flex items-center justify-start pt-0 bg-transparent rounded-none">
                     {tabs.map((tab) => (
                         <TabsTrigger
                             key={tab.label}
@@ -54,7 +54,7 @@ const OrderHistory = () => {
                     ))}
                 </TabsList>
 
-                <div className="grid grid-cols-[3fr_1fr] md:grid-cols-[3fr_1fr] lg:grid-cols-[35%_65%] gap-3 px-3">
+                <div className="grid grid-cols-[3fr_1fr] md:grid-cols-[3fr_1fr] lg:grid-cols-[35%_65%] gap-3 px-3 py-3 lg:py-5 border-y border-kaiglo_grey-200">
                     {/* Search bar */}
                     <SearchBar placeholder="Search" className="md:hidden" scroll={false} />
                     <SearchBar

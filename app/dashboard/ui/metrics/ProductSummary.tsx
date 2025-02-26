@@ -28,15 +28,15 @@ const ProductSummary = ({ className, showEmptyState }: { className?: string; sho
     return (
         <section
             className={clsx(
-                "grid gap-2 md:gap-0 py-3 px-2 lg:px-0 rounded-xl lg:bg-white border border-kaiglo_grey-200",
+                "grid gap-2 lg:gap-0 py-3 rounded-xl lg:bg-white border border-kaiglo_grey-200",
                 className && className
             )}
         >
-            <h2 className="md:p-[12px_24px_12px_24px] text-base text-kaiglo_grey-800 font-medium md:border-b border-kaiglo_grey-200 uppercase">
+            <h2 className="md:p-[12px_24px_12px_24px] px-2 pb-1 text-base text-kaiglo_grey-800 font-medium border-b border-kaiglo_grey-200 uppercase">
                 PRODUCT SUMMARY
             </h2>
 
-            <div className="grid lg:flex lg:items-center gap-2 lg:gap-0 lg:px-4 lg:py-3">
+            <div className="grid lg:flex lg:items-center gap-2 lg:gap-0 px-2 lg:px-4 lg:py-3">
                 {productSummaryMock.map((item, index) => (
                     <Fragment key={item.title}>
                         <Metric
