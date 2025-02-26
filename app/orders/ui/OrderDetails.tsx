@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { OrderDetailProps } from "@/app/(auth)/interface";
 import { OrderStatus } from "@/components/ui/order-status";
 import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper-icons";
-import { getOrderStatusType } from "../utils";
+import { getOrderStatusType } from "../utils/order.utils";
 import OrderDetailsBody from "./OrderDetailsBody";
 
 /*******************************************************
