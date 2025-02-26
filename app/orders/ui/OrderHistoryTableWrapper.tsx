@@ -1,7 +1,7 @@
 "use client";
 
 import { ImageProduct1 } from "@/public/images/images";
-import { NoResultsIcon } from "../icons";
+import { NoResultsIcon } from "../../dashboard/ui/icons";
 import OrderHistoryTable from "./OrderHistoryTable";
 import { useSearchParams } from "next/navigation";
 

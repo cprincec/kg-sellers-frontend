@@ -7,7 +7,7 @@ import { useState } from "react";
 import OrderDetail from "./OrderDetail";
 import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 import { OrderStatus } from "@/components/ui/order-status";
-import { getOrderStatusType } from "./utils";
+import { getOrderStatusType } from "../utils";
 
 const OrderHistoryTable = ({ orders }: { orders: IOrderDTO[] }) => {
     const searchParams = useSearchParams();

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { OrderDetailProps } from "@/app/(auth)/interface";
 import { OrderStatus } from "@/components/ui/order-status";
 import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper-icons";
-import { getOrderStatusType } from "./utils";
+import { getOrderStatusType } from "../utils";
 
 /*******************************************************
  * When closing an order detail modal ,
