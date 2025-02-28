@@ -22,7 +22,7 @@ const SideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) => {
     return (
         <Dialog open={showModal} onOpenChange={setShowModal}>
             <DialogContent
-                className="left-0 translate-x-0 h-full w-[75%] ml-0 px-4 py-10 outline-none"
+                className="left-0 translate-x-0 h-full w-[75%] ml-0 px-4 py-10 sm:rounded-none outline-none"
                 data-testid="sideNav-dialog"
             >
                 <DialogHeader>

@@ -41,6 +41,7 @@ import IconTransactionActive from "@/public/icons/transaction-active.svg";
 import IconVerticalLine from "@/public/icons/vertical-line.svg";
 import IconWallet from "@/public/icons/wallet.svg";
 import IconWalletActive from "@/public/icons/wallet-active.svg";
+import IconExpand from "@/public/icons/Chevron down.svg";
 
 export {
     IconArrowBack,
@@ -86,4 +87,5 @@ export {
     IconWallet,
     IconWalletActive,
     IconLoader,
+    IconExpand,
 };
