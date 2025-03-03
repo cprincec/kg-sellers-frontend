@@ -31,7 +31,7 @@ const Metric = ({
     } | null;
     variant?: string;
     showEmptyState: boolean;
-    canHideData: boolean;
+    canHideData?: boolean;
     className?: string;
     actionText?: string;
     actionClassName?: string;
