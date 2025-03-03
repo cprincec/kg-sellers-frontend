@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
 import ToolTip from "../ToolTip";
-import { useState } from "react";
+// import { useState } from "react";
 import Image from "next/image";
 import { IconEye } from "@/public/icons/icons";
 
