@@ -37,7 +37,7 @@ const Metric = ({
     actionClassName?: string;
     action?: () => void;
 }) => {
-    const [showData, setShowData] = useState<boolean>(false);
+    // const [showData, setShowData] = useState<boolean>(false);
 
     return (
         <section
@@ -66,9 +66,7 @@ const Metric = ({
             {!showEmptyState ? (
                 <div className="grid gap-1 md:px-4 lg:px-2">
                     <div className="flex justify-between">
-                        <p className="text-2xl text-kaiglo_grey-900 font-medium">
-                            ₦{parseFloat(body).toLocaleString()}
-                        </p>
+                        <p className="text-2xl text-kaiglo_grey-900 font-medium">{body}</p>
                         {actionText && action && (
                             <Button className={clsx(actionClassName)} onClick={() => action()}>
                                 {actionText}
