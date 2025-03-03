@@ -16,7 +16,6 @@ const PaginationComponent = ({
     currentPage: number;
     totalPages: number;
 }) => {
-    console.log(totalPages);
     const pages: (number | "...")[] = [];
 
     // Always show page 1 (unless you're already on page 1)
