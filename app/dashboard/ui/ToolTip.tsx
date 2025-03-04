@@ -3,10 +3,16 @@
 import { IconTooltip } from "@/public/icons/icons";
 import Image from "next/image";
 
-const TootlTip = ({ heading, info, className }: { heading?: string; info: string; className?: string }) => {
+const ToolTip = ({ heading, info, className }: { heading?: string; info: string; className?: string }) => {
     return (
         <div className="group relative cursor-pointer">
-            <Image src={IconTooltip} alt="tooltip" className={`w-5 h-5 ${className}`} width={20} height={20} />
+            <Image
+                src={IconTooltip}
+                alt="tooltip"
+                className={`w-5 h-5 ${className}`}
+                width={20}
+                height={20}
+            />
 
             <div className="hidden group-hover:block absolute left-1/2 transform -translate-x-1/2 animate-fadeIn">
                 <div className="w-[12px] h-[12px] rotate-45 bg-kaiglo_grey-200 mx-auto"></div>
@@ -18,4 +24,4 @@ const TootlTip = ({ heading, info, className }: { heading?: string; info: string
         </div>
     );
 };
-export default TootlTip;
+export default ToolTip;

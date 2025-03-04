@@ -3,7 +3,7 @@
 import { OrderStatus } from "@/components/ui/order-status";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { getOrderStatusType } from "../utils/order.utils";
+import { getOrderStatusType } from "../lib/utils/order.utils";
 import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SetStateAction } from "react";

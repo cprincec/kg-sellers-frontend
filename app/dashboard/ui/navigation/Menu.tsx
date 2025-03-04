@@ -70,7 +70,7 @@ const Menu = () => {
     ];
 
     return (
-        <ul className="grid gap-y-3">
+        <ul className="grid gap-y-3 max-h-[calc(100vh-150px)] overflow-auto">
             {links.map((link) => {
                 const iconSrc = link.active ? link.activeIcon : link.icon;
 
@@ -78,7 +78,7 @@ const Menu = () => {
                     <li
                         key={link.name}
                         className={clsx(
-                            "group rounded-xl text-kaiglo_grey-700 text-base hover:bg-kaiglo_success-base hover:text-white hover:font-medium",
+                            "group rounded-xl text-kaiglo_grey-700 text-base hover:bg-kaiglo_success-base/80 hover:text-white hover:font-medium",
                             link.active && "bg-kaiglo_success-base text-white font-medium"
                         )}
                     >
