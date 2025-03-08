@@ -6,6 +6,7 @@ import TransactionHistoryTableHeader from "./TransactionHistoryTableHeader";
 import TransactionHistoryTableBody from "./TransactionHistoryTableBody";
 import TransactionDetails from "./TransactionDetails";
 import PaginationComponent from "@/components/shared/Pagination";
+import { RESULTS_PER_PAGE } from "@/lib/consts";
 
 const TransactionHistoryTable = ({ transactions }: { transactions: ITransactionDTO[] }) => {
     const searchParams = useSearchParams();
@@ -24,7 +25,6 @@ const TransactionHistoryTable = ({ transactions }: { transactions: ITransactionD
 
     const [showTransactionDetails, setShowTransactionDetails] = useState<boolean>(isValidIndex);
 
-    const RESULTS_PER_PAGE = 10;
     const start = (page - 1) * RESULTS_PER_PAGE;
     const end = start + RESULTS_PER_PAGE;
     const paginatedTransactions = transactions.slice(start, end);
@@ -38,11 +38,7 @@ const TransactionHistoryTable = ({ transactions }: { transactions: ITransactionD
                 />
             </Table>
 
-            <PaginationComponent
-                dataLength={transactions.length}
-                currentPage={page}
-                totalPages={transactions.length / RESULTS_PER_PAGE}
-            />
+            <PaginationComponent dataLength={transactions.length} />
 
             {showTransactionDetails && isValidIndex && (
                 <TransactionDetails

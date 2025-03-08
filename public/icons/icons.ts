@@ -43,6 +43,9 @@ import IconWallet from "@/public/icons/wallet.svg";
 import IconWalletActive from "@/public/icons/wallet-active.svg";
 import IconExpand from "@/public/icons/Chevron down.svg";
 import IconEye from "@/public/icons/eye.svg";
+import IconPrint from "@/public/icons/print.svg";
+import IconDelete from "@/public/icons/Delete.svg";
+import IconNaira from "@/public/icons/naira.svg";
 
 export {
     IconArrowBack,
@@ -90,4 +93,7 @@ export {
     IconLoader,
     IconExpand,
     IconEye,
+    IconPrint,
+    IconNaira,
+    IconDelete,
 };

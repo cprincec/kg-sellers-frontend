@@ -1,15 +1,37 @@
-import clsx from "clsx";
 import { accountSummaryMock } from "../lib/data";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Metric from "@/app/dashboard/ui/metrics/Metric";
 import Image from "next/image";
 import { IconVerticalLine } from "@/public/icons/icons";
+import { useSearchParams } from "next/navigation";
+import { cn } from "@/lib/utils";
+import PayoutThreshold from "./payoutThreshold/PayoutThreshold";
+import SelectAccount from "./withdraw/SelectAccount";
+import WithdrawalAmount from "./withdraw/WithdrawalAmount";
+import OtpModal from "@/app/(auth)/ui/OtpModal";
+import WithdrawalSuccessful from "./withdraw/WithdrawalSuccessful";
 
 const AccountSummary = ({ className }: { className?: string }) => {
     const lastUpdated = "Oct 8, 2024";
+    const searchParams = useSearchParams();
+    const [showPayoutThreshold, setShowPayoutThreshold] = useState<boolean>(false);
+    const [ShowSelectedAccount, setShowSelectedAccount] = useState<boolean>(false);
+    const [ShowWithdrawalAmount, setShowWithdrawalAmount] = useState<boolean>(false);
+    const [ShowOtp, setShowOtp] = useState<boolean>(false);
+    const [ShowSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+
+    // show withdrawal steps modals
+    useEffect(() => {
+        setShowPayoutThreshold(searchParams.get("set-payout-threshold") === "true");
+        setShowSelectedAccount(searchParams.get("withdraw") === "selected-bank");
+        setShowWithdrawalAmount(searchParams.get("withdraw") === "amount");
+        setShowOtp(searchParams.get("withdraw") === "otp");
+        setShowSuccessMessage(searchParams.get("withdraw") === "successful");
+    }, [searchParams]);
+
     return (
         <article
-            className={clsx(
+            className={cn(
                 "grid gap-2 lg:gap-0 py-3 md:py-4 rounded-xl lg:rounded-none lg:bg-white border border-kaiglo_grey-200",
                 className
             )}
@@ -32,6 +54,7 @@ const AccountSummary = ({ className }: { className?: string }) => {
                             className="flex-1"
                             tip={item.tip || ""}
                             canHideData={item.canHideData || false}
+                            IsCurrency={item.isCurrency || false}
                         />
 
                         {/* divider */}
@@ -49,6 +72,29 @@ const AccountSummary = ({ className }: { className?: string }) => {
                     </Fragment>
                 ))}
             </div>
+
+            {/* Payout threshold modal starts*/}
+            {showPayoutThreshold && (
+                <PayoutThreshold
+                    showPayoutThreshold={showPayoutThreshold}
+                    setShowPayoutThreshold={setShowPayoutThreshold}
+                />
+            )}
+            {/* Payout threshold modal starts*/}
+
+            {ShowSelectedAccount && <SelectAccount />}
+            {ShowWithdrawalAmount && <WithdrawalAmount />}
+            {ShowOtp && (
+                <OtpModal
+                    showOtpModal={ShowOtp}
+                    setShowOtpModal={setShowOtp}
+                    email=""
+                    phone=""
+                    actionText="Confirm"
+                    actionLink="/wallet?withdraw=successful"
+                />
+            )}
+            {ShowSuccessMessage && <WithdrawalSuccessful />}
         </article>
     );
 };

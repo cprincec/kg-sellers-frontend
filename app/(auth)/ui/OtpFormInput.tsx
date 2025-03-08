@@ -22,10 +22,12 @@ const OtpFormInput = ({
     email,
     phone,
     continueTo,
+    actionText = "Continue",
 }: {
     email: string;
     phone: string;
     continueTo: string;
+    actionText?: string;
     setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -89,7 +91,7 @@ const OtpFormInput = ({
                     className="w-full font-medium rounded-full py-3"
                     disabled={verifyingOtp}
                 >
-                    {verifyingOtp ? "Please wait..." : "Continue"}
+                    {verifyingOtp ? "Please wait..." : actionText}
                 </Button>
             </form>
         </Form>
