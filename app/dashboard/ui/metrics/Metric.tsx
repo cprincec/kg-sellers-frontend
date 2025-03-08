@@ -1,16 +1,18 @@
 "use client";
 
 import { ArrowDown, ArrowUp } from "lucide-react";
-import clsx from "clsx";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import ToolTip from "../ToolTip";
-// import { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { IconEye } from "@/public/icons/icons";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const Metric = ({
     title,
     body,
+    IsCurrency = false,
     comparism,
     tip,
     variant,
@@ -19,10 +21,10 @@ const Metric = ({
     className,
     actionText,
     actionClassName,
-    action,
 }: {
     title: string;
-    body?: string;
+    body: string;
+    IsCurrency?: boolean;
     tip?: string;
     comparism?: {
         value: string;
@@ -35,15 +37,14 @@ const Metric = ({
     className?: string;
     actionText?: string;
     actionClassName?: string;
-    action?: () => void;
 }) => {
-    // const [showData, setShowData] = useState<boolean>(false);
+    const [showData, setShowData] = useState<boolean>(canHideData);
 
     return (
         <section
-            className={clsx(
+            className={cn(
                 "grid gap-3 rounded-xl border md:border-0 border-kaiglo_grey-100 px-4 py-3 md:p-6 lg:px-4 lg:py-3 bg-white",
-                className && className
+                className
             )}
         >
             <div className="flex items-center gap-3 md:px-4 lg:px-2">
@@ -58,19 +59,58 @@ const Metric = ({
                 >
                     {title}
                 </h3>
+                {/* Eye icon starts */}
                 {canHideData && (
-                    <Image src={IconEye} alt="eye" width={24} height={24} className="cursor-pointer" />
+                    <Image
+                        src={IconEye}
+                        alt="eye"
+                        width={24}
+                        height={24}
+                        className="cursor-pointer"
+                        onClick={() => setShowData((prev) => !prev)}
+                    />
                 )}
+                {/* Eye icon ends */}
+
+                {/* Tool tip starts */}
                 {tip && <ToolTip info={tip} />}
+                {/* Tool tip starts */}
             </div>
             {!showEmptyState ? (
                 <div className="grid gap-1 md:px-4 lg:px-2">
                     <div className="flex justify-between">
-                        <p className="text-2xl text-kaiglo_grey-900 font-medium">{body}</p>
-                        {actionText && action && (
-                            <Button className={clsx(actionClassName)} onClick={() => action()}>
+                        {canHideData ? (
+                            showData ? (
+                                <p className="text-2xl text-kaiglo_grey-900 font-medium">
+                                    {IsCurrency ? `₦${parseFloat(body).toLocaleString()}` : body}
+                                </p>
+                            ) : (
+                                "********"
+                            )
+                        ) : (
+                            <p className="text-2xl text-kaiglo_grey-900 font-medium">
+                                {IsCurrency ? `₦${parseFloat(body).toLocaleString()}` : body}
+                            </p>
+                        )}
+
+                        {actionText && (
+                            <Link
+                                id="wallet-action"
+                                className={cn(
+                                    buttonVariants({
+                                        variant: "ghost",
+                                    }),
+                                    "text-kaiglo_success-800 bg-kaiglo_success-50 capitalize",
+                                    actionClassName
+                                )}
+                                href={
+                                    actionText.toLowerCase() === "set threshold"
+                                        ? "/wallet?set-payout-threshold=true"
+                                        : "/wallet?withdraw=selected-bank"
+                                }
+                            >
                                 {actionText}
-                            </Button>
+                            </Link>
                         )}
                     </div>
                     {comparism && (

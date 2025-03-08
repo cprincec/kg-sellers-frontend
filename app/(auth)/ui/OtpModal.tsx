@@ -5,8 +5,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { EnterOtpProps } from "@/app/(auth)/interface";
 import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
 
-const OtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
-    const continueTo = "/register/store-setup";
+const OtpModal = ({ actionText, actionLink, showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
+    const continueTo = actionLink || "/register/store-setup";
     return (
         <Dialog open={showOtpModal} onOpenChange={setShowOtpModal}>
             <DialogContent
@@ -36,6 +36,7 @@ const OtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps
                             phone={phone}
                             setShowOtpModal={setShowOtpModal}
                             continueTo={continueTo}
+                            actionText={actionText}
                         />
                     </div>
                 </div>

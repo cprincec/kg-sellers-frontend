@@ -17,6 +17,9 @@ export interface LogoWithWelcomeTextProps {
 // ============================================================================
 
 export interface EnterOtpProps {
+    actionText?: string;
+    action?: () => void;
+    actionLink?: string;
     showOtpModal: boolean;
     setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
     email: string;
@@ -74,7 +77,7 @@ export interface ConfirmAccountModalProps {
     getValues: () => {
         beneficiaryName: string;
         accountNumber: string;
-        bankName: string
+        bankName: string;
     };
 }
 
@@ -97,7 +100,7 @@ export interface SideBarModalProps {
 
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+        VariantProps<typeof buttonVariants> {
     asChild?: boolean;
 }
 

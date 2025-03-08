@@ -18,10 +18,12 @@ const StorePerformance = ({ className, showEmptyState }: { className?: string; s
         {
             title: "ORDERS",
             body: "150",
+            isCurrency: false,
         },
         {
             title: "PRODUCT SALES",
-            body: "₦3,900,000",
+            body: "3900000",
+            isCurrency: true,
         },
         {
             title: "AVG. DAILY PRODUCT SALES",
@@ -49,6 +51,7 @@ const StorePerformance = ({ className, showEmptyState }: { className?: string; s
                             comparism={item.comparism || null}
                             showEmptyState={showEmptyState}
                             className="flex-1"
+                            IsCurrency={item.isCurrency || false}
                         />
 
                         {/* divider */}

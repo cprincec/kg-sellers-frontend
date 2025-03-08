@@ -3,20 +3,22 @@ import { DownloadIcon } from "./icons";
 import DateRangePicker from "./DateRangePicker";
 import SearchBar from "./SearchBar";
 import SortButton from "./sort/SortButton";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 const OrderHistoryToolsBar = ({
     showSort = true,
+    showAction = true,
     actionText = "Download",
     className,
 }: {
     showSort?: boolean;
+    showAction?: boolean;
     actionText?: string;
     className?: string;
 }) => {
     return (
         <div
-            className={clsx(
+            className={cn(
                 "flex justify-between gap-3 p-3 lg:py-5 border-y border-kaiglo_grey-200",
                 className
             )}
@@ -37,10 +39,12 @@ const OrderHistoryToolsBar = ({
                 {showSort && <SortButton />}
 
                 {/* Download */}
-                <Button className="text-base rounded-3xl hidden lg:flex ">
-                    <DownloadIcon width="24px" height="24px" />
-                    <span className="text-base">{actionText}</span>
-                </Button>
+                {showAction && (
+                    <Button className="text-base rounded-3xl hidden lg:flex ">
+                        <DownloadIcon width="24px" height="24px" />
+                        <span className="text-base">{actionText}</span>
+                    </Button>
+                )}
             </div>
         </div>
     );

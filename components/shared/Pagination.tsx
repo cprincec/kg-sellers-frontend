@@ -7,15 +7,20 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { RESULTS_PER_PAGE } from "@/lib/consts";
+import { useSearchParams } from "next/navigation";
 
-const PaginationComponent = ({
-    currentPage,
-    totalPages,
-}: {
-    dataLength?: number;
-    currentPage: number;
-    totalPages: number;
-}) => {
+const PaginationComponent = ({ dataLength }: { dataLength: number }) => {
+    const searchParams = useSearchParams();
+
+    // total pages of all table data
+    const totalPages: number = dataLength / RESULTS_PER_PAGE || 1;
+
+    // Get page number from Url;
+    const pageParam = searchParams.get("page");
+    const currentPage = pageParam !== null ? parseInt(pageParam) : 1;
+
+    // show pagination for only one page
     const pages: (number | "...")[] = [];
 
     // Always show page 1 (unless you're already on page 1)
@@ -40,7 +45,7 @@ const PaginationComponent = ({
     }
 
     // Always show last page (unless you're already on it)
-    if (currentPage !== totalPages) {
+    if (currentPage !== totalPages && !pages.includes(currentPage) && totalPages > RESULTS_PER_PAGE) {
         pages.push(totalPages);
     }
 
@@ -89,6 +94,7 @@ const PaginationComponent = ({
                     </PaginationItem>
                     <PaginationItem className="h-full">
                         <PaginationNext
+                            aria-disabled
                             justIcon={false}
                             href={`?page=${Math.min(totalPages, currentPage + 1)}`}
                             className="h-full bg-transparent"

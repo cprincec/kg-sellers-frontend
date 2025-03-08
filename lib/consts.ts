@@ -6,7 +6,7 @@ export const SIGNUP_TEXTS = {
     termsOfService: "Terms of Service",
     privacyPolicy: "Privacy Policy",
     login: "Log in",
-}
+};
 
 export const LOGIN_TEXTS = {
     title: "Welcome back to Kaiglo",
@@ -14,12 +14,12 @@ export const LOGIN_TEXTS = {
     dontHaveAccount: "Don't have an account?",
     createAccount: "Create account",
     forgotCredentials: "Forgot your login credentials?",
-}
+};
 
 export const RECOVER_ACCOUNT_TEXTS = {
     title: "Account Recovery",
     subtitle: "No worries, we will get it back.",
-}
+};
 
 export const ROUTES = {
     login: "/login",
@@ -27,4 +27,6 @@ export const ROUTES = {
     termsOfService: "/terms-of-service",
     privacyPolicy: "/privacy-policy",
     accountRecovery: "/recover-account",
-}
+};
+
+export const RESULTS_PER_PAGE = 10;
