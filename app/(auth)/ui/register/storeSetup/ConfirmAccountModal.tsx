@@ -1,3 +1,5 @@
+"use client";
+
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
@@ -7,13 +9,14 @@ import { VerticalLineIcon } from "./stepper-icons";
 const ConfirmAccountModal = ({
     showConfirmAccountModal,
     setShowConfirmAccountModal,
-    getValues,
-    // beneficiaryName,
-    // accountNumber,
-    // bankName,
+    bankDetails,
     navigateToSpecificStep,
-}: ConfirmAccountModalProps) => {
-    const { beneficiaryName, bankName, accountNumber } = getValues();
+}: // beneficiaryName,
+// accountNumber,
+// bankName,
+// navigateToSpecificStep,
+ConfirmAccountModalProps) => {
+    const { beneficiaryName, bankName, accountNumber } = bankDetails;
     return (
         <Dialog open={showConfirmAccountModal} onOpenChange={setShowConfirmAccountModal}>
             <DialogContent
@@ -56,7 +59,7 @@ const ConfirmAccountModal = ({
                         className="p-3 rounded-full"
                         onClick={() => {
                             setShowConfirmAccountModal(false);
-                            navigateToSpecificStep(3);
+                            if (navigateToSpecificStep) navigateToSpecificStep(3);
                         }}
                     >
                         Continue

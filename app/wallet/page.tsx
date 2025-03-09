@@ -59,7 +59,7 @@ const Wallet = () => {
                     {/* Tables */}
                     <div className="overflow-x-auto">
                         {/* render the wallet history table by default
-                     render the payout table based on active tab  */}
+                       render the payout table based on active tab  */}
                         {tabs.map((tab) => {
                             if (tab.value === "payout")
                                 return (

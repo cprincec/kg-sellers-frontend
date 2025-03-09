@@ -1,13 +1,17 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { FormNavButtonsProps } from "../../lib/interface";
+import { cn } from "@/lib/utils";
 
 const FormNavButtons = ({
     cancelButtonText = "Cancel",
     submitButtonText = "Proceed",
     cancelFunc,
+    className,
 }: FormNavButtonsProps) => {
     return (
-        <div className="flex justify-end items-center gap-3 pt-4 ">
+        <div className={cn("flex justify-end items-center gap-3 pt-4", className)}>
             <Button
                 type="button"
                 variant={"outline"}

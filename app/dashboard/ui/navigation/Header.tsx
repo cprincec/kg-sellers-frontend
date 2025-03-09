@@ -7,7 +7,7 @@ import { ProfileIcon } from "./sidebar-icons";
 import SideBarMobile from "./SideBarMobile";
 import { useState } from "react";
 
-const Header = ({ heading, description }: { heading: string; description: string }) => {
+const Header = ({ heading, description }: { heading: string; description?: string }) => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
 
     return (

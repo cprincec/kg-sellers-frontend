@@ -45,6 +45,16 @@ export interface OtpTimerProps {
 // Store Setup Related Interfaces
 // ============================================================================
 
+/*********** STORE SETUP FORM DTO ***********/
+export interface IStoreDetailsFormDTO {
+    storeName: string;
+    email: string;
+    phone: string;
+    address: string;
+    logo: Blob | null; // logo can be Blob or null
+    banner: Blob | null; // banner can be Blob or null, and optional
+}
+
 export interface StoreSetupContextDTO {
     currentStep: number;
     setCurrentStep: React.Dispatch<SetStateAction<number>>;
@@ -70,11 +80,18 @@ export interface navigateTpNextStepProps {
 // Account & Banking Related Interfaces
 // ============================================================================
 
+/*********** STORE SETUP FORM DTO ***********/
+export interface IPaymentOptionFormDTO {
+    beneficiaryName: string;
+    accountNumber: string;
+    bankName: string;
+}
+
 export interface ConfirmAccountModalProps {
     showConfirmAccountModal: boolean;
     setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
-    navigateToSpecificStep: (int: number) => void;
-    getValues: () => {
+    navigateToSpecificStep?: (int: number) => void;
+    bankDetails: {
         beneficiaryName: string;
         accountNumber: string;
         bankName: string;
