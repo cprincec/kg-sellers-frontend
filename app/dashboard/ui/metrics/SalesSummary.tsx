@@ -8,19 +8,21 @@ const SalesSummary = ({ className, showEmptyState }: { className?: string; showE
     const salesSummaryMock = [
         {
             title: "COMPLETED SALES",
-            body: "₦200,000",
+            body: "200000",
             tip: "Processing sales are orders that have been placed by a user",
             comparism: {
                 value: "1.3%",
                 isPositive: true,
                 date: "last week",
             },
+            isCurrency: true,
         },
 
         {
             title: "PROCESSING SALES",
-            body: "₦100,000",
+            body: "100000",
             tip: "Processing sales are orders that have been placed by a user",
+            isCurrency: true,
         },
     ];
 
@@ -41,9 +43,11 @@ const SalesSummary = ({ className, showEmptyState }: { className?: string; showE
                         <Metric
                             title={item.title || ""}
                             body={item.body || ""}
+                            tip={item.tip || ""}
                             comparism={item.comparism || null}
                             showEmptyState={showEmptyState}
                             className="flex-1"
+                            IsCurrency={item.isCurrency || false}
                         />
 
                         {/* divider */}
