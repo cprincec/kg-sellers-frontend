@@ -16,14 +16,6 @@ const Settings = () => {
     const searchParams = useSearchParams();
     const activeTab = searchParams.get("tab");
 
-    // const setActiveTab = (tab: string) => {
-    //     if (!tab) return;
-
-    //     const params = new URLSearchParams(searchParams);
-    //     params.set("tab", tab);
-    //     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-    // };
-
     return (
         <DashboardLayout>
             <div className="grid gap-2 md:gap-1">
