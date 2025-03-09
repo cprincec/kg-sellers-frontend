@@ -1,136 +1,11 @@
 "use client";
 
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-// import {
-//     IPaymentOptionFormDTO,
-//     IProductCategoryFormDTO,
-//     IStoreDetailsFormDTO,
-// } from "@/interfaces/dtos/auth.dto.interface";
-
 import { Controller } from "react-hook-form";
-// import { UseFormHookProps } from "@/app/(auth)/register/store-setup/page";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { Check, X } from "lucide-react";
-import { ImageUploadInput } from "@/app/(auth)/ui/storeSetup/image-upload-icons";
 import { Label } from "@radix-ui/react-label";
-
-// export const StoreDetailsForm = ({ navigateToNextStep }) => {
-//     const {
-//         control,
-//         handleSubmit,
-//         formState: { errors },
-//     } = useForm<IStoreDetailsFormDTO>({
-//         // defaultValues: signUpDefaultValues, // i need a context
-//         // resolver: signUpResolver as Resolver<IStoreDetailsFormDTO>,
-//     });
-
-//     const saveStoreDetails = () => {
-//         // navigateToNextStep();
-//     };
-
-//     return (
-//         <div>
-//             <form onSubmit={handleSubmit(saveStoreDetails)}>
-//                 <div className="grid grid-cols-1 space-y-4">
-//                     {/* Store Name */}
-//                     <ControlledModifiedInput
-//                         name="storeName"
-//                         control={control}
-//                         placeholder="Store Name"
-//                         type="text"
-//                         error={errors.storeName}
-//                         isRequired={true}
-//                         className="col-span-4"
-//                         rules={{ required: true }}
-//                         data-testid="storeName"
-//                     />
-
-//                     {/* Email */}
-//                     <ControlledModifiedInput
-//                         name="email"
-//                         control={control}
-//                         rules={{ required: true }}
-//                         placeholder="Email"
-//                         type="email"
-//                         error={errors.email}
-//                         isRequired={true}
-//                         data-testid="email"
-//                     />
-
-//                     {/* Phone */}
-//                     <div className="relative">
-//                         <span className="absolute border-r border-kaiglo_grey-disabled text-kaiglo_grey-base text-base w-[72px] rounded-l-lg ml-[1px] h-[46px] flex justify-center items-center border-0 mt-[1px]">
-//                             +234
-//                         </span>
-//                         <ControlledModifiedInput
-//                             name="phone"
-//                             control={control}
-//                             rules={{ required: true }}
-//                             placeholder="Phone Number"
-//                             type="tel"
-//                             error={errors.phone}
-//                             isRequired={true}
-//                             className="pl-20"
-//                             data-testid="phone"
-//                         />
-//                     </div>
-
-//                     {/* State */}
-//                     <ControlledModifiedInput
-//                         name="state"
-//                         control={control}
-//                         placeholder="State"
-//                         type="text"
-//                         error={errors.state}
-//                         isRequired={true}
-//                         className="col-span-4"
-//                         rules={{ required: true }}
-//                         data-testid="state"
-//                     />
-
-//                     {/* Address */}
-//                     <ControlledModifiedInput
-//                         name="address"
-//                         control={control}
-//                         placeholder="Address"
-//                         type="text"
-//                         error={errors.address}
-//                         isRequired={true}
-//                         className="col-span-4"
-//                         rules={{ required: true }}
-//                         data-testid="address"
-//                     />
-
-//                     {/* Business logo */}
-//                     <ControlledModifiedInput
-//                         name="logo"
-//                         control={control}
-//                         placeholder="Logo"
-//                         type="text"
-//                         error={errors.logo}
-//                         isRequired={true}
-//                         className="col-span-4"
-//                         rules={{ required: true }}
-//                         data-testid="logo"
-//                     />
-
-//                     {/* Banner */}
-//                     <ControlledModifiedInput
-//                         name="banner"
-//                         control={control}
-//                         placeholder="Banner"
-//                         type="text"
-//                         error={errors.banner}
-//                         isRequired={false}
-//                         className="col-span-4"
-//                         rules={{ required: false }}
-//                         data-testid="banner"
-//                     />
-//                 </div>
-//             </form>
-//         </div>
-//     );
-// };
+import ImageUploadInputField from "@/components/shared/imageUploadField/ImageUploadInputField";
 
 // export const ProductCategoryForm = ({ navigateToNextStep }) => {
 //     const {
@@ -164,81 +39,6 @@ import { Label } from "@radix-ui/react-label";
 //                     />
 //                 </div>
 //             </form>
-//         </div>
-//     );
-// };
-
-// export const PaymentOptionForm = ({ navigateToNextStep }) => {
-//     const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
-//     const {
-//         control,
-//         handleSubmit,
-//         formState: { errors },
-//     } = useForm<IPaymentOptionFormDTO>({
-//         // defaultValues: signUpDefaultValues, // i need a context
-//         // resolver: signUpResolver as Resolver<IStoreDetailsFormDTO>,
-//     });
-
-//     const savePaymentOption = () => {
-//         setShowConfirmAccountModal(true);
-//     };
-
-//     return (
-//         <div>
-//             <h3 className="text-sm mt-6 mb-4">Bank Account Details</h3>
-//             <form onSubmit={handleSubmit(savePaymentOption)}>
-//                 <div className="grid grid-cols-1 space-y-4">
-//                     {/* Beneficiary Name */}
-//                     <ControlledModifiedInput
-//                         name="beneficiaryName"
-//                         control={control}
-//                         placeholder="Beneficiary Name"
-//                         type="text"
-//                         error={errors.beneficiaryName}
-//                         isRequired={true}
-//                         className="col-span-4"
-//                         rules={{ required: true }}
-//                         data-testid="beneficiaryName"
-//                     />
-
-//                     {/* Account Number */}
-//                     <ControlledModifiedInput
-//                         name="accountNumber"
-//                         control={control}
-//                         rules={{ required: true }}
-//                         placeholder="Bank Account Number"
-//                         type="number"
-//                         error={errors.accountNumber}
-//                         isRequired={true}
-//                         data-testid="accountNumber"
-//                     />
-
-//                     {/* Bank Name */}
-//                     <ControlledModifiedInput
-//                         name="bankName"
-//                         control={control}
-//                         placeholder="Bank Name"
-//                         type="text"
-//                         error={errors.bankName}
-//                         isRequired={true}
-//                         className="col-span-4"
-//                         rules={{ required: true }}
-//                         data-testid="bankName"
-//                     />
-//                 </div>
-//             </form>
-//             {showConfirmAccountModal && (
-//                 <ConfirmAccountModal
-//                     showConfirmAccountModal={showConfirmAccountModal}
-//                     setShowConfirmAccountModal={setShowConfirmAccountModal}
-//                     navigateToNextStep={navigateToNextStep}
-//                     accountDetails={{
-//                         beneficiaryName: "Ademola Lookman",
-//                         accountNumber: "27836752745",
-//                         bankName: "First bank of Nigeria",
-//                     }}
-//                 />
-//             )}
 //         </div>
 //     );
 // };
@@ -325,7 +125,7 @@ export const StoreDetailsFormFields = ({ formProps }) => {
                     <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
                         Business Logo<span className="text-kaiglo_critical-error font-medium">*</span>
                     </p>
-                    <ImageUploadInput
+                    <ImageUploadInputField
                         name="logo"
                         control={control}
                         error={errors.logo}
@@ -338,7 +138,7 @@ export const StoreDetailsFormFields = ({ formProps }) => {
                     <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
                         Store Banner<span className="text-kaiglo_critical-error font-medium">*</span>
                     </p>
-                    <ImageUploadInput
+                    <ImageUploadInputField
                         name="banner"
                         control={control}
                         error={errors.banner}

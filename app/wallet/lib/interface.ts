@@ -31,4 +31,5 @@ export interface FormNavButtonsProps {
     cancelButtonText?: string;
     submitButtonText?: string;
     cancelFunc: () => void;
+    className?: string;
 }

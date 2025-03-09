@@ -1,4 +1,6 @@
-const TermsOfContract = ({ showMainTitle = true }: { showMainTitle?: boolean }) => {
+import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
+
+const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean }) => {
     return (
         <div className="grid gap-8">
             {showMainTitle && <h2 className="text-xl font-bold">Kaiglo’s Terms of Contract</h2>}
@@ -38,7 +40,13 @@ const TermsOfContract = ({ showMainTitle = true }: { showMainTitle?: boolean }) 
                     venenatis facilisis.
                 </p>
             </section>
+
+            <FormNavButtons
+                cancelFunc={() => console.log("Agreement cancelled")}
+                submitButtonText={"Save Changes"}
+                className="mt-5"
+            />
         </div>
     );
 };
-export default TermsOfContract;
+export default TermsOfContractForm;

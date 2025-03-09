@@ -46,6 +46,7 @@ import IconEye from "@/public/icons/eye.svg";
 import IconPrint from "@/public/icons/print.svg";
 import IconDelete from "@/public/icons/Delete.svg";
 import IconNaira from "@/public/icons/naira.svg";
+import IconUpload from "@/public/icons/upload-03.svg";
 
 export {
     IconArrowBack,
@@ -96,4 +97,5 @@ export {
     IconPrint,
     IconNaira,
     IconDelete,
+    IconUpload,
 };

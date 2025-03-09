@@ -1,7 +1,7 @@
+import SideBarDesktop from "@/app/dashboard/ui/navigation/SideBarDesktop";
 import { Suspense } from "react";
-import SideBarDesktop from "./ui/navigation/SideBarDesktop";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <div className="md:grid grid-flow-col">
@@ -13,5 +13,4 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </Suspense>
     );
 };
-
-export default Layout;
+export default DashboardLayout;
