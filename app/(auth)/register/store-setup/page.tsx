@@ -200,7 +200,6 @@ const StoreSetup = () => {
                             showConfirmAccountModal={showConfirmAccountModal}
                             setShowConfirmAccountModal={setShowConfirmAccountModal}
                             navigateToSpecificStep={navigateToSpecificStep}
-                            // @ts-expect-error to be changed
                             getValues={getValues}
                             // beneficiaryName={getValues()?.beneficiaryName}
                             // accountNumber={getValues()?.accountNumber}
