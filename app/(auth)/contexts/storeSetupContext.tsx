@@ -8,7 +8,7 @@ const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefi
 
 const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ children }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
-    const [currentStep, setCurrentStep] = useState<number>(1);
+    const [currentStep, setCurrentStep] = useState<number>(0);
 
     // const router = useRouter();
 
@@ -20,7 +20,6 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
     };
 
     const navigateToNextStep = async ({ trigger, setShowConfirmAccountModal }: navigateTpNextStepProps) => {
-        console.log(trigger);
         const stepIsValid = await trigger(); // Validate visible form fields
 
         if (stepIsValid) {

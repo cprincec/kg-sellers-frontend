@@ -9,9 +9,12 @@ const ConfirmAccountModal = ({
     showConfirmAccountModal,
     setShowConfirmAccountModal,
     bankDetails,
+    getValues,
     navigateToSpecificStep,
 }: ConfirmAccountModalProps) => {
-    const { beneficiaryName, bankName, accountNumber } = bankDetails;
+    // @ts-expect-error to be changed
+    const { beneficiaryName, bankName, accountNumber } = getValues ? getValues() : bankDetails;
+    // const { beneficiaryName, bankName, accountNumber } = bankDetails;
 
     return (
         <Dialog open={showConfirmAccountModal} onOpenChange={setShowConfirmAccountModal}>

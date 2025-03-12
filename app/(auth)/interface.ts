@@ -99,7 +99,8 @@ export interface ConfirmAccountModalProps {
     showConfirmAccountModal: boolean;
     setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
     navigateToSpecificStep?: (int: number) => void;
-    bankDetails: {
+    getValues?: () => void;
+    bankDetails?: {
         beneficiaryName: string;
         accountNumber: string;
         bankName: string;
