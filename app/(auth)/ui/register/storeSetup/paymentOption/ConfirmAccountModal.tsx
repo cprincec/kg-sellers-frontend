@@ -1,22 +1,18 @@
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
 import { Button } from "@/components/ui/button";
 import { ConfirmAccountModalProps } from "@/app/(auth)/interface";
-import { VerticalLineIcon } from "./stepper-icons";
+import { VerticalLineIcon } from "../stepper/stepper-icons";
 
 const ConfirmAccountModal = ({
     showConfirmAccountModal,
     setShowConfirmAccountModal,
     bankDetails,
     navigateToSpecificStep,
-}: // beneficiaryName,
-// accountNumber,
-// bankName,
-// navigateToSpecificStep,
-ConfirmAccountModalProps) => {
+}: ConfirmAccountModalProps) => {
     const { beneficiaryName, bankName, accountNumber } = bankDetails;
+
     return (
         <Dialog open={showConfirmAccountModal} onOpenChange={setShowConfirmAccountModal}>
             <DialogContent

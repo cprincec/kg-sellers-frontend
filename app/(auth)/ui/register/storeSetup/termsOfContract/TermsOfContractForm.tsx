@@ -5,7 +5,7 @@ const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean
         <div className="grid gap-8">
             {showMainTitle && <h2 className="text-xl font-bold">Kaiglo’s Terms of Contract</h2>}
             <section>
-                <h3 className="text-xl font-bold text-kaiglo_grey-900 mb-1 md:mb-2">INTRODUCTION</h3>
+                <h3 className="text-base font-bold text-kaiglo_grey-900 mb-1 md:mb-2">INTRODUCTION</h3>
                 <p className="">
                     Lorem ipsum dolor sit amet consectetur. Ornare malesuada et viverra a. Praesent lacus
                     sagittis pretium eget. Tristique arcu leo sed sit sit quam erat ultrices. Ultricies tempus
@@ -44,7 +44,6 @@ const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean
             <FormNavButtons
                 cancelFunc={() => console.log("Agreement cancelled")}
                 submitButtonText={"Save Changes"}
-                className="mt-5"
             />
         </div>
     );

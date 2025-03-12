@@ -1,77 +1,19 @@
 "use client";
 
-import {
-    IconBox,
-    IconBoxActive,
-    IconCog,
-    IconCogActive,
-    IconHome,
-    IconHomeActive,
-    IconTag,
-    IconTagActive,
-    IconTransaction,
-    IconTransactionActive,
-    IconWallet,
-    IconWalletActive,
-} from "@/public/icons/icons";
-
 import Image from "next/image";
 import Link from "next/link";
-import { NavLink } from "@/app/(auth)/interface";
 import React from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { links, paths } from "../../lib/data";
+import { NavLink } from "../../lib/interface";
 
 const Menu = () => {
     const pathname = usePathname();
-    const links: NavLink[] = [
-        {
-            name: "Dashboard",
-            href: "/dashboard",
-            icon: IconHome,
-            activeIcon: IconHomeActive,
-            active: pathname === "/dashboard",
-        },
-        {
-            name: "Products",
-            href: "/products",
-            icon: IconBox,
-            activeIcon: IconBoxActive,
-            active: pathname === "/products",
-        },
-        {
-            name: "Orders",
-            href: "/orders",
-            icon: IconTag,
-            activeIcon: IconTagActive,
-            active: pathname === "/orders",
-        },
-        {
-            name: "Transactions",
-            href: "/transactions",
-            icon: IconTransaction,
-            activeIcon: IconTransactionActive,
-            active: pathname === "/transactions",
-        },
-        {
-            name: "Wallet",
-            href: "/wallet",
-            icon: IconWallet,
-            activeIcon: IconWalletActive,
-            active: pathname === "/wallet",
-        },
-        {
-            name: "Settings",
-            href: "/settings",
-            icon: IconCog,
-            activeIcon: IconCogActive,
-            active: pathname === "/settings",
-        },
-    ];
-
+    const navLinks = links.map((link: NavLink, index) => ({ ...link, active: pathname === paths[index] }));
     return (
         <ul className="grid gap-y-3 max-h-[calc(100vh-150px)] overflow-auto">
-            {links.map((link) => {
+            {navLinks.map((link) => {
                 const iconSrc = link.active ? link.activeIcon : link.icon;
 
                 return (

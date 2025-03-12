@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import PayoutThreshold from "./payoutThreshold/PayoutThreshold";
 import SelectAccount from "./withdraw/SelectAccount";
 import WithdrawalAmount from "./withdraw/WithdrawalAmount";
-import OtpModal from "@/app/(auth)/ui/OtpModal";
+import OtpModal from "@/app/(auth)/ui/otp/OtpModal";
 import WithdrawalSuccessful from "./withdraw/WithdrawalSuccessful";
 
 const AccountSummary = ({ className }: { className?: string }) => {

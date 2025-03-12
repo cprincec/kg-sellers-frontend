@@ -16,6 +16,14 @@ export interface LogoWithWelcomeTextProps {
 // OTP Related Interfaces
 // ============================================================================
 
+export interface OtpFormInputProps {
+    email: string;
+    phone: string;
+    continueTo: string;
+    actionText?: string;
+    setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export interface EnterOtpProps {
     actionText?: string;
     action?: () => void;
@@ -101,14 +109,6 @@ export interface ConfirmAccountModalProps {
 // ============================================================================
 // Navigation & UI Component Interfaces
 // ============================================================================
-
-export interface NavLink {
-    name: string;
-    href: string;
-    icon: string;
-    activeIcon: string;
-    active: boolean;
-}
 
 export interface SideBarModalProps {
     showModal: boolean;

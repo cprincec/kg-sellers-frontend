@@ -8,7 +8,7 @@ import { ISignInFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
 import { OtpContext } from "@/app/(auth)/contexts/otpContext";
-import OtpModal from "../OtpModal";
+import OtpModal from "../otp/OtpModal";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
 import { useContext } from "react";

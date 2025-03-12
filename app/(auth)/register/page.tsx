@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { GoogleButton } from "../ui/buttons";
 import { LogoWithWelcomeText } from "../ui/shared/LogoWithWelcomeText";
-import RegisterationForm from "../ui/register/RegisterationForm";
+import RegisterationForm from "../ui/register/registerationForm/RegisterationForm";
 import { SIGNUP_TEXTS } from "@/lib/consts";
 import SmilingWomanImage from "../ui/shared/SmilingWomanImage";
 import TermsAndConditionsAndPrivacyPolicy from "../ui/shared/TermsAndConditionsAndPrivacyPolicy";
@@ -26,7 +26,10 @@ const Register = () => {
                 <section className="md:max-lg:pb-12 lg:my-4">
                     <div className="flex flex-col gap-8">
                         <div className="flex flex-col gap-8">
-                            <LogoWithWelcomeText title={SIGNUP_TEXTS.title} subtitle={SIGNUP_TEXTS.subtitle} />
+                            <LogoWithWelcomeText
+                                title={SIGNUP_TEXTS.title}
+                                subtitle={SIGNUP_TEXTS.subtitle}
+                            />
 
                             <div className="flex flex-col gap-5">
                                 <div className="flex flex-col gap-5">

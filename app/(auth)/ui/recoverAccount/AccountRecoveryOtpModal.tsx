@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { AccountRecoveryIcon } from "../logos";
 import { ArrowBackLink } from "../buttons";
 import { EnterOtpProps } from "../../interface";
-import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
+import OtpFormInput from "@/app/(auth)/ui/otp/OtpFormInput";
 
 const AccountRecoveryOtpModal = ({ showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
     const loginUrl = `/login?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;

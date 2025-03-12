@@ -6,7 +6,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 // import { useResendOtp } from "@/hooks/mutation/auth/resendOtp";
 import React, { useEffect, useState } from "react";
 
-import { OtpTimerProps } from "../interface";
+import { OtpTimerProps } from "../../interface";
 
 const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
     console.log(email, phone);
@@ -49,10 +49,11 @@ const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
             <p className="space-x-2 text-sm">
                 <span>Did not get any code?</span>
                 <span
-                    className={`${timeLeft > 0
-                        ? "text-kaiglo_grey-placeholder cursor-not-allowed"
-                        : "text-kaiglo_brand-base cursor-pointer font-medium"
-                        } text-base`}
+                    className={`${
+                        timeLeft > 0
+                            ? "text-kaiglo_grey-placeholder cursor-not-allowed"
+                            : "text-kaiglo_brand-base cursor-pointer font-medium"
+                    } text-base`}
                     onClick={handleResendOtp}
                 >
                     Resend OTP

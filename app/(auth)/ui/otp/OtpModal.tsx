@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import { EnterOtpProps } from "@/app/(auth)/interface";
-import OtpFormInput from "@/app/(auth)/ui/OtpFormInput";
+import OtpFormInput from "@/app/(auth)/ui/otp/OtpFormInput";
 
 const OtpModal = ({ actionText, actionLink, showOtpModal, setShowOtpModal, email, phone }: EnterOtpProps) => {
     const continueTo = actionLink || "/register/store-setup";

@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { OrderDetailProps } from "@/app/(auth)/interface";
 import { OrderStatus } from "@/components/ui/order-status";
-import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper-icons";
+import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
 import { getOrderStatusType } from "../lib/utils/order.utils";
 import OrderDetailsBody from "./OrderDetailsBody";
 
@@ -16,8 +16,6 @@ const OrderDetails = ({ order, showOrderDetail, setShowOrderDetail }: OrderDetai
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
-
-    
 
     return (
         <Dialog

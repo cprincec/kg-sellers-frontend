@@ -4,6 +4,7 @@ import { IconCog, IconHelpCenter, IconLogout } from "@/public/icons/icons";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import Link from "next/link";
 
 export const ProfileIcon = () => {
     // const [showDropDown, setShowDropDown] = useState<boolean>(false);
@@ -34,9 +35,12 @@ export const ProfileIcon = () => {
                         </div>
                     </div>
                     <div className="grid gap-2 px-2 py-3 font-medium text-sm text-kaiglo_grey-700">
-                        <div className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100">
+                        <Link
+                            href={"/settings"}
+                            className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100"
+                        >
                             <Image src={IconCog} alt="settings" className="w-5 h-5" /> Settings
-                        </div>
+                        </Link>
                         <div className="flex gap-2 items-center p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100">
                             <Image src={IconHelpCenter} alt="help-center" className="w-5 h-5" /> Help Center
                         </div>

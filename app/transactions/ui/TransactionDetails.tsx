@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper-icons";
+import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
 import OrderDetailsBody from "./TransactionDetailsBody";
 import { TransactionDetailProps } from "../lib/interface";
 import { getTransactionStatusStyle } from "../lib/utils/utils";

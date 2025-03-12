@@ -3,13 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import OtpTimer from "@/app/(auth)/ui/OtpTimer";
+import OtpTimer from "@/app/(auth)/ui/otp/OtpTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useRouter } from "next/navigation";
+import { OtpFormInputProps } from "../../interface";
 // import { useVerifyOtp } from "@/hooks/mutation/auth/verifyOtp";
 
 const FormSchema = z.object({
@@ -18,18 +18,7 @@ const FormSchema = z.object({
     }),
 });
 
-const OtpFormInput = ({
-    email,
-    phone,
-    continueTo,
-    actionText = "Continue",
-}: {
-    email: string;
-    phone: string;
-    continueTo: string;
-    actionText?: string;
-    setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const OtpFormInput = ({ email, phone, continueTo, actionText = "Continue" }: OtpFormInputProps) => {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
