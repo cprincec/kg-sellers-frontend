@@ -5,12 +5,13 @@ import { paymentOptionDefaultValues } from "@/app/(auth)/lib/validations/default
 import { paymentoptionSchema } from "@/app/(auth)/lib/validations/schemas";
 import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ConfirmAccountModal from "./ConfirmAccountModal";
 import PaymentOptionFormFields from "./PaymentOptionFormFields";
 
 export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) => {
+    const [isMounted, setIsMounted] = useState(false);
     const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
     const [bankDetails, setBankDetails] = useState<IPaymentOptionFormDTO>(paymentOptionDefaultValues);
     const {
@@ -26,6 +27,12 @@ export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) =
         setBankDetails(values);
         setShowConfirmAccountModal(true);
     };
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null; // Skip rendering until the client has mounted
 
     return (
         <div className="grid gap-6">

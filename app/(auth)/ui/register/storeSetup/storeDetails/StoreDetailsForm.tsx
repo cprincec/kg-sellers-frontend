@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Resolver, useForm } from "react-hook-form";
 import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
 import StoreDetailsFormFields from "./StoreDetailsFomFields";
+import { useEffect, useState } from "react";
 
 const StoreDetailsForm = () => {
     const {
@@ -21,6 +22,14 @@ const StoreDetailsForm = () => {
     const saveStoreDetails = () => {
         // navigateToNextStep();s
     };
+
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null; // Skip rendering until the client has mounted
 
     return (
         <div>

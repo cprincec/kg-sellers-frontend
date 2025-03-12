@@ -1,3 +1,5 @@
+"use client";
+
 import { ControlledModifiedInputProps } from "@/interfaces/controlledElements.interface";
 import { Controller, FieldValues } from "react-hook-form";
 import ModifiedInput from "@/components/shared/ModifiedInput";

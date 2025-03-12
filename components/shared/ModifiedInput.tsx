@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { ModifiedInputProps } from "@/interfaces/elements.interface";
 import { cn } from "@/lib/utils";
