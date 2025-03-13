@@ -5,7 +5,7 @@ import { storeDetailsDefaultValues } from "@/app/(auth)/lib/validations/defaults
 import { storeDetailsSchema } from "@/app/(auth)/lib/validations/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Resolver, useForm } from "react-hook-form";
-import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
+import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import StoreDetailsFormFields from "./StoreDetailsFomFields";
 import { useEffect, useState } from "react";
 

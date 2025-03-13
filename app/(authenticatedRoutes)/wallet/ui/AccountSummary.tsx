@@ -1,6 +1,6 @@
 import { accountSummaryMock } from "../lib/data";
 import { Fragment, useEffect, useState } from "react";
-import Metric from "@/app/dashboard/ui/metrics/Metric";
+import Metric from "@/app/(authenticatedRoutes)/dashboard/ui/metrics/Metric";
 import Image from "next/image";
 import { IconVerticalLine } from "@/public/icons/icons";
 import { useSearchParams } from "next/navigation";

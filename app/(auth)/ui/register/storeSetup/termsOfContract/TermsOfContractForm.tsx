@@ -1,4 +1,4 @@
-import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
+import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 
 const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean }) => {
     return (

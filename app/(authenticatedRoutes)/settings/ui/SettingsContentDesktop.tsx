@@ -1,9 +1,9 @@
 "use client";
 
-import StoreDetailsForm from "../../(auth)/ui/register/storeSetup/storeDetails/StoreDetailsForm";
-import { PaymentOptionForm } from "../../(auth)/ui/register/storeSetup/paymentOption/PaymentOptionForm";
+import StoreDetailsForm from "../../../(auth)/ui/register/storeSetup/storeDetails/StoreDetailsForm";
+import { PaymentOptionForm } from "../../../(auth)/ui/register/storeSetup/paymentOption/PaymentOptionForm";
 import StoreVacationForm from "../ui/StoreVacation";
-import TermsOfContractForm from "../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
+import TermsOfContractForm from "../../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tabs } from "../lib/data";
 

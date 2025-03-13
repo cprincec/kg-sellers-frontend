@@ -3,7 +3,7 @@
 import { IPaymentOptionFormDTO } from "@/app/(auth)/interface";
 import { paymentOptionDefaultValues } from "@/app/(auth)/lib/validations/defaults";
 import { paymentoptionSchema } from "@/app/(auth)/lib/validations/schemas";
-import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
+import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

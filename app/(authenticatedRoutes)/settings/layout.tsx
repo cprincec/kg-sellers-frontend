@@ -1,4 +1,4 @@
-import SideBarDesktop from "@/app/dashboard/ui/navigation/SideBarDesktop";
+import SideBarDesktop from "@/app/(authenticatedRoutes)/dashboard/ui/navigation/SideBarDesktop";
 import { Suspense } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

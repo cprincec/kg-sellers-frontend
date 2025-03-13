@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { storeVacationSchema } from "../lib/validations/schemas";
 import { storeVacationDefaultValues } from "../lib/validations/defaults";
 import { useState } from "react";
-import FormNavButtons from "@/app/wallet/ui/payoutThreshold/FormNavButtons";
+import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import DeleteStoreFormField from "./DeleteStoreFormField";
 import PauseStoreFormField from "./PauseStoreFormField";
 
