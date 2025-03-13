@@ -47,8 +47,22 @@ import IconPrint from "@/public/icons/print.svg";
 import IconDelete from "@/public/icons/Delete.svg";
 import IconNaira from "@/public/icons/naira.svg";
 import IconUpload from "@/public/icons/upload-03.svg";
+import IconLogoYellow from "@/public/icons/logoYellow.svg";
+import IconDoodlePattern2Mobile from "@/public/icons/Doodle Pattern Palette 2.svg";
+import IconDoodlePattern3Desktop from "@/public/icons/Doodle Pattern Palette 3.svg";
+import IconDoodlePattern2Desktop from "@/public/icons/Doodle Pattern Palette 2 desktop.svg";
+import IconDoodlePattern4Desktop from "@/public/icons/Doodle Pattern Palette 4.svg";
+import IconUserEdit from "@/public/icons/user-edit-01.svg";
+import IconPackageProcess from "@/public/icons/package-process.svg";
+import IconStoreLocation from "@/public/icons/store-location-01.svg";
+import IconKaigloLogo from "@/public/icons/Kaiglo Logo.svg";
+import IconPlaystore from "@/public/icons/Playstore.svg";
+import IconAppstore from "@/public/icons/AppStore.svg";
 
 export {
+    IconAppstore,
+    IconPlaystore,
+    IconKaigloLogo,
     IconArrowBack,
     IconBarChart,
     IconBox,
@@ -98,4 +112,12 @@ export {
     IconNaira,
     IconDelete,
     IconUpload,
+    IconLogoYellow,
+    IconDoodlePattern2Mobile,
+    IconDoodlePattern2Desktop,
+    IconDoodlePattern3Desktop,
+    IconDoodlePattern4Desktop,
+    IconPackageProcess,
+    IconUserEdit,
+    IconStoreLocation,
 };
