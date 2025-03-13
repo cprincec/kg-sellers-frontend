@@ -1,7 +1,7 @@
 import Hero from "./ui/Hero";
 import LandingPageHeader from "./ui/LandingPageHeader";
 import SellAcrossAllCategories from "./ui/SellAcrossAllCategories";
-import WhatMakesKaigloDifferent from "./ui/WhatMakesKaigloDifferent";
+import WhatMakesKaigloDifferent from "./ui/WhatMakesKaigloDifferent/WhatMakesKaigloDifferent";
 
 const Home = () => {
     return (
