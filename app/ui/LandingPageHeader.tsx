@@ -13,7 +13,7 @@ const LandingPageHeader = () => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
 
     return (
-        <div className="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-20 py-2 md:py-4 lg:py-6 mt-2 bg-white backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-kaiglo_grey-200">
+        <div className="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-20 py-2 md:py-4 lg:py-6 mt-2 bg-white backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow">
             {/* Logo starts */}
             <Link href={"/"}>
                 <Image

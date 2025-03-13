@@ -82,6 +82,8 @@ export default {
             backgroundImage: {
                 "home-hero-mobile": "url('/images/landingPage/image 30.png')",
                 "home-hero-desktop": "url('/images/landingPage/image 30 (1).png')",
+                "home-GSTS-mobile": "url('/images/landingPage/gotSomethingToSellMobile.png')",
+                "home-GSTS-desktop": "url('/images/landingPage/gotSomethingToSellDesktop.png')",
             },
             screens: {
                 lg: "1060px",
