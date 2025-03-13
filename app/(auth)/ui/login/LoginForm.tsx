@@ -2,7 +2,6 @@
 
 import { LOGIN_TEXTS, ROUTES } from "@/lib/consts";
 import { Resolver, useForm } from "react-hook-form";
-
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { ISignInFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import Link from "next/link";
@@ -13,22 +12,16 @@ import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
 import { useContext } from "react";
 
-const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
+const LoginForm = () => {
     // @ts-expect-error to be changed
     const { showOtpModal, setShowOtpModal } = useContext(OtpContext);
-
-    const defaultValues = {
-        ...signInDefaultValues,
-        email: email ? email : signInDefaultValues.email,
-        phone: phone ? phone : signInDefaultValues.phone,
-    };
 
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm<ISignInFormDTO>({
-        defaultValues: defaultValues,
+        defaultValues: signInDefaultValues,
         resolver: signInResolver as Resolver<ISignInFormDTO>,
     });
 
@@ -108,8 +101,8 @@ const LoginForm = ({ phone, email }: { phone?: string; email?: string }) => {
                 <OtpModal
                     showOtpModal={showOtpModal}
                     setShowOtpModal={setShowOtpModal}
-                    email={email || ""}
-                    phone={phone || ""}
+                    email={""}
+                    phone={""}
                 />
             )}
         </div>
