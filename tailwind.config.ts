@@ -128,6 +128,7 @@ export default {
                     base: "#1C73DC",
                 },
                 kaiglo_success: {
+                    "1": "#D1FFD1",
                     "5": "#C6EDDD",
                     "25": "#F6FEF9",
                     "50": "#ECFDF3",
