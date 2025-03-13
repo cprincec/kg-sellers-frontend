@@ -9,7 +9,7 @@ import ImageSAAC3 from "@/public/images/landingPage/Slide 3.png";
 import ImageWMKDMobile1 from "@/public/images/landingPage/whatMakeKaigloDifferentMobile1.png";
 import ImageWMKDDesktop1 from "@/public/images/landingPage/whatMakeKaigloDifferentDesktop1.png";
 import ImageWMKDMobile2 from "@/public/images/landingPage/whatMakeKaigloDifferentMobile2.png";
-import ImageWMKDDesktop2 from "@/public/images/landingPage/whatMakeKaigloDifferentDesktop2png.png";
+import ImageWMKDDesktop2 from "@/public/images/landingPage/whatMakeKaigloDifferentDesktop2.png";
 import ImageGSTSMobile from "@/public/images/landingPage/gotSomethingToSellMobile.png";
 import ImageGSTSDesktop from "@/public/images/landingPage/gotSomethingToSellDesktop.png";
 import ImagePaymentMethods from "@/public/images/landingPage/paystack-ii 2.png";

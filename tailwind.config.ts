@@ -79,6 +79,10 @@ export default {
         //   },
 
         extend: {
+            backgroundImage: {
+                "home-hero-mobile": "url('/images/landingPage/image 30.png')",
+                "home-hero-desktop": "url('/images/landingPage/image 30 (1).png')",
+            },
             screens: {
                 lg: "1060px",
             },

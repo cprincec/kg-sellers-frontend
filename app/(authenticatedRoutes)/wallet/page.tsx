@@ -28,9 +28,9 @@ const Wallet = () => {
         <div className="pb-4 grid gap-2 md:gap-1 lg:gap-0">
             <Header heading={"Wallet"} description={"Your current transactions activities."} />
 
-            <div className="grid px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:px-0 md:max-lg:bg-white">
-                <AccountSummary />
-            </div>
+            {/* <div className="grid"> */}
+            <AccountSummary className=" px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:px-0 md:max-lg:bg-white" />
+            {/* </div> */}
 
             <div className="grid gap-4 py-4 lg:py-6">
                 <Tabs defaultValue={activeTab || "wallet"} className="grid gap-2 lg:gap-4 px-4">
@@ -59,7 +59,7 @@ const Wallet = () => {
                     {/* Tables */}
                     <div className="overflow-x-auto">
                         {/* render the wallet history table by default
-                       render the payout table based on active tab  */}
+                        render the payout table based on active tab  */}
                         {tabs.map((tab) => {
                             if (tab.value === "payout")
                                 return (

@@ -11,7 +11,7 @@ const Header = ({ heading, description }: { heading: string; description?: strin
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
 
     return (
-        <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/50 flex justify-between p-4 border-b border-kaiglo_grey-200 ">
+        <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/50 flex justify-between p-4 border-b border-kaiglo_grey-200">
             <div className="flex gap-2 items-center">
                 <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
 

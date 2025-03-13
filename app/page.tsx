@@ -1,9 +1,15 @@
+import Hero from "./ui/Hero";
 import LandingPageHeader from "./ui/LandingPageHeader";
+import SellAcrossAllCategories from "./ui/SellAcrossAllCategories";
+import WhatMakesKaigloDifferent from "./ui/WhatMakesKaigloDifferent";
 
 const Home = () => {
     return (
-        <div>
+        <div className="max-w-[1600px] mx-auto">
             <LandingPageHeader />
+            <Hero />
+            <SellAcrossAllCategories />
+            <WhatMakesKaigloDifferent />
         </div>
     );
 };

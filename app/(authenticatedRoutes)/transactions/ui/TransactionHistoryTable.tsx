@@ -30,7 +30,7 @@ const TransactionHistoryTable = ({ transactions }: { transactions: ITransactionD
     const paginatedTransactions = transactions.slice(start, end);
     return (
         <div className="overflow-auto">
-            <Table className="w-[950px] lg:w-full">
+            <Table className="w-[950px] lg:w-full border">
                 <TransactionHistoryTableHeader />
                 <TransactionHistoryTableBody
                     transactions={paginatedTransactions}

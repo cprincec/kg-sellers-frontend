@@ -15,8 +15,6 @@ const Dashboard = () => {
 
     return (
         <div className="pb-4 grid gap-2 md:gap-1">
-            {/* I decided to not to place the header component in the layout so that it will be rerendered after every navigation.
-               This rerendering will allow for update of data in some header components such as the notifications */}
             <Header heading={"Overview"} description={"Track, manage your orders."} />
 
             {searchParams.get("from") === "register" && <TermsOfContractNotice />}

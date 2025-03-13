@@ -13,4 +13,5 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </Suspense>
     );
 };
+
 export default Layout;

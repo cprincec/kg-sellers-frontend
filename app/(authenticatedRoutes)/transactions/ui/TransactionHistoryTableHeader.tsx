@@ -13,7 +13,7 @@ const TransactionHistoryTableHeader = () => {
     ];
     return (
         <TableHeader>
-            <TableRow className="hover:bg-transparent">
+            <TableRow className="bg-kaiglo_grey-50">
                 <TableHead className="font-medium text-kaiglo_grey-700 text-xs md:text-base p-3 whitespace-nowrap">
                     S/N
                 </TableHead>
