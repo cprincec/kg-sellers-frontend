@@ -11,7 +11,7 @@ const LandingSideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) =>
     return (
         <Dialog open={showModal} onOpenChange={setShowModal}>
             <DialogContent
-                className="left-0 translate-x-0 h-full w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
+                className="z-[999] left-0 translate-x-0 h-full w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
                 data-testid="sideNav-dialog"
                 styleXBtn={true}
             >
@@ -40,7 +40,7 @@ const LandingSideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) =>
                                 href={"/register"}
                                 className={cn(
                                     buttonVariants({ variant: "primary" }),
-                                    "text-sm font-medium rounded-full py-4"
+                                    "text-sm font-medium rounded-full py-4 border border-kaiglo_success-base"
                                 )}
                             >
                                 START SELLING
@@ -64,10 +64,3 @@ const LandingSideBarMobile = ({ showModal, setShowModal }: SideBarModalProps) =>
 };
 
 export default LandingSideBarMobile;
-
-{
-    /* Logo starts */
-}
-{
-    /* Logo ends */
-}

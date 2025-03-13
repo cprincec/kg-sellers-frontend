@@ -21,7 +21,7 @@ const Header = ({ heading, description }: { heading: string; description?: strin
                         setShowSideBar(true);
                     }}
                 >
-                    <Image src={IconMenu} alt="menu" className="w-4 md:w-5 h-4 md:h-5 " />
+                    <Image src={IconMenu} alt="menu" className="w-6 h-6 " />
                 </div>
                 <div>
                     <h1 className="font-medium text-lg md:text-2xl capitalize">{heading}</h1>

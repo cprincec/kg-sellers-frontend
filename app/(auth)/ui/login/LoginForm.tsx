@@ -103,6 +103,7 @@ const LoginForm = () => {
                     setShowOtpModal={setShowOtpModal}
                     email={""}
                     phone={""}
+                    actionLink={"/dashboard"}
                 />
             )}
         </div>

@@ -9,9 +9,17 @@ const SellAcrossAllCategories = () => {
             </h2>
 
             <div className="grid grid-flow-col gap-8 justify-center items-center">
-                <Image src={ImageSAAC1} alt="shirt" className="w-full h-full lg:w-[370px] lg:h-[450px]" />
-                <Image src={ImageSAAC2} alt="backpack" className="hidden md:block w-full h-full" />
-                <Image src={ImageSAAC3} alt="baby hoodie" className="hidden md:block w-full h-full" />
+                <Image src={ImageSAAC1} alt="shirt" className="w-full lg:w-[370px] h-full lg:h-[450px]" />
+                <Image
+                    src={ImageSAAC2}
+                    alt="backpack"
+                    className="hidden md:block w-full lg:w-[370px] h-full lg:h-[450px]"
+                />
+                <Image
+                    src={ImageSAAC3}
+                    alt="baby hoodie"
+                    className="hidden md:block w-full lg:w-[370px] h-full lg:h-[450px]"
+                />
             </div>
         </article>
     );
