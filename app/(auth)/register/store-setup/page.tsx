@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StoreDetails from "../../ui/register/storeSetup/StoreDetails";
-// import { ArrowBackButton } from "../../ui/buttons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProductCategory from "../../ui/register/storeSetup/ProductCategory";
@@ -24,7 +23,6 @@ const StoreSetup = () => {
     const { currentStep, navigateToNextStep, navigateToPreviousStep, navigateToSpecificStep } =
         useStoreSetupContext();
     const router = useRouter();
-    // const [currentStep, setCurrentStep] = useState(0);
     const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
 
     const currentResolver = storeSetupSchemas[currentStep];
@@ -46,14 +44,6 @@ const StoreSetup = () => {
         console.log(data);
         router.push("/dashboard?from=register");
     };
-
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if (!isMounted) return null; // Skip rendering until the client has mounted
 
     return (
         <div className="">

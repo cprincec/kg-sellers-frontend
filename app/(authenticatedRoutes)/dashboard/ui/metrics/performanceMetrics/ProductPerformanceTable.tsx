@@ -1,90 +1,16 @@
-"use client";
-
-import { ImageProduct1, ImageProduct2 } from "@/public/images/images";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useEffect, useState } from "react";
-
 import Image from "next/image";
+import { productsList } from "../../../lib/data";
 
 const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if (!isMounted) return null; // Skip rendering until the client has mounted
-
-    let products = [
-        {
-            product: (
-                <div className="flex gap-1.5">
-                    <Image src={ImageProduct1} alt="headphone" width={40} height={40} />
-                    <div className="grid">
-                        <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
-                        <p className="text-xs">Order ID -KG10001</p>
-                    </div>
-                </div>
-            ),
-            quantitySold: "15",
-            amount: "₦240,000",
-        },
-        {
-            product: (
-                <div className="flex gap-1.5">
-                    <Image src={ImageProduct2} alt="headphone" width={40} height={40} />
-                    <div className="grid">
-                        <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
-                        <p className="text-xs">Order ID -KG10001</p>
-                    </div>
-                </div>
-            ),
-            quantitySold: "13",
-            amount: "₦240,000",
-        },
-        {
-            product: (
-                <div className="flex gap-1.5">
-                    <Image src={ImageProduct1} alt="headphone" width={40} height={40} />
-                    <div className="grid">
-                        <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
-                        <p className="text-xs">Order ID -KG10001</p>
-                    </div>
-                </div>
-            ),
-            quantitySold: "12",
-            amount: "₦240,000",
-        },
-        {
-            product: (
-                <div className="flex gap-1.5">
-                    <Image src={ImageProduct2} alt="headphone" width={40} height={40} />
-                    <div className="grid">
-                        <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
-                        <p className="text-xs">Order ID -KG10001</p>
-                    </div>
-                </div>
-            ),
-            quantitySold: "10",
-            amount: "₦240,000",
-        },
-        {
-            product: (
-                <div className="flex gap-1.5">
-                    <Image src={ImageProduct1} alt="headphone" width={40} height={40} />
-                    <div className="grid">
-                        <h4 className="text-sm font-normal">Black Polo T-shirt</h4>
-                        <p className="text-xs">Order ID -KG10001</p>
-                    </div>
-                </div>
-            ),
-            quantitySold: "6",
-            amount: "₦240,000",
-        },
-    ];
+    let products = productsList;
 
     if (sortBy === "leastSelling") {
         products = products.sort((a, b) => parseInt(a.quantitySold) - parseInt(b.quantitySold));
+    }
+
+    if (sortBy === "topSelling") {
+        products = products.sort((a, b) => parseInt(b.quantitySold) - parseInt(a.quantitySold));
     }
 
     return (
@@ -100,13 +26,24 @@ const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {products.map((product, index) => (
-                    <TableRow key={index}>
-                        <TableCell className="">{product.product}</TableCell>
-                        <TableCell className="text-center">{product.quantitySold}</TableCell>
-                        <TableCell>{product.amount}</TableCell>
-                    </TableRow>
-                ))}
+                {products.map((product, index) => {
+                    const { productName, orderId, imageUrl, quantitySold, amount } = product;
+                    return (
+                        <TableRow key={index}>
+                            <TableCell className="">
+                                <div className="flex gap-1.5">
+                                    <Image src={imageUrl} alt="headphone" width={40} height={40} />
+                                    <div className="grid">
+                                        <h4 className="text-sm font-normal">{productName}</h4>
+                                        <p className="text-xs">{orderId}</p>
+                                    </div>
+                                </div>
+                            </TableCell>
+                            <TableCell className="text-center">{quantitySold}</TableCell>
+                            <TableCell>{amount}</TableCell>
+                        </TableRow>
+                    );
+                })}
             </TableBody>
         </Table>
     );

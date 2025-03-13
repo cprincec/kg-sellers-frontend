@@ -1,7 +1,6 @@
 "use client";
 
 import { Resolver, useForm } from "react-hook-form";
-
 import { ISignUpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import OtpModal from "../../otp/OtpModal";
 import { signUpDefaultValues } from "@/lib/validations/defaults";
@@ -22,11 +21,6 @@ const RegisterationForm = () => {
         resolver: signUpResolver as Resolver<ISignUpFormDTO>,
     });
 
-    // const { signup, signingUp } = useSignUp({
-    //     setShowOtpModal,
-    //     setOpenAuthModal,
-    // });
-
     // temporal
     const signingUp = false;
     const [showOtpModal, setShowOtpModal] = useState(false);
@@ -36,7 +30,6 @@ const RegisterationForm = () => {
         setPhone(values.phone);
 
         setShowOtpModal(true);
-
         // signup(values);
     };
 
