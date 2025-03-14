@@ -16,6 +16,14 @@ export interface LogoWithWelcomeTextProps {
 // OTP Related Interfaces
 // ============================================================================
 
+export interface OtpFormInputProps {
+    email: string;
+    phone: string;
+    continueTo: string;
+    actionText?: string;
+    setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export interface EnterOtpProps {
     actionText?: string;
     action?: () => void;
@@ -91,7 +99,8 @@ export interface ConfirmAccountModalProps {
     showConfirmAccountModal: boolean;
     setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
     navigateToSpecificStep?: (int: number) => void;
-    bankDetails: {
+    getValues?: () => void;
+    bankDetails?: {
         beneficiaryName: string;
         accountNumber: string;
         bankName: string;
@@ -101,14 +110,6 @@ export interface ConfirmAccountModalProps {
 // ============================================================================
 // Navigation & UI Component Interfaces
 // ============================================================================
-
-export interface NavLink {
-    name: string;
-    href: string;
-    icon: string;
-    activeIcon: string;
-    active: boolean;
-}
 
 export interface SideBarModalProps {
     showModal: boolean;

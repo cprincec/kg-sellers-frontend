@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StoreDetails from "../../ui/register/storeSetup/StoreDetails";
-// import { ArrowBackButton } from "../../ui/buttons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProductCategory from "../../ui/register/storeSetup/ProductCategory";
@@ -12,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { storeSetupSchemas } from "@/lib/validations/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { storeSetupDefaultValues } from "@/lib/validations/defaults";
-import ConfirmAccountModal from "../../ui/register/storeSetup/ConfirmAccountModal";
+import ConfirmAccountModal from "../../ui/register/storeSetup/paymentOption/ConfirmAccountModal";
 import TermsOfContract from "../../ui/register/storeSetup/TermOfContract";
-import Stepper from "../../ui/register/storeSetup/Stepper";
+import Stepper from "../../ui/register/storeSetup/stepper/Stepper";
 import { useRouter } from "next/navigation";
 import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import { ArrowBackButton } from "../../ui/buttons";
@@ -24,7 +23,6 @@ const StoreSetup = () => {
     const { currentStep, navigateToNextStep, navigateToPreviousStep, navigateToSpecificStep } =
         useStoreSetupContext();
     const router = useRouter();
-    // const [currentStep, setCurrentStep] = useState(0);
     const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
 
     const currentResolver = storeSetupSchemas[currentStep];
@@ -46,14 +44,6 @@ const StoreSetup = () => {
         console.log(data);
         router.push("/dashboard?from=register");
     };
-
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if (!isMounted) return null; // Skip rendering until the client has mounted
 
     return (
         <div className="">
@@ -200,7 +190,6 @@ const StoreSetup = () => {
                             showConfirmAccountModal={showConfirmAccountModal}
                             setShowConfirmAccountModal={setShowConfirmAccountModal}
                             navigateToSpecificStep={navigateToSpecificStep}
-                            // @ts-expect-error to be changed
                             getValues={getValues}
                             // beneficiaryName={getValues()?.beneficiaryName}
                             // accountNumber={getValues()?.accountNumber}

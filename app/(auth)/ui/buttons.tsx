@@ -1,5 +1,4 @@
 import { IconArrowBack, IconContinueWithGoogle, IconGoogle } from "@/public/icons/icons";
-
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,11 +8,19 @@ import { ModifiedButtonProps } from "@/interfaces/elements.interface";
 export const GoogleButton = () => {
     return (
         <Button
+            type="button"
+            id="google-button"
             variant={"outline"}
             className="flex items-center justify-center py-4 md:py-4 text-kaiglo_grey-base text-base rounded-lg w-full border-kaiglo_grey-disabled"
         >
             <Image src={IconGoogle} alt="google-icon" width={19.54} height={20} />
-            <Image src={IconContinueWithGoogle} alt="continue-with-google" className="mt-1" width={159} height={20} />
+            <Image
+                src={IconContinueWithGoogle}
+                alt="continue-with-google"
+                className="mt-1"
+                width={159}
+                height={20}
+            />
         </Button>
     );
 };

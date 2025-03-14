@@ -79,6 +79,16 @@ export default {
         //   },
 
         extend: {
+            backgroundImage: {
+                "home-hero-mobile": "url('/images/landingPage/image 30.png')",
+                "home-hero-desktop": "url('/images/landingPage/image 30 (1).png')",
+                "home-GSTS-mobile": "url('/images/landingPage/gotSomethingToSellMobile.png')",
+                "home-GSTS-desktop": "url('/images/landingPage/gotSomethingToSellDesktop.png')",
+                "home-about-us-mobile": "url('/icons/Doodle Pattern Palette 2.svg')",
+                "home-about-us-desktop-2": "url('/icons/Doodle Pattern Palette 2 desktop.svg')",
+                "home-about-us-desktop-3": "url('/icons/Doodle Pattern Palette 3.svg')",
+                "home-about-us-desktop-1": "url('/icons/Doodle Pattern Palette 4.svg')",
+            },
             screens: {
                 lg: "1060px",
             },
@@ -128,6 +138,7 @@ export default {
                     base: "#1C73DC",
                 },
                 kaiglo_success: {
+                    "1": "#D1FFD1",
                     "5": "#C6EDDD",
                     "25": "#F6FEF9",
                     "50": "#ECFDF3",

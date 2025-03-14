@@ -44,7 +44,7 @@ const ImageUploadInputField = ({
                 <div>
                     <div
                         className={cn(
-                            "h-[210px] w-full p-2 border border-dashed  rounded-xl",
+                            "relative h-[210px] w-full p-2 border border-dashed  rounded-xl",
                             ShowMainVariant ? "border-kaiglo_success-base" : "border-kaiglo_grey-300"
                         )}
                     >
@@ -60,12 +60,13 @@ const ImageUploadInputField = ({
                         {/* Hidden file input */}
                         <Input
                             id={name}
+                            name={name}
                             ref={fileInputRef}
                             type="file"
                             accept="image/*"
                             onChange={(e) => handleFileChange(e, field.onChange)}
                             className="hidden"
-                            required={rules.required}
+                            aria-hidden
                         />
                     </div>
 
