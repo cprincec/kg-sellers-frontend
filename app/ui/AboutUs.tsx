@@ -37,7 +37,7 @@ const AboutUs = () => {
             </article>
 
             {/* Background design starts */}
-            <div className="md:hidden absolute top-[calc(50%-140px)] md:top-0 bottom-0 right-0 left-0 bg-center bg-cover bg-home-about-us-mobile w-full h-full"></div>
+            <div className="md:hidden absolute top-[calc(50%-140px)] md:top-0 bottom-0 right-0 left-0 bg-center bg-cover bg-home-about-us-mobile"></div>
             <div className="hidden md:block absolute top-0 bottom-0 right-[67%] left-0 bg-center bg-cover bg-home-about-us-desktop-1"></div>
             <div className="hidden md:block absolute top-0 bottom-0 right-[33%] left-[33%] bg-center bg-cover bg-home-about-us-desktop-2"></div>
             <div className="hidden md:block absolute top-0 bottom-0 right-0 left-[67%] bg-center bg-cover bg-home-about-us-desktop-3"></div>
