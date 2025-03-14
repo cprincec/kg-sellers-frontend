@@ -58,8 +58,18 @@ import IconStoreLocation from "@/public/icons/store-location-01.svg";
 import IconKaigloLogo from "@/public/icons/Kaiglo Logo.svg";
 import IconPlaystore from "@/public/icons/Playstore.svg";
 import IconAppstore from "@/public/icons/AppStore.svg";
+import IconFacebook from "@/public/icons/facebook-logo 1.svg";
+import IconInstagram from "@/public/icons/instagram-logo 1.svg";
+import IconTelegram from "@/public/icons/telegram-logo 1.svg";
+import IconYoutube from "@/public/icons/youtube-logo 1.svg";
+import IconX from "@/public/icons/x-logo 1.svg";
 
 export {
+    IconFacebook,
+    IconInstagram,
+    IconTelegram,
+    IconX,
+    IconYoutube,
     IconAppstore,
     IconPlaystore,
     IconKaigloLogo,

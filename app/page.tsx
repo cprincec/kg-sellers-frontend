@@ -1,3 +1,5 @@
+import AboutUs from "./ui/AboutUs";
+import Footer from "./ui/footer/Footer";
 import GotSomethingToSell from "./ui/GotSomethingToSell";
 import Hero from "./ui/Hero";
 import HowItWorks from "./ui/HowItWorks";
@@ -10,12 +12,16 @@ const Home = () => {
     return (
         <div className="max-w-[1600px] mx-auto">
             <LandingPageHeader />
-            <Hero />
-            <SellAcrossAllCategories />
-            <WhatMakesKaigloDifferent />
-            <HowItWorks />
-            <Testimonials />
-            <GotSomethingToSell />
+            <main>
+                <Hero />
+                <SellAcrossAllCategories />
+                <WhatMakesKaigloDifferent />
+                <AboutUs />
+                <HowItWorks />
+                <Testimonials />
+                <GotSomethingToSell />
+            </main>
+            <Footer />
         </div>
     );
 };

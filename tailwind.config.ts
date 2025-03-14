@@ -84,6 +84,10 @@ export default {
                 "home-hero-desktop": "url('/images/landingPage/image 30 (1).png')",
                 "home-GSTS-mobile": "url('/images/landingPage/gotSomethingToSellMobile.png')",
                 "home-GSTS-desktop": "url('/images/landingPage/gotSomethingToSellDesktop.png')",
+                "home-about-us-mobile": "url('/icons/Doodle Pattern Palette 2.svg')",
+                "home-about-us-desktop-2": "url('/icons/Doodle Pattern Palette 2 desktop.svg')",
+                "home-about-us-desktop-3": "url('/icons/Doodle Pattern Palette 3.svg')",
+                "home-about-us-desktop-1": "url('/icons/Doodle Pattern Palette 4.svg')",
             },
             screens: {
                 lg: "1060px",
