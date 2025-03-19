@@ -1,10 +1,12 @@
 "use client";
+
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
-const SearchBar = ({
+const SearchBar2 = ({
     placeholder,
     className,
     scroll = true,
@@ -20,24 +22,27 @@ const SearchBar = ({
     const handleSearch = useDebouncedCallback((searchTerm) => {
         const params = new URLSearchParams(searchParams);
 
-        if (searchTerm) params.set("searching-for", searchTerm);
-        else params.delete("searching-for");
+        if (searchTerm) params.set("search-tutorials-for", searchTerm);
+        else params.delete("search-tutorials-for");
 
         replace(`${pathname}?${params.toString()}`, { scroll: scroll });
     });
 
     return (
-        <div className={`relative w-full ${className || ""}`}>
+        <div className={cn("relative w-full", className)}>
             <Input
                 name="searchingFor"
                 type="text"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
-                className="pl-9 h-full w-full py-3 text-base"
+                className="h-[48px] w-full px-4 py-4 text-base border-[#A3A3A3] rounded-[72px]"
                 placeholder={placeholder}
-                defaultValue={searchParams.get("searching-for")?.toString()}
+                defaultValue={searchParams.get("search-tutorials-for")?.toString()}
             />
-            <SearchIcon className="absolute top-1/4 left-2 text-kaiglo_grey-400" />
+            <div className="absolute top-[calc(50%-15px)] right-3 w-8 h-8 flex bg-kaiglo_accent-base rounded-full">
+                <SearchIcon className="w-[18px] h-[18px] m-auto" />
+            </div>
         </div>
     );
 };
-export default SearchBar;
+
+export default SearchBar2;

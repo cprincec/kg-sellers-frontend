@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { WMKDData } from "../../lib/data";
+import { WMKDData } from "../../../lib/data";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -26,7 +26,7 @@ const WhatMakesKaigloDifferentBody = () => {
 
                         <div
                             className={cn(
-                                "grid gap-6 py-4 bg-white",
+                                "grid gap-6 py-6 bg-white",
                                 isOdd && "md:order-first md:self-start"
                             )}
                         >
@@ -42,7 +42,7 @@ const WhatMakesKaigloDifferentBody = () => {
                                 {title}
                             </h3>
 
-                            <div className="grid gap-4">
+                            <div className="grid gap-6">
                                 <div className="grid gap-2">
                                     <h4 className="text-2xl lg:text-[32px] lg:leading-[40px] font-bold">
                                         {stat}

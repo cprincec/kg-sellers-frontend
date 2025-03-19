@@ -13,7 +13,7 @@ export const homeNavLinks = [
     },
     {
         name: "Learning Center",
-        href: "/",
+        href: "/learning-center",
     },
 ];
 

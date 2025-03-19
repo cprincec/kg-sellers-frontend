@@ -3,7 +3,7 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { IconLogoYellow, IconMenu } from "@/public/icons/icons";
 import Image from "next/image";
-import { homeNavLinks } from "../lib/data";
+import { homeNavLinks } from "../../lib/data";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import LandingSideBarMobile from "./SideBarMobile";
@@ -13,7 +13,7 @@ const LandingPageHeader = () => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
 
     return (
-        <header className="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-20 py-2 md:py-4 lg:py-6 mt-2 bg-white backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow">
+        <header className="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-[120px] py-[9px] md:py-4 lg:py-6 bg-white backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow">
             {/* Logo starts */}
             <Link href={"/"}>
                 <Image
