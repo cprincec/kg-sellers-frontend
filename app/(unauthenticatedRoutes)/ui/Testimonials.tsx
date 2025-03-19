@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { testimonialsData } from "../lib/data";
+import { testimonialsData } from "../../lib/data";
 
 const Testimonials = () => {
     const { title, desc, testimonies } = testimonialsData;

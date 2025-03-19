@@ -3,7 +3,7 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { IconLogoYellow, IconMenu } from "@/public/icons/icons";
 import Image from "next/image";
-import { homeNavLinks } from "../lib/data";
+import { homeNavLinks } from "../../lib/data";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import LandingSideBarMobile from "./SideBarMobile";

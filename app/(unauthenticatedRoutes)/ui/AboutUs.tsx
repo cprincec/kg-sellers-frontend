@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { aboutUsdata } from "../lib/data";
+import { aboutUsdata } from "../../lib/data";
 import { buttonVariants } from "@/components/ui/button";
 
 const AboutUs = () => {

@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SideBarModalProps } from "@/app/(auth)/interface";
 import Link from "next/link";
-import { homeNavLinks } from "../lib/data";
+import { homeNavLinks } from "../../lib/data";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

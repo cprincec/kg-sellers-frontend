@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { howItWorksData } from "../lib/data";
+import { howItWorksData } from "../../lib/data";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
