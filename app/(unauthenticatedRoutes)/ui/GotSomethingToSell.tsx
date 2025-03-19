@@ -9,7 +9,7 @@ const GotSomethingToSell = () => {
                         Got something to sell?
                     </h2>
 
-                    <StartSellingButton className="font-medium px-6 md:px-8 py-4 md:py-6" />
+                    <StartSellingButton className="font-medium" />
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import Footer from "./ui/footer/Footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="mx-auto">
+        <div className="max-w-[1600px] mx-auto">
             <LandingPageHeader />
             {children}
             <Footer />
