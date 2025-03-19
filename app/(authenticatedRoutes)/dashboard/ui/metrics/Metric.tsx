@@ -85,7 +85,7 @@ const Metric = ({
                                     {IsCurrency ? `₦${parseFloat(body).toLocaleString()}` : body}
                                 </p>
                             ) : (
-                                "********"
+                                <p className="text-3xl">*******</p>
                             )
                         ) : (
                             <p className="text-2xl text-kaiglo_grey-900 font-medium">
@@ -100,7 +100,7 @@ const Metric = ({
                                     buttonVariants({
                                         variant: "ghost",
                                     }),
-                                    "text-kaiglo_success-800 bg-kaiglo_success-50 capitalize",
+                                    "text-kaiglo_success-800 bg-kaiglo_success-50 capitalize rounded-3xl",
                                     actionClassName
                                 )}
                                 href={
