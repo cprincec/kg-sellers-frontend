@@ -1,6 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import StartSellingButton from "./StartSellingButton";
 
 const GotSomethingToSell = () => {
     return (
@@ -10,15 +8,8 @@ const GotSomethingToSell = () => {
                     <h2 className="text-[32px] leading-[40px] md:text-[56px] md:leading-[72px] text-white">
                         Got something to sell?
                     </h2>
-                    <Link
-                        href={"/register"}
-                        className={cn(
-                            buttonVariants({ variant: "primary" }),
-                            "text-xl font-medium justify-self-center px-6 md:px-8 py-4 md:py-6 md:text-xl rounded-xl"
-                        )}
-                    >
-                        Start selling
-                    </Link>
+
+                    <StartSellingButton className="font-medium px-6 md:px-8 py-4 md:py-6" />
                 </div>
             </div>
         </div>

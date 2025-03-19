@@ -1,10 +1,8 @@
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import StartSellingButton from "./StartSellingButton";
 
 const Hero = () => {
     return (
-        <div className="h-[calc(100vh-100px)] md:h-[600px] lg:h-[calc(100vh-100px)] flex items-center bg-cover bg-center bg-home-hero-mobile md:bg-home-hero-desktop">
+        <div className="h-[calc(100vh-100px)] md:h-[600px] lg:h-[calc(100vh-100px)] lg:max-h-[1080px] flex items-center bg-cover bg-center bg-home-hero-mobile md:bg-home-hero-desktop">
             <div className="grid gap-14 max-w-[344px] md:max-w-[600px] lg:max-w-[850px] m-auto text-center">
                 <div className="grid gap-4">
                     <h1 className="text-white text-[40px] md:text-6xl leading-[48px] font-bold">
@@ -17,15 +15,7 @@ const Hero = () => {
                     </p>
                 </div>
 
-                <Link
-                    href={"/register"}
-                    className={cn(
-                        buttonVariants({ variant: "primary" }),
-                        "justify-self-center px-6 md:px-8 py-4 md:py-6 md:text-2xl rounded-xl"
-                    )}
-                >
-                    Start selling
-                </Link>
+                <StartSellingButton />
             </div>
         </div>
     );

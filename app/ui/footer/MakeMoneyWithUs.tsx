@@ -14,8 +14,12 @@ const MakeMoneyWithUs = () => {
             <div className="grid gap-4">
                 <h3 className="text-base font-bold">Get our mobile App</h3>
                 <div className="flex gap-4">
-                    <Image src={IconPlaystore} alt="kaiglo logo" className="w-[89px] h-[32px]" />
-                    <Image src={IconAppstore} alt="kaiglo logo" className="w-[89px] h-[32px]" />
+                    <Link href={"/"}>
+                        <Image src={IconPlaystore} alt="kaiglo logo" className="w-[89px] h-[32px]" />
+                    </Link>
+                    <Link href={"/"}>
+                        <Image src={IconAppstore} alt="kaiglo logo" className="w-[89px] h-[32px]" />
+                    </Link>
                 </div>
             </div>
         </div>
