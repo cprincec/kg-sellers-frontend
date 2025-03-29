@@ -4,7 +4,7 @@ import Hero from "./ui/Hero";
 import HowItWorks from "./ui/HowItWorks";
 import SellAcrossAllCategories from "./ui/sellAcrossAllCategories/SellAcrossAllCategories";
 import Testimonials from "./ui/Testimonials";
-import WhatMakesKaigloDifferent from "./ui/whatMakesKaigloDifferent/WhatMakesKaigloDifferent";
+import WhatMakesKaigloDifferent from "./ui/whatMakesKaigloDifferen/WhatMakesKaigloDifferent";
 
 const Home = () => {
     return (
