@@ -11,7 +11,7 @@ export const Tutorials = () => {
                 return (
                     <article
                         key={"tutorial-" + index}
-                        className="grid gap-6 content-start bg-white p-4 rounded-lg"
+                        className="flex flex-col grid-rows-2 gap-6 bg-white p-4 rounded-lg"
                     >
                         <>
                             <Image
@@ -26,10 +26,12 @@ export const Tutorials = () => {
                             />
                         </>
 
-                        <h3 className="text-base lg:text-lg font-medium">{title}</h3>
-                        <div className="flex justify-between self-end text-sm text-[#757575]">
-                            <span>{duration} video</span>
-                            <span>{steps} steps</span>
+                        <div className="flex flex-col flex-1 gap-6 justify-between">
+                            <h3 className="text-base lg:text-lg font-medium">{title}</h3>
+                            <div className="flex justify-between text-sm text-[#757575]">
+                                <span>{duration} video</span>
+                                <span>{steps} steps</span>
+                            </div>
                         </div>
                     </article>
                 );

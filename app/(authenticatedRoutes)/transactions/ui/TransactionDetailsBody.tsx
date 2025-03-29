@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ImageProduct1 } from "@/public/images/images";
+import { ImageProduct1 } from "@/public/images/landingPage/images";
 import { ITransactionDTO } from "../lib/interface";
 
 const TransactionDetailsBody = ({ transaction }: { transaction: ITransactionDTO }) => {

@@ -1,4 +1,4 @@
-import { ImagePaymentMethods } from "@/public/images/images";
+import { ImagePaymentMethods } from "@/public/images/landingPage/images";
 import Image from "next/image";
 import Link from "next/link";
 import { IconFacebook, IconInstagram, IconTelegram, IconX, IconYoutube } from "@/public/icons/icons";

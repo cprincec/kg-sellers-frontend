@@ -1,5 +1,5 @@
 "use client";
-import { ImageProduct1, ImageProduct2 } from "@/public/images/images";
+import { ImageProduct1, ImageProduct2 } from "@/public/images/landingPage/images";
 import { NavLink } from "./interface";
 import {
     IconBox,

@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import { ImageSmilingWoman } from '@/public/images/images'
-import React from 'react'
+import Image from "next/image";
+import { ImageSmilingWoman } from "@/public/images/landingPage/images";
+import React from "react";
 
 const SmilingWomanImage = () => {
     return (
@@ -14,7 +14,7 @@ const SmilingWomanImage = () => {
                 priority
             />
         </div>
-    )
-}
+    );
+};
 
-export default SmilingWomanImage
+export default SmilingWomanImage;

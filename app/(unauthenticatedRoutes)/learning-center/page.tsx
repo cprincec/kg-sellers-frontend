@@ -1,5 +1,5 @@
 import Hero from "./ui/sections/hero/Hero";
-import WatchOurTutorial from "./ui/sections/tutorials/WatchOutTuorial";
+import WatchOurTutorial from "./ui/sections/tutorials/WatchOurTuorial";
 
 const LearningCenter = () => {
     return (

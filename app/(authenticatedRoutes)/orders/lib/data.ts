@@ -1,4 +1,4 @@
-import { ImageProduct1 } from "@/public/images/images";
+import { ImageProduct1 } from "@/public/images/landingPage/images";
 
 export const tabs = [
     { label: "All", value: "all" },

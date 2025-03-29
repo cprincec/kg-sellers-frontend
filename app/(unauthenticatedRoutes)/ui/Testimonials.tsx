@@ -4,7 +4,7 @@ import { testimonialsData } from "../../lib/data";
 const Testimonials = () => {
     const { title, desc, testimonies } = testimonialsData;
     return (
-        <article className="hidden md:grid gap-16 py-16 px-[120px]">
+        <article className="max-w-[1200px] mx-auto hidden md:grid gap-16 py-16 max-lg:px-[120px]">
             <div className="grid gap-4 max-w-[898px] mx-auto text-center">
                 <h2 className="text-[40px] leading-[48px] font-bold">{title}</h2>
                 <p className="text-lg text-kaiglo_grey-600 font-medium">{desc}</p>

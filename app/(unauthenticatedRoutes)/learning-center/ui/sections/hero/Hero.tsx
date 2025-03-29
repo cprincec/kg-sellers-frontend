@@ -2,8 +2,8 @@ import LCHeroGridGallery from "./LCHeroGridGallery";
 
 const Hero = () => {
     return (
-        <div className="grid gap-6 md:gap-10 lg:gap-16 md:grid-cols-2 md:justify-between md:items-center px-4 md:px-16 lg:px-[120px] py-6 md:pt-8 md:pb-32">
-            <div className="grid gap-4 md:max-lg:self-end">
+        <div className="max-w-[1200px] mx-auto grid gap-6 md:gap-10 lg:gap-16 md:grid-flow-col lg:grid-cols-[50%_44%] md:justify-between md:items-center px-4 md:px-16 lg:px-0 py-6 md:pt-8 md:pb-24 lg:pb-36 overflow-hidden">
+            <div className="grid gap-4 md:max-lg:self-end md:mt-14">
                 <h1 className="text-xl md:text-2xl lg:text-[56px] lg:leading-[72px] md:font-extrabold lg:font-black">
                     Learn How to Navigate Our Platform with Ease
                 </h1>
