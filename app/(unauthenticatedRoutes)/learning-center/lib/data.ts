@@ -16,7 +16,7 @@ import {
     ImageWOT8Mobile,
     ImageWOT9Desktop,
     ImageWOT9Mobile,
-} from "@/public/images/images";
+} from "@/public/images/landingPage/images";
 import { Tutorial } from "./interface";
 
 export const tutorials: Tutorial[] = [

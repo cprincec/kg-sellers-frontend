@@ -4,8 +4,17 @@ import ImageSmilingWoman from "@/public/images/smiling-woman-with-shopping-bags.
 import ImageHeroMobile from "@/public/images/landingPage/image 30.png";
 import ImageHeroDesktop from "@/public/images/landingPage/image 30 (1).png";
 import ImageSAAC1 from "@/public/images/landingPage/Slide 1.png";
+import ImageSAAC1_2 from "@/public/images/landingPage/Slide 1-Underwear.png";
+import ImageSAAC1_3 from "@/public/images/landingPage/Slide 1-Slippers.png";
+import ImageSAAC1_4 from "@/public/images/landingPage/Slide 1-Gadgets.png";
 import ImageSAAC2 from "@/public/images/landingPage/Slide 2.png";
+import ImageSAAC2_2 from "@/public/images/landingPage/Slide 2-Window blind.png";
+import ImageSAAC2_3 from "@/public/images/landingPage/Slide 2-Electronics.png";
+import ImageSAAC2_4 from "@/public/images/landingPage/Slide 2-Beverages.png";
 import ImageSAAC3 from "@/public/images/landingPage/Slide 3.png";
+import ImageSAAC3_2 from "@/public/images/landingPage/Slide 3-Female bags.png";
+import ImageSAAC3_3 from "@/public/images/landingPage/Slide 3-Ring light.png";
+import ImageSAAC3_4 from "@/public/images/landingPage/Slide 3-Beauty.png";
 import ImageWMKDMobile1 from "@/public/images/landingPage/whatMakeKaigloDifferentMobile1.png";
 import ImageWMKDDesktop1 from "@/public/images/landingPage/whatMakeKaigloDifferentDesktop1.png";
 import ImageWMKDMobile2 from "@/public/images/landingPage/whatMakeKaigloDifferentMobile2.png";
@@ -77,8 +86,17 @@ export {
     ImageHeroMobile,
     ImageHeroDesktop,
     ImageSAAC1,
+    ImageSAAC1_2,
+    ImageSAAC1_3,
+    ImageSAAC1_4,
     ImageSAAC2,
+    ImageSAAC2_2,
+    ImageSAAC2_3,
+    ImageSAAC2_4,
     ImageSAAC3,
+    ImageSAAC3_2,
+    ImageSAAC3_3,
+    ImageSAAC3_4,
     ImageWMKDDesktop1,
     ImageWMKDMobile1,
     ImageWMKDDesktop2,

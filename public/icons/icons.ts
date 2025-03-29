@@ -63,8 +63,10 @@ import IconInstagram from "@/public/icons/instagram-logo 1.svg";
 import IconTelegram from "@/public/icons/telegram-logo 1.svg";
 import IconYoutube from "@/public/icons/youtube-logo 1.svg";
 import IconX from "@/public/icons/x-logo 1.svg";
+import IconSparkleDesktop from "@/public/icons/spark, sparkle, 26.svg";
 
 export {
+    IconSparkleDesktop,
     IconFacebook,
     IconInstagram,
     IconTelegram,

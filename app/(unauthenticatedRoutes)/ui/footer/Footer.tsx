@@ -6,19 +6,21 @@ import KaigloFooter from "./KaigloFooter";
 
 const Footer = () => {
     return (
-        <footer className="hidden md:grid gap-[46px] px-20 py-8">
-            <div className="md:grid md:grid-cols-2 md:gap-y-6 lg:flex justify-between items-start">
-                <KaigloFooter />
-                <CustomerService />
-                <MakeMoneyWithUs />
-                <FollowUs />
+        <footer className="px-20 lg:px-6 py-8">
+            <div className="hidden md:grid gap-[46px] max-w-[1230px] mx-auto">
+                <div className="md:grid md:grid-cols-2 md:gap-y-6 lg:flex justify-between items-start">
+                    <KaigloFooter />
+                    <CustomerService />
+                    <MakeMoneyWithUs />
+                    <FollowUs />
+                </div>
+                <p className="text-sm font-medium text-center">
+                    Copyright © 2024 KAIGLO STORES LIMITED. All Rights Reserved. User Agreement,{" "}
+                    <Link href={""} className="text-kaiglo_info-base">
+                        Privacy and Cookies
+                    </Link>
+                </p>
             </div>
-            <p className="text-sm font-medium text-center">
-                Copyright © 2024 KAIGLO STORES LIMITED. All Rights Reserved. User Agreement,{" "}
-                <Link href={""} className="text-kaiglo_info-base">
-                    Privacy and Cookies
-                </Link>
-            </p>
         </footer>
     );
 };

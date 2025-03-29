@@ -4,7 +4,7 @@ import {
     ImageWMKDDesktop2,
     ImageWMKDMobile1,
     ImageWMKDMobile2,
-} from "@/public/images/images";
+} from "@/public/images/landingPage/images";
 
 export const homeNavLinks = [
     {
