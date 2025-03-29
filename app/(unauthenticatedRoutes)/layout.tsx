@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import LandingPageHeader from "./ui/LandingPageHeader";
+import LandingPageHeader from "./ui/header/LandingPageHeader";
 import Footer from "./ui/footer/Footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
