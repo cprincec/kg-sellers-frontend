@@ -1,6 +1,5 @@
 import { accountSummaryMock } from "../lib/data";
 import { Fragment, useEffect, useState } from "react";
-import Metric from "@/app/(authenticatedRoutes)/dashboard/ui/metrics/Metric";
 import Image from "next/image";
 import { IconVerticalLine } from "@/public/icons/icons";
 import { useSearchParams } from "next/navigation";
@@ -10,6 +9,7 @@ import SelectAccount from "./withdraw/SelectAccount";
 import WithdrawalAmount from "./withdraw/WithdrawalAmount";
 import OtpModal from "@/app/(auth)/ui/otp/OtpModal";
 import WithdrawalSuccessful from "./withdraw/WithdrawalSuccessful";
+import Metric from "../../ui/metrics/Metric";
 
 const AccountSummary = ({ className }: { className?: string }) => {
     const lastUpdated = "Oct 8, 2024";
@@ -32,18 +32,18 @@ const AccountSummary = ({ className }: { className?: string }) => {
     return (
         <article
             className={cn(
-                "grid gap-2 lg:gap-0 py-3 md:py-4 rounded-xl lg:rounded-none lg:bg-white border border-kaiglo_grey-200",
+                "grid py-0 md:pt-2 lg:py-4 rounded-xl lg:rounded-none lg:bg-white border border-kaiglo_grey-200",
                 className
             )}
         >
-            <h2 className="flex items-center gap-2 md:gap-3 flex-wrap md:p-[8px_24px_12px_24px] px-2 pb-1 text-base text-kaiglo_grey-800 font-medium border-b border-kaiglo_grey-200">
+            <h2 className="flex items-center gap-2 md:gap-3 flex-wrap p-3 md:p-[8px_24px_12px_24px] text-base text-kaiglo_grey-800 font-medium border-b border-kaiglo_grey-200">
                 ACCOUNT SUMMARY
                 <span className="font-normal px-2 py-1 rounded bg-kaiglo_grey-100 text-kaiglo_grey-800 text-sm md:text-base">
                     Last updated {lastUpdated}
                 </span>
             </h2>
 
-            <div className="grid lg:flex lg:items-center gap-2 lg:gap-0 px-2 lg:px-4 lg:py-3">
+            <div className="grid lg:flex lg:items-center lg:px-4 lg:py-3">
                 {accountSummaryMock.map((item, index) => (
                     <Fragment key={item.title}>
                         <Metric
@@ -51,7 +51,12 @@ const AccountSummary = ({ className }: { className?: string }) => {
                             body={item.body}
                             actionText={item.actionText}
                             showEmptyState={false}
-                            className="flex-1"
+                            className={cn(
+                                "flex-1 max-lg:border-x-0 max-lg:md:border-y max-lg:rounded-none",
+                                index === accountSummaryMock.length - 1 &&
+                                    "max-lg:border-y-0 max-lg:rounded-b-xl",
+                                index === 0 && "max-lg:border-y-0"
+                            )}
                             tip={item.tip || ""}
                             canHideData={item.canHideData || false}
                             IsCurrency={item.isCurrency || false}

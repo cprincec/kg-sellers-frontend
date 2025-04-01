@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { productsList } from "../../../lib/data";
+import { productsList } from "../../lib/data";
 
 const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
     let products = productsList;

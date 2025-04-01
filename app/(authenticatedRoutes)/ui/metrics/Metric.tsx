@@ -8,6 +8,7 @@ import Image from "next/image";
 import { IconEye } from "@/public/icons/icons";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { MetricProps } from "../../lib/interface";
 
 const Metric = ({
     title,
@@ -21,23 +22,7 @@ const Metric = ({
     className,
     actionText,
     actionClassName,
-}: {
-    title: string;
-    body: string;
-    IsCurrency?: boolean;
-    tip?: string;
-    comparism?: {
-        value: string;
-        isPositive: boolean;
-        date: string;
-    } | null;
-    variant?: string;
-    showEmptyState: boolean;
-    canHideData?: boolean;
-    className?: string;
-    actionText?: string;
-    actionClassName?: string;
-}) => {
+}: MetricProps) => {
     const [showData, setShowData] = useState<boolean>(canHideData);
 
     return (

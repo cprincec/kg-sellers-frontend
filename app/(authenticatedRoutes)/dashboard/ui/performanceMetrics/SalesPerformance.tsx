@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import { NoResultsIcon } from "../../icons";
 import SalesPerformanceChart from "./chart/SalesPerformanceChart";
+import { NoResultsIcon } from "../icons";
 
 const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const isPositive = false;

@@ -1,7 +1,7 @@
 "use client";
 
-import { NoResultsIcon } from "../../icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NoResultsIcon } from "../icons";
 import ProductPerformanceTable from "./ProductPerformanceTable";
 
 const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {

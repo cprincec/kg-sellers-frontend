@@ -5,8 +5,8 @@ import Link from "next/link";
 import React from "react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { links, paths } from "../../lib/data";
-import { NavLink } from "../../lib/interface";
+import { links, paths } from "../../dashboard/lib/data";
+import { NavLink } from "../../dashboard/lib/interface";
 
 const Menu = () => {
     const pathname = usePathname();

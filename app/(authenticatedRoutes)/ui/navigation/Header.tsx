@@ -6,12 +6,16 @@ import Image from "next/image";
 import { ProfileIcon } from "./sidebar-icons";
 import SideBarMobile from "./SideBarMobile";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { getHeaderTitleAndDescription } from "../../lib/utils";
 
-const Header = ({ heading, description }: { heading: string; description?: string }) => {
+const Header = () => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
+    const pathname = usePathname();
+    const { title, description } = getHeaderTitleAndDescription(pathname.replace("/", "")); // remove the leading "/"
 
     return (
-        <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/50 flex justify-between p-4 border-b border-kaiglo_grey-200">
+        <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/50 flex justify-between p-4 border border-kaiglo_grey-200">
             <div className="flex gap-2 items-center">
                 <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
 
@@ -24,7 +28,7 @@ const Header = ({ heading, description }: { heading: string; description?: strin
                     <Image src={IconMenu} alt="menu" className="w-6 h-6 " />
                 </div>
                 <div>
-                    <h1 className="font-medium text-lg md:text-2xl capitalize">{heading}</h1>
+                    <h1 className="font-medium text-lg md:text-2xl capitalize">{title}</h1>
                     <p className="hidden md:block">{description}</p>
                 </div>
             </div>

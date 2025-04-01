@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "../dashboard/ui/navigation/Header";
 import AccountSummary from "./ui/AccountSummary";
 import { tabs } from "./lib/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,16 +24,12 @@ const Wallet = () => {
     };
 
     return (
-        <div className="pb-4 grid gap-2 md:gap-1 lg:gap-0">
-            <Header heading={"Wallet"} description={"Your current transactions activities."} />
+        <div className="p-4 lg:p-0 md:max-lg:pl-3 grid gap-4 lg:gap-0 lg:bg-kaiglo_grey-100">
+            <AccountSummary className="" />
 
-            {/* <div className="grid"> */}
-            <AccountSummary className=" px-3 md:pl-1 md:pr-1 md:max-lg:p-4 lg:px-0 md:max-lg:bg-white" />
-            {/* </div> */}
-
-            <div className="grid gap-4 py-4 lg:py-6">
-                <Tabs defaultValue={activeTab || "wallet"} className="grid gap-2 lg:gap-4 px-4">
-                    <div className="grid md:grid-cols-2 lg:justify-between lg:items-center gap-2 lg:gap-4 md:border-b border-kaiglo_grey-200">
+            <div className="grid gap-4 py-4 lg:px-6 lg:pt-6 lg:pb-0 bg-white lg:border">
+                <Tabs defaultValue={activeTab || "wallet"} className="grid gap-2 lg:gap-0">
+                    <div className="grid md:grid-cols-2 lg:justify-between md:items-baseline lg:items-center gap-2 lg:gap-4 border-kaiglo_grey-200">
                         <OrderHistoryToolsBar
                             showSort={false}
                             showAction={false}

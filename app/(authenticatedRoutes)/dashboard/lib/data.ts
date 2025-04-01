@@ -94,3 +94,48 @@ export const links: NavLink[] = [
 ];
 
 export const paths = ["/dashboard", "/products", "/orders", "/transactions", "/wallet", "/settings"];
+
+export const salesPerformanceChartData = [
+    {
+        day: "Mon",
+        thisWeek: 80000,
+        lastWeek: 40000,
+        amount: 400000,
+    },
+    {
+        day: "Tue",
+        thisWeek: 80000,
+        lastWeek: 130000,
+        amount: 400000,
+    },
+    {
+        day: "Wed",
+        thisWeek: 80000,
+        lastWeek: 50000,
+        amount: 400000,
+    },
+    {
+        day: "Thu",
+        thisWeek: 150000,
+        lastWeek: 90000,
+        amount: 400000,
+    },
+    {
+        day: "Fri",
+        thisWeek: 230000,
+        lastWeek: 80000,
+        amount: 400000,
+    },
+    {
+        day: "Sat",
+        thisWeek: 50000,
+        lastWeek: 180000,
+        amount: 400000,
+    },
+    {
+        day: "Sun",
+        thisWeek: 100000,
+        lastWeek: 240000,
+        amount: 400000,
+    },
+];
