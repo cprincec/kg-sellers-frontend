@@ -8,7 +8,7 @@ import Image from "next/image";
 import { IconSortDesc } from "@/public/icons/icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-const SortButton = () => {
+const SortButton = ({ alignDropDown = "start" }: { alignDropDown?: "start" | "center" | "end" }) => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
@@ -46,7 +46,10 @@ const SortButton = () => {
                     <span className="hidden lg:block text-kaiglo_grey-500 text-base font-normal">Sort</span>
                 </Button>
             </PopoverTrigger>
-            <PopoverContent align="end" className="w-[160px] p-0 shadow-[0px_2px_12px_0px_#00000014] ">
+            <PopoverContent
+                align={alignDropDown}
+                className="w-[160px] p-0 shadow-[0px_2px_12px_0px_#00000014] "
+            >
                 <SortDropDown handleSort={handleSort} />
             </PopoverContent>
         </Popover>

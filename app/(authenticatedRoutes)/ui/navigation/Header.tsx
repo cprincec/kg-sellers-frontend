@@ -12,6 +12,11 @@ import { getHeaderTitleAndDescription } from "../../lib/utils";
 const Header = () => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
     const pathname = usePathname();
+
+    // only show header in primary routes
+    if (pathname.split("/").length > 2) return null;
+    console.log(pathname);
+
     const { title, description } = getHeaderTitleAndDescription(pathname.replace("/", "")); // remove the leading "/"
 
     return (

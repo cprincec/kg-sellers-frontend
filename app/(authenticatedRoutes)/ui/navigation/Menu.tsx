@@ -10,7 +10,10 @@ import { NavLink } from "../../dashboard/lib/interface";
 
 const Menu = () => {
     const pathname = usePathname();
-    const navLinks = links.map((link: NavLink, index) => ({ ...link, active: pathname === paths[index] }));
+    const navLinks = links.map((link: NavLink, index) => ({
+        ...link,
+        active: pathname.startsWith(paths[index]),
+    }));
     return (
         <ul className="grid gap-y-3 max-h-[calc(100vh-150px)] overflow-auto">
             {navLinks.map((link) => {

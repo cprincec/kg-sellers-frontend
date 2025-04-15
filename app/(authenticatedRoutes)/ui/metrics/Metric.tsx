@@ -9,6 +9,7 @@ import { IconEye } from "@/public/icons/icons";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { MetricProps } from "../../lib/interface";
+import { getMetricVariant } from "../../lib/utils";
 
 const Metric = ({
     title,
@@ -22,6 +23,7 @@ const Metric = ({
     className,
     actionText,
     actionClassName,
+    icon,
 }: MetricProps) => {
     const [showData, setShowData] = useState<boolean>(canHideData);
 
@@ -34,14 +36,12 @@ const Metric = ({
         >
             <div className="flex items-center gap-3 md:px-4 lg:px-2">
                 <h3
-                    className={`uppercase text-sm font-medium ${
-                        variant?.toLowerCase() === "warning"
-                            ? "text-kaiglo_attention-500"
-                            : variant?.toLowerCase() === "error"
-                            ? "text-kaiglo_critical-error"
-                            : "text-kaiglo_grey-600"
-                    }`}
+                    className={cn(
+                        "flex gap-1 items-center uppercase text-sm font-medium text-kaiglo_grey-500",
+                        variant && getMetricVariant(variant)
+                    )}
                 >
+                    {icon && <Image src={icon} alt="icon" />}
                     {title}
                 </h3>
                 {/* Eye icon starts */}

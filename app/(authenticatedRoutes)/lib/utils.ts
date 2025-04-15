@@ -10,3 +10,15 @@ export const getHeaderTitleAndDescription = (pathname: string) => {
 
     return headers[pathname] || { title: "Overview", description: "Track, manage your orders." };
 };
+
+export const getMetricVariant = (variant: string) => {
+    if (!variant) return "text-kaiglo_grey-500";
+
+    const variants: Record<string, string> = {
+        warning: "text-kaiglo_attention-500",
+        error: "text-kaiglo_critical-error",
+        success: "text-kaiglo_success-base",
+    };
+
+    return variants[variant];
+};

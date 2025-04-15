@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface MetricProps {
     title: string;
     body: string;
@@ -14,4 +16,5 @@ export interface MetricProps {
     className?: string;
     actionText?: string;
     actionClassName?: string;
+    icon?: StaticImageData;
 }

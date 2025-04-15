@@ -50,8 +50,12 @@ import ImageLCHeroGridDesktop2 from "@/public/images/learningCenter/heroGridDesk
 import ImageLCHeroGridDesktop3 from "@/public/images/learningCenter/heroGridDesktop3.png";
 import ImageLCHeroGridDesktop4 from "@/public/images/learningCenter/heroGridDesktop4.png";
 import ImageLCHeroGridSparkleDesktop from "@/public/images/learningCenter/spark, sparkle, desktop.png";
+import ImageSampleProduct1 from "@/public/images/dashboard/2 air-max-2090-mens-shoe-3pVM46 (2)2.png";
+import ImageSampleProduct1plus from "@/public/images/dashboard/Frame 1000008744.png";
 
 export {
+    ImageSampleProduct1,
+    ImageSampleProduct1plus,
     ImageLCHeroGridDesktop1,
     ImageLCHeroGridDesktop2,
     ImageLCHeroGridDesktop3,

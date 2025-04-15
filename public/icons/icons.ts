@@ -64,8 +64,44 @@ import IconTelegram from "@/public/icons/telegram-logo 1.svg";
 import IconYoutube from "@/public/icons/youtube-logo 1.svg";
 import IconX from "@/public/icons/x-logo 1.svg";
 import IconSparkleDesktop from "@/public/icons/spark, sparkle, 26.svg";
+import IconPackage2 from "@/public/icons/package-2.svg";
+import IconGlobe from "@/public/icons/globe.svg";
+import IconPackageProcess2 from "@/public/icons/package-process-2.svg";
+import IconPackageOutOfStock from "@/public/icons/package-out-of-stock.svg";
+import IconCancelCircle from "@/public/icons/cancel-circle.svg";
+import IconMenuDots from "@/public/icons/solar_menu-dots-bold.svg";
+import IconEditSquare from "@/public/icons/edit-square 1.svg";
+import IconPriceTag from "@/public/icons/price-tag.svg";
+import IconPause from "@/public/icons/pause 1.svg";
+import IconDuplicate from "@/public/icons/duplicate 1.svg";
+import IconTrash from "@/public/icons/trash 1.svg";
+import IconFilter from "@/public/icons/filter.svg";
+import IconCalendar2 from "@/public/icons/calendar-2.svg";
+import IconPlusSign from "@/public/icons/plus-sign.svg";
+import IconArrowDownRound from "@/public/icons/arrow-down-01-round.svg";
+import IconArrowBackShort from "@/public/icons/arrow-ios-back-outline 1.svg";
+import IconEdit from "@/public/icons/edit.3 1.svg";
+import IconTrash2 from "@/public/icons/trash 2.svg";
 
 export {
+    IconTrash2,
+    IconEdit,
+    IconArrowBackShort,
+    IconPlusSign,
+    IconArrowDownRound,
+    IconCalendar2,
+    IconFilter,
+    IconDuplicate,
+    IconEditSquare,
+    IconPause,
+    IconPriceTag,
+    IconTrash,
+    IconMenuDots,
+    IconCancelCircle,
+    IconGlobe,
+    IconPackage2,
+    IconPackageOutOfStock,
+    IconPackageProcess2,
     IconSparkleDesktop,
     IconFacebook,
     IconInstagram,
