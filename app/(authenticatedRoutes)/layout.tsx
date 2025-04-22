@@ -1,5 +1,6 @@
-import SideBarDesktop from "@/app/(authenticatedRoutes)/dashboard/ui/navigation/SideBarDesktop";
+import SideBarDesktop from "@/app/(authenticatedRoutes)/ui/navigation/SideBarDesktop";
 import { Suspense } from "react";
+import Header from "./ui/navigation/Header";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -8,7 +9,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 {/* Navigation Bar */}
                 <SideBarDesktop />
 
-                <div className="md:w-[65%] lg:w-[83%] ml-auto">{children}</div>
+                <div className="md:w-[65%] lg:w-[83%] ml-auto">
+                    <Header />
+                    <div>{children}</div>
+                </div>
             </div>
         </Suspense>
     );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import Header from "../dashboard/ui/navigation/Header";
 import { tabs } from "./lib/data";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import SettingsContentMobile from "./ui/SettingsContentMobile";
@@ -23,11 +22,11 @@ const Settings = () => {
     }, [searchParams]);
 
     return (
-        <div className="grid gap-2 md:gap-1">
-            <Header heading={"Settings"} />
-
-            <SettingsContentMobile activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
-            <SettingsContentDesktop activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
+        <div className="lg:border-x lg:min-h-[calc(100vh-82px)]">
+            <div className="grid gap-2 md:gap-1">
+                <SettingsContentMobile activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
+                <SettingsContentDesktop activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
+            </div>
         </div>
     );
 };

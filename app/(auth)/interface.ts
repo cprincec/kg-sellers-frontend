@@ -79,6 +79,11 @@ export interface StoreSetupContextProviderProps {
     children: React.ReactNode;
 }
 
+export interface IProductCategoryDTO {
+    categoryId: string;
+    categoryName: string;
+}
+
 export interface navigateTpNextStepProps {
     trigger: () => Promise<boolean>;
     setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;

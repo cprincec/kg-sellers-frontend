@@ -30,8 +30,12 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
     React.ElementRef<typeof DialogPrimitive.Content>,
-    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { styleXBtn?: boolean }
->(({ className, children, styleXBtn = false, ...props }, ref) => {
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+        showCloseButton?: boolean;
+        styleXBtn?: boolean;
+        closeBtnClassName?: string;
+    }
+>(({ className, children, closeBtnClassName, styleXBtn = false, showCloseButton = true, ...props }, ref) => {
     return (
         <DialogPortal>
             <DialogOverlay />
@@ -45,20 +49,23 @@ const DialogContent = React.forwardRef<
             >
                 {children}
 
-                <DialogPrimitive.Close
-                    className={cn(
-                        "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
-                        styleXBtn && "right-6"
-                    )}
-                >
-                    <X
+                {showCloseButton && (
+                    <DialogPrimitive.Close
                         className={cn(
-                            "h-6 w-6 outline-none rounded-full",
-                            styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                            "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+                            styleXBtn && "right-6",
+                            closeBtnClassName
                         )}
-                    />
-                    {/* <span className="sr-only">Close</span> */}
-                </DialogPrimitive.Close>
+                    >
+                        <X
+                            className={cn(
+                                "h-6 w-6 outline-none rounded-full",
+                                styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                            )}
+                        />
+                        {/* <span className="sr-only">Close</span> */}
+                    </DialogPrimitive.Close>
+                )}
             </DialogPrimitive.Content>
         </DialogPortal>
     );

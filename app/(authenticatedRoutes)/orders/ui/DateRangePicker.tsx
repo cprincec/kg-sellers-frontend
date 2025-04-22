@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { IconCalendar, IconExpand } from "@/public/icons/icons";
+import { IconCalendar2, IconExpand } from "@/public/icons/icons";
 import Image from "next/image";
 import { handleDateChange } from "../lib/utils/datePicker.utils";
 import { useState } from "react";
@@ -29,9 +29,7 @@ const DateRangePicker = ({ className }: { className?: string }) => {
                         variant={"outline"}
                         className={cn("font-normal p-3", !date && "text-muted-foreground")}
                     >
-                        <div className="relative w-5 h-5">
-                            <Image src={IconCalendar} alt="calendar" />
-                        </div>
+                        <Image src={IconCalendar2} alt="calendar" />
                         <div className="hidden lg:block">
                             {date?.from ? (
                                 date.to ? (

@@ -17,7 +17,8 @@ const StoreDetailsForm = () => {
     });
 
     const saveStoreDetails = () => {
-        // navigateToNextStep();s
+        // navigateToNextStep();
+        //
     };
 
     return (

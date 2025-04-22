@@ -1,3 +1,4 @@
+import React from "react";
 import { Control, FieldError, FieldValues, Path } from "react-hook-form";
 
 export interface Rule {
@@ -12,6 +13,8 @@ export interface ControlledModifiedInputProps<TFieldValues extends FieldValues> 
     name: Path<TFieldValues>;
     placeholder?: string;
     label?: string;
+    labelDescription?: React.ReactNode;
+    labelContainerClassName?: string;
     type?: string;
     error?: FieldError;
     rules?: Rule;
@@ -36,12 +39,15 @@ export interface ControlledModifiedSelectProps<T extends FieldValues> {
     required: boolean;
 }
 
-export interface ControlledModifiedTextAreaProps<T extends FieldValues> {
-    name: Path<T>;
-    control: Control<T>;
+export interface ControlledModifiedTextAreaProps<TFieldValues extends FieldValues> {
+    name: Path<TFieldValues>;
+    control: Control<TFieldValues>;
     rules: any;
     placeholder: string;
     error: any;
     rows: number;
-    required: boolean;
+    isRequired?: boolean;
+    className?: string;
+    label?: string;
+    labelClassNames?: string;
 }

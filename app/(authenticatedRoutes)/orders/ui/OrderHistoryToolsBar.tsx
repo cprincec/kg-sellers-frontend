@@ -36,7 +36,7 @@ const OrderHistoryToolsBar = ({
                 <DateRangePicker />
 
                 {/* Sort */}
-                {showSort && <SortButton />}
+                {showSort && <SortButton alignDropDown={"end"} />}
 
                 {/* Download */}
                 {showAction && (

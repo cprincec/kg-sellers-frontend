@@ -38,7 +38,7 @@ const SettingsContentDesktop = ({
             </TabsList>
 
             {/* Tables */}
-            <div className="py-6">
+            <div className="py-6 lg:px-4">
                 <TabsContent value={tabs[0].value} className="overflow-auto">
                     <StoreDetailsForm />
                 </TabsContent>

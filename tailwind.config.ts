@@ -183,7 +183,9 @@ export default {
                 },
                 kaiglo_warning: {
                     "25": "#FFFCF5",
+                    "50": "#FFFAEB",
                     "200": "#FEDF89",
+                    "300": "#FEC84B",
                     "500": "#F79009",
                 },
                 kaiglo_accent: {
