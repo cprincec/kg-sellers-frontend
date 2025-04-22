@@ -5,10 +5,12 @@ import { FormNavButtonsProps } from "../../lib/interface";
 import { cn } from "@/lib/utils";
 
 const FormNavButtons = ({
-    cancelButtonText = "Cancel",
-    submitButtonText = "Proceed",
+    submitButtonFunc,
     cancelFunc,
     className,
+    cancelButtonText = "Cancel",
+    submitButtonText = "Proceed",
+    submitButtonType = "submit",
 }: FormNavButtonsProps) => {
     return (
         <div className={cn("flex justify-end items-center gap-3 pt-4", className)}>
@@ -21,7 +23,11 @@ const FormNavButtons = ({
                 {cancelButtonText}
             </Button>
 
-            <Button type="submit" className="px-8 py-3 rounded-full">
+            <Button
+                type={submitButtonType}
+                className="px-8 py-3 rounded-full"
+                onClick={() => submitButtonFunc && submitButtonFunc()}
+            >
                 {submitButtonText}
             </Button>
         </div>

@@ -82,8 +82,25 @@ import IconArrowDownRound from "@/public/icons/arrow-down-01-round.svg";
 import IconArrowBackShort from "@/public/icons/arrow-ios-back-outline 1.svg";
 import IconEdit from "@/public/icons/edit.3 1.svg";
 import IconTrash2 from "@/public/icons/trash 2.svg";
-
+import IconUploadImage from "@/public/icons/image-add-02.svg";
+import IconArrowRight from "@/public/icons/arrow-left-1.2 2.svg";
+import IconSelectCategoryCurrent from "@/public/icons/select-category-current.svg";
+import IconProductDetailsCurrent from "@/public/icons/product-details-current.svg";
+import IconProductDetailsNotCurrent from "@/public/icons/product-details-not-current.svg";
+import IconProductVariantsCurrent from "@/public/icons/product-variants-current.svg";
+import IconProductVariantsNotCurrent from "@/public/icons/product-variants-not-current.svg";
+import IconStepComplete from "@/public/icons/step-complete.svg";
+import IconLine35 from "@/public/icons/Line 35.svg";
 export {
+    IconLine35,
+    IconProductDetailsCurrent,
+    IconProductDetailsNotCurrent,
+    IconProductVariantsCurrent,
+    IconProductVariantsNotCurrent,
+    IconSelectCategoryCurrent,
+    IconStepComplete,
+    IconArrowRight,
+    IconUploadImage,
     IconTrash2,
     IconEdit,
     IconArrowBackShort,

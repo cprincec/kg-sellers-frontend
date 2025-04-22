@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 const ControlledModifiedInput = <TFormValue extends FieldValues>({
     name,
     label,
+    labelDescription,
+    labelContainerClassName,
     placeholder,
     type,
     control,
@@ -36,6 +38,8 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
                             onValueChange={onValueChange}
                             placeholder={placeholder}
                             label={label}
+                            labelDescription={labelDescription}
+                            labelContainerClassName={labelContainerClassName}
                             labelClassNames={labelClassNames}
                             disabled={disabled}
                         />

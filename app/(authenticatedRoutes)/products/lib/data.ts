@@ -8,14 +8,18 @@ import {
     IconPackageProcess2,
     IconPause,
     IconPriceTag,
+    IconProductDetailsNotCurrent,
+    IconProductVariantsNotCurrent,
     IconTrash,
 } from "@/public/icons/icons";
 import {
     ImageProduct1,
+    ImageProductCategoryCurrent,
+    ImageProductDetailsCurrent,
+    ImageProductVariantCurrent,
     ImageSampleProduct1,
     ImageSampleProduct1plus,
 } from "@/public/images/landingPage/images";
-import { ProductDtO } from "./interface";
 
 export const productsMetricsData = [
     { title: "Total Products", value: "120", icon: IconPackage2 },
@@ -105,7 +109,7 @@ export const productsList = [
     },
 ];
 
-export const sampleProduct: ProductDtO = {
+export const sampleProduct = {
     productImage: ImageProduct1,
     productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
     sku: "02922039341",
@@ -288,5 +292,54 @@ export const rejectedProductsData = [
         amount: 2500,
         quantity: 100,
         dateCreated: "01 Aug 2024",
+    },
+];
+
+export const productsCategoriesList = [
+    "Men's Fashion",
+    "Women's Fashion",
+    "Office & Schools",
+    "Consumer Electronics",
+    "Phones & Computing",
+    "Health & Beauty",
+    "Home Decor",
+    "Sports & Outdoors",
+];
+
+/*****************************************************************************
+ * Added products variants table data
+ *****************************************************************************/
+export const productVariants = [
+    {
+        image: ImageSampleProduct1,
+        shippingWeight: 20,
+        color: "blue",
+        size: "36",
+        quantity: 15,
+        price: 2500,
+    },
+];
+
+/*******************************************
+ * Steps for adding products
+ ********************************************/
+export const addProductSteps = [
+    {
+        label: "Select Category",
+        id: "product-category",
+        currentIcon: ImageProductCategoryCurrent,
+        notCurrentIcon: null,
+    },
+    {
+        id: "product-details",
+        label: "Product details",
+        currentIcon: ImageProductDetailsCurrent,
+        notCurrentIcon: IconProductDetailsNotCurrent,
+    },
+    {
+        id: "product-variants",
+        label: "Product variants",
+        currentIcon: ImageProductVariantCurrent,
+        notCurrentIcon: IconProductVariantsNotCurrent,
     },
 ];

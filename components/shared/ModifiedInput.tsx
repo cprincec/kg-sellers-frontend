@@ -26,6 +26,8 @@ const ModifiedInput = ({
     accept,
     label,
     labelClassNames,
+    labelDescription,
+    labelContainerClassName,
 }: ModifiedInputProps) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) onChange(e.target.value);
@@ -36,14 +38,17 @@ const ModifiedInput = ({
     return (
         <div className="grid gap-1 md:gap-2">
             {label && (
-                <Label
-                    className={`text-sm md:text-base text-kaiglo_grey-700 capitalize font-normal ${
-                        labelClassNames && labelClassNames
-                    }`}
-                >
-                    {label}
-                    {isRequired && <span className="text-kaiglo_critical-error font-medium">*</span>}
-                </Label>
+                <div className={cn("", labelContainerClassName)}>
+                    <Label
+                        className={`text-sm md:text-base text-kaiglo_grey-700 capitalize font-normal ${
+                            labelClassNames && labelClassNames
+                        }`}
+                    >
+                        {label}
+                        {isRequired && <span className="text-kaiglo_critical-error font-medium">*</span>}
+                    </Label>
+                    {labelDescription && <div>{labelDescription}</div>}
+                </div>
             )}
             <div>
                 {id === "phone" && (

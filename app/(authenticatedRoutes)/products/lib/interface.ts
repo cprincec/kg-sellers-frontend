@@ -11,12 +11,13 @@ export interface ProductDtO {
     salesType: string;
 }
 
-export interface IProductVariantDTO {
-    color: string;
-    size: string;
-    quantity: number;
-    amount: number;
-}
+// export interface IProductVariantDTO {
+//     image:
+//     color: string;
+//     size: string;
+//     quantity: number;
+//     amount: number;
+// }
 
 export interface IProductDTO {
     productImage: StaticImageData;
@@ -28,6 +29,40 @@ export interface IProductDTO {
     salesType: string[];
     quantity: number;
     dateCreated: string;
+}
+
+export interface IProductCategoryFormValue {
+    productCategory: string;
+}
+
+export interface IProductDetailsFormValues {
+    images: File[];
+    name: string;
+    specification1: string;
+    specification2?: string;
+    specification3?: string;
+    specification4?: string;
+    specification5?: string;
+    description: string;
+    seo?: string;
+}
+
+export interface IProductVariantsFormValues {
+    images: File[];
+    shippingWeight: number;
+    color: string;
+    size?: string | undefined;
+    quantity: number;
+    price: number;
+}
+
+export interface IProductVariantDTO {
+    image: StaticImageData;
+    shippingWeight: number;
+    color: string;
+    size?: string | undefined;
+    quantity: number;
+    price: number;
 }
 
 export interface IRejectedProductDTO {

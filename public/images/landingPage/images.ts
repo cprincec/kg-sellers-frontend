@@ -52,8 +52,14 @@ import ImageLCHeroGridDesktop4 from "@/public/images/learningCenter/heroGridDesk
 import ImageLCHeroGridSparkleDesktop from "@/public/images/learningCenter/spark, sparkle, desktop.png";
 import ImageSampleProduct1 from "@/public/images/dashboard/2 air-max-2090-mens-shoe-3pVM46 (2)2.png";
 import ImageSampleProduct1plus from "@/public/images/dashboard/Frame 1000008744.png";
+import ImageProductVariantCurrent from "@/public/images/dashboard/product-variants-current.png";
+import ImageProductDetailsCurrent from "@/public/images/dashboard/product-details-current.png";
+import ImageProductCategoryCurrent from "@/public/images/dashboard/product-category-current.png";
 
 export {
+    ImageProductCategoryCurrent,
+    ImageProductDetailsCurrent,
+    ImageProductVariantCurrent,
     ImageSampleProduct1,
     ImageSampleProduct1plus,
     ImageLCHeroGridDesktop1,

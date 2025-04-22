@@ -31,3 +31,28 @@ export const paymentoptionSchema = yup.object({
     accountNumber: yup.string().required("Account Number is required"),
     bankName: yup.string().required("Bank Name is required"),
 });
+
+/*********** PRODUCT CATEGORY SCHEMA ***********/
+export const productCategorySchema = yup.object({
+    productCategory: yup.string().required("Product category is required"),
+});
+
+// export const productCategoriesSchema = yup.object({
+//     productCategories: yup
+//         .array()
+//         .of(yup.string())
+//         .min(1, "Select at least one product category")
+//         .required("Product category is required"),
+// });
+// export const productCategoriesSchema = yup.object({
+//     productCategories: yup
+//         .array()
+//         .of(
+//             yup.object().shape({
+//                 categoryId: yup.string().required("Category ID is required"),
+//                 categoryName: yup.string().required("Category name is required"),
+//             })
+//         )
+//         .min(1, "Select at least one product category")
+//         .required("Product category is required"),
+// });

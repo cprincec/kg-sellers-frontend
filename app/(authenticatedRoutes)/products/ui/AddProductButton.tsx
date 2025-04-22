@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { IconArrowDownRound, IconPlusSign } from "@/public/icons/icons";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const AddProductButton = ({ className }: { className?: string }) => {
@@ -22,7 +23,7 @@ const AddProductButton = ({ className }: { className?: string }) => {
                 <PopoverContent className="rounded-xl p-0 py-2 w-min" align="start">
                     <div className="grid gap-2 w-full">
                         <Button variant={"ghost"} className="font-normal justify-start w-full bg-transparent">
-                            Single Upload
+                            <Link href={"/products/add-product?step=product-category"}>Single Upload</Link>
                         </Button>
                         <Button variant={"ghost"} className="font-normal justify-start w-full bg-transparent">
                             Bulk Upload
