@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { StoreSetupContextProvider } from "@/app/(auth)/contexts/storeSetupContext";
+import { Toaster } from "@/components/ui/sonner";
 
 const gotham = localFont({
     src: [
@@ -53,7 +54,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <StoreSetupContextProvider>
-                <body className={`${gotham.className}`}>{children}</body>
+                <body className={`${gotham.className}`}>
+                    {children} <Toaster position="top-center" />;
+                </body>
             </StoreSetupContextProvider>
         </html>
     );

@@ -91,7 +91,9 @@ import IconProductVariantsCurrent from "@/public/icons/product-variants-current.
 import IconProductVariantsNotCurrent from "@/public/icons/product-variants-not-current.svg";
 import IconStepComplete from "@/public/icons/step-complete.svg";
 import IconLine35 from "@/public/icons/Line 35.svg";
+import IconToastSuccess from "@/public/icons/toast-success.svg";
 export {
+    IconToastSuccess,
     IconLine35,
     IconProductDetailsCurrent,
     IconProductDetailsNotCurrent,

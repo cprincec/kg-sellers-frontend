@@ -139,7 +139,8 @@ const Preview = () => {
                         submitButtonType="button"
                         submitButtonText="Upload"
                         submitButtonFunc={() => {
-                            router.push("/products");
+                            sessionStorage.setItem("justUploaded", "true");
+                            router.push("/products?upload-status=successful");
                         }}
                         className="max-w-[424px] md:ml-auto grid grid-cols-2 gap-3 justify-between p-4"
                     />
