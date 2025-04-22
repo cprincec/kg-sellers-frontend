@@ -11,13 +11,12 @@ export interface ProductDtO {
     salesType: string;
 }
 
-// export interface IProductVariantDTO {
-//     image:
-//     color: string;
-//     size: string;
-//     quantity: number;
-//     amount: number;
-// }
+export interface IProductVariant {
+    color: string;
+    size: string;
+    quantity: number;
+    amount: number;
+}
 
 export interface IProductDTO {
     productImage: StaticImageData;

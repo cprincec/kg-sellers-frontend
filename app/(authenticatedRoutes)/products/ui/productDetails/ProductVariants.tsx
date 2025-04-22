@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import { getProductVariantColor } from "../../lib/utils";
-import { IProductVariantDTO } from "../../lib/interface";
+import { IProductVariant } from "../../lib/interface";
 
-const ProductVariants = ({ productVariants }: { productVariants: IProductVariantDTO[] }) => {
+const ProductVariants = ({ productVariants }: { productVariants: IProductVariant[] }) => {
     return (
         <section className="grid gap-2">
             <h3 className="text-sm font-medium">Product variants</h3>
