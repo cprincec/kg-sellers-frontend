@@ -6,17 +6,18 @@
  * This page will be a static page with no form or input fields.
  ***********************************************************************/
 
-import { ImageSampleProduct1 } from "@/public/images/landingPage/images";
 import Image from "next/image";
-import { productVariants } from "../../lib/data";
 import ProductVariantsTable from "../../ui/addProduct/productVariants/ProductVariantsTable";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { useRouter } from "next/navigation";
 import { IconArrowRight } from "@/public/icons/icons";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
 
 const Preview = () => {
     const router = useRouter();
     const productName = "Nike Zoom Running Shoes";
+    const { productDetails, productCategory, productVariants } = useAddProductContext();
+    console.log(productCategory, productDetails, productVariants);
     return (
         <div className="min-h-screen border-l">
             <div>
@@ -29,7 +30,7 @@ const Preview = () => {
                     <section className="grid gap-3 p-4 md:px-6 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT CATEGORY</h2>
                         <ul className="flex gap-2 items-center font-medium text-sm">
-                            <li>Mens&#39;s fashion</li>
+                            <li>{productCategory.productCategory}</li>
                             <Image src={IconArrowRight} alt="arrow" />
                             <li>Shoes</li>
                             <Image src={IconArrowRight} alt="arrow" className="" />
@@ -42,16 +43,31 @@ const Preview = () => {
                     <section className="grid gap-3 p-4 md:px-6 pb-10 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT IMAGE</h2>
                         <div className="flex gap-3 flex-wrap items-center">
-                            <Image
-                                src={ImageSampleProduct1}
-                                alt="sneakers"
-                                className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-40 h-40 object-cover"
-                            />
-                            <Image
-                                src={ImageSampleProduct1}
-                                alt="sneakers"
-                                className="rounded-xl border border-dashed border-kaiglo_grey-disabled lgw-[120px] h-[120px] object-cover"
-                            />
+                            {productDetails.images.map((image, index) => {
+                                if (index === 0) {
+                                    return (
+                                        <Image
+                                            key={productDetails.name + " image " + index}
+                                            src={URL.createObjectURL(image)}
+                                            alt={productDetails.name + " image"}
+                                            className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-40 h-40 object-cover"
+                                            width={160}
+                                            height={160}
+                                        />
+                                    );
+                                }
+
+                                return (
+                                    <Image
+                                        key={productDetails.name + " image " + index}
+                                        src={URL.createObjectURL(image)}
+                                        alt={productDetails.name + " image"}
+                                        width={120}
+                                        height={120}
+                                        className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-[120px] h-[120px] object-cover"
+                                    />
+                                );
+                            })}
                         </div>
                     </section>
                     {/* product images ends here`` */}
@@ -60,7 +76,7 @@ const Preview = () => {
                     <section className="grid gap-3 md:gap-4 p-4 md:px-6 pb-10 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT NAME</h2>
                         <p className="text-sm font-medium p-3 border border-kaiglo_grey-disabled rounded-lg">
-                            {productName}
+                            {productDetails.name}
                         </p>
                     </section>
                     {/* product name ends here */}
@@ -69,11 +85,19 @@ const Preview = () => {
                     <section className="grid gap-3 md:gap-4 p-4 md:px-6 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT SPECIFICATIONS</h2>
                         <ul className="grid gap-3 font-medium text-sm md:text-base list-disc list-inside">
-                            <li className="px-3 py-1 md:py-2">Specification 1</li>
-                            <li className="px-3 py-1 md:py-2">Specification 2</li>
-                            <li className="px-3 py-1 md:py-2">Specification 3</li>
-                            <li className="px-3 py-1 md:py-2">Specification 4</li>
-                            <li className="px-3 py-1 md:py-2">Specification 5</li>
+                            {[
+                                productDetails.specification1,
+                                productDetails.specification2,
+                                productDetails.specification3,
+                                productDetails.specification4,
+                                productDetails.specification5,
+                            ]
+                                .filter(Boolean)
+                                .map((spec, index) => (
+                                    <li key={index} className="px-3 py-1 md:py-2">
+                                        {spec}
+                                    </li>
+                                ))}
                         </ul>
                     </section>
                     {/* product specifications ends here */}
@@ -81,16 +105,13 @@ const Preview = () => {
                     {/* Product description starts here */}
                     <section className="grid gap-3 md:gap-4 p-4 md:px-6 pb-10 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT DESCRIPTION</h2>
-                        <p className="text-sm md:text-base text-kaiglo_grey-900 font-medium">
-                            The Nike Jordan 2 SE Gray&#39;s versatile upper is a case study of what happens
-                            when Nike&#39;s durable React foam meets firm suede overlays. Sporting a checkered
-                            pattern of textured dimples, the shoe protects the midfoot&#39;s inner lining
-                            while securing the strips that house each of the design&#39;s lacing holes. The
-                            mudguard&#39;s wavy shape moves to and fro across the midsole, flaring out at the
-                            lateral heel&#39;s edge. All the while, a black-on-white Jumpman tab hangs off of
-                            the upper&#39;s side. Under the toe guard&#39;s outer arch, a University Red
-                            Jumpman&#39;s outstretched arm reaches into the visible portion of the outsole.
-                        </p>
+                        {productDetails.description ? (
+                            <p className="text-sm md:text-base text-kaiglo_grey-900 font-medium">
+                                {productDetails.description}
+                            </p>
+                        ) : (
+                            <h3>No product description added</h3>
+                        )}
                     </section>
                     {/* product description ends here */}
 
@@ -98,12 +119,16 @@ const Preview = () => {
                     <section className="grid gap-3 md:gap-4 p-4 md:px-6 pb-10">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT VARIANTS</h2>
 
-                        <ProductVariantsTable
-                            productVariants={productVariants}
-                            productName="Nike Zoom Running Shoes"
-                            showTitle={false}
-                            showActions={false}
-                        />
+                        {productVariants.length ? (
+                            <ProductVariantsTable
+                                productVariants={productVariants}
+                                productName="Nike Zoom Running Shoes"
+                                showTitle={false}
+                                showActions={false}
+                            />
+                        ) : (
+                            <h3>No variants added</h3>
+                        )}
                     </section>
                     {/* product variants ends here */}
 
@@ -113,18 +138,15 @@ const Preview = () => {
                             PRODUCT DESCRIPTION SUMMARY (SEO)
                         </h2>
                         <ul className="flex flex-wrap gap-3 font-medium text-sm md:text-base list-disc list-inside">
-                            <li className="flex gap-2 p-2 items-center justify-center text-sm md:text-base text-kaiglo_grey-800 font-normal bg-kaiglo_grey-50 border border-kaiglo_grey-200 rounded-lg">
-                                <span>Air-Max</span>
-                                <span className="font-semi">✕</span>
-                            </li>
-                            <li className="flex gap-2 p-2 items-center justify-center text-sm md:text-base text-kaiglo_grey-800 font-normal bg-kaiglo_grey-50 border border-kaiglo_grey-200 rounded-lg">
-                                <span>Shoes</span>
-                                <span className="font-semi">✕</span>
-                            </li>
-                            <li className="flex gap-2 p-2 items-center justify-center text-sm md:text-base text-kaiglo_grey-800 font-normal bg-kaiglo_grey-50 border border-kaiglo_grey-200 rounded-lg">
-                                <span>Comfy leather sole</span>
-                                <span className="font-semi">✕</span>
-                            </li>
+                            {productDetails.seo?.split(",").map((item, index) => (
+                                <li
+                                    key={index}
+                                    className="flex gap-2 p-2 items-center justify-center text-sm md:text-base text-kaiglo_grey-800 font-normal bg-kaiglo_grey-50 border border-kaiglo_grey-200 rounded-lg"
+                                >
+                                    <span className="capitalize">{item}</span>
+                                    <span className="font-semi">✕</span>
+                                </li>
+                            ))}
                         </ul>
                     </section>
                     {/* product seo ends here */}
@@ -139,6 +161,7 @@ const Preview = () => {
                         submitButtonType="button"
                         submitButtonText="Upload"
                         submitButtonFunc={() => {
+                            // prevent user from seeing the product upload success toast when they visit the route
                             sessionStorage.setItem("justUploaded", "true");
                             router.push("/products?upload-status=successful");
                         }}

@@ -20,7 +20,6 @@ const ProductImageField = <T extends FieldValues>({ name, control, error }: Prop
                 const images: File[] = field.value;
 
                 const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-                    console.log("handler: ", event);
                     const files = event.target.files;
                     if (!files) return;
 

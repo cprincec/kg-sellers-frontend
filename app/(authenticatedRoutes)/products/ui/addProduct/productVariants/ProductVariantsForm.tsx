@@ -10,10 +10,12 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductVariantsTable from "./ProductVariantsTable";
-import { productVariants } from "../../../lib/data";
+import { productVariantsFormDefaultValues } from "../../../lib/defaults";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
 
 const ProductVariantsForm = ({ className }: { className?: string }) => {
     const { setSearchParams, deleteSearchParams } = useUpdateSearchParams();
+    const { productDetails, productVariants, setProductVariants } = useAddProductContext();
     const router = useRouter();
     const {
         control,
@@ -21,21 +23,17 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
         formState: { errors },
         reset,
     } = useForm<IProductVariantsFormValues>({
-        defaultValues: {
-            images: [],
-            color: "",
-            size: "",
-            quantity: 0,
-            price: 0,
-        },
+        defaultValues: productVariantsFormDefaultValues,
         resolver: yupResolver(productVariantsSchema) as unknown as Resolver<IProductVariantsFormValues>,
     });
 
+    console.log(productDetails);
     const saveProductVariants = (values: IProductVariantsFormValues) => {
-        console.log(values);
+        setProductVariants((prevValue) => [...prevValue, values]);
         reset();
         deleteSearchParams(["action"]);
         setShowForm(false);
+        console.log(productVariants);
     };
     const searchParams = useSearchParams();
     const [showForm, setShowForm] = useState<boolean>(searchParams.get("action") === "add-variant" || false);
@@ -61,7 +59,6 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                     </Button>
                 )}
             </div>
-
             {showForm && (
                 <form
                     onSubmit={handleSubmit(saveProductVariants)}
@@ -79,10 +76,13 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                 </form>
             )}
 
-            <div className="p-4 lg:px-6">
-                <ProductVariantsTable productVariants={productVariants} />
-            </div>
+            {productVariants.length > 0 && (
+                <div className="p-4 lg:px-6">
+                    <ProductVariantsTable productVariants={productVariants} />
+                </div>
+            )}
 
+            {/* Navigation buttons starts here */}
             <div className="p-4">
                 <FormNavButtons
                     cancelFunc={() => {
@@ -107,6 +107,7 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                     className="md:max-w-[424px] md:mx-auto grid md:hidden grid-cols-2 gap-3 justify-between"
                 />
             </div>
+            {/* Navigation buttons ends here */}
         </div>
     );
 };

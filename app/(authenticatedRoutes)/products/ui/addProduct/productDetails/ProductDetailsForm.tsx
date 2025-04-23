@@ -8,31 +8,24 @@ import { productDetailsSchema } from "../../../lib/schemas";
 import ProductDetailsFormFields from "./ProductDetailsFormFields";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
+import { startTransition } from "react";
 
 const ProductDetailsForm = ({ className }: { className?: string }) => {
     const { setSearchParams } = useUpdateSearchParams();
+    const { productDetails, setProductDetails } = useAddProductContext();
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm<IProductDetailsFormValues>({
-        defaultValues: {
-            images: [],
-            name: "",
-            description: "",
-            specification1: "",
-            specification2: "",
-            specification3: "",
-            specification4: "",
-            specification5: "",
-        },
+        defaultValues: productDetails,
         resolver: yupResolver(productDetailsSchema) as unknown as Resolver<IProductDetailsFormValues>,
     });
 
     const saveProductDetails = (values: IProductDetailsFormValues) => {
-        // navigateToNextStep();
-        console.log(values);
-        setSearchParams([{ step: "product-variants" }, { "product-name": values.name }]);
+        setProductDetails(values);
+        startTransition(() => setSearchParams([{ step: "product-variants" }]));
     };
 
     return (
@@ -62,4 +55,5 @@ const ProductDetailsForm = ({ className }: { className?: string }) => {
         </div>
     );
 };
+
 export default ProductDetailsForm;

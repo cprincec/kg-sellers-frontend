@@ -24,7 +24,7 @@ const Wallet = () => {
     };
 
     return (
-        <div className="lg:border-l lg:min-h-[calc(100vh-82px)]">
+        <div className="lg:min-h-[calc(100vh-82px)]">
             <div className="p-4 lg:p-0 md:max-lg:pl-3 grid gap-4 lg:gap-0 lg:bg-kaiglo_grey-100">
                 <AccountSummary className="lg:border-l-0 lg:border-t-0" />
 

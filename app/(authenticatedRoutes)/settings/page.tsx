@@ -22,7 +22,7 @@ const Settings = () => {
     }, [searchParams]);
 
     return (
-        <div className="lg:border-x lg:min-h-[calc(100vh-82px)]">
+        <div className="lg:min-h-[calc(100vh-82px)]">
             <div className="grid gap-2 md:gap-1">
                 <SettingsContentMobile activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
                 <SettingsContentDesktop activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
