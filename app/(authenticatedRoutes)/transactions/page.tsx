@@ -3,7 +3,7 @@ import TransactionHistoryTableWrapper from "./ui/TransactionHistoryTableWrapper"
 
 const Transactions = () => {
     return (
-        <div className="grid gap-4 p-4 lg:py-6 lg:gap-6 lg:border">
+        <div className="grid gap-4 p-4 lg:py-6 lg:gap-6">
             <OrderHistoryToolsBar
                 showSort={false}
                 actionText={"Export csv"}

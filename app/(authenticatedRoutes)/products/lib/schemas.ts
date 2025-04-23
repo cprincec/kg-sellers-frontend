@@ -31,6 +31,7 @@ export const productVariantsSchema = yup.object({
     images: yup.array().of(yup.mixed()).min(1, "Upload at least 1 image").required("Images are required"),
     color: yup.string().required("color is required"),
     size: yup.string(),
+    shippingWeight: yup.number().required("Shipping weight is required"),
     quantity: yup.number().required("quantity is required"),
     price: yup.number().required("price is required"),
 });

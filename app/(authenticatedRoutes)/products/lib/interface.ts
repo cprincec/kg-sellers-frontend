@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image";
+import { Dispatch, SetStateAction } from "react";
 
 export interface ProductDtO {
     productImage: StaticImageData;
@@ -7,8 +8,17 @@ export interface ProductDtO {
     description: string;
     specifications: string[];
     productImages: StaticImageData[];
-    productVariants: IProductVariantDTO[];
+    productVariants: ProductVariant[];
     salesType: string;
+}
+
+export interface IAddProductContext {
+    productCategory: IProductCategoryFormValue;
+    setProductCategory: Dispatch<SetStateAction<IProductCategoryFormValue>>;
+    productDetails: IProductDetailsFormValues;
+    setProductDetails: Dispatch<SetStateAction<IProductDetailsFormValues>>;
+    productVariants: IProductVariantsFormValues[];
+    setProductVariants: Dispatch<SetStateAction<IProductVariantsFormValues[]>>;
 }
 
 export interface IProductVariant {
@@ -50,16 +60,16 @@ export interface IProductVariantsFormValues {
     images: File[];
     shippingWeight: number;
     color: string;
-    size?: string | undefined;
+    size?: string;
     quantity: number;
     price: number;
 }
 
-export interface IProductVariantDTO {
-    image: StaticImageData;
+export interface ProductVariant {
+    images: File[];
     shippingWeight: number;
     color: string;
-    size?: string | undefined;
+    size?: string;
     quantity: number;
     price: number;
 }

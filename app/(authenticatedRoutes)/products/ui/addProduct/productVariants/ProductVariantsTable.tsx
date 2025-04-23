@@ -5,7 +5,7 @@ import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IProductVariantDTO } from "../../../lib/interface";
+import { ProductVariant } from "../../../lib/interface";
 
 const ProductVariantsTable = ({
     productVariants,
@@ -14,7 +14,7 @@ const ProductVariantsTable = ({
     showTitle = true,
     showActions = true,
 }: {
-    productVariants: IProductVariantDTO[];
+    productVariants: ProductVariant[];
     title?: string;
     showTitle?: boolean;
     showActions?: boolean;
@@ -63,7 +63,7 @@ const ProductVariantsTable = ({
                                 <TableCell className="p-3 text-sm text-wrap text-kaiglo_grey-base max-w-[300px]">
                                     <div className="flex gap-3 items-center">
                                         <Image
-                                            src={product.image}
+                                            src={URL.createObjectURL(product.images[0])}
                                             alt={name}
                                             width={48}
                                             height={48}
@@ -84,7 +84,7 @@ const ProductVariantsTable = ({
                                     {product.quantity}
                                 </TableCell>
                                 <TableCell className="p-3 text-sm text-center text-kaiglo_grey-base font-medium">
-                                    ₦{product.price.toLocaleString()}
+                                    {product.price && `₦${product.price.toLocaleString()}`}
                                 </TableCell>
                                 {showActions && (
                                     <TableCell className="p-3 text-sm text-center">
