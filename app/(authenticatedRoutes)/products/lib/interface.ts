@@ -92,3 +92,13 @@ export interface IFilterOption {
     category: { label: string; value: string };
     options: { label: string; value: string }[];
 }
+
+/*********************************
+ * Action button interface
+ *********************************/
+export interface IAction {
+    name: string;
+    icon: StaticImageData;
+    actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
+    style?: string;
+}

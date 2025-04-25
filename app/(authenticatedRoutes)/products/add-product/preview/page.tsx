@@ -122,7 +122,6 @@ const Preview = () => {
                         {productVariants.length ? (
                             <ProductVariantsTable
                                 productVariants={productVariants}
-                                productName="Nike Zoom Running Shoes"
                                 showTitle={false}
                                 showActions={false}
                             />
