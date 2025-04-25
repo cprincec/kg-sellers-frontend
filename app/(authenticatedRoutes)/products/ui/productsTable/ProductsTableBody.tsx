@@ -7,6 +7,7 @@ import ActionButton from "./ActionButton";
 import { cn } from "@/lib/utils";
 import { getSalesTypeStyle, getStatusStyle, getStockLevelStyle } from "../../lib/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { productActions } from "../../lib/data";
 
 const ProductsTableBody = ({ products }: { products: IProductDTO[] }) => {
     const { setSearchParams } = useUpdateSearchParams();
@@ -103,7 +104,11 @@ const ProductsTableBody = ({ products }: { products: IProductDTO[] }) => {
                         </TableCell>
                         <TableCell className="p-3 text-sm text-center">{product.dateCreated}</TableCell>
                         <TableCell className="p-3 text-sm text-center">
-                            <ActionButton className="w-max m-auto" productId={index.toString()} />
+                            <ActionButton
+                                actions={productActions}
+                                className="w-max m-auto"
+                                productId={index.toString()}
+                            />
                         </TableCell>
                     </TableRow>
                 );

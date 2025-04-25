@@ -1,12 +1,14 @@
 import {
     IconCancelCircle,
     IconDuplicate,
+    IconEdit,
     IconEditSquare,
     IconGlobe,
     IconPackage2,
     IconPackageOutOfStock,
     IconPackageProcess2,
     IconPause,
+    IconPauseBlue,
     IconPriceTag,
     IconProductDetailsNotCurrent,
     IconProductVariantsNotCurrent,
@@ -133,7 +135,20 @@ export const productActions = [
             console.log("added to sales");
         },
     },
-    { name: "pause product", icon: IconPause },
+    {
+        name: "pause product",
+        icon: IconPause,
+        actionFunc: (
+            productId: string,
+            setSearchParams: (
+                array: {
+                    [key: string]: string;
+                }[]
+            ) => void
+        ) => {
+            setSearchParams([{ "product-action": "pause-product" }, { id: productId }]);
+        },
+    },
     { name: "duplicate product", icon: IconDuplicate },
     {
         name: "delete product",
@@ -148,6 +163,7 @@ export const productActions = [
         ) => {
             setSearchParams([{ "product-action": "delete-product" }, { id: productId }]);
         },
+        style: "text-kaiglo_critical-600",
     },
 ];
 
@@ -317,6 +333,43 @@ export const productVariants = [
         size: "36",
         quantity: 15,
         price: 2500,
+    },
+];
+
+/**********************************************************************
+ * Product variant actions
+ *********************************************************************/
+export const productVariantActions = [
+    { name: "edit variant", icon: IconEdit },
+    {
+        name: "pause variant",
+        icon: IconPauseBlue,
+        actionFunc: (
+            productId: string,
+            setSearchParams: (
+                array: {
+                    [key: string]: string;
+                }[]
+            ) => void
+        ) => {
+            setSearchParams([{ "product-variant-action": "pause-product-variant" }, { id: productId }]);
+        },
+        style: "text-kaiglo_info-base",
+    },
+    {
+        name: "delete variant",
+        icon: IconTrash,
+        actionFunc: (
+            productId: string,
+            setSearchParams: (
+                array: {
+                    [key: string]: string;
+                }[]
+            ) => void
+        ) => {
+            setSearchParams([{ "product-variant-action": "delete-product-variant" }, { id: productId }]);
+        },
+        style: "text-kaiglo_critical-600",
     },
 ];
 

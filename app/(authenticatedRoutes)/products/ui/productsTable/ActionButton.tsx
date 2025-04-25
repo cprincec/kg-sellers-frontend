@@ -3,11 +3,19 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { IconMenuDots } from "@/public/icons/icons";
 import Image from "next/image";
 import { useState } from "react";
-import { productActions } from "../../lib/data";
 import { cn } from "@/lib/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { IAction } from "../../lib/interface";
 
-const ActionButton = ({ productId, className }: { productId: string; className?: string }) => {
+const ActionButton = ({
+    actions,
+    productId,
+    className,
+}: {
+    actions: IAction[];
+    productId: string;
+    className?: string;
+}) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const { setSearchParams } = useUpdateSearchParams();
 
@@ -17,10 +25,10 @@ const ActionButton = ({ productId, className }: { productId: string; className?:
                 <PopoverTrigger className="px-1 rounded-md cursor-pointer" asChild>
                     <Image src={IconMenuDots} alt="menu dots" />
                 </PopoverTrigger>
-                <PopoverContent className="p-2 rounded-xl" align="end">
+                <PopoverContent className="w-fit p-2 rounded-xl" align="end">
                     <ul className="grid gap-1">
-                        {productActions.map((action, index) => {
-                            const { name, icon, actionFunc } = action;
+                        {actions.map((action, index) => {
+                            const { name, icon, actionFunc, style } = action;
 
                             return (
                                 <li
@@ -28,12 +36,12 @@ const ActionButton = ({ productId, className }: { productId: string; className?:
                                     className={cn(
                                         buttonVariants({ variant: "ghost" }),
                                         "flex gap-2 items-center justify-start p-2 font-normal capitalize bg-transparent cursor-pointer",
-                                        index === productActions.length - 1 && "text-kaiglo_critical-base"
+                                        index === actions.length - 1 && "text-kaiglo_critical-600 "
                                     )}
                                     onClick={() => actionFunc && actionFunc(productId, setSearchParams)}
                                 >
-                                    <Image src={icon} alt="icon" />
-                                    {name}
+                                    <Image src={icon} alt="icon" className="w-6 h-6" />
+                                    <span className={cn(style)}>{name}</span>
                                 </li>
                             );
                         })}

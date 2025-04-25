@@ -1,7 +1,7 @@
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { cn } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
 import ProductVariantsFormFields from "./ProductVariantsFormFields";
 import { IProductVariantsFormValues } from "../../../lib/interface";
@@ -15,7 +15,7 @@ import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addPr
 
 const ProductVariantsForm = ({ className }: { className?: string }) => {
     const { setSearchParams, deleteSearchParams } = useUpdateSearchParams();
-    const { productDetails, productVariants, setProductVariants } = useAddProductContext();
+    const { productVariants, setProductVariants } = useAddProductContext();
     const router = useRouter();
     const {
         control,
@@ -27,13 +27,13 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
         resolver: yupResolver(productVariantsSchema) as unknown as Resolver<IProductVariantsFormValues>,
     });
 
-    console.log(productDetails);
     const saveProductVariants = (values: IProductVariantsFormValues) => {
         setProductVariants((prevValue) => [...prevValue, values]);
         reset();
-        deleteSearchParams(["action"]);
         setShowForm(false);
-        console.log(productVariants);
+        startTransition(() => {
+            deleteSearchParams(["action"]);
+        });
     };
     const searchParams = useSearchParams();
     const [showForm, setShowForm] = useState<boolean>(searchParams.get("action") === "add-variant" || false);

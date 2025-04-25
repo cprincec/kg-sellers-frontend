@@ -7,22 +7,31 @@ import ProductsTableHeader from "./ProductsTableHeader";
 import ProductsTableBody from "./ProductsTableBody";
 import ConfirmDeleteProduct from "../ConfirmDeleteProduct";
 import ProductDetails from "../productDetails/ProductDetails";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
 const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
     const searchParams = useSearchParams();
+    const { deleteSearchParams } = useUpdateSearchParams();
 
     const [showProductDetails, setShowProductDetails] = useState<boolean>(
         !!searchParams.get("product-id") || false
     );
 
     const [showConfirmDeleteProductModal, setShowConfirmDeleteProductModal] = useState<boolean>(
-        !!(searchParams.get("product-action") && searchParams.get("id")) || false
+        !!(searchParams.get("product-action") === "delete-product" && searchParams.get("id")) || false
+    );
+    const [showConfirmPauseProductModal, setShowConfirmPauseProductModal] = useState<boolean>(
+        !!(searchParams.get("product-action") === "pause-product" && searchParams.get("id")) || false
     );
 
     useEffect(() => {
         setShowProductDetails(!!searchParams.get("product-id") || false);
         setShowConfirmDeleteProductModal(
-            !!(searchParams.get("product-action") && searchParams.get("id")) || false
+            !!(searchParams.get("product-action") === "delete-product" && searchParams.get("id")) || false
+        );
+
+        setShowConfirmPauseProductModal(
+            !!(searchParams.get("product-action") === "pause-product" && searchParams.get("id")) || false
         );
     }, [searchParams]);
 
@@ -39,6 +48,18 @@ const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
                 <ConfirmDeleteProduct
                     showModal={showConfirmDeleteProductModal}
                     setShowModal={setShowConfirmDeleteProductModal}
+                />
+            )}
+
+            {showConfirmPauseProductModal && (
+                <ConfirmDeleteProduct
+                    title="Pause product"
+                    body="Product will be paused and will no longer appear to customers. You can activate it anytime"
+                    confirmButtonText="Confirm"
+                    confirmButtonAction={() => deleteSearchParams(["product-action", "id"])}
+                    showModal={showConfirmPauseProductModal}
+                    setShowModal={setShowConfirmPauseProductModal}
+                    isPause={true}
                 />
             )}
         </div>
