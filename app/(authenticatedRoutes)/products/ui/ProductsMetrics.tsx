@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { productsMetricsData } from "../lib/data";
+import { productsMetricsData } from "../lib/data/data";
 import Metric from "../../ui/metrics/Metric";
 import { IconVerticalLine } from "@/public/icons/icons";
 import Image from "next/image";

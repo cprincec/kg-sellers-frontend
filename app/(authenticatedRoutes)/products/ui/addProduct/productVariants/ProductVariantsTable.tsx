@@ -5,7 +5,7 @@ import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
 import { ProductVariant } from "../../../lib/interface";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
-import { productVariantActions } from "../../../lib/data";
+import { productVariantActions } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";

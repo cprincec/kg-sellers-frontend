@@ -102,3 +102,14 @@ export interface IAction {
     actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
     style?: string;
 }
+
+/*******************************************************************
+ * Product category tree
+ ******************************************************************/
+export interface IProductCategoryTree {
+    [mainCategory: string]: {
+        [subCategory1: string]: {
+            [subCategory2: string]: string[];
+        };
+    };
+}
