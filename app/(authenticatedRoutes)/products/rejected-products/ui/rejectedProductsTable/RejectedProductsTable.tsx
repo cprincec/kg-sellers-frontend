@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import RejectedProductsTableHeader from "./RejectedProductsTableHeader";
 import RejectedProductsTableBody from "./RejectedProductsTableBody";
-import { rejectedProductsData } from "../../../lib/data";
+import { rejectedProductsData } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../../ui/ConfirmDeleteProduct";
 import RejectedProductDetails from "../RejectedProductDetails";
 

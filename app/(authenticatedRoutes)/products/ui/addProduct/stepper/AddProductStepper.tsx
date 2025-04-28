@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { IconLine35, IconStepComplete } from "@/public/icons/icons";
 import Image from "next/image";
-import { addProductSteps } from "../../../lib/data";
+import { addProductSteps } from "../../../lib/data/data";
 
 const AddProductStepper = ({ currentStep }: { currentStep: string }) => {
     const steps = addProductSteps;

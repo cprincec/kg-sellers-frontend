@@ -1,7 +1,7 @@
 import DateRangePicker from "@/app/(authenticatedRoutes)/orders/ui/DateRangePicker";
 import DownloadButton from "@/app/(authenticatedRoutes)/orders/ui/DownloadButton";
 import SearchBar from "@/app/(authenticatedRoutes)/orders/ui/SearchBar";
-import { productsFilterOptions, productsSortOptions } from "../../lib/data";
+import { productsFilterOptions, productsSortOptions } from "../../lib/data/data";
 import SortButton2 from "./sortButton/sortButton";
 import FilterButton from "./filterButton/FilterButton";
 

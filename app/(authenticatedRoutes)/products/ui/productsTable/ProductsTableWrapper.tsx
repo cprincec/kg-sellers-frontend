@@ -3,7 +3,7 @@
 import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import ProductsTable from "./ProductsTable";
 // import { useSearchParams } from "next/navigation";
-import { productsList } from "../../lib/data";
+import { productsList } from "../../lib/data/data";
 // import OrderHistoryToolsBar from "../../../orders/ui/OrderHistoryToolsBar";
 import ProductsTableToolsBar from "./ProductsTableToolsBar";
 import { cn } from "@/lib/utils";

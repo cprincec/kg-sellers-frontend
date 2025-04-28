@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { sampleProduct } from "../../lib/data";
+import { sampleProduct } from "../../lib/data/data";
 import ProductVariants from "./ProductVariants";
 import { cn } from "@/lib/utils";
 
