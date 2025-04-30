@@ -15,9 +15,12 @@ import { ChevronDown, ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { IProductCategoryFormValue } from "../../../lib/interface";
-import { nestedCategories } from "../../../lib/data/productCategories.data";
+import { categories } from "../../../lib/data/productCategories.data";
 
-type CategoryNode = string[] | { [key: string]: CategoryNode };
+export type CategoryNode = {
+    category: string;
+    subcategory?: CategoryNode[];
+};
 
 const ProductCategoryFormFields = ({
     control,
@@ -27,31 +30,11 @@ const ProductCategoryFormFields = ({
     errors: FieldErrors<IProductCategoryFormValue>;
 }) => {
     const [open, setOpen] = useState(false);
-    const [path, setPath] = useState<string[]>([]);
+    const [path, setPath] = useState<CategoryNode[]>([]);
 
-    const getOptions = (obj: CategoryNode, level: string[]): string[] => {
-        let current: CategoryNode = obj;
-        for (const key of level) {
-            if (typeof current === "object" && !Array.isArray(current)) {
-                current = current[key];
-            }
-        }
+    const currentLevel = path.length === 0 ? categories : path[path.length - 1].subcategory ?? [];
 
-        if (Array.isArray(current)) return current;
-        return Object.keys(current);
-    };
-
-    const getNode = (obj: CategoryNode, level: string[]) => {
-        let current: CategoryNode = obj;
-        for (const key of level) {
-            if (typeof current === "object" && !Array.isArray(current)) {
-                current = current[key];
-            }
-        }
-        return current;
-    };
-
-    const isLeaf = (node: CategoryNode): boolean => Array.isArray(node);
+    const isLeaf = (node: CategoryNode) => !node.subcategory || node.subcategory.length === 0;
 
     return (
         <div className="grid gap-2">
@@ -94,48 +77,51 @@ const ProductCategoryFormFields = ({
                         >
                             <DialogHeader className="border-b">
                                 <DialogTitle className="text-left px-3 md:px-5 py-4 font-medium text-lg text-kaiglo_grey-800">
-                                    {path.length > 0 ? path[path.length - 1] : "Select a Category"}
+                                    {path.length > 0 ? path[path.length - 1].category : "Select a Category"}
                                 </DialogTitle>
                                 <DialogDescription className="h-0 w-0 hidden" />
                             </DialogHeader>
 
-                            <div className="grid px-4 py-2 gap-3">
+                            <div className="px-2 py-2">
                                 {path.length > 0 && (
                                     <Button
                                         onClick={() => setPath((prev) => prev.slice(0, -1))}
                                         variant="ghost"
-                                        className="text-left text-kaiglo_primary-main text-sm font-medium flex items-center gap-2"
+                                        className="w-full text-kaiglo_grey-800 text-sm font-medium flex items-center gap-2 mb-3"
                                     >
                                         <ChevronLeft className="h-4 w-4" /> Back
                                     </Button>
                                 )}
-
-                                {getOptions(nestedCategories, path).map((option) => {
-                                    const newPath = [...path, option];
-                                    const nextNode = getNode(nestedCategories, newPath);
-
-                                    return (
+                                <div className="grid gap-3">
+                                    {currentLevel.map((option) => (
                                         <Button
-                                            key={option}
-                                            variant="ghost"
+                                            key={option.category}
                                             className={cn(
-                                                "justify-start px-3 md:px-6 py-4 font-medium text-base capitalized md:rounded-none",
-                                                value !== option && "text-kaiglo_grey-800 bg-transparent"
+                                                "justify-start px-2 md:px-6 py-4 font-medium text-base text-kaiglo_grey-800  capitalized md:rounded-none bg-transparent hover:bg-kaiglo_grey-100"
                                             )}
+                                            variant={
+                                                value.split(">")[value.split(">").length - 1] ===
+                                                option.category
+                                                    ? "ghost"
+                                                    : "secondary"
+                                            }
                                             onClick={() => {
-                                                if (isLeaf(nextNode)) {
-                                                    onChange(newPath.join(" > "));
+                                                if (isLeaf(option)) {
+                                                    const fullPath = [...path, option]
+                                                        .map((n) => n.category)
+                                                        .join(" > ");
+                                                    onChange(fullPath);
                                                     setOpen(false);
                                                     setPath([]);
                                                 } else {
-                                                    setPath(newPath);
+                                                    setPath((prev) => [...prev, option]);
                                                 }
                                             }}
                                         >
-                                            {option}
+                                            {option.category}
                                         </Button>
-                                    );
-                                })}
+                                    ))}
+                                </div>
                             </div>
                         </DialogContent>
                     </Dialog>
