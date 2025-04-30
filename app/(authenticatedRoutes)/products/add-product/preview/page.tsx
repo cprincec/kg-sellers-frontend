@@ -10,7 +10,6 @@ import Image from "next/image";
 import ProductVariantsTable from "../../ui/addProduct/productVariants/ProductVariantsTable";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { useRouter } from "next/navigation";
-import { IconArrowRight } from "@/public/icons/icons";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
 
 const Preview = () => {
