@@ -15,9 +15,9 @@ import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addPr
 
 const Preview = () => {
     const router = useRouter();
-    const productName = "Nike Zoom Running Shoes";
     const { productDetails, productCategory, productVariants } = useAddProductContext();
-    console.log(productCategory, productDetails, productVariants);
+    const MAX_PREVIEW_IMAGES = 5;
+
     return (
         <div className="min-h-screen border-l">
             <div>
@@ -31,10 +31,7 @@ const Preview = () => {
                         <h2 className="text-sm md:text-base font-medium">PRODUCT CATEGORY</h2>
                         <ul className="flex gap-2 items-center font-medium text-sm">
                             <li>{productCategory.productCategory}</li>
-                            <Image src={IconArrowRight} alt="arrow" />
-                            <li>Shoes</li>
-                            <Image src={IconArrowRight} alt="arrow" className="" />
-                            <li>Sneakers</li>
+                            {/* <Image src={IconArrowRight} alt="arrow" /> */}
                         </ul>
                     </section>
                     {/* product category ends here */}
@@ -44,16 +41,58 @@ const Preview = () => {
                         <h2 className="text-sm md:text-base font-medium">PRODUCT IMAGE</h2>
                         <div className="flex gap-3 flex-wrap items-center">
                             {productDetails.images.map((image, index) => {
-                                if (index === 0) {
+                                const shouldBeHidden = index + 1 > MAX_PREVIEW_IMAGES;
+
+                                const isMainImage = index === 0;
+
+                                if (shouldBeHidden && index + 1 === MAX_PREVIEW_IMAGES + 1) {
                                     return (
-                                        <Image
-                                            key={productDetails.name + " image " + index}
-                                            src={URL.createObjectURL(image)}
-                                            alt={productDetails.name + " image"}
-                                            className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-40 h-40 object-cover"
-                                            width={160}
-                                            height={160}
-                                        />
+                                        <div key={index} className="relative">
+                                            <Image
+                                                key={productDetails.name + " image " + index}
+                                                src={URL.createObjectURL(image)}
+                                                alt={productDetails.name + " image"}
+                                                className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-[120px] h-[120px] object-cover"
+                                                width={120}
+                                                height={120}
+                                            />
+
+                                            <div className="absolute top-0 bottom-0 left-0 right-0 w-full h-[120px] flex justify-center bg-[#00000033] rounded-xl">
+                                                <p className="flex items-center justify-center text-base text-kaiglo_grey-900 font-medium text-center absolute right-1.5 bottom-1.5 px-2 py-1 bg-white rounded-lg">
+                                                    +
+                                                    <span>
+                                                        {productDetails.images.length - MAX_PREVIEW_IMAGES}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+
+                                if (index + 1 > MAX_PREVIEW_IMAGES) return;
+
+                                if (isMainImage) {
+                                    return (
+                                        <div key={index} className="relative">
+                                            <Image
+                                                key={productDetails.name + " image " + index}
+                                                src={URL.createObjectURL(image)}
+                                                alt={productDetails.name + " image"}
+                                                className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-40 h-40 object-cover"
+                                                width={160}
+                                                height={160}
+                                            />
+
+                                            {isMainImage && (
+                                                <div className="absolute top-0 bottom-0 left-0 right-0 w-full h-[160px] flex justify-center bg-[#00000033] rounded-xl">
+                                                    <p className="text-center absolute left-1.5 right-1.5 bottom-1.5 px-2 py-1 bg-white rounded-lg">
+                                                        <span className="w-full text-xs md:text-sm font-medium text-kaiglo_grey-900 ">
+                                                            Main Image
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
                                     );
                                 }
 
@@ -94,7 +133,7 @@ const Preview = () => {
                             ]
                                 .filter(Boolean)
                                 .map((spec, index) => (
-                                    <li key={index} className="px-3 py-1 md:py-2">
+                                    <li key={index} className="px-3 py-1 md:py-2 capitalize">
                                         {spec}
                                     </li>
                                 ))}
@@ -151,11 +190,7 @@ const Preview = () => {
                     {/* product seo ends here */}
 
                     <FormNavButtons
-                        cancelFunc={() =>
-                            router.replace(
-                                `/products/add-product?step=product-variants&product-name=${productName}`
-                            )
-                        }
+                        cancelFunc={() => router.replace(`/products/add-product?step=product-variants`)}
                         cancelButtonText="Back"
                         submitButtonType="button"
                         submitButtonText="Upload"

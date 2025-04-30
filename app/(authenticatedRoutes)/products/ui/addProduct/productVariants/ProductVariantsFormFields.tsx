@@ -13,7 +13,13 @@ const ProductVariantsFormFields = ({
 }) => {
     return (
         <div className="grid lg:flex gap-4 w-full">
-            <ProductImageField name="images" control={control} error={errors.images} />
+            <ProductImageField
+                className=""
+                isMultiple={false}
+                name="images"
+                control={control}
+                error={errors.images}
+            />
 
             <div className="grid lg:grid-cols-2 gap-4 w-full">
                 <div className="grid gap-2 lg:order-last lg:col-span-2">

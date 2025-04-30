@@ -2,14 +2,23 @@ import { Control, Controller, FieldError, FieldValues, Merge, Path } from "react
 import { useRef } from "react";
 import Image from "next/image";
 import { IconUploadImage } from "@/public/icons/icons";
+import { cn } from "@/lib/utils";
 
 type Props<T extends FieldValues> = {
+    isMultiple?: boolean;
+    className?: string;
     name: Path<T>;
     control: Control<T>;
     error?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 };
 
-const ProductImageField = <T extends FieldValues>({ name, control, error }: Props<T>) => {
+const ProductImageField = <T extends FieldValues>({
+    isMultiple = true,
+    className,
+    name,
+    control,
+    error,
+}: Props<T>) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -35,13 +44,16 @@ const ProductImageField = <T extends FieldValues>({ name, control, error }: Prop
                 };
 
                 return (
-                    <div className="grid gap-4 w-auto">
+                    <div className={cn("grid gap-4 w-auto", className)}>
                         <div className="flex gap-4 w-fit flex-wrap">
                             {images.map((file: File, index: number) => {
                                 const previewUrl = URL.createObjectURL(file);
                                 const isMainImage = index === 0;
                                 return (
-                                    <div key={index} className="relative">
+                                    <div
+                                        key={index}
+                                        className="relative w-[90px] lg:w-[120px] h-[90px] lg:h-[120px]"
+                                    >
                                         <Image
                                             src={previewUrl}
                                             alt={`Product ${index}`}
@@ -68,27 +80,54 @@ const ProductImageField = <T extends FieldValues>({ name, control, error }: Prop
                                     </div>
                                 );
                             })}
-                            <div>
-                                <input
-                                    type="file"
-                                    multiple
-                                    accept="image/*"
-                                    hidden
-                                    ref={fileInputRef}
-                                    onChange={handleImageUpload}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => fileInputRef.current?.click()}
-                                    className="flex items-center justify-center w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] rounded-lg border border-dashed border-kaiglo_grey-disabled"
-                                >
-                                    <Image
-                                        src={IconUploadImage}
-                                        alt="upload image icon"
-                                        className="w-8 h-8"
+                            {/* Allow upload of only one image base on the 'isMultiple' parameter */}
+                            {isMultiple ? (
+                                <div>
+                                    <input
+                                        type="file"
+                                        multiple={isMultiple}
+                                        accept="image/*"
+                                        hidden
+                                        ref={fileInputRef}
+                                        onChange={handleImageUpload}
                                     />
-                                </button>
-                            </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => fileInputRef.current?.click()}
+                                        className="flex items-center justify-center w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] rounded-lg border border-dashed border-kaiglo_grey-disabled"
+                                    >
+                                        <Image
+                                            src={IconUploadImage}
+                                            alt="upload image icon"
+                                            className="w-8 h-8"
+                                        />
+                                    </button>
+                                </div>
+                            ) : (
+                                images.length < 1 && (
+                                    <div>
+                                        <input
+                                            type="file"
+                                            multiple={isMultiple}
+                                            accept="image/*"
+                                            hidden
+                                            ref={fileInputRef}
+                                            onChange={handleImageUpload}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => fileInputRef.current?.click()}
+                                            className="flex items-center justify-center w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] rounded-lg border border-dashed border-kaiglo_grey-disabled"
+                                        >
+                                            <Image
+                                                src={IconUploadImage}
+                                                alt="upload image icon"
+                                                className="w-8 h-8"
+                                            />
+                                        </button>
+                                    </div>
+                                )
+                            )}
                         </div>
 
                         {error && (
