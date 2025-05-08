@@ -8,6 +8,7 @@ import ProductDetailsForm from "../ui/addProduct/productDetails/ProductDetailsFo
 import ProductVariantsForm from "../ui/addProduct/productVariants/ProductVariantsForm";
 import ProductCategoryCrumbs from "../ui/addProduct/productCategory/ProductCategoryCrumbs";
 import AddProductStepper from "../ui/addProduct/stepper/AddProductStepper";
+import { useAddProductContext } from "../contexts/addProductContext";
 
 const AddProduct = () => {
     const searchParams = useSearchParams();
@@ -17,6 +18,8 @@ const AddProduct = () => {
         "product-details": <ProductDetailsForm />,
         "product-variants": <ProductVariantsForm />,
     };
+    const { productCategory } = useAddProductContext();
+    const path = [...productCategory.productCategoryPath, productCategory.productCategory];
 
     useEffect(() => {
         setCurrentStep(searchParams.get("step") || "product-category");
@@ -36,7 +39,7 @@ const AddProduct = () => {
                             Product guidelines
                         </Button>
                     ) : (
-                        <ProductCategoryCrumbs className="w-fit" />
+                        <ProductCategoryCrumbs categoryPath={path} className="w-fit" />
                     )}
                 </div>
 

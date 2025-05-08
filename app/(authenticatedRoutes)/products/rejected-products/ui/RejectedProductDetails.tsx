@@ -6,6 +6,8 @@ import { ImageProduct1 } from "@/public/images/landingPage/images";
 import { Button } from "@/components/ui/button";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const RejectedProductDetails = ({
     showModal,
@@ -15,6 +17,8 @@ const RejectedProductDetails = ({
     setShowModal: Dispatch<SetStateAction<boolean>>;
 }) => {
     const { deleteSearchParams } = useUpdateSearchParams();
+    const searchParams = useSearchParams();
+    const id = searchParams.get("rejected-product-id") || "0";
 
     return (
         <Dialog
@@ -69,10 +73,17 @@ const RejectedProductDetails = ({
                         </div>
                     </section>
 
-                    <div className="flex justify-end">
+                    <div className="flex gap-4 justify-end">
+                        <Link
+                            href={`/products/rejected-products?product-action=delete-product&id=${id}`}
+                            className="lg:hidden text-kaiglo_critical-base font-medium text-base px-3 py-2"
+                        >
+                            Delete
+                        </Link>
+
                         <Button
                             variant={"ghost"}
-                            className="bg-kaiglo_success-50 text-kaiglo_success-600 font-medium text-base px-3 py-2 rounded-[32px]"
+                            className="bg-transparent lg:bg-kaiglo_success-50 text-kaiglo_success-600 font-medium text-base px-3 py-2 rounded-[32px]"
                         >
                             Edit
                         </Button>

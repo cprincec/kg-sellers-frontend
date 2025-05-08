@@ -55,7 +55,7 @@ export default function RootLayout({
         <html lang="en">
             <StoreSetupContextProvider>
                 <body className={`${gotham.className}`}>
-                    {children} <Toaster position="top-center" />;
+                    {children} <Toaster position="top-center" />
                 </body>
             </StoreSetupContextProvider>
         </html>

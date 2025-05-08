@@ -2,20 +2,35 @@ import { cn } from "@/lib/utils";
 import { IconArrowRight } from "@/public/icons/icons";
 import Image from "next/image";
 
-const ProductCategoryCrumbs = ({ className }: { className?: string }) => {
+const ProductCategoryCrumbs = ({
+    categoryPath,
+    className,
+}: {
+    categoryPath: string[];
+    className?: string;
+}) => {
     return (
-        <ul
-            className={cn(
-                "flex gap-2 items-center px-2 py-1 font-medium text-sm md:text-base bg-kaiglo_grey-50 border border-kaiglo_grey-200 rounded-lg",
-                className
-            )}
-        >
-            <li className="p-1">Mens&#39;s fashion</li>
-            <Image src={IconArrowRight} alt="arrow" />
-            <li className="p-1">Shoes</li>
-            <Image src={IconArrowRight} alt="arrow" className="" />
-            <li className="p-1">Sneakers</li>
-        </ul>
+        <div className="overflow-x-auto max-md:max-w-screen  lg:max-w-[750px]">
+            <ul
+                className={cn(
+                    " flex md:flex-wrap gap-2 items-center px-2 py-1 bg-kaiglo_grey-50 border border-kaiglo_grey-200 rounded-lg",
+                    className
+                )}
+            >
+                {categoryPath.map((category, index) => (
+                    <li key={index} className="flex gap-2 items-center ">
+                        <p className="w-max font-medium text-sm text-kaiglo_grey-800 px-1 truncate">
+                            {category}
+                        </p>
+                        {index < categoryPath.length - 1 && (
+                            <div className="relative w-4 h-4 flex-shrink-0">
+                                <Image src={IconArrowRight} alt="arrow" fill className="" />
+                            </div>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 };
 export default ProductCategoryCrumbs;

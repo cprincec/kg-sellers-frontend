@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { getSalesTypeStyle, getStatusStyle, getStockLevelStyle } from "../../lib/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { productActions } from "../../lib/data/data";
+import { ImageProduct1 } from "@/public/images/landingPage/images";
 
 const ProductsTableBody = ({ products }: { products: IProductDTO[] }) => {
     const { setSearchParams } = useUpdateSearchParams();
@@ -27,6 +28,9 @@ const ProductsTableBody = ({ products }: { products: IProductDTO[] }) => {
                     salesType = "";
                     daysLeft = "";
                 }
+                const image = product.productImages?.length
+                    ? URL.createObjectURL(product.productImages[0])
+                    : product.productImage;
 
                 return (
                     <TableRow key={index}>
@@ -35,14 +39,25 @@ const ProductsTableBody = ({ products }: { products: IProductDTO[] }) => {
                             className="p-3 text-sm text-wrap max-w-[300px] cursor-pointer"
                             onClick={() => setSearchParams([{ "product-id": index.toString() }])}
                         >
-                            <div className="grid grid-flow-col gap-1.5 items-center">
-                                <Image
-                                    src={product.productImage}
-                                    alt={product.productName}
-                                    width={48}
-                                    height={48}
-                                />
-                                <span className="mt-1.5">{product.productName}</span>
+                            <div className="flex gap-1.5 items-center">
+                                {image ? (
+                                    <Image
+                                        src={image}
+                                        alt={product.productName}
+                                        width={48}
+                                        height={48}
+                                        className="w-12 h-12"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={ImageProduct1}
+                                        alt={product.productName}
+                                        width={48}
+                                        height={48}
+                                        className="w-12 h-12"
+                                    />
+                                )}
+                                <span className="mt-1.5 text-left">{product.productName}</span>
                             </div>
                         </TableCell>
                         <TableCell className="p-3 text-sm text-kaiglo_grey-700 font-medium text-center">

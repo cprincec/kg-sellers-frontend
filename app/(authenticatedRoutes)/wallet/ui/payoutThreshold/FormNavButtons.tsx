@@ -8,6 +8,7 @@ const FormNavButtons = ({
     submitButtonFunc,
     cancelFunc,
     className,
+    showSubmitButton = true,
     cancelButtonText = "Cancel",
     submitButtonText = "Proceed",
     submitButtonType = "submit",
@@ -23,13 +24,15 @@ const FormNavButtons = ({
                 {cancelButtonText}
             </Button>
 
-            <Button
-                type={submitButtonType}
-                className="px-8 py-3 rounded-full"
-                onClick={() => submitButtonFunc && submitButtonFunc()}
-            >
-                {submitButtonText}
-            </Button>
+            {showSubmitButton && (
+                <Button
+                    type={submitButtonType}
+                    className="px-8 py-3 rounded-full"
+                    onClick={() => submitButtonFunc && submitButtonFunc()}
+                >
+                    {submitButtonText}
+                </Button>
+            )}
         </div>
     );
 };

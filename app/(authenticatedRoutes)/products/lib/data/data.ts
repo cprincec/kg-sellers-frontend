@@ -22,6 +22,7 @@ import {
     ImageSampleProduct1,
     ImageSampleProduct1plus,
 } from "@/public/images/landingPage/images";
+import { IAction, IProductDTO, IProductVariant } from "../interface";
 
 export const productsMetricsData = [
     { title: "Total Products", value: "120", icon: IconPackage2 },
@@ -31,10 +32,14 @@ export const productsMetricsData = [
     { title: "Rejected", value: "8", icon: IconCancelCircle, link: "rejected-products" },
 ];
 
-export const productsList = [
+export const productsList: IProductDTO[] = [
     {
         productImage: ImageProduct1,
         productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
         sku: 100,
         status: "active",
         amount: 2500,
@@ -46,6 +51,10 @@ export const productsList = [
     {
         productImage: ImageProduct1,
         productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
         sku: 0,
         status: "paused",
         amount: 2500,
@@ -57,6 +66,10 @@ export const productsList = [
     {
         productImage: ImageProduct1,
         productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
         sku: 100,
         status: "active",
         amount: 2500,
@@ -68,6 +81,10 @@ export const productsList = [
     {
         productImage: ImageProduct1,
         productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
         sku: 40,
         status: "active",
         amount: 2500,
@@ -79,6 +96,10 @@ export const productsList = [
     {
         productImage: ImageProduct1,
         productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
         sku: 100,
         status: "active",
         amount: 2500,
@@ -90,6 +111,10 @@ export const productsList = [
     {
         productImage: ImageProduct1,
         productName: "Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
         sku: 0,
         status: "active",
         amount: 2500,
@@ -108,6 +133,10 @@ export const productsList = [
         salesType: ["on sales"],
         quantity: 40,
         dateCreated: "01 Aug 2024",
+        description: "",
+        specifications: [],
+        productImages: [],
+        productVariants: [],
     },
 ];
 
@@ -126,14 +155,20 @@ export const sampleProduct = {
     salesType: "Valentine sales",
 };
 
-export const productActions = [
+export const productActions: IAction[] = [
     { name: "edit product", icon: IconEditSquare },
     {
         name: "add to sales",
         icon: IconPriceTag,
-        actionFunc: () => {
-            console.log("added to sales");
-        },
+        actionFunc: (
+            productId: string,
+            setSearchParams: (
+                array: {
+                    [key: string]: string;
+                }[]
+            ) => void
+        ) => setSearchParams([{ "product-action": "add-to-sales" }, { id: productId }]),
+        // disabled: (product) => !product.productVariants || product.productVariants.length === 0,
     },
     {
         name: "pause product",
@@ -145,9 +180,7 @@ export const productActions = [
                     [key: string]: string;
                 }[]
             ) => void
-        ) => {
-            setSearchParams([{ "product-action": "pause-product" }, { id: productId }]);
-        },
+        ) => setSearchParams([{ "product-action": "pause-product" }, { id: productId }]),
     },
     { name: "duplicate product", icon: IconDuplicate },
     {
@@ -325,14 +358,42 @@ export const productsCategoriesList = [
 /*****************************************************************************
  * Added products variants table data
  *****************************************************************************/
-export const productVariants = [
+export const productVariantsList: IProductVariant[] = [
     {
-        image: ImageSampleProduct1,
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "green",
+        size: "44",
+        quantity: 17,
+        price: 35000,
+        amount: 35000,
+    },
+    {
+        images: [ImageSampleProduct1],
         shippingWeight: 20,
         color: "blue",
         size: "36",
         quantity: 15,
         price: 2500,
+        amount: 2500,
+    },
+    {
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "blue",
+        size: "36",
+        quantity: 15,
+        price: 2500,
+        amount: 2500,
+    },
+    {
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "blue",
+        size: "36",
+        quantity: 15,
+        price: 2500,
+        amount: 2500,
     },
 ];
 

@@ -3,6 +3,11 @@ import * as yup from "yup";
 /*********** PRODUCT CATEGORY SCHEMA ***********/
 export const productCategorySchema = yup.object({
     productCategory: yup.string().required("Please select a category"),
+    productCategoryPath: yup
+        .array()
+        .of(yup.string().required())
+        .min(1, "Invalid category path")
+        .required("Category path is required"),
 });
 
 /*********** PRODUCT DETAILS SCHEMA ***********/

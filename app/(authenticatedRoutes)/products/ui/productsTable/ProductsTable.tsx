@@ -8,6 +8,7 @@ import ProductsTableBody from "./ProductsTableBody";
 import ConfirmDeleteProduct from "../ConfirmDeleteProduct";
 import ProductDetails from "../productDetails/ProductDetails";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import AddToSales from "../addToSales/AddToSales";
 
 const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
     const searchParams = useSearchParams();
@@ -17,11 +18,19 @@ const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
         !!searchParams.get("product-id") || false
     );
 
+    // State for 'Delete product' confirmation modal
     const [showConfirmDeleteProductModal, setShowConfirmDeleteProductModal] = useState<boolean>(
         !!(searchParams.get("product-action") === "delete-product" && searchParams.get("id")) || false
     );
+
+    // State for 'Pause product' confirmation modal
     const [showConfirmPauseProductModal, setShowConfirmPauseProductModal] = useState<boolean>(
         !!(searchParams.get("product-action") === "pause-product" && searchParams.get("id")) || false
+    );
+
+    // State for 'Add to sales' modal
+    const [showAddToSalesModal, setShowAddToSalesModal] = useState<boolean>(
+        !!(searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) || false
     );
 
     useEffect(() => {
@@ -32,6 +41,10 @@ const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
 
         setShowConfirmPauseProductModal(
             !!(searchParams.get("product-action") === "pause-product" && searchParams.get("id")) || false
+        );
+
+        setShowAddToSalesModal(
+            !!(searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) || false
         );
     }, [searchParams]);
 
@@ -61,6 +74,10 @@ const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
                     setShowModal={setShowConfirmPauseProductModal}
                     isPause={true}
                 />
+            )}
+
+            {showAddToSalesModal && (
+                <AddToSales showModal={showAddToSalesModal} setShowModal={setShowAddToSalesModal} />
             )}
         </div>
     );
