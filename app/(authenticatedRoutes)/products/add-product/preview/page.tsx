@@ -168,6 +168,7 @@ const Preview = () => {
 
                         {productVariants.length ? (
                             <ProductVariantsTable
+                                //@ts-expect-error to be changed
                                 productVariants={productVariants}
                                 showTitle={false}
                                 showActions={false}
