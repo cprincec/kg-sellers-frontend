@@ -12,7 +12,7 @@ import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshol
 import { useRouter } from "next/navigation";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { useProductsContext } from "../../contexts/productsContext";
-import { IProductDTO } from "../../lib/interface";
+import { IProductDTO, ProductVariant } from "../../lib/interface";
 import { startTransition } from "react";
 import ProductCategoryCrumbs from "../../ui/addProduct/productCategory/ProductCategoryCrumbs";
 
@@ -22,6 +22,8 @@ const Preview = () => {
     const { productDetails, productCategory, productVariants } = useAddProductContext();
 
     const MAX_PREVIEW_IMAGES = 5;
+
+    const variants: ProductVariant[] = productVariants.map((v) => ({ ...v, amount: 2500 }));
 
     return (
         <div className="min-h-screen border-l">
@@ -168,8 +170,7 @@ const Preview = () => {
 
                         {productVariants.length ? (
                             <ProductVariantsTable
-                                //@ts-expect-error to be changed
-                                productVariants={productVariants}
+                                productVariants={variants}
                                 showTitle={false}
                                 showActions={false}
                             />
@@ -216,7 +217,7 @@ const Preview = () => {
                                 productImages: productDetails.images,
                                 amount: 2500,
                                 description: productDetails.description,
-                                productVariants,
+                                productVariants: variants,
                                 quantity: 100,
                                 salesType: [],
                                 sku: 100,
