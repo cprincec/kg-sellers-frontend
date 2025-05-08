@@ -69,7 +69,6 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                     </Button>
                 )}
             </div>
-
             {/* Product variants form  */}
             {showForm && (
                 <form
@@ -87,10 +86,12 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                     </Button>
                 </form>
             )}
-
             {/* Product variants table */}
             {productVariants.length > 0 && (
-                <ProductVariantsTable className="p-4 lg:px-6" productVariants={productVariants} />
+                <ProductVariantsTable
+                    className="p-4 lg:px-6"
+                    productVariants={productVariants.map((v) => ({ ...v, amount: 2500 }))}
+                />
             )}
 
             {/* Navigation buttons */}
