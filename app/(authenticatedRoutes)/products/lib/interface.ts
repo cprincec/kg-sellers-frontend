@@ -85,6 +85,7 @@ export interface ProductVariant {
     size?: string;
     quantity: number;
     price: number;
+    amount: number;
 }
 
 export interface IRejectedProductDTO {

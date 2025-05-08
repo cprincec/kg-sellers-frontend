@@ -57,12 +57,10 @@ const ProductDetails = ({ showModal }: { showModal: boolean }) => {
                             <h2 className="text-sm font-normal text-kaiglo_grey-500">SKU: {sku}</h2>
                         </div>
                     </div>
-
                     <section className="grid gap-2">
                         <h2 className="text-sm ">Description</h2>
                         <p className="text-sm text-kaiglo_grey-600">{description} </p>
                     </section>
-
                     <section className="grid gap-2">
                         <h3 className="font-medium text-sm text-kaiglo_grey-900">Specifications</h3>
                         <ul className="grid gap-2 list-disc pl-7">
@@ -76,7 +74,6 @@ const ProductDetails = ({ showModal }: { showModal: boolean }) => {
                             ))}
                         </ul>
                     </section>
-
                     <section className="grid gap-2">
                         <h3 className="text-sm font-medium">Product images</h3>
                         <div className="flex gap-3">
@@ -95,7 +92,7 @@ const ProductDetails = ({ showModal }: { showModal: boolean }) => {
                             ))}
                         </div>
                     </section>
-
+                    {/*  @ts-expect-error to be changed */}
                     <ProductVariants productVariants={productVariants} />
                 </div>
             </DialogContent>
