@@ -8,7 +8,7 @@ import { productDetailsSchema } from "../../../lib/schemas";
 import ProductDetailsFormFields from "./ProductDetailsFormFields";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { startTransition } from "react";
 
 const ProductDetailsForm = ({ className }: { className?: string }) => {
@@ -24,6 +24,7 @@ const ProductDetailsForm = ({ className }: { className?: string }) => {
     });
 
     const saveProductDetails = (values: IProductDetailsFormValues) => {
+        console.log(values);
         setProductDetails(values);
         startTransition(() => setSearchParams([{ step: "product-variants" }]));
     };

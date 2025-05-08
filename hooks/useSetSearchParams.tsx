@@ -36,7 +36,7 @@ const useUpdateSearchParams = () => {
         router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     };
 
-    const deleteSearchParams = (keys: string[]) => {
+    const deleteSearchParams = (keys: string[], routerMethod?: "replace" | "push") => {
         if (!keys.length) return;
 
         const params = new URLSearchParams(searchParams);
@@ -49,7 +49,8 @@ const useUpdateSearchParams = () => {
             params.delete(key);
         });
 
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+        const method = routerMethod ?? "replace";
+        router[method](`${pathname}?${params.toString()}`, { scroll: false });
     };
 
     return { setSearchParams, deleteSearchParams };

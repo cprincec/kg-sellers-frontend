@@ -1,15 +1,14 @@
 "use client";
 
-import { Table } from "@/components/ui/table";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import RejectedProductsTableHeader from "./RejectedProductsTableHeader";
-import RejectedProductsTableBody from "./RejectedProductsTableBody";
 import { rejectedProductsData } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../../ui/ConfirmDeleteProduct";
 import RejectedProductDetails from "../RejectedProductDetails";
+import RejectedProductsTableMobile from "./RejectedProductsTableMobile";
+import RejectedProductsTableDesktop from "./RejectedProductsTableDesktop";
 
-const RejectedProductsTable = () => {
+const RejectedProductsTableWrapper = () => {
     const searchParams = useSearchParams();
     const rejectedProducts = rejectedProductsData;
 
@@ -33,13 +32,10 @@ const RejectedProductsTable = () => {
 
     return (
         <div className="overflow-auto p-4 pt-0">
-            <Table className="w-[1100px] lg:w-full border">
-                <RejectedProductsTableHeader />
-                <RejectedProductsTableBody
-                    rejectedProducts={rejectedProducts}
-                    // setShowOrderDetails={setShowOrderDetails}
-                />
-            </Table>
+            {/* <div className="overflow-auto p-4 pt-0"> */}
+            <RejectedProductsTableMobile rejectedProducts={rejectedProducts} />
+            <RejectedProductsTableDesktop rejectedProducts={rejectedProducts} />
+            {/* </div> */}
 
             {showRejectedProductDetails && (
                 <RejectedProductDetails
@@ -57,4 +53,4 @@ const RejectedProductsTable = () => {
         </div>
     );
 };
-export default RejectedProductsTable;
+export default RejectedProductsTableWrapper;

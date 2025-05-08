@@ -7,7 +7,7 @@ import {
     IProductDetailsFormValues,
     IProductVariantsFormValues,
 } from "@/app/(authenticatedRoutes)/products/lib/interface";
-import { productDetailsFormDefaultValues } from "../products/lib/defaults";
+import { productDetailsFormDefaultValues } from "../lib/defaults";
 
 // Create context
 const AddProductContext = createContext<IAddProductContext | undefined>(undefined);
@@ -16,6 +16,7 @@ const AddProductContext = createContext<IAddProductContext | undefined>(undefine
 const AddProductContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [productCategory, setProductCategory] = useState<IProductCategoryFormValue>({
         productCategory: "",
+        productCategoryPath: [],
     });
     const [productDetails, setProductDetails] = useState<IProductDetailsFormValues>(
         productDetailsFormDefaultValues

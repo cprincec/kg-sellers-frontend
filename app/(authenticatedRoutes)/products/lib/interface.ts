@@ -12,6 +12,11 @@ export interface ProductDtO {
     salesType: string;
 }
 
+export interface IProductsContext {
+    products: IProductDTO[];
+    setProducts: Dispatch<SetStateAction<IProductDTO[]>>;
+}
+
 export interface IAddProductContext {
     productCategory: IProductCategoryFormValue;
     setProductCategory: Dispatch<SetStateAction<IProductCategoryFormValue>>;
@@ -22,14 +27,17 @@ export interface IAddProductContext {
 }
 
 export interface IProductVariant {
+    images: File[] | StaticImageData[];
     color: string;
     size: string;
     quantity: number;
     amount: number;
+    price: number;
+    shippingWeight: number;
 }
 
 export interface IProductDTO {
-    productImage: StaticImageData;
+    productImage?: StaticImageData;
     productName: string;
     sku: number;
     status: string;
@@ -38,10 +46,15 @@ export interface IProductDTO {
     salesType: string[];
     quantity: number;
     dateCreated: string;
+    productImages?: File[];
+    productVariants: ProductVariant[];
+    description: string;
+    specifications: string[];
 }
 
 export interface IProductCategoryFormValue {
     productCategory: string;
+    productCategoryPath: string[];
 }
 
 export interface IProductDetailsFormValues {
@@ -101,6 +114,7 @@ export interface IAction {
     icon: StaticImageData;
     actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
     style?: string;
+    // disabled?: (product: IProductDTO) => boolean;
 }
 
 /*******************************************************************

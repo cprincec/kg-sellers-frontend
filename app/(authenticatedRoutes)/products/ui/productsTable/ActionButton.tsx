@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { IconMenuDots } from "@/public/icons/icons";
 import Image from "next/image";
@@ -11,10 +11,12 @@ const ActionButton = ({
     actions,
     productId,
     className,
+    disabled = false,
 }: {
     actions: IAction[];
     productId: string;
     className?: string;
+    disabled?: boolean;
 }) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const { setSearchParams } = useUpdateSearchParams();
@@ -31,17 +33,20 @@ const ActionButton = ({
                             const { name, icon, actionFunc, style } = action;
 
                             return (
-                                <li
-                                    key={name + "-" + index}
-                                    className={cn(
-                                        buttonVariants({ variant: "ghost" }),
-                                        "flex gap-2 items-center justify-start p-2 font-normal capitalize bg-transparent cursor-pointer",
-                                        index === actions.length - 1 && "text-kaiglo_critical-600 "
-                                    )}
-                                    onClick={() => actionFunc && actionFunc(productId, setSearchParams)}
-                                >
-                                    <Image src={icon} alt="icon" className="w-6 h-6" />
-                                    <span className={cn(style)}>{name}</span>
+                                <li key={name + "-" + index}>
+                                    <Button
+                                        type="button"
+                                        variant={"ghost"}
+                                        className={cn(
+                                            "flex gap-2 items-center justify-start p-2 font-normal capitalize bg-transparent cursor-pointer",
+                                            index === actions.length - 1 && "text-kaiglo_critical-600 "
+                                        )}
+                                        onClick={() => actionFunc && actionFunc(productId, setSearchParams)}
+                                        disabled={disabled}
+                                    >
+                                        <Image src={icon} alt="icon" className="w-6 h-6" />
+                                        <span className={cn(style)}>{name}</span>
+                                    </Button>
                                 </li>
                             );
                         })}

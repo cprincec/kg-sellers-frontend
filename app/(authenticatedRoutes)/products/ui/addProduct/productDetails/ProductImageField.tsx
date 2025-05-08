@@ -48,7 +48,8 @@ const ProductImageField = <T extends FieldValues>({
                         <div className="flex gap-4 w-fit flex-wrap">
                             {images.map((file: File, index: number) => {
                                 const previewUrl = URL.createObjectURL(file);
-                                const isMainImage = index === 0;
+                                const isMainImage = index === 0 && isMultiple;
+                                console.log(isMainImage);
                                 return (
                                     <div
                                         key={index}

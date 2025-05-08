@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
     darkMode: ["class"],
@@ -8,86 +9,16 @@ export default {
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        // spacing: {
-        // 	0: '0px',
-        // 	0.5: '2px',
-        // 	1: '4px',
-        // 	1.5: '6px',
-        // 	2: '8px',
-        // 	2.5: '10px',
-        // 	3: '12px',
-        // 	3.5: '14px',
-        // 	4: '16px',
-        // 	4.5: '18px',
-        // 	5: '20px',
-        // 	5.5: '22px',
-        // 	6: '24px',
-        // 	6.5: '26px',
-        // 	7: '28px',
-        // 	7.5: '30px',
-        // 	8: '32px',
-        // 	8.5: '34px',
-        // 	9: '36px',
-        // 	9.5: '38px',
-        // 	10: '40px',
-        // 	12: '48px',
-        // 	14: '56px',
-        // 	16: '64px',
-        // 	18: '72px',
-        // 	20: '80px',
-        // 	24: '96px',
-        // 	28: '112px',
-        // 	32: '128px',
-        // 	36: '144px',
-        // 	40: '160px',
-        // 	44: '176px',
-        // 	48: '192px',
-        // 	52: '208px',
-        // 	56: '224px',
-        // 	60: '240px',
-        // 	64: '256px',
-        //   },
-        //   fontSize: {
-        // 	xs: ['10px', '14px'],
-        // 	sm: ['12px', '18px'],
-        // 	base: ['14px', '20px'],
-        // 	lg: ['16px', '24px'],
-        // 	xl: ['18px', '26px'],
-        // 	'2xl': ['20px', '28px'],
-        // 	'3xl': ['24px', '32px'],
-        // 	'4xl': ['28px', '36px'],
-        // 	'5xl': ['32px', '40px'],
-        // 	'6xl': ['36px', '44px'],
-        // 	'7xl': ['40px', '48px'],
-        // 	'8xl': ['48px', '54px'],
-        // 	'9xl': ['56px', '64px'],
-        //   },
-        //   lineHeight: {
-        // 	1: '12px',
-        // 	1.5: '16px',
-        // 	2: '20px',
-        // 	2.5: '24px',
-        // 	3: '28px',
-        // 	3.5: '32px',
-        // 	4: '36px',
-        // 	5: '40px',
-        // 	6: '48px',
-        // 	7: '56px',
-        // 	8: '64px',
-        // 	9: '72px',
-        // 	10: '80px',
-        //   },
-
         extend: {
             backgroundImage: {
-                "home-hero-mobile": "url('/images/landingPage/image 30.png')",
-                "home-hero-desktop": "url('/images/landingPage/image 30 (1).png')",
-                "home-GSTS-mobile": "url('/images/landingPage/gotSomethingToSellMobile.png')",
-                "home-GSTS-desktop": "url('/images/landingPage/gotSomethingToSellDesktop.png')",
-                "home-about-us-mobile": "url('/icons/Doodle Pattern Palette 2.svg')",
-                "home-about-us-desktop-2": "url('/icons/Doodle Pattern Palette 2 desktop.svg')",
-                "home-about-us-desktop-3": "url('/icons/Doodle Pattern Palette 3.svg')",
-                "home-about-us-desktop-1": "url('/icons/Doodle Pattern Palette 4.svg')",
+                "home-hero-mobile": `url('/images/landingPage/image 30.png')`,
+                "home-hero-desktop": `url('/images/landingPage/image 30 (1).png')`,
+                "home-GSTS-mobile": `url('/images/landingPage/gotSomethingToSellMobile.png')`,
+                "home-GSTS-desktop": `url('/images/landingPage/gotSomethingToSellDesktop.png')`,
+                "home-about-us-mobile": `url('/icons/Doodle Pattern Palette 2.svg')`,
+                "home-about-us-desktop-2": `url('/icons/Doodle Pattern Palette 2 desktop.svg')`,
+                "home-about-us-desktop-3": `url('/icons/Doodle Pattern Palette 3.svg')`,
+                "home-about-us-desktop-1": `url('/icons/Doodle Pattern Palette 4.svg')`,
             },
             screens: {
                 lg: "1060px",
@@ -270,24 +201,58 @@ export default {
             },
             keyframes: {
                 fadeIn: {
-                    "0%": { opacity: "0" },
-                    "100%": { opacity: "1" },
+                    "0%": {
+                        opacity: "0",
+                    },
+                    "100%": {
+                        opacity: "1",
+                    },
                 },
                 slideDownFade: {
-                    "0%": { opacity: "0", transform: "translateY(-10px)" },
-                    "100%": { opacity: "1", transform: "translateY(0)" },
+                    "0%": {
+                        opacity: "0",
+                        transform: "translateY(-10px)",
+                    },
+                    "100%": {
+                        opacity: "1",
+                        transform: "translateY(0)",
+                    },
                 },
                 slideUpFade: {
-                    "0%": { opacity: "1", transform: "translateY(0)" },
-                    "100%": { opacity: "0", transform: "translateY(-10px)" },
+                    "0%": {
+                        opacity: "1",
+                        transform: "translateY(0)",
+                    },
+                    "100%": {
+                        opacity: "0",
+                        transform: "translateY(-10px)",
+                    },
+                },
+                "accordion-down": {
+                    from: {
+                        height: "0",
+                    },
+                    to: {
+                        height: "var(--radix-accordion-content-height)",
+                    },
+                },
+                "accordion-up": {
+                    from: {
+                        height: "var(--radix-accordion-content-height)",
+                    },
+                    to: {
+                        height: "0",
+                    },
                 },
             },
             animation: {
                 slideDownFade: "slideDownFade 0.3s ease-out",
                 slideUpFade: "slideUpFade 0.2s ease-in",
                 fadeIn: "fadeIn 0.3s ease-out",
+                "accordion-down": "accordion-down 0.2s ease-out",
+                "accordion-up": "accordion-up 0.2s ease-out",
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [animate],
 } satisfies Config;

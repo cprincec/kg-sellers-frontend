@@ -12,7 +12,7 @@ const Products = () => {
     const searchParams = useSearchParams();
     const { deleteSearchParams } = useUpdateSearchParams();
 
-    // Show product upload success message
+    // Show product upload success message toast
     useEffect(() => {
         const isSuccess = searchParams.get("upload-status") === "successful";
         const justUploaded = sessionStorage.getItem("justUploaded") === "true";

@@ -10,11 +10,17 @@ import Image from "next/image";
 import ProductVariantsTable from "../../ui/addProduct/productVariants/ProductVariantsTable";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { useRouter } from "next/navigation";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
+import { useProductsContext } from "../../contexts/productsContext";
+import { IProductDTO } from "../../lib/interface";
+import { startTransition } from "react";
+import ProductCategoryCrumbs from "../../ui/addProduct/productCategory/ProductCategoryCrumbs";
 
 const Preview = () => {
     const router = useRouter();
+    const { products, setProducts } = useProductsContext();
     const { productDetails, productCategory, productVariants } = useAddProductContext();
+
     const MAX_PREVIEW_IMAGES = 5;
 
     return (
@@ -28,10 +34,13 @@ const Preview = () => {
                     {/* Product category starts here */}
                     <section className="grid gap-3 p-4 md:px-6 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT CATEGORY</h2>
-                        <ul className="flex gap-2 items-center font-medium text-sm">
-                            <li>{productCategory.productCategory}</li>
-                            {/* <Image src={IconArrowRight} alt="arrow" /> */}
-                        </ul>
+                        <ProductCategoryCrumbs
+                            categoryPath={[
+                                ...productCategory.productCategoryPath,
+                                productCategory.productCategory,
+                            ]}
+                            className="bg-transparent border-none -ml-3"
+                        />
                     </section>
                     {/* product category ends here */}
 
@@ -194,9 +203,43 @@ const Preview = () => {
                         submitButtonType="button"
                         submitButtonText="Upload"
                         submitButtonFunc={() => {
+                            const today = new Date();
+                            const dateCreated = today.toLocaleDateString("en-GB", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                            });
+
+                            const newProduct: IProductDTO = {
+                                productName: productDetails.name,
+                                productImages: productDetails.images,
+                                amount: 2500,
+                                description: productDetails.description,
+                                productVariants,
+                                quantity: 100,
+                                salesType: [],
+                                sku: 100,
+                                specifications: [
+                                    productDetails.specification1,
+                                    productDetails.specification2 || "",
+                                    productDetails.specification3 || "",
+                                    productDetails.specification4 || "",
+                                    productDetails.specification5 || "",
+                                ],
+                                status: "active",
+                                stockLevel: "in stock",
+                                dateCreated,
+                            };
+
+                            const updatedProducts = [newProduct, ...products]; // create new array
+                            setProducts(updatedProducts);
+
                             // prevent user from seeing the product upload success toast when they visit the route
+                            // without actually uploading any product
                             sessionStorage.setItem("justUploaded", "true");
-                            router.push("/products?upload-status=successful");
+                            // sessionStorage.setItem("products", JSON.stringify(updatedProducts)); // sync storage
+
+                            startTransition(() => router.push("/products?upload-status=successful"));
                         }}
                         className="max-w-[424px] md:ml-auto grid grid-cols-2 gap-3 justify-between p-4"
                     />

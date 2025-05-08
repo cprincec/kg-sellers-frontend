@@ -31,6 +31,7 @@ export interface FormNavButtonsProps {
     cancelButtonText?: string;
     submitButtonText?: string;
     submitButtonType?: "button" | "submit" | "reset";
+    showSubmitButton?: boolean;
     cancelFunc: () => void;
     submitButtonFunc?: () => void;
     className?: string;

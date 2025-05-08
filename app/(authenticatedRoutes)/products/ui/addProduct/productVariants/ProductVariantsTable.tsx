@@ -4,23 +4,26 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
 import { ProductVariant } from "../../../lib/interface";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { productVariantActions } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { cn } from "@/lib/utils";
 
 const ProductVariantsTable = ({
     productVariants,
     title,
     showTitle = true,
     showActions = true,
+    className,
 }: {
     productVariants: ProductVariant[];
     title?: string;
     showTitle?: boolean;
     showActions?: boolean;
+    className?: string;
 }) => {
     const searchParams = useSearchParams();
     const { deleteSearchParams } = useUpdateSearchParams();
@@ -53,7 +56,7 @@ const ProductVariantsTable = ({
     }, [searchParams]);
 
     return (
-        <div className="grid gap-4 overflow-hidden">
+        <div className={cn("grid gap-4 overflow-hidden", className)}>
             {showTitle && <h3 className="text-base font-medium">{title ? title : "Added Products"}</h3>}
             <Table className="min-w-[1000px] border">
                 <TableHeader className="w-auto">

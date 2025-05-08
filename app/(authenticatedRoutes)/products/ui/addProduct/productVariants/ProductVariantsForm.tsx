@@ -1,4 +1,5 @@
-import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
+"use client";
+
 import { cn } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { startTransition, useState } from "react";
@@ -8,15 +9,15 @@ import { IProductVariantsFormValues } from "../../../lib/interface";
 import { productVariantsSchema } from "../../../lib/schemas";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { Button } from "@/components/ui/button";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import ProductVariantsTable from "./ProductVariantsTable";
 import { productVariantsFormDefaultValues } from "../../../lib/defaults";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/contexts/addProductContext";
+import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
+import ProductsVariantsFormNavButtons from "./ProductsVariantsFormNavButtons";
 
 const ProductVariantsForm = ({ className }: { className?: string }) => {
     const { setSearchParams, deleteSearchParams } = useUpdateSearchParams();
     const { productVariants, setProductVariants } = useAddProductContext();
-    const router = useRouter();
     const {
         control,
         handleSubmit,
@@ -28,11 +29,18 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
     });
 
     const saveProductVariants = (values: IProductVariantsFormValues) => {
-        setProductVariants((prevValue) => [...prevValue, values]);
+        // create a new object with the values from the form
+        // and add it to the productVariants array in the context
+        const newVariant = { ...values };
+        setProductVariants((prevValue) => [...prevValue, newVariant]);
+
+        // reset the form values to the default values
         reset();
-        setShowForm(false);
+
+        // remove the action from the search params and hide form
         startTransition(() => {
             deleteSearchParams(["action"]);
+            setShowForm(false);
         });
     };
     const searchParams = useSearchParams();
@@ -45,6 +53,8 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                     <h3 className="text-sm md:text-base font-medium">PRODUCT VARIANTS</h3>
                     <p className="text-sm">Same products with different features can be added as variants</p>
                 </div>
+
+                {/* Add variant button */}
                 {!showForm && (
                     <Button
                         type="button"
@@ -59,6 +69,8 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                     </Button>
                 )}
             </div>
+
+            {/* Product variants form  */}
             {showForm && (
                 <form
                     onSubmit={handleSubmit(saveProductVariants)}
@@ -76,38 +88,13 @@ const ProductVariantsForm = ({ className }: { className?: string }) => {
                 </form>
             )}
 
+            {/* Product variants table */}
             {productVariants.length > 0 && (
-                <div className="p-4 lg:px-6">
-                    <ProductVariantsTable productVariants={productVariants} />
-                </div>
+                <ProductVariantsTable className="p-4 lg:px-6" productVariants={productVariants} />
             )}
 
-            {/* Navigation buttons starts here */}
-            <div className="p-4">
-                <FormNavButtons
-                    cancelFunc={() => {
-                        setSearchParams([{ step: "product-details" }]);
-                    }}
-                    cancelButtonText="Previous"
-                    submitButtonText="Preview"
-                    submitButtonFunc={() => {
-                        router.push("/products/add-product/preview");
-                    }}
-                    className="hidden md:flex gap-3 justify-between"
-                />
-                <FormNavButtons
-                    cancelFunc={() => {
-                        setSearchParams([{ step: "product-details" }]);
-                    }}
-                    submitButtonFunc={() => {
-                        router.push("/products/add-product/preview");
-                    }}
-                    cancelButtonText="Previous"
-                    submitButtonText="Preview"
-                    className="md:max-w-[424px] md:mx-auto grid md:hidden grid-cols-2 gap-3 justify-between"
-                />
-            </div>
-            {/* Navigation buttons ends here */}
+            {/* Navigation buttons */}
+            <ProductsVariantsFormNavButtons />
         </div>
     );
 };
