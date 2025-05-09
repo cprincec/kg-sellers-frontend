@@ -33,7 +33,7 @@ const AddToSalesContent = ({
                             className="object-cover rounded-lg"
                         />
                     </div>
-                    <h1 className="lg:hidden stext-base font-bold">{productName}</h1>
+                    <h1 className="lg:hidden text-base font-bold">{productName}</h1>
                 </div>
 
                 {canBeAddedToSales ? (
