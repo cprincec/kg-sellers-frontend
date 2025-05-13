@@ -8,14 +8,16 @@ import SideBarMobile from "./SideBarMobile";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { getHeaderTitleAndDescription } from "../../lib/utils";
+import { Button } from "@/components/ui/button";
+import Notification from "./Notification";
 
 const Header = () => {
     const [showSideBar, setShowSideBar] = useState<boolean>(false);
+    const [showNotification, setShowNotification] = useState<boolean>(false);
     const pathname = usePathname();
 
     // only show header in primary routes
     if (pathname.split("/").length > 2) return null;
-    console.log(pathname);
 
     const { title, description } = getHeaderTitleAndDescription(pathname.replace("/", "")); // remove the leading "/"
 
@@ -40,7 +42,15 @@ const Header = () => {
 
             {/* Notifications and Profile buttons */}
             <div className="flex items-center gap-3">
-                <Image src={IconNotification} alt="notification" className="w-4 md:w-5 h-4 md:h-5 " />
+                <Button
+                    variant={"ghost"}
+                    className="bg-transparent"
+                    onClick={() => setShowNotification(true)}
+                >
+                    <Image src={IconNotification} alt="notification" className="w-4 md:w-5 h-4 md:h-5 " />
+                </Button>
+                <Notification showNotification={showNotification} setShowNotification={setShowNotification} />
+
                 <ProfileIcon />
             </div>
         </header>
