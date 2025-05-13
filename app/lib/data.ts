@@ -5,6 +5,7 @@ import {
     ImageWMKDMobile1,
     ImageWMKDMobile2,
 } from "@/public/images/landingPage/images";
+import { INotification } from "./interface";
 
 export const homeNavLinks = [
     {
@@ -108,3 +109,28 @@ export const testimonialsData = {
         },
     ],
 };
+
+/************************************************************
+ * Notifications data
+ ************************************************************/
+export const notifications: INotification[] = [
+    {
+        title: "New order",
+        desc: "You just received an order for order item #1203. Go to your orders tab to accept the order",
+        time: "2 mins ago",
+        isRead: false,
+        recipient: "FashionHouse,",
+    },
+    {
+        title: "Rejected product",
+        desc: "we are not able to approve this product ID #20010 at this time as it does not comply with our product guidelines. Ensure to check the product and retry.",
+        time: "2 mins ago",
+        isRead: true,
+    },
+    {
+        title: "New order",
+        desc: "You just received an order for order item #1203. Go to your orders tab to accept the order",
+        time: "2 mins ago",
+        isRead: true,
+    },
+];
