@@ -1,16 +1,15 @@
+"use client";
+
 import { ModifiedInputProps } from "@/interfaces/elements.interface";
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
 import dynamic from "next/dynamic";
 
 // Dynamic import is used here to prevent hyrdation errors
-const Input = dynamic(
-    async () => {
-        const { Input } = await import("@/components/ui/input");
-        return Input;
-    },
-    { ssr: false }
-);
+const Input = dynamic(() => import("@/components/ui/input").then((mod) => mod.Input), {
+    ssr: false,
+    loading: () => <div className="h-12 w-full bg-gray-200 rounded-md animate-pulse" />,
+});
 
 const ModifiedInput = ({
     placeholder,
@@ -56,6 +55,7 @@ const ModifiedInput = ({
                         +234
                     </span>
                 )}
+
                 <Input
                     id={id}
                     ref={inputRef}

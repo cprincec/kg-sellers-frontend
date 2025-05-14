@@ -1,13 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import SalesPerformanceChart from "./chart/SalesPerformanceChart";
 import { NoResultsIcon } from "../icons";
+import { usePerformanceMetricsContext } from "../../contexts/performanceMetricsContext";
+import SalesPerformanceChart from "./chart/SalesPerformanceChart";
+import SalesPerformanceSkeleton from "@/app/ui/skeletons/dashboard/SalesPerformanceSkeleton";
 
 const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
-    const isPositive = false;
-    const date = "yesterday";
-    const percentage = "1.3%";
-    const amount = "₦309,000";
+    const {
+        loading,
+        salesPerformance: { introData, chartData },
+    } = usePerformanceMetricsContext();
+
+    if (loading) return <SalesPerformanceSkeleton />;
 
     return (
         <div className="relative grid rounded-xl border border-kaiglo_grey-200 p-3">
@@ -18,19 +22,19 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
                     </h3>
                     {!showEmptyState ? (
                         <div className="grid gap-1">
-                            <p className="text-2xl text-kaiglo_grey-900 font-medium">{amount}</p>
+                            <p className="text-2xl text-kaiglo_grey-900 font-medium">{introData?.amount}</p>
 
                             <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">
-                                {isPositive ? (
+                                {introData?.isPositive ? (
                                     <span className="flex items-center gap-0.5 text-kaiglo_success-light">
-                                        <ArrowUp className="w-4 h-4" /> {percentage}
+                                        <ArrowUp className="w-4 h-4" /> {introData?.percentage}
                                     </span>
                                 ) : (
                                     <span className="flex items-center gap-0.5 text-kaiglo_critical-error">
-                                        <ArrowDown className="w-4 h-4" /> {percentage}
+                                        <ArrowDown className="w-4 h-4" /> {introData?.percentage}
                                     </span>
                                 )}
-                                <span>from {date}</span>
+                                <span>from {introData?.date}</span>
                             </p>
                         </div>
                     ) : (
@@ -48,7 +52,7 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
 
             {/* Bar Chart */}
             {!showEmptyState ? (
-                <SalesPerformanceChart className="mt-6 md:mt-10 lg:-mt-5" />
+                <SalesPerformanceChart data={chartData} className="mt-6 md:mt-10 lg:-mt-5" />
             ) : (
                 <NoResultsIcon
                     className="grid items-center justify-center -mt-8 py-6"
