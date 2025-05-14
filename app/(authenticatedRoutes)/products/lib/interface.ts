@@ -15,6 +15,8 @@ export interface ProductDtO {
 export interface IProductsContext {
     products: IProductDTO[];
     setProducts: Dispatch<SetStateAction<IProductDTO[]>>;
+    loading: boolean;
+    setloading?: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IAddProductContext {

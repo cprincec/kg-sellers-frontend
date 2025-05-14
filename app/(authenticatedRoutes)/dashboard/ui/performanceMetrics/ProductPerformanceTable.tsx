@@ -1,9 +1,19 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { productsList } from "../../lib/data";
+import { IProductPerformance } from "../../lib/interface";
 
-const ProductPerformanceTable = ({ sortBy }: { sortBy: string }) => {
-    let products = productsList;
+const ProductPerformanceTable = ({
+    data,
+    sortBy,
+}: {
+    data: IProductPerformance[] | null;
+    sortBy: string;
+}) => {
+    if (!data) {
+        return null;
+    }
+
+    let products = data;
 
     if (sortBy === "leastSelling") {
         products = products.sort((a, b) => parseInt(a.quantitySold) - parseInt(b.quantitySold));

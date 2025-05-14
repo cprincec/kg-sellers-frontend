@@ -3,10 +3,19 @@ import clsx from "clsx";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import CustomTooltip from "./CustomTootip";
-import { salesPerformanceChartData } from "../../../lib/data";
+import { ISalesPerformanceChartData } from "../../../lib/interface";
 
-const SalesPerformanceChart = ({ className }: { className?: string }) => {
-    const data = salesPerformanceChartData;
+const SalesPerformanceChart = ({
+    data,
+    className,
+}: {
+    data: ISalesPerformanceChartData[] | null;
+    className?: string;
+}) => {
+    if (!data) {
+        return null;
+    }
+
     return (
         <div className={clsx("grid gap-6 lg:gap-10", className && className)}>
             <div className="hidden lg:flex items-center gap-2 justify-end">

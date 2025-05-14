@@ -1,6 +1,6 @@
 "use client";
 import { ImageProduct1, ImageProduct2 } from "@/public/images/landingPage/images";
-import { NavLink } from "./interface";
+import { IProductPerformance, ISalesPerformanceChartData, NavLink } from "./interface";
 import {
     IconBox,
     IconBoxActive,
@@ -16,7 +16,7 @@ import {
     IconWalletActive,
 } from "@/public/icons/icons";
 
-export const productsList = [
+export const productsList: IProductPerformance[] = [
     {
         productName: "Black Polo T-shirt",
         orderId: "Order ID -KG10001",
@@ -95,7 +95,7 @@ export const links: NavLink[] = [
 
 export const paths = ["/dashboard", "/products", "/orders", "/transactions", "/wallet", "/settings"];
 
-export const salesPerformanceChartData = [
+export const salesPerformanceChartData: ISalesPerformanceChartData[] = [
     {
         day: "Mon",
         thisWeek: 80000,

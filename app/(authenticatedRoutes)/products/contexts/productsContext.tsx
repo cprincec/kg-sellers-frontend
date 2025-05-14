@@ -9,14 +9,17 @@ const ProductsContext = createContext<IProductsContext | undefined>(undefined);
 // create context provider
 const ProductsContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [products, setProducts] = useState<IProductDTO[]>([]);
+    const [loading, setLoading] = useState(true);
 
     // Load products from sessionStorage once client is mounted
     useEffect(() => {
         const products = sessionStorage.getItem("products");
         if (products) {
             setProducts(JSON.parse(products));
+            setLoading(false);
         } else {
             setProducts([...productsList]);
+            setLoading(false);
         }
     }, []);
 
@@ -25,6 +28,7 @@ const ProductsContextProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             value={{
                 products,
                 setProducts,
+                loading,
             }}
         >
             {children}

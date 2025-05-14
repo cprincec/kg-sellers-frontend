@@ -3,8 +3,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NoResultsIcon } from "../icons";
 import ProductPerformanceTable from "./ProductPerformanceTable";
+import { usePerformanceMetricsContext } from "../../contexts/performanceMetricsContext";
+import ProductPerformanceSkeleton from "@/app/ui/skeletons/dashboard/ProductPerformanceSkeleton";
 
 const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
+    const { productPerformanceData, loading } = usePerformanceMetricsContext();
+
+    if (loading) return <ProductPerformanceSkeleton />;
+
     return (
         <div className="relative grid gap-6 rounded-xl border border-kaiglo_grey-200 p-3">
             <h3 className="relative text-sm font-normal lg:font-medium text-kaiglo_grey-800">
@@ -23,10 +29,16 @@ const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => 
                     {!showEmptyState ? (
                         <>
                             <TabsContent value="topSelling" className="overflow-x-auto">
-                                <ProductPerformanceTable sortBy={"topSelling"} />
+                                <ProductPerformanceTable
+                                    data={productPerformanceData}
+                                    sortBy={"topSelling"}
+                                />
                             </TabsContent>
                             <TabsContent value="leastSelling" className="overflow-x-auto">
-                                <ProductPerformanceTable sortBy={"leastSelling"} />
+                                <ProductPerformanceTable
+                                    data={productPerformanceData}
+                                    sortBy={"leastSelling"}
+                                />
                             </TabsContent>
                         </>
                     ) : (

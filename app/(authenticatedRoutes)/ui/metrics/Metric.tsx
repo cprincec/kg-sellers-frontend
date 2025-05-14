@@ -1,15 +1,13 @@
 "use client";
 
-import { ArrowDown, ArrowUp } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import ToolTip from "../ToolTip";
 import { useState } from "react";
 import Image from "next/image";
 import { IconEye } from "@/public/icons/icons";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { MetricProps } from "../../lib/interface";
 import { getMetricVariant } from "../../lib/utils";
+import MetricBody from "./MetricBody";
 
 const Metric = ({
     title,
@@ -44,7 +42,8 @@ const Metric = ({
                     {icon && <Image src={icon} alt="icon" />}
                     {title}
                 </h3>
-                {/* Eye icon starts */}
+
+                {/* Eye icon */}
                 {canHideData && (
                     <Image
                         src={IconEye}
@@ -55,64 +54,21 @@ const Metric = ({
                         onClick={() => setShowData((prev) => !prev)}
                     />
                 )}
-                {/* Eye icon ends */}
 
-                {/* Tool tip starts */}
+                {/* Tool tip */}
                 {tip && <ToolTip info={tip} />}
-                {/* Tool tip starts */}
             </div>
-            {!showEmptyState ? (
-                <div className="grid gap-1 md:px-4 lg:px-2">
-                    <div className="flex justify-between">
-                        {canHideData ? (
-                            showData ? (
-                                <p className="text-2xl text-kaiglo_grey-900 font-medium">
-                                    {IsCurrency ? `₦${parseFloat(body).toLocaleString()}` : body}
-                                </p>
-                            ) : (
-                                <p className="text-3xl">*******</p>
-                            )
-                        ) : (
-                            <p className="text-2xl text-kaiglo_grey-900 font-medium">
-                                {IsCurrency ? `₦${parseFloat(body).toLocaleString()}` : body}
-                            </p>
-                        )}
 
-                        {actionText && (
-                            <Link
-                                id="wallet-action"
-                                className={cn(
-                                    buttonVariants({
-                                        variant: "ghost",
-                                    }),
-                                    "text-kaiglo_success-800 bg-kaiglo_success-50 capitalize rounded-3xl",
-                                    actionClassName
-                                )}
-                                href={
-                                    actionText.toLowerCase() === "set threshold"
-                                        ? "/wallet?set-payout-threshold=true"
-                                        : "/wallet?withdraw=selected-bank"
-                                }
-                            >
-                                {actionText}
-                            </Link>
-                        )}
-                    </div>
-                    {comparism && (
-                        <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">
-                            {comparism.isPositive ? (
-                                <span className="flex items-center gap-0.5 text-kaiglo_success-light">
-                                    <ArrowUp className="w-4 h-4" /> {comparism.value}
-                                </span>
-                            ) : (
-                                <span className="flex items-center gap-0.5 text-kaiglo_critical-error">
-                                    <ArrowDown className="w-4 h-4" /> {comparism.value}
-                                </span>
-                            )}
-                            <span>from {comparism.date}</span>
-                        </p>
-                    )}
-                </div>
+            {!showEmptyState ? (
+                <MetricBody
+                    body={body}
+                    IsCurrency={IsCurrency}
+                    showData={showData}
+                    canHideData={canHideData}
+                    actionText={actionText}
+                    actionClassName={actionClassName}
+                    comparism={comparism}
+                />
             ) : (
                 <strong className="text-3xl text-kaiglo_grey-900 lg:px-4">--</strong>
             )}

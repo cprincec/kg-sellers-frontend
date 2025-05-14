@@ -1,19 +1,15 @@
 "use client";
 
-import { OtpContextProviderProps, OtpContextType } from "../interface";
-import React, { createContext, useState } from "react";
+import { OtpContextProviderProps, IOtpContext } from "../interface";
+import React, { createContext, useContext, useState } from "react";
 
-const OtpContext = createContext<OtpContextType | undefined>(undefined);
+const OtpContext = createContext<IOtpContext | undefined>(undefined);
 
 const OtpContextProvider: React.FC<OtpContextProviderProps> = ({ children }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
-    // const [email, setEmail] = useState("");
-    // const [phone, setPhone] = useState("");
 
     const resetOtpModal = () => {
         setShowOtpModal(false);
-        // setEmail("");
-        // setPhone("");
     };
 
     return (
@@ -29,4 +25,12 @@ const OtpContextProvider: React.FC<OtpContextProviderProps> = ({ children }) => 
     );
 };
 
-export { OtpContext, OtpContextProvider };
+const useOtpContext = (): IOtpContext => {
+    const context = useContext(OtpContext);
+    if (!context) {
+        throw new Error("useOtpContext must be used within a OtpContextProvider");
+    }
+    return context;
+};
+
+export { OtpContext, OtpContextProvider, useOtpContext };

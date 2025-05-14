@@ -34,7 +34,7 @@ export interface EnterOtpProps {
     phone: string;
 }
 
-export interface OtpContextType {
+export interface IOtpContext {
     showOtpModal: boolean;
     setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
     resetOtpModal: () => void;
