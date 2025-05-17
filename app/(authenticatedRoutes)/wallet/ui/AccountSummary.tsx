@@ -10,19 +10,27 @@ import WithdrawalAmount from "./withdraw/WithdrawalAmount";
 import OtpModal from "@/app/(auth)/ui/otp/OtpModal";
 import WithdrawalSuccessful from "./withdraw/WithdrawalSuccessful";
 import Metric from "../../ui/metrics/Metric";
+import { useModalContext } from "@/app/contexts/modalContext";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
 const AccountSummary = ({ className }: { className?: string }) => {
     const lastUpdated = "Oct 8, 2024";
     const searchParams = useSearchParams();
-    const [showPayoutThreshold, setShowPayoutThreshold] = useState<boolean>(false);
     const [ShowSelectedAccount, setShowSelectedAccount] = useState<boolean>(false);
     const [ShowWithdrawalAmount, setShowWithdrawalAmount] = useState<boolean>(false);
     const [ShowOtp, setShowOtp] = useState<boolean>(false);
     const [ShowSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
 
+    const { setShowModal, setOnClose, setModalContent } = useModalContext();
+    const { deleteSearchParams } = useUpdateSearchParams();
+
     // show withdrawal steps modals
     useEffect(() => {
-        setShowPayoutThreshold(searchParams.get("set-payout-threshold") === "true");
+        if (searchParams.get("set-payout-threshold") === "true") {
+            setModalContent(<PayoutThreshold />);
+            setOnClose(() => () => deleteSearchParams(["set-payout-threshold"]));
+            setShowModal(true);
+        }
         setShowSelectedAccount(searchParams.get("withdraw") === "selected-bank");
         setShowWithdrawalAmount(searchParams.get("withdraw") === "amount");
         setShowOtp(searchParams.get("withdraw") === "otp");
@@ -77,15 +85,6 @@ const AccountSummary = ({ className }: { className?: string }) => {
                     </Fragment>
                 ))}
             </div>
-
-            {/* Payout threshold modal starts*/}
-            {showPayoutThreshold && (
-                <PayoutThreshold
-                    showPayoutThreshold={showPayoutThreshold}
-                    setShowPayoutThreshold={setShowPayoutThreshold}
-                />
-            )}
-            {/* Payout threshold modal starts*/}
 
             {ShowSelectedAccount && <SelectAccount />}
             {ShowWithdrawalAmount && <WithdrawalAmount />}

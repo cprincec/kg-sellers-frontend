@@ -19,10 +19,7 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <DialogPrimitive.Overlay
         ref={ref}
-        className={cn(
-            "fixed inset-0 z-50 bg-black/50 backdrop-blur-[12px]  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-            className
-        )}
+        className={cn("fixed inset-0 z-50 bg-black/50 backdrop-blur-[12px] w-full outline-none", className)}
         {...props}
     />
 ));
@@ -34,42 +31,67 @@ const DialogContent = React.forwardRef<
         showCloseButton?: boolean;
         styleXBtn?: boolean;
         closeBtnClassName?: string;
+        animationDirection?: "left" | "right";
     }
->(({ className, children, closeBtnClassName, styleXBtn = false, showCloseButton = true, ...props }, ref) => {
-    return (
-        <DialogPortal>
-            <DialogOverlay />
-            <DialogPrimitive.Content
-                ref={ref}
-                className={cn(
-                    "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-                    className
-                )}
-                {...props}
-            >
-                {children}
+>(
+    (
+        {
+            className,
+            children,
+            closeBtnClassName,
+            animationDirection = "right",
+            styleXBtn = false,
+            showCloseButton = true,
+            ...props
+        },
+        ref
+    ) => {
+        return (
+            <DialogPortal>
+                <DialogOverlay
+                    className={cn(
+                        animationDirection === "left"
+                            ? "data-[state=open]:animate-slide-in-left data-[state=closed]:animate-slide-out-left"
+                            : "data-[state=open]:animate-slide-in-right-overlay data-[state=closed]:animate-slide-out-right-overlay"
+                    )}
+                />
+                <DialogPrimitive.Content
+                    ref={ref}
+                    className={cn(
+                        "fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 border bg-background p-6 sm:rounded-lg",
+                        animationDirection === "left"
+                            ? "data-[state=open]:animate-slide-in-left data-[state=closed]:animate-slide-out-left"
+                            : "data-[state=open]:animate-slide-in-right data-[state=closed]:animate-slide-out-right",
+                        "sm:rounded-lg",
+                        className
+                    )}
+                    {...props}
+                >
+                    {children}
 
-                {showCloseButton && (
-                    <DialogPrimitive.Close
-                        className={cn(
-                            "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
-                            styleXBtn && "right-6",
-                            closeBtnClassName
-                        )}
-                    >
-                        <X
+                    {showCloseButton && (
+                        <DialogPrimitive.Close
                             className={cn(
-                                "h-6 w-6 outline-none rounded-full",
-                                styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                                "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+                                styleXBtn && "right-6",
+                                closeBtnClassName
                             )}
-                        />
-                        {/* <span className="sr-only">Close</span> */}
-                    </DialogPrimitive.Close>
-                )}
-            </DialogPrimitive.Content>
-        </DialogPortal>
-    );
-});
+                            aria-label="Close"
+                        >
+                            <X
+                                className={cn(
+                                    "h-6 w-6 outline-none rounded-full",
+                                    styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                                )}
+                            />
+                            {/* <span className="sr-only">Close</span> */}
+                        </DialogPrimitive.Close>
+                    )}
+                </DialogPrimitive.Content>
+            </DialogPortal>
+        );
+    }
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (

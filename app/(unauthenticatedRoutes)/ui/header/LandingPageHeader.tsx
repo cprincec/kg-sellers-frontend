@@ -5,18 +5,20 @@ import { IconLogoYellow, IconMenu } from "@/public/icons/icons";
 import Image from "next/image";
 import Link from "next/link";
 import LandingSideBarMobile from "../SideBarMobile";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import NavLinks from "./NavLinks";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const LandingPageHeader = () => {
-    const [showSideBar, setShowSideBar] = useState<boolean>(false);
+    // const [showSideBar, setShowSideBar] = useState<boolean>(false);
+    const { setModalContent, setShowModal } = useModalContext();
     const pathname = usePathname();
 
     // Automatically close the sidebar on route change
     useEffect(() => {
-        setShowSideBar(false);
-    }, [pathname]);
+        setShowModal(false);
+    }, [pathname, setShowModal]);
 
     return (
         <header className="sticky top-0 z-50 bg-white backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow">
@@ -40,13 +42,13 @@ const LandingPageHeader = () => {
                     type="button"
                     variant={"outline"}
                     className="md:hidden p-1"
-                    onClick={() => setShowSideBar(true)}
+                    onClick={() => {
+                        setModalContent(<LandingSideBarMobile />);
+                        setShowModal(true);
+                    }}
                 >
                     <Image src={IconMenu} alt="Menu icon" className="w-6 h6" />
                 </Button>
-                {showSideBar && (
-                    <LandingSideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
-                )}
                 {/* Menu icon ends */}
             </div>
         </header>

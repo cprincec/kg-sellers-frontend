@@ -5,31 +5,37 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { IPayoutDTO } from "../../lib/interface";
 import { Button } from "@/components/ui/button";
 import PayoutDetails from "./PayoutDetails";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getPayoutStatusStyle } from "../../lib/utils/utils";
+import { useModalContext } from "@/app/contexts/modalContext";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { useEffect } from "react";
 
 const PayoutHistoryTable = ({ payoutHistory }: { payoutHistory: IPayoutDTO[] }) => {
     const searchParams = useSearchParams();
-    const router = useRouter();
-    const pathname = usePathname();
+    const { setSearchParams, deleteSearchParams } = useUpdateSearchParams();
 
-    // get payout index from url
-    const payoutIndex = parseInt(searchParams.get("payout-index") || "-1");
+    const { setShowModal, setModalContent, setOnClose } = useModalContext();
 
-    // check that payout index from url is valid
-    const isValidIndex = payoutIndex >= 0 && payoutIndex < payoutHistory.length;
-    const [showPayoutDetails, setShowPayoutDetails] = useState<boolean>(isValidIndex);
+    useEffect(() => {
+        // Check if payout index is present in the URL
+        // and if it is valid
+        const payoutIndex = searchParams.get("payout-index");
 
-    const handleShowPayoutDetails = (index: number) => {
-        // Update url with order id
-        const params = new URLSearchParams(searchParams);
-        params.set("payout-index", index.toString());
-        router.replace(`${pathname}?${params.toString()}`);
+        if (
+            !payoutIndex ||
+            isNaN(Number(payoutIndex)) ||
+            parseInt(payoutIndex) < 0 ||
+            parseInt(payoutIndex) >= payoutHistory.length
+        )
+            return;
 
         // Show payout details modal
-        setShowPayoutDetails(true);
-    };
+        setModalContent(<PayoutDetails payout={payoutHistory[parseInt(payoutIndex)]} />);
+        setShowModal(true);
+        setOnClose(() => () => deleteSearchParams(["payout-index"]));
+    }, [searchParams, payoutHistory, setModalContent, setShowModal]);
+
     return (
         <div className="overflow-auto">
             <Table className="w-[950px] lg:w-full lg:border lg:border-kaiglo_grey-200">
@@ -63,7 +69,7 @@ const PayoutHistoryTable = ({ payoutHistory }: { payoutHistory: IPayoutDTO[] }) 
                             <TableRow
                                 key={index}
                                 className="cursor-pointer"
-                                onClick={() => handleShowPayoutDetails(index)}
+                                onClick={() => setSearchParams([{ "payout-index": index.toString() }])}
                             >
                                 <TableCell className="p-3 md:text-base max-w-[20px]">{index + 1}</TableCell>
                                 <TableCell className="p-3 text-sm text-center">{reference}</TableCell>
@@ -88,19 +94,8 @@ const PayoutHistoryTable = ({ payoutHistory }: { payoutHistory: IPayoutDTO[] }) 
                 </TableBody>
             </Table>
 
-            {/* pagination starts */}
+            {/* pagination */}
             <PaginationComponent dataLength={payoutHistory.length} />
-            {/* pagination ends */}
-
-            {/* Payout details modal starts */}
-            {showPayoutDetails && isValidIndex && (
-                <PayoutDetails
-                    showPayoutDetail={showPayoutDetails}
-                    setShowPayoutDetail={setShowPayoutDetails}
-                    payout={payoutHistory[payoutIndex]}
-                />
-            )}
-            {/* Payout details modal ends */}
         </div>
     );
 };

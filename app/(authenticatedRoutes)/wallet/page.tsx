@@ -4,24 +4,16 @@ import AccountSummary from "./ui/AccountSummary";
 import { tabs } from "./lib/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import WalletHistoryTableWrapper from "./ui/walletTable/WalletHistoryTableWrapper";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import PayoutHistoryTableWrapper from "./ui/payoutTable/PayoutHistoryTableWrapper";
 import OrderHistoryToolsBar from "../orders/ui/OrderHistoryToolsBar";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
 const Wallet = () => {
     const searchParams = useSearchParams();
-    const pathname = usePathname();
-    const router = useRouter();
 
+    const { setSearchParams } = useUpdateSearchParams();
     const activeTab = searchParams.get("tab");
-
-    const setActiveTab = (tab: string) => {
-        if (!tab) return;
-
-        const params = new URLSearchParams(searchParams);
-        params.set("tab", tab);
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-    };
 
     return (
         <div className="lg:min-h-[calc(100vh-82px)]">
@@ -44,7 +36,7 @@ const Wallet = () => {
                                         key={tab.label}
                                         value={tab.value}
                                         className="px-4 py-2"
-                                        onClick={() => setActiveTab(tab.value)}
+                                        onClick={() => setSearchParams([{ tab: tab.value }])}
                                     >
                                         {tab.label}
                                     </TabsTrigger>

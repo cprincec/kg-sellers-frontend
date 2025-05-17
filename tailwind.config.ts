@@ -244,6 +244,86 @@ export default {
                         height: "0",
                     },
                 },
+                "slide-in-right-overlay": {
+                    "0%": { transform: "translateX(100%)", opacity: "0" },
+                    "100%": { transform: "translateX(0)", opacity: "1" },
+                },
+                "slide-out-right-overlay": {
+                    "0%": { transform: "translate(0, 0)", opacity: "1" },
+                    "100%": { transform: "translate(100%, 0)", opacity: "0" },
+                },
+
+                "slide-in-right": {
+                    "0%": {
+                        transform: "translate(calc(100% - 50%), -50%)",
+                        opacity: "0",
+                    },
+                    "100%": {
+                        transform: "translate(-50%, -50%)",
+                        opacity: "1",
+                    },
+                },
+                "slide-out-right": {
+                    "0%": {
+                        transform: "translate(-50%, -50%)",
+                        opacity: "1",
+                    },
+                    "100%": {
+                        transform: "translate(calc(100% - 50%), -50%)",
+                        opacity: "0",
+                    },
+                },
+
+                "slide-in-right-lg": {
+                    "0%": {
+                        transform: "translate(100%, -50%)",
+                        opacity: "0",
+                    },
+                    "100%": {
+                        transform: "translate(50%, -50%)",
+                        opacity: "1",
+                    },
+                },
+
+                "slide-out-right-lg": {
+                    "0%": {
+                        transform: "translate(50%, -50%)",
+                        opacity: "1",
+                    },
+                    "100%": {
+                        transform: "translate(100%, -50%)",
+                        opacity: "0",
+                    },
+                },
+                "slide-in-right-md": {
+                    "0%": {
+                        transform: "translate(100%, -50%)",
+                        opacity: "0",
+                    },
+                    "100%": {
+                        transform: "translate(-25%, -50%)",
+                        opacity: "1",
+                    },
+                },
+                "slide-out-right-md": {
+                    "0%": {
+                        transform: "translate(-25%, -50%)",
+                        opacity: "1",
+                    },
+                    "100%": {
+                        transform: "translate(100%, -50%)",
+                        opacity: "0",
+                    },
+                },
+
+                "slide-in-left": {
+                    "0%": { transform: "translateX(-100%)", opacity: "0" },
+                    "100%": { transform: "translateX(0)", opacity: "1" },
+                },
+                "slide-out-left": {
+                    "0%": { transform: "translateX(0)", opacity: "1" },
+                    "100%": { transform: "translateX(-100%)", opacity: "0" },
+                },
             },
             animation: {
                 slideDownFade: "slideDownFade 0.3s ease-out",
@@ -251,6 +331,16 @@ export default {
                 fadeIn: "fadeIn 0.3s ease-out",
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
+                "slide-in-right": "slide-in-right 0.4s ease-out forwards",
+                "slide-out-right": "slide-out-right 0.5s ease-in forwards",
+                "slide-in-right-overlay": "slide-in-right-overlay 0.4s ease-out forwards",
+                "slide-out-right-overlay": "slide-out-right-overlay 0.5s ease-in forwards",
+                "slide-in-right-lg": "slide-in-right-lg 0.4s ease-out forwards",
+                "slide-out-right-lg": "slide-out-right-lg 0.5s ease-in forwards",
+                "slide-in-right-md": "slide-in-right-md 0.4s ease-out forwards",
+                "slide-out-right-md": "slide-out-right-md 0.5s ease-in forwards",
+                "slide-in-left": "slide-in-left 0.4s ease-out forwards",
+                "slide-out-left": "slide-out-left 0.5s ease-in forwards",
             },
         },
     },
