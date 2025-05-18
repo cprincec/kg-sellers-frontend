@@ -23,7 +23,7 @@ const ModalContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
             }}
         >
             {children}
-            <Modal key="modal">{modalContent}</Modal>
+            <Modal>{modalContent}</Modal>
         </ModalContext.Provider>
     );
 };

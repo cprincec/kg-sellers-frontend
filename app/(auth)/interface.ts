@@ -21,15 +21,12 @@ export interface OtpFormInputProps {
     phone: string;
     continueTo: string;
     actionText?: string;
-    setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface EnterOtpProps {
     actionText?: string;
     action?: () => void;
     actionLink?: string;
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
     email: string;
     phone: string;
 }

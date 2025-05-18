@@ -5,11 +5,21 @@ import Link from "next/link";
 import { homeNavLinks } from "../../lib/data";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const LandingSideBarMobile = () => {
+    const pathname = usePathname();
+    const { setShowModal } = useModalContext();
+
+    useEffect(() => {
+        setShowModal(false);
+    }, [pathname, setShowModal]);
+
     return (
         <DialogContent
-            className="z-[999] left-0 translate-x-0 h-full w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
+            className="z-[999] top-0 left-0 translate-x-0 h-full w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
             data-testid="sideNav-dialog"
             styleXBtn={true}
             animationDirection="left"

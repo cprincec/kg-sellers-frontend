@@ -1,5 +1,5 @@
 import { accountSummaryMock } from "../lib/data";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import Image from "next/image";
 import { IconVerticalLine } from "@/public/icons/icons";
 import { useSearchParams } from "next/navigation";
@@ -16,26 +16,42 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 const AccountSummary = ({ className }: { className?: string }) => {
     const lastUpdated = "Oct 8, 2024";
     const searchParams = useSearchParams();
-    const [ShowSelectedAccount, setShowSelectedAccount] = useState<boolean>(false);
-    const [ShowWithdrawalAmount, setShowWithdrawalAmount] = useState<boolean>(false);
-    const [ShowOtp, setShowOtp] = useState<boolean>(false);
-    const [ShowSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
-
-    const { setShowModal, setOnClose, setModalContent } = useModalContext();
+    const { showModal, setShowModal, setOnClose, setModalContent } = useModalContext();
     const { deleteSearchParams } = useUpdateSearchParams();
 
     // show withdrawal steps modals
+    const withdrawStep = searchParams.get("withdraw");
+    const payoutStep = searchParams.get("set-payout-threshold");
+
     useEffect(() => {
-        if (searchParams.get("set-payout-threshold") === "true") {
-            setModalContent(<PayoutThreshold />);
-            setOnClose(() => () => deleteSearchParams(["set-payout-threshold"]));
-            setShowModal(true);
+        let content: React.ReactNode | null = null;
+        let clearKeys: string[] = [];
+
+        if (payoutStep === "true") {
+            content = <PayoutThreshold />;
+            clearKeys = ["set-payout-threshold"];
+        } else if (withdrawStep === "selected-bank") {
+            content = <SelectAccount />;
+            clearKeys = ["withdraw"];
+        } else if (withdrawStep === "amount") {
+            content = <WithdrawalAmount />;
+            clearKeys = ["withdraw"];
+        } else if (withdrawStep === "otp") {
+            content = (
+                <OtpModal email="" phone="" actionText="Confirm" actionLink="/wallet?withdraw=successful" />
+            );
+            clearKeys = ["withdraw"];
+        } else if (withdrawStep === "successful") {
+            content = <WithdrawalSuccessful />;
+            clearKeys = ["withdraw"];
         }
-        setShowSelectedAccount(searchParams.get("withdraw") === "selected-bank");
-        setShowWithdrawalAmount(searchParams.get("withdraw") === "amount");
-        setShowOtp(searchParams.get("withdraw") === "otp");
-        setShowSuccessMessage(searchParams.get("withdraw") === "successful");
-    }, [searchParams]);
+
+        if (content) {
+            setModalContent(content);
+            setOnClose(() => () => deleteSearchParams(clearKeys));
+            if (!showModal) setShowModal(true);
+        }
+    }, [withdrawStep, payoutStep]);
 
     return (
         <article
@@ -85,20 +101,6 @@ const AccountSummary = ({ className }: { className?: string }) => {
                     </Fragment>
                 ))}
             </div>
-
-            {ShowSelectedAccount && <SelectAccount />}
-            {ShowWithdrawalAmount && <WithdrawalAmount />}
-            {ShowOtp && (
-                <OtpModal
-                    showOtpModal={ShowOtp}
-                    setShowOtpModal={setShowOtp}
-                    email=""
-                    phone=""
-                    actionText="Confirm"
-                    actionLink="/wallet?withdraw=successful"
-                />
-            )}
-            {ShowSuccessMessage && <WithdrawalSuccessful />}
         </article>
     );
 };

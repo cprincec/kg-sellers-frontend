@@ -22,7 +22,7 @@ const SideBarMobile = () => {
 
     return (
         <DialogContent
-            className="left-0 translate-x-0 h-full w-[75%] ml-0 px-4 py-10 sm:rounded-none outline-none"
+            className="top-0 left-0 translate-x-0 h-full w-[75%] ml-0 px-4 py-10 sm:rounded-none outline-none"
             data-testid="sideNav-dialog"
             animationDirection="left"
         >

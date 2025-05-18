@@ -8,10 +8,6 @@ import { IconPrint } from "@/public/icons/icons";
 import { getPayoutStatusStyle } from "../../lib/utils/utils";
 import { cn } from "@/lib/utils";
 
-/*******************************************************
- * When closing a transaction detail modal,
- * remove the order index from the url
- ********************************************************/
 const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
     const { reference, amount, channel, bank, name, accountNumber, date, status, purpose } = payout;
 
@@ -89,7 +85,6 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
                 Print PDF
             </Button>
         </DialogContent>
-        // </Dialog>
     );
 };
 
