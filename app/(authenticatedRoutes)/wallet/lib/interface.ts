@@ -19,8 +19,8 @@ export interface IPayoutDTO {
 
 export interface PayoutDetailsProps {
     payout: IPayoutDTO;
-    showPayoutDetail: boolean;
-    setShowPayoutDetail: React.Dispatch<React.SetStateAction<boolean>>;
+    // showPayoutDetail: boolean;
+    // setShowPayoutDetail: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IPayoutThresholdFormDTO {

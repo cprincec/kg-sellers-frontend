@@ -3,11 +3,13 @@
 // import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useState } from "react";
 import { StoreSetupContextDTO, StoreSetupContextProviderProps, navigateTpNextStepProps } from "../interface";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefined);
 
 const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ children }) => {
-    const [showOtpModal, setShowOtpModal] = useState(false);
+    const { setShowModal } = useModalContext();
+
     const [currentStep, setCurrentStep] = useState<number>(0);
 
     // const router = useRouter();
@@ -19,11 +21,11 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
         setCurrentStep((prevStep) => prevStep - 1);
     };
 
-    const navigateToNextStep = async ({ trigger, setShowConfirmAccountModal }: navigateTpNextStepProps) => {
+    const navigateToNextStep = async ({ trigger }: navigateTpNextStepProps) => {
         const stepIsValid = await trigger(); // Validate visible form fields
 
         if (stepIsValid) {
-            if (currentStep === 2) setShowConfirmAccountModal(true); // Confirm payment details
+            if (currentStep === 2) setShowModal(true); // Confirm payment details
             else setCurrentStep((prevStep) => prevStep + 1);
         }
     };
@@ -37,12 +39,6 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
     //     router.push("/dashboard");
     // };
 
-    const resetOtpModal = () => {
-        setShowOtpModal(false);
-        // setEmail("");
-        // setPhone("");
-    };
-
     return (
         <StoreSetupContext.Provider
             value={{
@@ -51,9 +47,6 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
                 navigateToNextStep,
                 navigateToSpecificStep,
                 navigateToPreviousStep,
-                showOtpModal,
-                setShowOtpModal,
-                resetOtpModal,
                 // saveStoreSetup,
             }}
         >

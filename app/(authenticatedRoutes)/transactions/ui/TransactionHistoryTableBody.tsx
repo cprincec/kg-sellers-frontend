@@ -1,37 +1,13 @@
 "use client";
 
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SetStateAction } from "react";
 import { ITransactionDTO } from "../lib/interface";
 import clsx from "clsx";
 import { getTransactionStatusStyle } from "../lib/utils/utils";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
-const TransactionHistoryTableBody = ({
-    transactions,
-    setShowTransactionDetails,
-}: {
-    transactions: ITransactionDTO[];
-    setShowTransactionDetails: React.Dispatch<SetStateAction<boolean>>;
-}) => {
-    const pathname = usePathname();
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
-    /*****************************************************************************
-     * Tracking the transaction detail that is opened improves user experience
-     * Because the transaction detail view is a modal, if user was looking at an transaction detail before network outage or failure
-     * upon page reload, user will still be presented with same transaction detail
-     *****************************************************************************/
-    const handleShowTransactionDetails = (index: number) => {
-        // Update url with transaction id
-        const params = new URLSearchParams(searchParams);
-        params.set("transaction-index", index.toString());
-        router.replace(`${pathname}?${params.toString()}`);
-
-        // Show detail
-        setShowTransactionDetails(true);
-    };
+const TransactionHistoryTableBody = ({ transactions }: { transactions: ITransactionDTO[] }) => {
+    const { setSearchParams } = useUpdateSearchParams();
 
     return (
         <TableBody>
@@ -39,7 +15,7 @@ const TransactionHistoryTableBody = ({
                 <TableRow
                     key={index}
                     className="cursor-pointer"
-                    onClick={() => handleShowTransactionDetails(index)}
+                    onClick={() => setSearchParams([{ "transaction-index": index.toString() }])}
                 >
                     <TableCell className="p-3 text-base">{index + 1}</TableCell>
                     <TableCell className="p-3 text-sm text-center">{transaction.orderId}</TableCell>

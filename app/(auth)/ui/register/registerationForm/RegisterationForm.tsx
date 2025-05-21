@@ -7,10 +7,12 @@ import { signUpDefaultValues } from "@/lib/validations/defaults";
 import { signUpResolver } from "@/lib/validations/resolvers";
 import { useState } from "react";
 import RegisterationFormFields from "./RegistrationFormFields";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const RegisterationForm = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const { setShowModal, setModalContent } = useModalContext();
 
     const {
         control,
@@ -23,14 +25,13 @@ const RegisterationForm = () => {
 
     // temporal
     const signingUp = false;
-    const [showOtpModal, setShowOtpModal] = useState(false);
 
     const createAccount = (values: ISignUpFormDTO) => {
         setEmail(values.email);
         setPhone(values.phone);
 
-        setShowOtpModal(true);
-        // signup(values);
+        setModalContent(<OtpModal email={email} phone={phone} />);
+        setShowModal(true);
     };
 
     return (
@@ -38,15 +39,6 @@ const RegisterationForm = () => {
             <form onSubmit={handleSubmit(createAccount)} className="flex flex-col gap-10">
                 <RegisterationFormFields control={control} errors={errors} signingUp={signingUp} />
             </form>
-
-            {showOtpModal && (
-                <OtpModal
-                    showOtpModal={showOtpModal}
-                    setShowOtpModal={setShowOtpModal}
-                    email={email}
-                    phone={phone}
-                />
-            )}
         </div>
     );
 };

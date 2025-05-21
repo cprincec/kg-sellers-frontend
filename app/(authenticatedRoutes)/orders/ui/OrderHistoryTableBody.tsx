@@ -5,34 +5,10 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { getOrderStatusType } from "../lib/utils/order.utils";
 import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SetStateAction } from "react";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
-const OrderHistoryTableBody = ({
-    orders,
-    setShowOrderDetails,
-}: {
-    orders: IOrderDTO[];
-    setShowOrderDetails: React.Dispatch<SetStateAction<boolean>>;
-}) => {
-    const pathname = usePathname();
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
-    /*****************************************************************************
-     * Tracking the order detail that is opened improves user experience
-     * Because the order detail view is a modal, if user was looking at an order detail before network outage or failure
-     * upon page reload, user will still be presented with same order detail
-     *****************************************************************************/
-    const handleShowOrderDetails = (index: number) => {
-        // Update url with order id
-        const params = new URLSearchParams(searchParams);
-        params.set("order-index", index.toString());
-        router.replace(`${pathname}?${params.toString()}`);
-
-        // Show detail
-        setShowOrderDetails(true);
-    };
+const OrderHistoryTableBody = ({ orders }: { orders: IOrderDTO[] }) => {
+    const { setSearchParams } = useUpdateSearchParams();
 
     return (
         <TableBody>
@@ -40,7 +16,7 @@ const OrderHistoryTableBody = ({
                 <TableRow
                     key={index}
                     className="cursor-pointer"
-                    onClick={() => handleShowOrderDetails(index)}
+                    onClick={() => setSearchParams([{ "order-index": index.toString() }])}
                 >
                     <TableCell className="p-3 text-base">{index + 1}</TableCell>
                     <TableCell className="p-3 text-sm">{order.orderId}</TableCell>

@@ -21,15 +21,12 @@ export interface OtpFormInputProps {
     phone: string;
     continueTo: string;
     actionText?: string;
-    setShowOtpModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface EnterOtpProps {
     actionText?: string;
     action?: () => void;
     actionLink?: string;
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
     email: string;
     phone: string;
 }
@@ -67,11 +64,8 @@ export interface StoreSetupContextDTO {
     currentStep: number;
     setCurrentStep: React.Dispatch<SetStateAction<number>>;
     navigateToPreviousStep: () => void;
-    navigateToNextStep: ({ trigger, setShowConfirmAccountModal }: navigateTpNextStepProps) => void;
+    navigateToNextStep: ({ trigger }: navigateTpNextStepProps) => void;
     navigateToSpecificStep: (step: number) => void;
-    showOtpModal: boolean;
-    setShowOtpModal: React.Dispatch<SetStateAction<boolean>>;
-    resetOtpModal: () => void;
     // saveStoreSetup: (data: any) => void;
 }
 
@@ -86,7 +80,6 @@ export interface IProductCategoryDTO {
 
 export interface navigateTpNextStepProps {
     trigger: () => Promise<boolean>;
-    setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 // ============================================================================
@@ -101,8 +94,6 @@ export interface IPaymentOptionFormDTO {
 }
 
 export interface ConfirmAccountModalProps {
-    showConfirmAccountModal: boolean;
-    setShowConfirmAccountModal: React.Dispatch<SetStateAction<boolean>>;
     navigateToSpecificStep?: (int: number) => void;
     getValues?: () => void;
     bankDetails?: {
@@ -133,6 +124,4 @@ export interface ButtonProps
 
 export type OrderDetailProps = {
     order: IOrderDTO;
-    showOrderDetail: boolean;
-    setShowOrderDetail: React.Dispatch<React.SetStateAction<boolean>>;
 };

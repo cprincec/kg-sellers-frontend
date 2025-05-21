@@ -5,14 +5,14 @@ import { paymentOptionDefaultValues } from "@/app/(auth)/lib/validations/default
 import { paymentoptionSchema } from "@/app/(auth)/lib/validations/schemas";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import ConfirmAccountModal from "./ConfirmAccountModal";
 import PaymentOptionFormFields from "./PaymentOptionFormFields";
+import ConfirmAccountModal from "./ConfirmAccountModal";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) => {
-    const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
-    const [bankDetails, setBankDetails] = useState<IPaymentOptionFormDTO>(paymentOptionDefaultValues);
+    const { setShowModal, setModalContent } = useModalContext();
+
     const {
         control,
         handleSubmit,
@@ -23,8 +23,8 @@ export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) =
     });
 
     const savePaymentOption = (values: IPaymentOptionFormDTO) => {
-        setBankDetails(values);
-        setShowConfirmAccountModal(true);
+        setModalContent(<ConfirmAccountModal bankDetails={values} />);
+        setShowModal(true);
     };
 
     return (
@@ -47,13 +47,6 @@ export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) =
                         submitButtonText={"Save Changes"}
                     />
                 </form>
-                {showConfirmAccountModal && (
-                    <ConfirmAccountModal
-                        showConfirmAccountModal={showConfirmAccountModal}
-                        setShowConfirmAccountModal={setShowConfirmAccountModal}
-                        bankDetails={bankDetails}
-                    />
-                )}
             </div>
         </div>
     );

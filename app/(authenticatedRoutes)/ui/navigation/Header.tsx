@@ -5,15 +5,14 @@ import { IconMenu, IconNotification } from "@/public/icons/icons";
 import Image from "next/image";
 import { ProfileIcon } from "./sidebar-icons";
 import SideBarMobile from "./SideBarMobile";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { getHeaderTitleAndDescription } from "../../lib/utils";
 import { Button } from "@/components/ui/button";
-import Notification from "./Notification";
+import Notification from "../Notification";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const Header = () => {
-    const [showSideBar, setShowSideBar] = useState<boolean>(false);
-    const [showNotification, setShowNotification] = useState<boolean>(false);
+    const { setShowModal, setModalContent } = useModalContext();
     const pathname = usePathname();
 
     // only show header in primary routes
@@ -24,12 +23,11 @@ const Header = () => {
     return (
         <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/50 flex justify-between p-4 border border-kaiglo_grey-200">
             <div className="flex gap-2 items-center">
-                <SideBarMobile showModal={showSideBar} setShowModal={setShowSideBar} />
-
                 <div
                     className="md:hidden mt-0.5"
                     onClick={() => {
-                        setShowSideBar(true);
+                        setModalContent(<SideBarMobile />);
+                        setShowModal(true);
                     }}
                 >
                     <Image src={IconMenu} alt="menu" className="w-6 h-6 " />
@@ -45,11 +43,13 @@ const Header = () => {
                 <Button
                     variant={"ghost"}
                     className="bg-transparent"
-                    onClick={() => setShowNotification(true)}
+                    onClick={() => {
+                        setModalContent(<Notification />);
+                        setShowModal(true);
+                    }}
                 >
                     <Image src={IconNotification} alt="notification" className="w-4 md:w-5 h-4 md:h-5 " />
                 </Button>
-                <Notification showNotification={showNotification} setShowNotification={setShowNotification} />
 
                 <ProfileIcon />
             </div>

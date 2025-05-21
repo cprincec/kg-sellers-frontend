@@ -4,6 +4,7 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
+// import { useModalContext } from "@/app/contexts/modalContext";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -19,10 +20,11 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <DialogPrimitive.Overlay
         ref={ref}
-        className={cn(
-            "fixed inset-0 z-50 bg-black/50 backdrop-blur-[12px]  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-            className
-        )}
+        className={cn("fixed inset-0 z-50 bg-black/50 backdrop-blur-[12px] w-full outline-none", className)}
+        // className={cn(
+        //     "relative top-0 right-0 left-0 bottom-0 inset-0 z-50 bg-black/50 backdrop-blur-[12px] bg-red-500 w-full outline-none",
+        //     className
+        // )}
         {...props}
     />
 ));
@@ -34,42 +36,78 @@ const DialogContent = React.forwardRef<
         showCloseButton?: boolean;
         styleXBtn?: boolean;
         closeBtnClassName?: string;
+        subClassName?: string;
+        animationDirection?: "left" | "right";
     }
->(({ className, children, closeBtnClassName, styleXBtn = false, showCloseButton = true, ...props }, ref) => {
-    return (
-        <DialogPortal>
-            <DialogOverlay />
-            <DialogPrimitive.Content
-                ref={ref}
-                className={cn(
-                    "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-                    className
-                )}
-                {...props}
-            >
-                {children}
-
-                {showCloseButton && (
-                    <DialogPrimitive.Close
+>(
+    (
+        {
+            className,
+            subClassName,
+            children,
+            closeBtnClassName,
+            animationDirection = "right",
+            styleXBtn = false,
+            showCloseButton = true,
+            ...props
+        },
+        ref
+    ) => {
+        // const { setShowModal } = useModalContext();
+        return (
+            <DialogPortal>
+                <DialogOverlay
+                    className={cn(
+                        animationDirection === "left"
+                            ? "data-[state=open]:animate-slide-in-left data-[state=closed]:animate-slide-out-left"
+                            : "data-[state=open]:animate-slide-in-right-overlay data-[state=closed]:animate-slide-out-right-overlay"
+                    )}
+                />
+                <DialogPrimitive.Content
+                    ref={ref}
+                    className={cn(
+                        "fixed grid inset-0 z-50 w-full bg-transparent",
+                        // "fixed top-1/2 left-1/2 z-50 w-full max-w-lg ",
+                        animationDirection === "left"
+                            ? "data-[state=open]:animate-slide-in-left data-[state=closed]:animate-slide-out-left"
+                            : "data-[state=open]:animate-slide-in-right-overlay data-[state=closed]:animate-slide-out-right-overlay",
+                        "sm:rounded-lg",
+                        className
+                    )}
+                    {...props}
+                >
+                    <div
                         className={cn(
-                            "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
-                            styleXBtn && "right-6",
-                            closeBtnClassName
+                            "relative grid gap-4 border p-6 sm:rounded-lg bg-background",
+                            subClassName
                         )}
                     >
-                        <X
-                            className={cn(
-                                "h-6 w-6 outline-none rounded-full",
-                                styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
-                            )}
-                        />
-                        {/* <span className="sr-only">Close</span> */}
-                    </DialogPrimitive.Close>
-                )}
-            </DialogPrimitive.Content>
-        </DialogPortal>
-    );
-});
+                        {children}
+
+                        {showCloseButton && (
+                            <DialogPrimitive.Close
+                                className={cn(
+                                    "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+                                    styleXBtn && "right-6",
+                                    closeBtnClassName
+                                )}
+                                aria-label="Close"
+                            >
+                                <X
+                                    className={cn(
+                                        "h-6 w-6 outline-none rounded-full",
+                                        styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                                    )}
+                                />
+                                {/* <span className="sr-only">Close</span> */}
+                            </DialogPrimitive.Close>
+                        )}
+                    </div>
+                </DialogPrimitive.Content>
+            </DialogPortal>
+        );
+    }
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (

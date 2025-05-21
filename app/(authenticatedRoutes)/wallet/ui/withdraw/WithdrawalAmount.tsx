@@ -1,6 +1,5 @@
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -9,7 +8,6 @@ import Image from "next/image";
 import { IconDelete, IconNaira } from "@/public/icons/icons";
 
 const WithdrawalAmount = () => {
-    const { replace } = useRouter();
     const [amount, setAmount] = useState("");
     const keypadNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "00", "0"];
 
@@ -24,58 +22,56 @@ const WithdrawalAmount = () => {
     };
 
     return (
-        <Dialog open={true} onOpenChange={() => replace("/wallet")}>
-            <DialogContent
-                className="w-[90%] md:max-w-[410px] outline-none p-8 gap-4 rounded-2xl"
-                data-testid="otp-dialog"
-            >
-                <DialogHeader className="mb-0 pb-0">
-                    <DialogTitle className="text-xl text-kaiglo_grey-900 font-bold text-left mb-0 pb-0">
-                        Amount
-                    </DialogTitle>
-                    <DialogDescription />
-                </DialogHeader>
-                {/* Amount Display */}
-                <div className="w-full bg-[#F2F2F2] rounded-2xl p-7 flex items-center justify-start text-2xl font-medium gap-2">
-                    <Image src={IconNaira} alt="naira" width={49} height={72} />
-                    <div className="w-full max-w-[360px]">
-                        <div className="text-[#757575] text-wrap text-4xl">{amount || ""}</div>
-                    </div>
+        <DialogContent
+            className="items-center"
+            subClassName="w-[90%] md:max-w-[410px] m-auto outline-none p-8 gap-4 rounded-2xl"
+        >
+            <DialogHeader className="mb-0 pb-0">
+                <DialogTitle className="text-xl text-kaiglo_grey-900 font-bold text-left mb-0 pb-0">
+                    Amount
+                </DialogTitle>
+                <DialogDescription />
+            </DialogHeader>
+            {/* Amount Display */}
+            <div className="w-full bg-[#F2F2F2] rounded-2xl p-7 flex items-center justify-start text-2xl font-medium gap-2">
+                <Image src={IconNaira} alt="naira" width={49} height={72} />
+                <div className="w-full max-w-[360px]">
+                    <div className="text-[#757575] text-wrap text-4xl">{amount || ""}</div>
                 </div>
+            </div>
 
-                {/* Keypad */}
-                <div className="grid grid-cols-3 gap-4">
-                    {keypadNumbers.map((num) => (
-                        <Button
-                            key={num}
-                            variant="ghost"
-                            className="bg-transparent text-kaiglo_grey-base text-2xl px-0 py-2"
-                            onClick={() => handleKeyPress(num)}
-                        >
-                            {num}
-                        </Button>
-                    ))}
+            {/* Keypad */}
+            <div className="grid grid-cols-3 gap-4">
+                {keypadNumbers.map((num) => (
                     <Button
+                        key={num}
                         variant="ghost"
-                        className="text-kaiglo_grey-base bg-transparent px-0 py-2"
-                        onClick={handleBackspace}
+                        className="bg-transparent text-kaiglo_grey-base text-2xl px-0 py-2"
+                        onClick={() => handleKeyPress(num)}
                     >
-                        <Image src={IconDelete} alt="delete" width={35.5} height={35.5} />
+                        {num}
                     </Button>
-                </div>
-
-                {/* Withdraw Button */}
-                <Link
-                    href={"/wallet?withdraw=otp"}
-                    className={cn(
-                        buttonVariants({ variant: "primary" }),
-                        "w-full text-white py-3 text-base font-medium"
-                    )}
+                ))}
+                <Button
+                    variant="ghost"
+                    className="text-kaiglo_grey-base bg-transparent px-0 py-2"
+                    onClick={handleBackspace}
                 >
-                    Withdraw
-                </Link>
-            </DialogContent>
-        </Dialog>
+                    <Image src={IconDelete} alt="delete" width={35.5} height={35.5} />
+                </Button>
+            </div>
+
+            {/* Withdraw Button */}
+            <Link
+                href={"/wallet?withdraw=otp"}
+                className={cn(
+                    buttonVariants({ variant: "primary" }),
+                    "w-full text-white py-3 text-base font-medium"
+                )}
+            >
+                Withdraw
+            </Link>
+        </DialogContent>
     );
 };
 

@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { StoreSetupContextProvider } from "@/app/(auth)/contexts/storeSetupContext";
 import { Toaster } from "@/components/ui/sonner";
+import { ModalContextProvider } from "./contexts/modalContext";
+import { ProductsContextProvider } from "./(authenticatedRoutes)/products/contexts/productsContext";
 
 const gotham = localFont({
     src: [
@@ -54,11 +56,15 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <StoreSetupContextProvider>
-                <body className={`${gotham.className}`}>
-                    {children} <Toaster position="top-center" />
-                </body>
-            </StoreSetupContextProvider>
+            <body className={`${gotham.className}`}>
+                <ModalContextProvider>
+                    <StoreSetupContextProvider>
+                        <ProductsContextProvider>
+                            {children} <Toaster position="top-center" />
+                        </ProductsContextProvider>
+                    </StoreSetupContextProvider>
+                </ModalContextProvider>
+            </body>
         </html>
     );
 }

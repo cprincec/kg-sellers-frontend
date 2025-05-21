@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { motion, animate, useMotionValue } from "motion/react";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
 interface Comparism {
     value: string;
@@ -33,6 +33,7 @@ const MetricBody = ({
     actionClassName,
     comparism,
 }: MetricBodyProps) => {
+    const { setSearchParams } = useUpdateSearchParams();
     const [loading, setLoading] = useState<boolean>(true);
     const [displayValue, setDisplayValue] = useState<string | number | null>(null);
     const motionValue = useMotionValue(0);
@@ -102,21 +103,23 @@ const MetricBody = ({
                 {renderValue()}
 
                 {actionText && (
-                    <Link
+                    <Button
                         id="wallet-action"
                         className={cn(
                             buttonVariants({ variant: "ghost" }),
-                            "text-kaiglo_success-800 bg-kaiglo_success-50 capitalize rounded-3xl",
+                            "text-kaiglo_success-800 bg-kaiglo_success-50 capitalize rounded-3xl hover:bg-kaiglo_success-100",
                             actionClassName
                         )}
-                        href={
-                            actionText.toLowerCase() === "set threshold"
-                                ? "/wallet?set-payout-threshold=true"
-                                : "/wallet?withdraw=selected-bank"
-                        }
+                        onClick={() => {
+                            if (actionText.toLowerCase() === "set threshold") {
+                                setSearchParams([{ "set-payout-threshold": "true" }]);
+                            } else {
+                                setSearchParams([{ withdraw: "selected-bank" }]);
+                            }
+                        }}
                     >
                         {actionText}
-                    </Link>
+                    </Button>
                 )}
             </div>
 

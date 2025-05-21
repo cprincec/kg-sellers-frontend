@@ -10,6 +10,7 @@ import OtpTimer from "@/app/(auth)/ui/otp/OtpTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useRouter } from "next/navigation";
 import { OtpFormInputProps } from "../../interface";
+import { useModalContext } from "@/app/contexts/modalContext";
 // import { useVerifyOtp } from "@/hooks/mutation/auth/verifyOtp";
 
 const FormSchema = z.object({
@@ -26,6 +27,7 @@ const OtpFormInput = ({ email, phone, continueTo, actionText = "Continue" }: Otp
         },
     });
 
+    const { setShowModal } = useModalContext();
     // const { verifyOtp, verifyingOtp } = useVerifyOtp({ setShowOtpModal });
 
     // temporal verifyOtp
@@ -35,7 +37,8 @@ const OtpFormInput = ({ email, phone, continueTo, actionText = "Continue" }: Otp
     function onSubmit(data: z.infer<typeof FormSchema>) {
         console.log(data);
         // validate string before using
-        router.push(continueTo);
+        setShowModal(false);
+        router.replace(continueTo);
     }
 
     return (

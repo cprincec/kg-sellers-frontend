@@ -1,3 +1,5 @@
+"use client";
+
 /******************************************************************************
  * This hook returns two method that updates the current url search parameters
  * It uses the replace method from next/navigation useRouter hook.
@@ -14,7 +16,7 @@ const useUpdateSearchParams = () => {
     const setSearchParams = (array: { [key: string]: string }[]) => {
         if (!array.length) return;
 
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams.toString());
 
         // loop through the array and
         // add each key value pair to the params object
@@ -33,13 +35,13 @@ const useUpdateSearchParams = () => {
             params.set(key, value);
         });
 
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
     };
 
     const deleteSearchParams = (keys: string[], routerMethod?: "replace" | "push") => {
         if (!keys.length) return;
 
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams.toString());
 
         // loop through the array and
         // remove each key value pair from the params object
