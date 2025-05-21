@@ -4,6 +4,7 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
+// import { useModalContext } from "@/app/contexts/modalContext";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -20,6 +21,10 @@ const DialogOverlay = React.forwardRef<
     <DialogPrimitive.Overlay
         ref={ref}
         className={cn("fixed inset-0 z-50 bg-black/50 backdrop-blur-[12px] w-full outline-none", className)}
+        // className={cn(
+        //     "relative top-0 right-0 left-0 bottom-0 inset-0 z-50 bg-black/50 backdrop-blur-[12px] bg-red-500 w-full outline-none",
+        //     className
+        // )}
         {...props}
     />
 ));
@@ -31,12 +36,14 @@ const DialogContent = React.forwardRef<
         showCloseButton?: boolean;
         styleXBtn?: boolean;
         closeBtnClassName?: string;
+        subClassName?: string;
         animationDirection?: "left" | "right";
     }
 >(
     (
         {
             className,
+            subClassName,
             children,
             closeBtnClassName,
             animationDirection = "right",
@@ -46,6 +53,7 @@ const DialogContent = React.forwardRef<
         },
         ref
     ) => {
+        // const { setShowModal } = useModalContext();
         return (
             <DialogPortal>
                 <DialogOverlay
@@ -58,35 +66,43 @@ const DialogContent = React.forwardRef<
                 <DialogPrimitive.Content
                     ref={ref}
                     className={cn(
-                        "fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 border bg-background p-6 sm:rounded-lg",
+                        "fixed grid inset-0 z-50 w-full bg-transparent",
+                        // "fixed top-1/2 left-1/2 z-50 w-full max-w-lg ",
                         animationDirection === "left"
                             ? "data-[state=open]:animate-slide-in-left data-[state=closed]:animate-slide-out-left"
-                            : "data-[state=open]:animate-slide-in-right data-[state=closed]:animate-slide-out-right",
+                            : "data-[state=open]:animate-slide-in-right-overlay data-[state=closed]:animate-slide-out-right-overlay",
                         "sm:rounded-lg",
                         className
                     )}
                     {...props}
                 >
-                    {children}
+                    <div
+                        className={cn(
+                            "relative grid gap-4 border p-6 sm:rounded-lg bg-background",
+                            subClassName
+                        )}
+                    >
+                        {children}
 
-                    {showCloseButton && (
-                        <DialogPrimitive.Close
-                            className={cn(
-                                "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
-                                styleXBtn && "right-6",
-                                closeBtnClassName
-                            )}
-                            aria-label="Close"
-                        >
-                            <X
+                        {showCloseButton && (
+                            <DialogPrimitive.Close
                                 className={cn(
-                                    "h-6 w-6 outline-none rounded-full",
-                                    styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                                    "absolute right-4 top-4 h-5 w-5 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+                                    styleXBtn && "right-6",
+                                    closeBtnClassName
                                 )}
-                            />
-                            {/* <span className="sr-only">Close</span> */}
-                        </DialogPrimitive.Close>
-                    )}
+                                aria-label="Close"
+                            >
+                                <X
+                                    className={cn(
+                                        "h-6 w-6 outline-none rounded-full",
+                                        styleXBtn && "h-8 w-8 p-1.5 bg-kaiglo_success-1"
+                                    )}
+                                />
+                                {/* <span className="sr-only">Close</span> */}
+                            </DialogPrimitive.Close>
+                        )}
+                    </div>
                 </DialogPrimitive.Content>
             </DialogPortal>
         );

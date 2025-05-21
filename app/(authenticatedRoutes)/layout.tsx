@@ -2,19 +2,22 @@ import SideBarDesktop from "@/app/(authenticatedRoutes)/ui/navigation/SideBarDes
 import { Suspense } from "react";
 import Header from "./ui/navigation/Header";
 import Loader from "../ui/Loader";
+import { AddProductContextProvider } from "./products/contexts/addProductContext";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <Suspense fallback={<Loader />}>
-            <div className="md:grid grid-flow-col">
-                {/* Navigation Bar */}
-                <SideBarDesktop />
+            <AddProductContextProvider>
+                <div className="md:grid grid-flow-col">
+                    {/* Navigation Bar */}
+                    <SideBarDesktop />
 
-                <div className="md:w-[65%] lg:w-[83%] ml-auto">
-                    <Header />
-                    <div>{children}</div>
+                    <div className="md:w-[65%] lg:w-[83%] ml-auto">
+                        <Header />
+                        <div>{children}</div>
+                    </div>
                 </div>
-            </div>
+            </AddProductContextProvider>
         </Suspense>
     );
 };

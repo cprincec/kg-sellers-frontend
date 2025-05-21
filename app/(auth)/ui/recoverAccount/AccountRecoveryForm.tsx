@@ -2,7 +2,6 @@
 
 import { Controller, Resolver, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-
 import AccountRecoveryOtpModal from "./AccountRecoveryOtpModal";
 import { ArrowBackLink } from "../buttons";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
@@ -12,11 +11,13 @@ import ModifiedButton from "@/components/shared/ModifiedButton";
 import { ROUTES } from "@/lib/consts";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const AccountRecoveryForm = () => {
     const [recoveryChannel, setRecoveryChannel] = useState("email");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const { setShowModal, setModalContent } = useModalContext();
 
     const {
         control,
@@ -31,7 +32,6 @@ const AccountRecoveryForm = () => {
 
     // temporal
     const recovering = false;
-    const [showOtpModal, setShowOtpModal] = useState(false);
 
     const recoverAccount = (values: IAccountRecoveryFormDTO) => {
         console.log(values);
@@ -55,8 +55,8 @@ const AccountRecoveryForm = () => {
             setPhone(values.phone);
             setEmail(""); // Reset email
         }
-
-        setShowOtpModal(true);
+        setModalContent(<AccountRecoveryOtpModal email={email} phone={phone} />);
+        setShowModal(true);
     };
 
     useEffect(() => {
@@ -117,11 +117,15 @@ const AccountRecoveryForm = () => {
                                 <button
                                     type="button"
                                     onClick={() =>
-                                        setRecoveryChannel((prevValue) => (prevValue === "email" ? "phone" : "email"))
+                                        setRecoveryChannel((prevValue) =>
+                                            prevValue === "email" ? "phone" : "email"
+                                        )
                                     }
                                     className="text-kaiglo_brand-base font-medium"
                                 >
-                                    {recoveryChannel === "email" ? "Use phone number instead" : "Use email instead"}
+                                    {recoveryChannel === "email"
+                                        ? "Use phone number instead"
+                                        : "Use email instead"}
                                 </button>
                             </div>
                             {/* Recovery method ends */}
@@ -136,21 +140,15 @@ const AccountRecoveryForm = () => {
                                 data-testid="signup-submit-button"
                             />
 
-                            <ArrowBackLink href={ROUTES.login} text={"Back to login"} className="mx-auto mt-4" />
+                            <ArrowBackLink
+                                href={ROUTES.login}
+                                text={"Back to login"}
+                                className="mx-auto mt-4"
+                            />
                         </div>
                     </div>
-
-
                 </form>
             </div>
-            {showOtpModal && (
-                <AccountRecoveryOtpModal
-                    showOtpModal={showOtpModal}
-                    setShowOtpModal={setShowOtpModal}
-                    email={email}
-                    phone={phone}
-                />
-            )}
         </>
     );
 };

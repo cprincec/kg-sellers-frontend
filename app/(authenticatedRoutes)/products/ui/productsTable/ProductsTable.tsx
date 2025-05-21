@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { IProductDTO } from "../../lib/interface";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Table } from "@/components/ui/table";
 import ProductsTableHeader from "./ProductsTableHeader";
 import ProductsTableBody from "./ProductsTableBody";
@@ -9,43 +9,48 @@ import ConfirmDeleteProduct from "../ConfirmDeleteProduct";
 import ProductDetails from "../productDetails/ProductDetails";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import AddToSales from "../addToSales/AddToSales";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
     const searchParams = useSearchParams();
     const { deleteSearchParams } = useUpdateSearchParams();
-
-    const [showProductDetails, setShowProductDetails] = useState<boolean>(
-        !!searchParams.get("product-id") || false
-    );
-
-    // State for 'Delete product' confirmation modal
-    const [showConfirmDeleteProductModal, setShowConfirmDeleteProductModal] = useState<boolean>(
-        !!(searchParams.get("product-action") === "delete-product" && searchParams.get("id")) || false
-    );
-
-    // State for 'Pause product' confirmation modal
-    const [showConfirmPauseProductModal, setShowConfirmPauseProductModal] = useState<boolean>(
-        !!(searchParams.get("product-action") === "pause-product" && searchParams.get("id")) || false
-    );
-
-    // State for 'Add to sales' modal
-    const [showAddToSalesModal, setShowAddToSalesModal] = useState<boolean>(
-        !!(searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) || false
-    );
+    const { setShowModal, setModalContent, setOnClose } = useModalContext();
 
     useEffect(() => {
-        setShowProductDetails(!!searchParams.get("product-id") || false);
-        setShowConfirmDeleteProductModal(
-            !!(searchParams.get("product-action") === "delete-product" && searchParams.get("id")) || false
-        );
+        // Display relevant modal based on url parameters
+        let content = null;
+        let clearKeys: string[] = [];
 
-        setShowConfirmPauseProductModal(
-            !!(searchParams.get("product-action") === "pause-product" && searchParams.get("id")) || false
-        );
+        if (searchParams.get("product-id")) {
+            content = <ProductDetails />;
+            clearKeys = ["product-id"];
+        } else if (searchParams.get("product-action") === "delete-product" && searchParams.get("id")) {
+            content = <ConfirmDeleteProduct />;
+            clearKeys = ["product-action", "id"];
+        } else if (searchParams.get("product-action") === "pause-product" && searchParams.get("id")) {
+            content = (
+                <ConfirmDeleteProduct
+                    title="Pause product"
+                    body="Product will be paused and will no longer appear to customers. You can activate it anytime"
+                    confirmButtonText="Confirm"
+                    confirmButtonAction={() => {
+                        deleteSearchParams(["product-action", "id"]);
+                        setShowModal(false);
+                    }}
+                    isPause={true}
+                />
+            );
+            clearKeys = ["product-action", "id"];
+        } else if (searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) {
+            content = <AddToSales />;
+            clearKeys = ["product-action", "id"];
+        }
 
-        setShowAddToSalesModal(
-            !!(searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) || false
-        );
+        if (content) {
+            if (clearKeys.length) setOnClose(() => () => deleteSearchParams(clearKeys));
+            setModalContent(content);
+            setShowModal(true);
+        }
     }, [searchParams]);
 
     return (
@@ -54,31 +59,6 @@ const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
                 <ProductsTableHeader />
                 <ProductsTableBody products={products} />
             </Table>
-
-            {showProductDetails && <ProductDetails showModal={showProductDetails} />}
-
-            {showConfirmDeleteProductModal && (
-                <ConfirmDeleteProduct
-                    showModal={showConfirmDeleteProductModal}
-                    setShowModal={setShowConfirmDeleteProductModal}
-                />
-            )}
-
-            {showConfirmPauseProductModal && (
-                <ConfirmDeleteProduct
-                    title="Pause product"
-                    body="Product will be paused and will no longer appear to customers. You can activate it anytime"
-                    confirmButtonText="Confirm"
-                    confirmButtonAction={() => deleteSearchParams(["product-action", "id"])}
-                    showModal={showConfirmPauseProductModal}
-                    setShowModal={setShowConfirmPauseProductModal}
-                    isPause={true}
-                />
-            )}
-
-            {showAddToSalesModal && (
-                <AddToSales showModal={showAddToSalesModal} setShowModal={setShowAddToSalesModal} />
-            )}
         </div>
     );
 };

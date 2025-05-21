@@ -6,15 +6,13 @@ import ControlledModifiedInput from "@/components/controlledElements/ControlledM
 import { ISignInFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
-import { OtpContext } from "@/app/(auth)/contexts/otpContext";
 import OtpModal from "../otp/OtpModal";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
-import { useContext } from "react";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const LoginForm = () => {
-    // @ts-expect-error to be changed
-    const { showOtpModal, setShowOtpModal } = useContext(OtpContext);
+    const { setShowModal, setModalContent } = useModalContext();
 
     const {
         control,
@@ -25,20 +23,13 @@ const LoginForm = () => {
         resolver: signInResolver as Resolver<ISignInFormDTO>,
     });
 
-    // const { signup, signingUp } = useSignUp({
-    //     setShowOtpModal,
-    //     setOpenAuthModal,
-    // });
-
     // temporal
     const signingUp = false;
 
     const login = (values: ISignInFormDTO) => {
-        // setEmail(values.email);
-        // setPhone(values.phone);
         console.log(values);
-        setShowOtpModal(true);
-        // signup(values);
+        setModalContent(<OtpModal email={""} phone={""} actionLink={"/dashboard"} />);
+        setShowModal(true);
     };
 
     return (
@@ -96,16 +87,6 @@ const LoginForm = () => {
                     </p>
                 </div>
             </form>
-
-            {showOtpModal && (
-                <OtpModal
-                    showOtpModal={showOtpModal}
-                    setShowOtpModal={setShowOtpModal}
-                    email={""}
-                    phone={""}
-                    actionLink={"/dashboard"}
-                />
-            )}
         </div>
     );
 };

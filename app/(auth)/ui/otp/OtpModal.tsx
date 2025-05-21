@@ -1,17 +1,13 @@
 "use client";
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
 import { EnterOtpProps } from "@/app/(auth)/interface";
 import OtpFormInput from "@/app/(auth)/ui/otp/OtpFormInput";
 
 const OtpModal = ({ actionText, actionLink, email, phone }: EnterOtpProps) => {
     const continueTo = actionLink || "/register/store-setup";
     return (
-        <DialogContent
-            className="w-[90%] md:w-[450px] outline-none px-4 py-8 rounded-2xl"
-            data-testid="otp-dialog"
-        >
+        <DialogContent subClassName="w-[90%] md:w-[450px] m-auto outline-none px-4 py-8 rounded-2xl">
             <div className="lg:px-8 space-y-4 text-center">
                 <DialogHeader>
                     <DialogTitle className="text-lg text-center">Verification</DialogTitle>

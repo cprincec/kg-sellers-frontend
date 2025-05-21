@@ -26,7 +26,7 @@ const Wallet = () => {
                             <OrderHistoryToolsBar
                                 showSort={false}
                                 showAction={false}
-                                className="px-0 justify-end border-none"
+                                className="px-0 jlg:ustify-end border-none"
                             />
 
                             {/* TABS */}

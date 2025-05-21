@@ -31,7 +31,7 @@ const OrderHistoryToolsBar = ({
                 scroll={false}
             />
 
-            <div className="flex gap-3 justify-end">
+            <div className="flex-shrink-0 flex gap-3 justify-end">
                 {/* filter by date*/}
                 <DateRangePicker />
 

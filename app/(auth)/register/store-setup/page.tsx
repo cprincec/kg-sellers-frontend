@@ -1,6 +1,9 @@
+/**********************************************************
+ * This component will be changed during integration
+ *********************************************************/
+
 "use client";
 
-import { useState } from "react";
 import StoreDetails from "../../ui/register/storeSetup/StoreDetails";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -18,12 +21,13 @@ import { useRouter } from "next/navigation";
 import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import { ArrowBackButton } from "../../ui/buttons";
 import { SellersHubLogo } from "../../ui/logos";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const StoreSetup = () => {
     const { currentStep, navigateToNextStep, navigateToPreviousStep, navigateToSpecificStep } =
         useStoreSetupContext();
     const router = useRouter();
-    const [showConfirmAccountModal, setShowConfirmAccountModal] = useState(false);
+    const { setModalContent } = useModalContext();
 
     const currentResolver = storeSetupSchemas[currentStep];
 
@@ -126,7 +130,13 @@ const StoreSetup = () => {
                                     type="button"
                                     className="p-3 rounded-full"
                                     onClick={() => {
-                                        navigateToNextStep({ trigger, setShowConfirmAccountModal });
+                                        setModalContent(
+                                            <ConfirmAccountModal
+                                                navigateToSpecificStep={navigateToSpecificStep}
+                                                getValues={getValues}
+                                            />
+                                        );
+                                        navigateToNextStep({ trigger });
                                     }}
                                 >
                                     Next
@@ -171,7 +181,13 @@ const StoreSetup = () => {
                                         type="button"
                                         className="w-[120px] p-3 rounded-full"
                                         onClick={() => {
-                                            navigateToNextStep({ trigger, setShowConfirmAccountModal });
+                                            setModalContent(
+                                                <ConfirmAccountModal
+                                                    navigateToSpecificStep={navigateToSpecificStep}
+                                                    getValues={getValues}
+                                                />
+                                            );
+                                            navigateToNextStep({ trigger });
                                         }}
                                     >
                                         Next
@@ -184,18 +200,6 @@ const StoreSetup = () => {
 
                         {/* Navigation Buttons ends*/}
                     </form>
-
-                    {showConfirmAccountModal && (
-                        <ConfirmAccountModal
-                            showConfirmAccountModal={showConfirmAccountModal}
-                            setShowConfirmAccountModal={setShowConfirmAccountModal}
-                            navigateToSpecificStep={navigateToSpecificStep}
-                            getValues={getValues}
-                            // beneficiaryName={getValues()?.beneficiaryName}
-                            // accountNumber={getValues()?.accountNumber}
-                            // bankName={getValues()?.bankName}
-                        />
-                    )}
                 </div>
             </div>
         </div>

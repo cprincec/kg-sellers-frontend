@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 const Notification = () => {
     return (
         <DialogContent
-            className={cn(
-                "w-full h-full flex flex-col gap-3 px-3 md:px-0 py-3 right-0  border-none sm:rounded-none",
-                "md:data-[state=open]:animate-slide-in-right-md lg:data-[state=open]:animate-slide-in-right-lg md:data-[state=closed]:animate-slide-out-right-md lg:data-[state=closed]:animate-slide-out-right-lg"
+            className={cn("items-center lg:items-stretch lg:justify-end")}
+            subClassName={cn(
+                "md:max-w-[60%] lg:max-w-[45%] ml-auto h-full flex flex-col gap-3 px-3 md:px-0 py-3 right-0  border-none sm:rounded-none"
             )}
             closeBtnClassName="mt-4 mr-4"
         >

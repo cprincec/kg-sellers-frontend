@@ -22,7 +22,10 @@ const WithdrawalAmount = () => {
     };
 
     return (
-        <DialogContent className="w-[90%] md:max-w-[410px] outline-none p-8 gap-4 rounded-2xl">
+        <DialogContent
+            className="items-center"
+            subClassName="w-[90%] md:max-w-[410px] m-auto outline-none p-8 gap-4 rounded-2xl"
+        >
             <DialogHeader className="mb-0 pb-0">
                 <DialogTitle className="text-xl text-kaiglo_grey-900 font-bold text-left mb-0 pb-0">
                     Amount

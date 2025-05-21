@@ -12,6 +12,4 @@ export interface ITransactionDTO {
 
 export interface TransactionDetailProps {
     transaction: ITransactionDTO;
-    showTransactionDetail: boolean;
-    setShowTransactionDetail: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -19,8 +19,8 @@ const LandingSideBarMobile = () => {
 
     return (
         <DialogContent
-            className="z-[999] top-0 left-0 translate-x-0 h-full w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
-            data-testid="sideNav-dialog"
+            className=""
+            subClassName="w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
             styleXBtn={true}
             animationDirection="left"
         >

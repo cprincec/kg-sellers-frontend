@@ -13,11 +13,10 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
 
     return (
         <DialogContent
-            className={cn(
-                "block w-[90%] md:w-[500px] max-h-[calc(100vh-50px)] lg:max-h-full lg:h-full lg:w-full lg:items-start outline-none px-6 py-6 rounded-2xl lg:rounded-none md:left-1/3 lg:right-[20%] lg:left-auto overflow-y-auto",
-                "md:data-[state=open]:animate-slide-in-right-md lg:data-[state=open]:animate-slide-in-right-lg md:data-[state=closed]:animate-slide-out-right-md lg:data-[state=closed]:animate-slide-out-right-lg"
+            className={cn("items-center lg:items-stretch lg:justify-end")}
+            subClassName={cn(
+                "block w-[90%] md:w-[500px] max-lg:m-auto outline-none px-6 py-6 rounded-2xl lg:rounded-none overflow-y-auto"
             )}
-            data-testid="payout-detail-dialog"
         >
             <DialogHeader className="mb-6">
                 <DialogTitle className="text-left">Payment Details</DialogTitle>
@@ -66,7 +65,7 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
                     <span className={getPayoutStatusStyle(status)}>{status}</span>
                 </div>
 
-                <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
+                <div className="flex justify-between gap-3 items-center text-sm md:text-base text-kaiglo_grey-base">
                     <span className="">Reference</span>
                     <span className="font-bold text-kaiglo_grey-900 capitalize">PS_Android_{reference}</span>
                 </div>
