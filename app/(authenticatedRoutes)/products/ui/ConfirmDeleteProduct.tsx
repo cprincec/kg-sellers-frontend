@@ -10,6 +10,7 @@ const ConfirmDeleteProduct = ({
     body,
     confirmButtonText,
     confirmButtonAction,
+    cancleButtonAction,
     isPause,
 }: {
     isPause?: boolean;
@@ -17,6 +18,7 @@ const ConfirmDeleteProduct = ({
     body?: string;
     confirmButtonText?: string;
     confirmButtonAction?: () => void;
+    cancleButtonAction?: () => void;
 }) => {
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal } = useModalContext();
@@ -46,8 +48,11 @@ const ConfirmDeleteProduct = ({
                         variant={"outline"}
                         className="p-3 text-base text-kaiglo_grey-900 border-kaiglo_grey-placeholder"
                         onClick={() => {
-                            deleteSearchParams(["product-action", "id"]);
-                            setShowModal(false);
+                            if (cancleButtonAction) cancleButtonAction();
+                            else {
+                                deleteSearchParams(["product-action", "id"]);
+                                setShowModal(false);
+                            }
                         }}
                     >
                         Cancel
