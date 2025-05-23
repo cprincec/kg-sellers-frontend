@@ -52,9 +52,8 @@ const AddToSales = () => {
 
     return (
         <DialogContent
-            className="items-center"
             showCloseButton={false}
-            subClassName="w-full max-md:max-h-full md:max-w-[80%] lg:max-w-[1024px] md:max-h-[700px] overflow-y-auto outline-none flex flex-col items-start p-4 md:px-5 md:py-6 lg:p-6 rounded-none md:rounded-xl gap-4"
+            className="w-full max-md:max-h-full md:max-w-[80%] lg:max-w-[1024px] md:max-h-[700px] overflow-y-auto outline-none flex flex-col items-start p-4 md:px-5 md:py-6 lg:p-6 rounded-none md:rounded-xl gap-4"
         >
             <DialogHeader>
                 <Button

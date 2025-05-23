@@ -12,8 +12,7 @@ const AccountRecoveryOtpModal = ({ email, phone }: EnterOtpProps) => {
 
     return (
         <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:w-[450px] m-auto outline-none px-4 py-8 rounded-2xl"
+            className="w-[90%] md:w-[450px] m-auto outline-none px-4 py-8 rounded-2xl"
             data-testid="otp-dialog"
         >
             <div className="lg:px-8 space-y-4 text-center">

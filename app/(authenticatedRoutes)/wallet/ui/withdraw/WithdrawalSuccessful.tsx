@@ -3,8 +3,7 @@ import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/c
 const WithdrawalSuccessful = () => {
     return (
         <DialogContent
-            className="items-center"
-            subClassName="w-[90%] h-[350px] md:w-[375px] m-auto grid items-center justify-center outline-none p-8 gap-4 rounded-2xl"
+            className="w-[90%] h-[350px] md:w-[375px] m-auto grid items-center justify-center outline-none p-8 gap-4 rounded-2xl"
             data-testid="otp-dialog"
         >
             <DialogHeader className="mb-0 pb-0">

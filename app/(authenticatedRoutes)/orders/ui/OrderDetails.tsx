@@ -10,8 +10,7 @@ import OrderDetailsBody from "./OrderDetailsBody";
 const OrderDetails = ({ order }: OrderDetailProps) => {
     return (
         <DialogContent
-            className=""
-            subClassName="w-[90%] md:w-[343px] m-auto outline-none px-4 py-4 rounded-2xl gap-0"
+            className="w-[90%] md:w-[343px] m-auto outline-none px-4 py-4 rounded-2xl gap-0"
             data-testid="otp-dialog"
         >
             <DialogHeader>

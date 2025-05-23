@@ -13,9 +13,8 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
 
     return (
         <DialogContent
-            className={cn("items-center lg:items-stretch lg:justify-end")}
-            subClassName={cn(
-                "block w-[90%] md:w-[500px] max-lg:m-auto outline-none px-6 py-6 rounded-2xl lg:rounded-none overflow-y-auto"
+            className={cn(
+                "block w-[90%] md:w-[500px] max-lg:m-auto lg:w-[400px] lg:h-full lg:left-auto lg:translate-x-0 lg:right-0 outline-none px-6 py-6 rounded-2xl lg:rounded-none overflow-y-auto"
             )}
         >
             <DialogHeader className="mb-6">

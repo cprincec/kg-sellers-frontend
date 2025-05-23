@@ -21,8 +21,7 @@ const ProductDetails = () => {
     } = product;
     return (
         <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:w-[600px] md:max-w-[600px] max-h-[95%] m-auto overflow-y-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-5"
+            className="w-[90%] md:w-[600px] md:max-w-[600px] max-h-[95%] m-auto overflow-y-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-5"
             closeBtnClassName="md:hidden left-4 -ml-1 mt-0.5"
         >
             <div className="flex items-center justify-end gap-4">

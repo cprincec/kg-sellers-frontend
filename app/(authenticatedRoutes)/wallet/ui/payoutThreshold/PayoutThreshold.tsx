@@ -8,10 +8,7 @@ const PayoutThreshold = () => {
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal } = useModalContext();
     return (
-        <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:w-[500px] max-w-lg m-auto outline-none p-6 rounded-2xl bg-background grid gap-4"
-        >
+        <DialogContent className="w-[90%] md:w-[500px] max-w-lg m-auto outline-none p-6 rounded-2xl bg-background grid gap-4">
             <DialogHeader>
                 <DialogTitle className="text-xl text-kaiglo_grey-900 font-medium text-left">
                     Payout Threshold Amount

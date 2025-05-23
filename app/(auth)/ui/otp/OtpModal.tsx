@@ -7,7 +7,7 @@ import OtpFormInput from "@/app/(auth)/ui/otp/OtpFormInput";
 const OtpModal = ({ actionText, actionLink, email, phone }: EnterOtpProps) => {
     const continueTo = actionLink || "/register/store-setup";
     return (
-        <DialogContent subClassName="w-[90%] md:w-[450px] m-auto outline-none px-4 py-8 rounded-2xl">
+        <DialogContent className="w-[90%] md:w-[450px] m-auto outline-none px-4 py-8 rounded-2xl">
             <div className="lg:px-8 space-y-4 text-center">
                 <DialogHeader>
                     <DialogTitle className="text-lg text-center">Verification</DialogTitle>

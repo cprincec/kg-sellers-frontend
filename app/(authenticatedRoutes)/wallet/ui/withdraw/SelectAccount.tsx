@@ -10,10 +10,7 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 const SelectAccount = () => {
     const { setSearchParams } = useUpdateSearchParams();
     return (
-        <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:max-w-[410px] m-auto outline-none p-8 gap-6 rounded-2xl"
-        >
+        <DialogContent className="w-[90%] md:max-w-[410px] m-auto outline-none p-8 gap-6 rounded-2xl">
             <DialogHeader className="mb-0 pb-0">
                 <DialogTitle className="text-base text-kaiglo_grey-900 font-bold text-left mb-0 pb-0">
                     Selected bank below

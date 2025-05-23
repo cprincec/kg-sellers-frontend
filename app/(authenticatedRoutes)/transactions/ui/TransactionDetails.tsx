@@ -12,8 +12,7 @@ const TransactionDetails = ({ transaction }: TransactionDetailProps) => {
 
     return (
         <DialogContent
-            className="items-center md:items-stretch md:justify-end"
-            subClassName="w-[90%] md:w-[500px] lg:max-h-full lg:items-start outline-none p-0 py-4 lg:py-6 rounded-2xl lg:rounded-none gap-0 lg:right-0 lg:top-0 lg:bottom-0 lg:left-auto lg:translate-x-0 lg:translate-y-0 overflow-y-auto"
+            className="w-[90%] md:w-[500px] lg:max-h-full lg:items-start outline-none p-0 py-4 lg:py-6 rounded-2xl lg:rounded-none gap-0 lg:right-0 lg:top-0 lg:bottom-0 lg:left-auto lg:translate-x-0 lg:translate-y-0 overflow-y-auto"
             data-testid="otp-dialog"
         >
             <DialogHeader className="w-0 h-0 min-w-0 hidden aria-hidden:">
