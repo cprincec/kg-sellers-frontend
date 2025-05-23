@@ -24,10 +24,7 @@ const ConfirmDeleteProduct = ({
     const { setShowModal } = useModalContext();
 
     return (
-        <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:w-[400px] m-auto outline-none gap-5 px-4 md:px-6 py-6 rounded-2xl"
-        >
+        <DialogContent className="w-[90%] md:w-[400px] m-auto outline-none gap-5 px-4 md:px-6 py-6 rounded-2xl">
             <DialogHeader className="flex-row space-y-0 gap-0">
                 <DialogTitle className="text-xl text-kaiglo_grey-900 font-bold text-left capitalize">
                     {title ? title : "Delete product"}

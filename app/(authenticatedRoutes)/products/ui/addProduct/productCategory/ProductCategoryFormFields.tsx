@@ -119,8 +119,7 @@ const ProductCategoryFormFields = ({
                         </DialogTrigger>
 
                         <DialogContent
-                            className="md:justify-end"
-                            subClassName="w-full md:w-[400px] h-full flex flex-col gap-0 px-3 md:px-0 py-3 md:left-auto md:right-0 md:translate-x-0 border-none sm:rounded-none"
+                            className="w-full md:w-[400px] h-full flex flex-col gap-0 px-3 md:px-0 py-3 md:left-auto md:right-0 md:translate-x-0 border-none sm:rounded-none"
                             closeBtnClassName="mt-4 mr-4"
                         >
                             <DialogHeader className="border-b">

@@ -21,11 +21,7 @@ const SideBarMobile = () => {
     }, [pathname, setShowModal]);
 
     return (
-        <DialogContent
-            className=""
-            subClassName="w-[75%] ml-0 px-4 py-10 sm:rounded-none outline-none"
-            animationDirection="left"
-        >
+        <DialogContent className="w-[75%] ml-0 px-4 py-10 sm:rounded-none outline-none" animateSlide={true}>
             <DialogHeader>
                 <DialogTitle className="font-normal">
                     <SideBarContent />

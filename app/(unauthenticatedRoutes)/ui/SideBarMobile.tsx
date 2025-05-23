@@ -19,10 +19,9 @@ const LandingSideBarMobile = () => {
 
     return (
         <DialogContent
-            className=""
-            subClassName="w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
+            className="w-[80%] ml-0 px-4 py-10 sm:rounded-none outline-none"
             styleXBtn={true}
-            animationDirection="left"
+            animateSlide={true}
         >
             <DialogHeader className="gap-8">
                 <DialogTitle className="w-0 h-0 opacity-0 hidden" />

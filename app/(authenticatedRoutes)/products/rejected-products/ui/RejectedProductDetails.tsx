@@ -12,10 +12,7 @@ const RejectedProductDetails = () => {
     const id = searchParams.get("rejected-product-id") || "0";
 
     return (
-        <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:w-[600px] m-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-4"
-        >
+        <DialogContent className="w-[90%] md:w-[600px] m-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-4">
             <DialogTitle className="font-medium text-base text-kaiglo_grey-900 text-left">
                 Product details
             </DialogTitle>

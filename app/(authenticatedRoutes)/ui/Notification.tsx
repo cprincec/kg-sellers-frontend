@@ -5,9 +5,8 @@ import { cn } from "@/lib/utils";
 const Notification = () => {
     return (
         <DialogContent
-            className={cn("items-center lg:items-stretch lg:justify-end")}
-            subClassName={cn(
-                "md:max-w-[60%] lg:max-w-[45%] ml-auto h-full flex flex-col gap-3 px-3 md:px-0 py-3 right-0  border-none sm:rounded-none"
+            className={cn(
+                "md:max-w-[400px] h-full md:left-auto md:translate-x-0 md:right-0 flex flex-col gap-3 px-3 md:px-0 py-3 border-none sm:rounded-none"
             )}
             closeBtnClassName="mt-4 mr-4"
         >

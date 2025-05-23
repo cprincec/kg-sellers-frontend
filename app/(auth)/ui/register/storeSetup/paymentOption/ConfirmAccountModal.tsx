@@ -19,8 +19,7 @@ const ConfirmAccountModal = ({
 
     return (
         <DialogContent
-            className="items-center"
-            subClassName="w-[90%] md:w-[400px] md:h-[268px] m-auto outline-none px-4 py-4 rounded-2xl"
+            className="w-[90%] md:w-[400px] md:h-[268px] m-auto outline-none px-4 py-4 rounded-2xl"
             data-testid="otp-dialog"
         >
             <DialogHeader>
