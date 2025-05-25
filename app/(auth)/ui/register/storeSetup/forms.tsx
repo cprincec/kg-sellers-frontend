@@ -2,15 +2,12 @@
 
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { Controller } from "react-hook-form";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
-import { Check, ChevronDown, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import ImageUploadInputField from "@/components/shared/imageUploadField/ImageUploadInputField";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { IconArrowDownRound } from "@/public/icons/icons";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
