@@ -56,15 +56,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${gotham.className}`}>
-                <ModalContextProvider>
-                    <StoreSetupContextProvider>
-                        <ProductsContextProvider>
+            {/* Wrapped products context provider around body and not inside it due to add to sales component */}
+            <ProductsContextProvider>
+                <body className={`${gotham.className}`}>
+                    <ModalContextProvider>
+                        <StoreSetupContextProvider>
                             {children} <Toaster position="top-center" />
-                        </ProductsContextProvider>
-                    </StoreSetupContextProvider>
-                </ModalContextProvider>
-            </body>
+                        </StoreSetupContextProvider>
+                    </ModalContextProvider>
+                </body>
+            </ProductsContextProvider>
         </html>
     );
 }
