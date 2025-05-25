@@ -10,7 +10,7 @@ const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefi
 const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ children }) => {
     const { setShowModal } = useModalContext();
 
-    const [currentStep, setCurrentStep] = useState<number>(1);
+    const [currentStep, setCurrentStep] = useState<number>(0);
 
     // const router = useRouter();
 
