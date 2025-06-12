@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";

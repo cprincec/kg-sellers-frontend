@@ -2,7 +2,7 @@ import { Control, Controller, FieldError, FieldValues, Merge, Path } from "react
 import { useRef } from "react";
 import Image from "next/image";
 import { IconUploadImage } from "@/public/icons/icons";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 type Props<T extends FieldValues> = {
     isMultiple?: boolean;

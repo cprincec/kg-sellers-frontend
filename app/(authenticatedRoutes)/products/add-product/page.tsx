@@ -19,7 +19,6 @@ const AddProduct = () => {
         "product-variants": <ProductVariantsForm />,
     };
     const { productCategory } = useAddProductContext();
-    const path = [...productCategory.productCategoryPath, productCategory.productCategory];
 
     useEffect(() => {
         setCurrentStep(searchParams.get("step") || "product-category");
@@ -39,7 +38,7 @@ const AddProduct = () => {
                             Product guidelines
                         </Button>
                     ) : (
-                        <ProductCategoryCrumbs categoryPath={path} className="w-fit" />
+                        <ProductCategoryCrumbs categoryObject={productCategory} className="w-fit" />
                     )}
                 </div>
 

@@ -5,9 +5,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { sampleProduct } from "../../lib/data/data";
 import ProductVariants from "./ProductVariants";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const ProductDetails = () => {
+    const { deleteSearchParams } = useUpdateSearchParams();
+    const { setShowModal, setModalContent } = useModalContext();
     const product = sampleProduct;
     const {
         productImage,
@@ -26,6 +30,11 @@ const ProductDetails = () => {
         >
             <div className="flex items-center justify-end gap-4">
                 <Button
+                    onClick={() => {
+                        setShowModal(false);
+                        setModalContent(null);
+                        deleteSearchParams(["product-id"]);
+                    }}
                     variant={"ghost"}
                     className="hidden md:flex text-kaiglo_grey-700 text-sm px-3 py-1 bg-transparent"
                 >
@@ -47,7 +56,7 @@ const ProductDetails = () => {
                     <div className="grid gap-2">
                         <div className="grid grid-flow-col gap-2 justify-between">
                             <p className="text-sm text-kaiglo_grey-800">{productName}</p>
-                            <span className="hidden md:inline px-2 py-1 text-kaiglo_critical-600 text-sm font-medium bg-kaiglo_critical-50 rounded-lg">
+                            <span className="hidden md:inline-flex self-start px-2 py-1 text-kaiglo_critical-600 text-sm font-medium bg-kaiglo_critical-50 rounded-lg">
                                 {salesType}
                             </span>
                         </div>

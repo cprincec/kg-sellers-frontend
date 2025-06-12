@@ -2,7 +2,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { useState } from "react";
 import Image from "next/image";
 import { IconDelete, IconNaira } from "@/public/icons/icons";

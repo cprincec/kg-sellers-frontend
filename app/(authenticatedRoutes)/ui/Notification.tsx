@@ -1,6 +1,6 @@
 import { notifications } from "@/app/lib/data";
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const Notification = () => {
     return (

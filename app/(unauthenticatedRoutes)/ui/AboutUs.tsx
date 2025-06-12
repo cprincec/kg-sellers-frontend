@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { aboutUsdata } from "../../lib/data";
 import { buttonVariants } from "@/components/ui/button";
 

@@ -4,7 +4,7 @@ import ToolTip from "../ToolTip";
 import { useState } from "react";
 import Image from "next/image";
 import { IconEye } from "@/public/icons/icons";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { MetricProps } from "../../lib/interface";
 import { getMetricVariant } from "../../lib/utils";
 import MetricBody from "./MetricBody";

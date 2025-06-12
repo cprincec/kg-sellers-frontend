@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ModifiedButtonProps } from "@/interfaces/elements.interface";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const ModifiedButton = ({ value, className, variant, onClick, disabled, type, id }: ModifiedButtonProps) => {
     return (

@@ -1,7 +1,7 @@
 import { ControlledModifiedInputProps } from "@/interfaces/controlledElements.interface";
 import { Controller, FieldValues } from "react-hook-form";
 import ModifiedInput from "@/components/shared/ModifiedInput";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const ControlledModifiedInput = <TFormValue extends FieldValues>({
     name,

@@ -1,14 +1,16 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { IconArrowRight } from "@/public/icons/icons";
 import Image from "next/image";
+import { IProductCategoryDTO } from "../../../lib/interface";
 
 const ProductCategoryCrumbs = ({
-    categoryPath,
+    categoryObject,
     className,
 }: {
-    categoryPath: string[];
+    categoryObject: IProductCategoryDTO;
     className?: string;
 }) => {
+    const categoryArray = Object.values(categoryObject);
     return (
         <div className="overflow-x-auto max-md:max-w-screen  lg:max-w-[750px]">
             <ul
@@ -17,12 +19,13 @@ const ProductCategoryCrumbs = ({
                     className
                 )}
             >
-                {categoryPath.map((category, index) => (
+                {categoryArray.map((category, index) => (
                     <li key={index} className="flex gap-2 items-center ">
                         <p className="w-max font-medium text-sm text-kaiglo_grey-800 px-1 truncate">
-                            {category}
+                            {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
                         </p>
-                        {index < categoryPath.length - 1 && (
+
+                        {index < categoryArray.length - 1 && (
                             <div className="relative w-4 h-4 flex-shrink-0">
                                 <Image src={IconArrowRight} alt="arrow" fill className="" />
                             </div>

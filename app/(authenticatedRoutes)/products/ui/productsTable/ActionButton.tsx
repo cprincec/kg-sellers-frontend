@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { IconMenuDots } from "@/public/icons/icons";
 import Image from "next/image";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { IAction } from "../../lib/interface";
 

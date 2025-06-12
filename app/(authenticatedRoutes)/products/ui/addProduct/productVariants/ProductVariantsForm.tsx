@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { startTransition, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";

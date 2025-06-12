@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { IconPrint } from "@/public/icons/icons";
 import { getPayoutStatusStyle } from "../../lib/utils/utils";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
     const { reference, amount, channel, bank, name, accountNumber, date, status, purpose } = payout;

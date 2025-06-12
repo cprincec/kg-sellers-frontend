@@ -25,7 +25,11 @@ const AddProductButton = ({ className }: { className?: string }) => {
                         <Button variant={"ghost"} className="font-normal justify-start w-full bg-transparent">
                             <Link href={"/products/add-product?step=product-category"}>Single Upload</Link>
                         </Button>
-                        <Button variant={"ghost"} className="font-normal justify-start w-full bg-transparent">
+                        <Button
+                            disabled
+                            variant={"ghost"}
+                            className="font-normal justify-start w-full bg-transparent"
+                        >
                             Bulk Upload
                         </Button>
                     </div>

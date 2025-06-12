@@ -6,7 +6,7 @@ import { Control, Controller, FieldError } from "react-hook-form";
 import ImageUploadPrompt from "./ImageUploadPrompt";
 import ImageUploadPreview from "./ImageUploadPreview";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const ImageUploadInputField = ({
     name,

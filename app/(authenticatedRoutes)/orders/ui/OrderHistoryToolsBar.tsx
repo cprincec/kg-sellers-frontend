@@ -3,7 +3,7 @@ import { DownloadIcon } from "./icons";
 import DateRangePicker from "./DateRangePicker";
 import SearchBar from "./SearchBar";
 import SortButton from "./sort/SortButton";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const OrderHistoryToolsBar = ({
     showSort = true,

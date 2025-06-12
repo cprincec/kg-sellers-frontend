@@ -9,7 +9,7 @@ import { productVariantActions } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";
 import { useSearchParams } from "next/navigation";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
 

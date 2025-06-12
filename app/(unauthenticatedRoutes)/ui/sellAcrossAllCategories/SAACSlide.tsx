@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { SAACSlideVariants } from "../../lib/data";
 import Image from "next/image";

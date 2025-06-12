@@ -3,7 +3,7 @@ import { productsMetricsData } from "../lib/data/data";
 import Metric from "../../ui/metrics/Metric";
 import { IconVerticalLine } from "@/public/icons/icons";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import Link from "next/link";
 
 const ProductsMetrics = ({ className }: { className?: string }) => {

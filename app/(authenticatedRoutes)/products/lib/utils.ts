@@ -1,6 +1,3 @@
-import { CategoryNode } from "../ui/addProduct/productCategory/ProductCategoryFormFields";
-import { categories } from "./data/productCategories.data";
-
 type StatusTypes = "active" | "paused" | "rejected";
 
 export const getStatusStyle = (status: string): string => {
@@ -56,19 +53,4 @@ export const getSalesTypeStyle = (salesType: string): string => {
     };
 
     return styles[salesTypeLowerCase as SalesTypes] || "text-kaiglo_grey-700";
-};
-
-export const getPathFromCategoryPath = (categoryPath: string[]): CategoryNode[] => {
-    const path: CategoryNode[] = [];
-    let currentLevel = categories;
-
-    for (const categoryName of categoryPath) {
-        const node = currentLevel.find((cat) => cat.category === categoryName);
-        if (!node) break; // stop if something is missing (robust fallback)
-
-        path.push(node);
-        currentLevel = node.subcategory || [];
-    }
-
-    return path;
 };

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { WMKDData } from "../../../lib/data";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { buttonVariants } from "@/components/ui/button";
 
 const WhatMakesKaigloDifferentBody = () => {

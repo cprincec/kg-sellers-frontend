@@ -1,9 +1,21 @@
+import { cn } from "@/lib/utils/utils";
 import ProductPerformance from "./performanceMetrics/ProductPerformance";
 import SalesPerformance from "./performanceMetrics/SalesPerformance";
 
-const PerformanceMetrics = ({ showEmptyState }: { showEmptyState: boolean }) => {
+const PerformanceMetrics = ({
+    showEmptyState,
+    className,
+}: {
+    showEmptyState: boolean;
+    className?: string;
+}) => {
     return (
-        <section className="grid gap-2 md:gap-0 py-3 px-2 md:px-0 rounded-xl bg-white lg:border border-kaiglo_grey-200">
+        <section
+            className={cn(
+                "grid gap-2 md:gap-0 py-3 px-2 md:px-0 rounded-xl bg-white lg:border border-kaiglo_grey-200",
+                className
+            )}
+        >
             <h2 className="md:p-[12px_12px_12px_12px] text-base text-kaiglo_grey-800 font-medium md:border-b border-kaiglo_grey-200 uppercase">
                 PERFORMANCE METRICS
             </h2>

@@ -5,6 +5,8 @@ import FollowUs from "./FollowUs";
 import KaigloFooter from "./KaigloFooter";
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className="px-20 lg:px-6 py-8">
             <div className="hidden md:grid gap-[46px] max-w-[1230px] mx-auto">
@@ -15,7 +17,7 @@ const Footer = () => {
                     <FollowUs />
                 </div>
                 <p className="text-sm font-medium text-center">
-                    Copyright © 2024 KAIGLO STORES LIMITED. All Rights Reserved. User Agreement,{" "}
+                    Copyright © {currentYear} KAIGLO STORES LIMITED. All Rights Reserved. User Agreement,{" "}
                     <Link href={""} className="text-kaiglo_info-base">
                         Privacy and Cookies
                     </Link>

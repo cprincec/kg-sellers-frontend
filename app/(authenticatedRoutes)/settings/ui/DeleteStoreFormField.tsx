@@ -3,7 +3,7 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/
 import { SetStateAction } from "react";
 import { IStoreVacationFormDTO } from "../lib/interface";
 import { Control } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const DeleteStoreFormField = ({
     isDeleted,
