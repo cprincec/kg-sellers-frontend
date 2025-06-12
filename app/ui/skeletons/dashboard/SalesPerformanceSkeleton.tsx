@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const SalesPerformanceSkeleton = ({ className }: { className?: string }) => {
     return (

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ImageGalleryIcon } from "./image-upload-icons";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import Image from "next/image";
 import { IconUpload } from "@/public/icons/icons";
 

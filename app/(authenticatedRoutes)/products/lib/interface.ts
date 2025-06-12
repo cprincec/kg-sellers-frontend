@@ -20,8 +20,8 @@ export interface IProductsContext {
 }
 
 export interface IAddProductContext {
-    productCategory: IProductCategoryFormValue;
-    setProductCategory: Dispatch<SetStateAction<IProductCategoryFormValue>>;
+    productCategory: IProductCategoryDTO;
+    setProductCategory: Dispatch<SetStateAction<IProductCategoryDTO>>;
     productDetails: IProductDetailsFormValues;
     setProductDetails: Dispatch<SetStateAction<IProductDetailsFormValues>>;
     productVariants: IProductVariantsFormValues[];
@@ -121,8 +121,51 @@ export interface IAction {
 }
 
 /*******************************************************************
- * Product category tree
+ * Product category interfaces starts
  ******************************************************************/
+
+export interface IProductCategory {
+    id: string;
+    name: string;
+    productCount: number;
+    category: IProductSubCategory[];
+    sku?: string;
+    isALegacy?: boolean;
+    metaTagDescription?: string;
+}
+
+export interface IProductSubCategory {
+    name: string;
+    metaTagDescription?: string;
+    tag: string;
+    inputTag: string;
+    productCount: number;
+    isALegacy?: boolean;
+    category: IProductSubCategory[];
+}
+
+// product category DTOs starts
+
+export interface IProductCategoryDTO {
+    category: string;
+    subCategory?: string;
+    secondSubCategory?: string;
+    thirdSubCategory?: string;
+    fourthSubCategory?: string;
+    fifthSubCategory?: string;
+}
+
+// product category DTOs ends
+
+// product category api responses starts
+
+export interface IGetAllProductsCategoriesResponse {
+    message: string;
+    response: IProductCategory[];
+}
+
+// product category api responses ends
+
 export interface IProductCategoryTree {
     [mainCategory: string]: {
         [subCategory1: string]: {
@@ -130,3 +173,7 @@ export interface IProductCategoryTree {
         };
     };
 }
+
+/*******************************************************************
+ * Product category interfaces ends
+ ******************************************************************/

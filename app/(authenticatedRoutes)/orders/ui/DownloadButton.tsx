@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DownloadIcon } from "./icons";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const DownloadButton = ({
     actionText = "Download",

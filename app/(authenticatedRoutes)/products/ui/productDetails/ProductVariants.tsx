@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { getProductVariantColor } from "../../lib/utils";
 import { IProductVariant, ProductVariant } from "../../lib/interface";
 

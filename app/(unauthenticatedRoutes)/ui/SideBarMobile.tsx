@@ -4,7 +4,7 @@ import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/c
 import Link from "next/link";
 import { homeNavLinks } from "../../lib/data";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";

@@ -1,7 +1,7 @@
 import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import ProductsTable from "./ProductsTable";
 import ProductsTableToolsBar from "./ProductsTableToolsBar";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { useProductsContext } from "../../contexts/productsContext";
 import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
 

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { IconLine35, IconStepComplete } from "@/public/icons/icons";
 import Image from "next/image";
 import { addProductSteps } from "../../../lib/data/data";

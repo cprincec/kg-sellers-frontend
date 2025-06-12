@@ -2,7 +2,7 @@
 
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { getStatusStyle } from "../../../lib/utils";
 import { IRejectedProductDTO } from "../../../lib/interface";
 import { IconEdit, IconTrash2 } from "@/public/icons/icons";

@@ -3,7 +3,7 @@ import { Fragment, useEffect } from "react";
 import Image from "next/image";
 import { IconVerticalLine } from "@/public/icons/icons";
 import { useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import PayoutThreshold from "./payoutThreshold/PayoutThreshold";
 import SelectAccount from "./withdraw/SelectAccount";
 import WithdrawalAmount from "./withdraw/WithdrawalAmount";

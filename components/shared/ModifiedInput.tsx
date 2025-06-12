@@ -1,7 +1,7 @@
 "use client";
 
 import { ModifiedInputProps } from "@/interfaces/elements.interface";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Label } from "../ui/label";
 import dynamic from "next/dynamic";
 

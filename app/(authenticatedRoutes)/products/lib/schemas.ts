@@ -2,12 +2,12 @@ import * as yup from "yup";
 
 /*********** PRODUCT CATEGORY SCHEMA ***********/
 export const productCategorySchema = yup.object({
-    productCategory: yup.string().required("Please select a category"),
-    productCategoryPath: yup
-        .array()
-        .of(yup.string().required())
-        .min(1, "Invalid category path")
-        .required("Category path is required"),
+    category: yup.string().required("Please select a category"),
+    subCategory: yup.string(),
+    secondSubCategory: yup.string(),
+    thirdSubCategory: yup.string(),
+    fourthSubCategory: yup.string(),
+    fifthSubCategory: yup.string(),
 });
 
 /*********** PRODUCT DETAILS SCHEMA ***********/

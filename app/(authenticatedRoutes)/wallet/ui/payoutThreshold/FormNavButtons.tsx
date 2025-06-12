@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FormNavButtonsProps } from "../../lib/interface";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const FormNavButtons = ({
     submitButtonFunc,

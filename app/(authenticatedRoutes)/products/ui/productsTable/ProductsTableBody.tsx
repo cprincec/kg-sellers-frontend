@@ -4,7 +4,7 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { IProductDTO } from "../../lib/interface";
 import ActionButton from "./ActionButton";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { getSalesTypeStyle, getStatusStyle, getStockLevelStyle } from "../../lib/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { productActions } from "../../lib/data/data";

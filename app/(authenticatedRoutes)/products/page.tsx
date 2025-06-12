@@ -35,7 +35,7 @@ const Products = () => {
                         Product Overview
                     </h2>
 
-                    <AddProductButton className="" />
+                    <AddProductButton />
                 </div>
                 <ProductsMetrics className="lg:rounded-none lg:border-x-0 px-2" />
                 <ProductsTableWrapper className="lg:mx-5" />

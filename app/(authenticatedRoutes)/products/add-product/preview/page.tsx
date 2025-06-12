@@ -37,10 +37,7 @@ const Preview = () => {
                     <section className="grid gap-3 p-4 md:px-6 border-b">
                         <h2 className="text-sm md:text-base font-medium">PRODUCT CATEGORY</h2>
                         <ProductCategoryCrumbs
-                            categoryPath={[
-                                ...productCategory.productCategoryPath,
-                                productCategory.productCategory,
-                            ]}
+                            categoryObject={productCategory}
                             className="bg-transparent border-none -ml-3"
                         />
                     </section>

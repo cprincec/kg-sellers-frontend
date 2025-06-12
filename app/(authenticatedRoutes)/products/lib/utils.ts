@@ -1,4 +1,4 @@
-import { CategoryNode } from "../ui/addProduct/productCategory/ProductCategoryFormFields";
+import { CategoryNode } from "../ui/addProduct/productCategory/ProductCategoryFormFieldss";
 import { categories } from "./data/productCategories.data";
 
 type StatusTypes = "active" | "paused" | "rejected";

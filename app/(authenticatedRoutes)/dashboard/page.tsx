@@ -17,7 +17,7 @@ const Dashboard = () => {
             <div className="pb-4 lg:pb-0 grid gap-3 md:gap-0 border lg:bg-kaiglo_grey-200">
                 {searchParams.get("from") === "register" && <TermsOfContractNotice />}
                 <BlackFridaySalesNotice />
-                <div className="grid gap-5 lg:gap-1 px-3 md:pl-1 md:pr-1 lg:py-1">
+                <div className="grid gap-5 lg:gap-2 px-3 md:pl-1 md:pr-1 lg:pl-1 lg:py-2">
                     {/* Sales Summary */}
                     <SalesSummary className="bg-kaiglo_grey-100" showEmptyState={showEmptyState} />
 
