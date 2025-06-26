@@ -1,6 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
-import { IProductVariant, ProductVariant } from "../../../lib/interface";
+import { IProductVariant, ProductVariant } from "../../../lib/interfaces/interface";
 
 const ProductVariantsFields = ({
     productVariants,

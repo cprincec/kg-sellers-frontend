@@ -4,9 +4,9 @@ import React, { createContext, useContext, useState } from "react";
 import {
     IAddProductContext,
     IProductCategoryDTO,
-    IProductDetailsFormValues,
+    IProductDetailsDTO,
     IProductVariantsFormValues,
-} from "@/app/(authenticatedRoutes)/products/lib/interface";
+} from "@/app/(authenticatedRoutes)/products/lib/interfaces/interface";
 import { productDetailsFormDefaultValues } from "../lib/defaults";
 
 // Create context
@@ -18,7 +18,7 @@ const AddProductContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         category: "",
     });
 
-    const [productDetails, setProductDetails] = useState<IProductDetailsFormValues>(
+    const [productDetails, setProductDetails] = useState<IProductDetailsDTO | undefined>(
         productDetailsFormDefaultValues
     );
     const [productVariants, setProductVariants] = useState<IProductVariantsFormValues[]>([]);

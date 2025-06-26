@@ -8,11 +8,14 @@ import { ApiObjType, PostRequestProp, GetRequestProp } from "@/interfaces/api.in
 import Api from "@/lib/utils/axiosInterceptorConfig";
 
 export const postRequest = async <TRequest, TResponse>({ url, payload }: PostRequestProp<TRequest>) => {
-    const response = await Api.post<TResponse>(url, payload);
+    try {
+        const response = await Api.post<TResponse>(url, payload);
+        const { data: availData } = response;
 
-    const { data: availData } = response;
-
-    return availData;
+        return availData;
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const deleteRequest = async <TResponse>({ url }: { url: string }) => {
@@ -37,7 +40,7 @@ export const getRequest = async <TResponse>({ url }: { url: string }) => {
         const response = await Api.get<TResponse>(url);
 
         return response.data;
-    } catch (error: unknown) {
+    } catch (error) {
         throw error;
     }
 };

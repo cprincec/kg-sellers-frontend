@@ -8,10 +8,8 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import OtpTimer from "@/app/(auth)/ui/otp/OtpTimer";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { useRouter } from "next/navigation";
-import { OtpFormInputProps } from "../../interface";
-import { useModalContext } from "@/app/contexts/modalContext";
-// import { useVerifyOtp } from "@/hooks/mutation/auth/verifyOtp";
+import { OtpFormInputProps } from "../../lib/interfaces/interface";
+import { useOtpContext } from "../../contexts/otpContext";
 
 const FormSchema = z.object({
     otp: z.string().min(4, {
@@ -19,7 +17,9 @@ const FormSchema = z.object({
     }),
 });
 
-const OtpFormInput = ({ email, phone, continueTo, actionText = "Continue" }: OtpFormInputProps) => {
+const OtpFormInput = ({ email, phone, actionText = "Continue" }: OtpFormInputProps) => {
+    const { otpFormAction, otpFormActionIsPending } = useOtpContext();
+
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -27,18 +27,17 @@ const OtpFormInput = ({ email, phone, continueTo, actionText = "Continue" }: Otp
         },
     });
 
-    const { setShowModal } = useModalContext();
-    // const { verifyOtp, verifyingOtp } = useVerifyOtp({ setShowOtpModal });
-
-    // temporal verifyOtp
-    const verifyingOtp = false;
-    const router = useRouter();
+    // const { verifyOtp, verifyingOtp } = useVerifyOtp(continueTo);
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data);
-        // validate string before using
-        setShowModal(false);
-        router.replace(continueTo);
+        const payload = { ...data, email: email, phone: phone };
+
+        // Call the otpFormAction with the payload
+        if (otpFormAction) {
+            otpFormAction(payload);
+        }
+        // verifyOtp({ ...data, email: email, phone: phone });
+        form.reset();
     }
 
     return (
@@ -81,9 +80,9 @@ const OtpFormInput = ({ email, phone, continueTo, actionText = "Continue" }: Otp
                     type="submit"
                     variant="primary"
                     className="w-full font-medium rounded-full py-3"
-                    disabled={verifyingOtp}
+                    disabled={otpFormActionIsPending}
                 >
-                    {verifyingOtp ? "Please wait..." : actionText}
+                    {otpFormActionIsPending ? "Please wait..." : actionText}
                 </Button>
             </form>
         </Form>

@@ -1,20 +1,24 @@
-import { Control, FieldErrors } from "react-hook-form";
-import { IProductDetailsFormValues } from "../../../lib/interface";
+"use client";
+
+import { IProductDetailsDTO } from "../../../lib/interfaces/interface";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import ControlledModifiedTextArea from "@/components/controlledElements/ControlledModifiedTextArea";
 import ProductImageField from "./ProductImageField";
 import { Label } from "@/components/ui/label";
 import ToolTip from "@/app/(authenticatedRoutes)/ui/ToolTip";
+import { useFormContext } from "react-hook-form";
+import ProductSpecificationsFields from "./ProductSpecificationsFields";
 
-const ProductDetailsFormFields = ({
-    control,
-    errors,
-}: {
-    control: Control<IProductDetailsFormValues>;
-    errors: FieldErrors<IProductDetailsFormValues>;
-}) => {
+const ProductDetailsFormFields = () => {
+    // Get methods from form context
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext<IProductDetailsDTO>();
+
     return (
         <div className="grid gap-4">
+            {/* Images */}
             <div className="grid gap-4 lg:px-6 lg:pt-4 pb-6 border-b">
                 <div className="grid gap-2">
                     <h3 className="text-sm md:text-base font-medium">PRODUCT IMAGE</h3>
@@ -23,97 +27,33 @@ const ProductDetailsFormFields = ({
                         <span className="text-kaiglo_critical-base"> Upload at least 3 images</span>
                     </p>
                 </div>
-                <ProductImageField name="images" control={control} error={errors.images} />
+
+                <ProductImageField<IProductDetailsDTO>
+                    mainImageKey="mainImage"
+                    otherImagesKey="otherImages"
+                />
             </div>
 
+            {/* Name */}
             <div className="lg:px-6 lg:pt-4 pb-6 border-b">
                 <ControlledModifiedInput
                     label="PRODUCT NAME"
-                    name="name"
+                    name="productName"
                     control={control}
                     placeholder="Enter product name"
                     type="text"
-                    error={errors.name}
+                    error={errors.productName}
                     isRequired={true}
                     className="text-base md:text-sm mt-1"
                     labelClassNames="text-sm md:text-base font-medium"
                     rules={{ required: true }}
                 />
             </div>
-            <div className="grid gap-3 md:gap-4 lg:px-6 lg:pt-4 pb-6 border-b">
-                <h3 className="flex gap-3 items-center stext-sm md:text-base font-medium">
-                    PRODUCT SPECIFICATIONS <ToolTip info="Product specifications tip" />
-                </h3>
-                <div className="grid lg:grid-cols-2 gap-3 md:gap-4">
-                    <ControlledModifiedInput
-                        label="Specification 1"
-                        name="specification1"
-                        control={control}
-                        placeholder="Spec 1"
-                        type="text"
-                        error={errors.specification1}
-                        isRequired={true}
-                        className="text-sm md:text-sm mt-1"
-                        labelClassNames="text-sm md:text-base"
-                        containerClassName=""
-                        rules={{ required: true }}
-                    />
 
-                    <ControlledModifiedInput
-                        label="Specification 2"
-                        name="specification2"
-                        control={control}
-                        placeholder="Spec 2"
-                        type="text"
-                        error={errors.specification2}
-                        isRequired={false}
-                        className="text-sm md:text-sm mt-1"
-                        labelClassNames="text-sm md:text-base"
-                        containerClassName=""
-                        rules={{ required: false }}
-                    />
-                    <ControlledModifiedInput
-                        label="Specification 3"
-                        name="specification3"
-                        control={control}
-                        placeholder="Spec 3"
-                        type="text"
-                        error={errors.specification3}
-                        isRequired={false}
-                        className="text-sm md:text-sm mt-1"
-                        labelClassNames="text-sm md:text-base"
-                        containerClassName=""
-                        rules={{ required: false }}
-                    />
-                    <ControlledModifiedInput
-                        label="Specification 4"
-                        name="specification4"
-                        control={control}
-                        placeholder="Spec 4"
-                        type="text"
-                        error={errors.specification4}
-                        isRequired={false}
-                        className="text-sm md:text-sm mt-1"
-                        labelClassNames="text-sm md:text-base"
-                        containerClassName=""
-                        rules={{ required: false }}
-                    />
-                    <ControlledModifiedInput
-                        label="Specification 5"
-                        name="specification5"
-                        control={control}
-                        placeholder="Spec 5"
-                        type="text"
-                        error={errors.specification5}
-                        isRequired={false}
-                        className="text-sm md:text-sm mt-1"
-                        labelClassNames="text-sm md:text-base"
-                        containerClassName=""
-                        rules={{ required: false }}
-                    />
-                </div>
-            </div>
+            {/* Specifications */}
+            <ProductSpecificationsFields />
 
+            {/* Description */}
             <div className="grid gap-3 lg:px-6 lg:pt-4 pb-6 border-b">
                 <div className="grid gap-2">
                     <Label className="flex gap-3 items-center text-sm md:text-base font-medium text-kaiglo_grey-900">
@@ -135,6 +75,8 @@ const ProductDetailsFormFields = ({
                     />
                 </div>
             </div>
+
+            {/* SEO */}
             <div>
                 <div className="grid gap-2 lg:px-6 lg:pt-4 pb-6 ">
                     <Label className="text-sm md:text-base font-medium text-kaiglo_grey-900">

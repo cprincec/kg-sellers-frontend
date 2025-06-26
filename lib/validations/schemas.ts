@@ -14,7 +14,7 @@ export const signUpSchema = yup.object({
 export const signInSchema = yup.object({
     email: yup.string().email("Invalid email format").required("Email is required"),
     phone: yup.string().required("Phone Number is required"),
-    otpChannel: yup.string().required("OTP Channel is required"),
+    otpChannel: yup.string(),
 });
 
 /*********** OTP FORM SCHEMA ***********/

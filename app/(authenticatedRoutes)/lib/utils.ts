@@ -22,3 +22,23 @@ export const getMetricVariant = (variant: string) => {
 
     return variants[variant];
 };
+
+/**
+ * Generates profile initials from a full name or email.
+ * @param {string} email - The user's email address.
+ * @param {string} [fullName] - The user's full name (optional).
+ * @return {string} - A string containing the initials from the full name or the first letter of the email if no full name is provided.
+ */
+export const getProfileInitialsFromFullNameOrEmail = (email: string, fullName?: string) => {
+    if (!fullName?.trim()) {
+        return email[0];
+    }
+
+    const names = fullName.trim().split(/\s+/); // split by any amount of spaces
+    const firstInitial = names[0]?.[0] || "";
+    const lastInitial = names[1]?.[0] || "";
+
+    return `${firstInitial}${lastInitial}`;
+};
+
+export const formatCurrency = (val: number | string) => `₦${Number(val).toLocaleString("en-NG")}`;

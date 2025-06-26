@@ -12,6 +12,7 @@ const FormNavButtons = ({
     cancelButtonText = "Cancel",
     submitButtonText = "Proceed",
     submitButtonType = "submit",
+    disabled,
 }: FormNavButtonsProps) => {
     return (
         <div className={cn("flex justify-end items-center gap-3 pt-4", className)}>
@@ -29,6 +30,7 @@ const FormNavButtons = ({
                     type={submitButtonType}
                     className="px-8 py-3 rounded-full"
                     onClick={() => submitButtonFunc && submitButtonFunc()}
+                    disabled={disabled ?? false}
                 >
                     {submitButtonText}
                 </Button>

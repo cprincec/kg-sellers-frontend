@@ -6,7 +6,7 @@ import { IconSortDesc } from "@/public/icons/icons";
 import Image from "next/image";
 import SortButtonDropDown from "./sortButtonDropDown";
 import { useState } from "react";
-import { ISortOption } from "../../../lib/interface";
+import { ISortOption } from "../../../lib/interfaces/interface";
 
 const SortButton2 = ({
     sortOptions,

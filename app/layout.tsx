@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
+"use client";
+
+// import type { Metadata } from "next";
 import "./globals.css";
-import { StoreSetupContextProvider } from "@/app/(auth)/contexts/storeSetupContext";
 import { Toaster } from "@/components/ui/sonner";
 import { ModalContextProvider } from "./contexts/modalContext";
-import { ProductsContextProvider } from "./(authenticatedRoutes)/products/contexts/productsContext";
 import { gotham } from "@/lib/fonts";
 import QueryClientProviderContext from "./contexts/QueryClientProviderContext";
+import { SessionProvider } from "next-auth/react";
+import { OtpContextProvider } from "./(auth)/contexts/otpContext";
 
-export const metadata: Metadata = {
-    title: "Kaiglo Store",
-    description: "Kaiglo Store - Your one-stop shop for all your needs",
-};
+// export const metadata: Metadata = {
+//     title: "Kaiglo Store",
+//     description: "Kaiglo Store - Your one-stop shop for all your needs",
+// };
 
 export default function RootLayout({
     children,
@@ -20,15 +22,15 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${gotham.className}`}>
-                <QueryClientProviderContext>
-                    <ProductsContextProvider>
-                        <ModalContextProvider>
-                            <StoreSetupContextProvider>
+                <SessionProvider>
+                    <QueryClientProviderContext>
+                        <OtpContextProvider>
+                            <ModalContextProvider>
                                 {children} <Toaster position="top-center" />
-                            </StoreSetupContextProvider>
-                        </ModalContextProvider>
-                    </ProductsContextProvider>
-                </QueryClientProviderContext>
+                            </ModalContextProvider>
+                        </OtpContextProvider>
+                    </QueryClientProviderContext>
+                </SessionProvider>
             </body>
         </html>
     );

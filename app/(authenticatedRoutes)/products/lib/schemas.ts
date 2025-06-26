@@ -12,23 +12,32 @@ export const productCategorySchema = yup.object({
 
 /*********** PRODUCT DETAILS SCHEMA ***********/
 export const productDetailsSchema = yup.object({
-    images: yup
+    mainImage: yup.string().required("Upload at least 3 images"),
+    otherImages: yup
         .array()
-        .of(yup.mixed<File>().test("is-file", "Each image must be a file", (value) => value instanceof File))
-        .test("required", "Please upload product image", (value) => !!value && value.length > 0)
-        .min(3, "Upload at least 3 images"),
+        .of(yup.string().required("Upload at least 3 images"))
+        .min(2, "Upload at least 3 images")
+        .required("Upload at least 3 images"),
 
-    name: yup.string().required("Product name is required").min(3, "Name must be at least 3 characters"),
-    specification1: yup.string().required("Specification 1 is required"),
-    specification2: yup.string(),
-    specification3: yup.string(),
-    specification4: yup.string(),
-    specification5: yup.string(),
+    productName: yup
+        .string()
+        .required("Product name is required")
+        .min(3, "Name must be at least 3 characters"),
+
+    specifications: yup
+        .array()
+        .of(
+            yup.object({
+                name: yup.string().required("Specification name is required"),
+                option: yup.string().required("Specification value is required"),
+            })
+        )
+        .required("At least one specification is required"),
     description: yup
         .string()
         .required("Product description is required")
         .min(10, "Description should be more descriptive"),
-    seo: yup.string(),
+    seo: yup.string().required("Please enter SEO keywords for your product"),
 });
 
 /*********** PRODUCT DETAILS SCHEMA ***********/

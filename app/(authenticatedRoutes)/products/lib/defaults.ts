@@ -1,14 +1,11 @@
-import { IProductVariantsFormValues } from "./interface";
+import { IProductVariantsFormValues } from "./interfaces/interface";
 
 export const productDetailsFormDefaultValues = {
-    images: [],
-    name: "",
+    mainImage: "",
+    otherImages: [],
     description: "",
-    specification1: "",
-    specification2: "",
-    specification3: "",
-    specification4: "",
-    specification5: "",
+    productName: "",
+    specifications: [],
     seo: "",
 };
 

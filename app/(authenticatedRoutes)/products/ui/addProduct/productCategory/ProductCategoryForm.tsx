@@ -5,19 +5,18 @@ import { cn } from "@/lib/utils/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import ProductCategoryFormFields from "./ProductCategoryFormFields";
-import { IProductCategoryDTO } from "../../../lib/interface";
-import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { IProductCategoryDTO } from "../../../lib/interfaces/interface";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
-import { startTransition } from "react";
 import { productCategorySchema } from "../../../lib/schemas";
 import useGetProductsCategories from "../../../hooks/addProduct/useGetProductsCategories";
 import Loader from "@/app/ui/Loader";
 import { useRouter } from "next/navigation";
+import useSaveProductCategory from "../../../hooks/addProduct/useSaveProductCategory";
 
 const ProductCategoryForm = ({ className }: { className?: string }) => {
-    const { setSearchParams } = useUpdateSearchParams();
     const { productCategory, setProductCategory } = useAddProductContext();
-    const { isPending, data } = useGetProductsCategories();
+    const { isFetchingProductsCategories, productsCategories } = useGetProductsCategories();
+    const { isSavingProductCategory, saveProductCategory } = useSaveProductCategory();
     const router = useRouter();
 
     const {
@@ -31,23 +30,20 @@ const ProductCategoryForm = ({ className }: { className?: string }) => {
         resolver: yupResolver(productCategorySchema),
     });
 
-    const saveProductCategory = (values: IProductCategoryDTO) => {
-        console.log("Product Category Values", values);
+    const onSubmit = (values: IProductCategoryDTO) => {
         setProductCategory(values);
-        startTransition(() => {
-            setSearchParams([{ step: "product-details" }]);
-        });
+        saveProductCategory(values);
     };
 
-    if (isPending) return <Loader />;
+    if (isFetchingProductsCategories || isSavingProductCategory) return <Loader />;
 
-    if (data)
+    if (productsCategories)
         return (
             <div className={cn("grid gap-6 px-4 py-2", className)}>
                 <h2 className="mb-5 text-base font-medium">PRODUCT CATEGORIES</h2>
-                <form onSubmit={handleSubmit(saveProductCategory)} className="grid gap-10">
+                <form onSubmit={handleSubmit(onSubmit)} className="grid gap-10">
                     <ProductCategoryFormFields
-                        categories={data}
+                        categories={productsCategories}
                         control={control}
                         errors={errors}
                         setValue={setValue}

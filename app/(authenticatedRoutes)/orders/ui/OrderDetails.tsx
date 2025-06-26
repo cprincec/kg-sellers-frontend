@@ -1,7 +1,7 @@
 "use client";
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { OrderDetailProps } from "@/app/(auth)/interface";
+import { OrderDetailProps } from "@/app/(auth)/lib/interfaces/interface";
 import { OrderStatus } from "@/components/ui/order-status";
 import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
 import { getOrderStatusType } from "../lib/utils/order.utils";

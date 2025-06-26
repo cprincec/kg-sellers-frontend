@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { IProductDTO } from "../../lib/interface";
+import { IProductDTO } from "../../lib/interfaces/interface";
 import { useEffect } from "react";
 import { Table } from "@/components/ui/table";
 import ProductsTableHeader from "./ProductsTableHeader";

@@ -34,7 +34,7 @@ const ControlledModifiedTextArea = <TFormValue extends FieldValues>({
                             isRequired={isRequired}
                         />
                         {error && (
-                            <p className="text-[10px] mt-1 font-light text-kaiglo_critical-base">
+                            <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">
                                 {error.message}
                             </p>
                         )}

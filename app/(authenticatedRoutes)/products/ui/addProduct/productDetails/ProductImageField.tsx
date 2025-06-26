@@ -1,145 +1,110 @@
-import { Control, Controller, FieldError, FieldValues, Merge, Path } from "react-hook-form";
+"use client";
+
+import { FieldValues, Path, PathValue, useFormContext } from "react-hook-form";
 import { useRef } from "react";
-import Image from "next/image";
-import { IconUploadImage } from "@/public/icons/icons";
 import { cn } from "@/lib/utils/utils";
+import { handleProductImageUpload } from "../../../lib/utils/addProduct.utils";
+import ImageUploadTrigger from "./ImageUploadTrigger";
+import ImagePreviewCard from "./ProductImagePreviewCard";
 
 type Props<T extends FieldValues> = {
+    mainImageKey: Path<T>;
+    otherImagesKey?: Path<T>;
     isMultiple?: boolean;
     className?: string;
-    name: Path<T>;
-    control: Control<T>;
-    error?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 };
 
 const ProductImageField = <T extends FieldValues>({
+    mainImageKey,
+    otherImagesKey,
     isMultiple = true,
     className,
-    name,
-    control,
-    error,
 }: Props<T>) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field }) => {
-                const images: File[] = field.value;
+    const {
+        setError,
+        clearErrors,
+        watch,
+        setValue,
+        formState: { errors },
+    } = useFormContext<T>();
+    const mainImageError = errors?.[mainImageKey];
+    const otherImagesError = otherImagesKey ? errors?.[otherImagesKey] : undefined;
 
-                const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-                    const files = event.target.files;
-                    if (!files) return;
+    const mainImageValue = watch(mainImageKey);
+    const otherImagesValue = otherImagesKey ? watch(otherImagesKey) || [] : [];
 
-                    const selectedFiles = Array.from(files);
-                    const updated = [...images, ...selectedFiles];
+    const imageUrls = [mainImageValue, ...(Array.isArray(otherImagesValue) ? otherImagesValue : [])].filter(
+        Boolean
+    );
 
-                    field.onChange(updated);
-                };
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        handleProductImageUpload({
+            e,
+            mainImageKey,
+            otherImagesKey,
+            mainImageValue,
+            otherImagesValue,
+            setValue,
+            setError,
+            clearErrors,
+        });
+    };
 
-                const removeImage = (indexToRemove: number) => {
-                    const updated = images.filter((_, index) => index !== indexToRemove);
-                    field.onChange(updated);
-                };
+    const handleRemoveImage = (isMainImage: boolean, index: number) => {
+        if (isMainImage) {
+            // replace main image with first image in 'other images' array
+            setValue(mainImageKey, otherImagesValue[0] || "");
 
-                return (
-                    <div className={cn("grid gap-4 w-auto", className)}>
-                        <div className="flex gap-4 w-fit flex-wrap">
-                            {images.map((file: File, index: number) => {
-                                const previewUrl = URL.createObjectURL(file);
-                                const isMainImage = index === 0 && isMultiple;
-                                console.log(isMainImage);
-                                return (
-                                    <div
-                                        key={index}
-                                        className="relative w-[90px] lg:w-[120px] h-[90px] lg:h-[120px]"
-                                    >
-                                        <Image
-                                            src={previewUrl}
-                                            alt={`Product ${index}`}
-                                            width={120}
-                                            height={120}
-                                            className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] object-cover"
-                                        />
-                                        {isMainImage && (
-                                            <div className="absolute top-0 bottom-0 left-0 right-0 w-full h-[90px] lg:h-[120px] flex justify-center bg-[#00000033] rounded-xl">
-                                                <p className="text-xs text-center absolute bottom-1.5">
-                                                    <span className="text-xs font-medium text-kaiglo_grey-900 px-2 py-1 bg-white rounded-lg">
-                                                        Main Image
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        )}
-                                        <button
-                                            type="button"
-                                            onClick={() => removeImage(index)}
-                                            className="w-[20px] h-[20px] flex items-center justify-center p-1 m-0.5 absolute top-0 right-0 bg-kaiglo_critical-600 text-white text-xs px-1 rounded-full"
-                                        >
-                                            <span className="font-bold text-[10px] ml-[0.3px]">✕</span>
-                                        </button>
-                                    </div>
-                                );
-                            })}
-                            {/* Allow upload of only one image base on the 'isMultiple' parameter */}
-                            {isMultiple ? (
-                                <div>
-                                    <input
-                                        type="file"
-                                        multiple={isMultiple}
-                                        accept="image/*"
-                                        hidden
-                                        ref={fileInputRef}
-                                        onChange={handleImageUpload}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => fileInputRef.current?.click()}
-                                        className="flex items-center justify-center w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] rounded-lg border border-dashed border-kaiglo_grey-disabled"
-                                    >
-                                        <Image
-                                            src={IconUploadImage}
-                                            alt="upload image icon"
-                                            className="w-8 h-8"
-                                        />
-                                    </button>
-                                </div>
-                            ) : (
-                                images.length < 1 && (
-                                    <div>
-                                        <input
-                                            type="file"
-                                            multiple={isMultiple}
-                                            accept="image/*"
-                                            hidden
-                                            ref={fileInputRef}
-                                            onChange={handleImageUpload}
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => fileInputRef.current?.click()}
-                                            className="flex items-center justify-center w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] rounded-lg border border-dashed border-kaiglo_grey-disabled"
-                                        >
-                                            <Image
-                                                src={IconUploadImage}
-                                                alt="upload image icon"
-                                                className="w-8 h-8"
-                                            />
-                                        </button>
-                                    </div>
-                                )
-                            )}
-                        </div>
-
-                        {error && (
-                            <p className="text-sm text-left mt-1 font-light text-kaiglo_critical-base">
-                                {error.message}
-                            </p>
-                        )}
-                    </div>
+            if (otherImagesKey && otherImagesValue.length > 0)
+                // update 'other images' array
+                setValue(
+                    otherImagesKey,
+                    ([...otherImagesValue].slice(1) || []) as PathValue<T, typeof otherImagesKey>
                 );
-            }}
-        />
+        } else {
+            if (otherImagesKey)
+                setValue(
+                    otherImagesKey,
+                    otherImagesValue.filter((_, i) => i !== index - 1) as PathValue<T, typeof otherImagesKey>
+                );
+        }
+
+        clearErrors(mainImageKey);
+        if (otherImagesKey) clearErrors(otherImagesKey);
+    };
+
+    return (
+        <div className={cn("grid gap-4 w-auto", className)}>
+            <div className="flex gap-4 w-fit flex-wrap">
+                {imageUrls.map((url: string, index: number) => (
+                    <ImagePreviewCard
+                        key={index}
+                        index={index}
+                        previewUrl={url}
+                        isMainImage={index === 0 && isMultiple}
+                        handleRemoveImage={handleRemoveImage}
+                    />
+                ))}
+
+                {/* Allow upload of only one image base on the 'isMultiple' parameter */}
+                {(isMultiple && otherImagesKey) || imageUrls.length < 1 ? (
+                    <ImageUploadTrigger
+                        isMultiple={isMultiple}
+                        fileInputRef={fileInputRef}
+                        handleImageUpload={handleImageUpload}
+                    />
+                ) : null}
+            </div>
+
+            {/* Display Image errors */}
+            {(mainImageError || otherImagesError) && (
+                <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">
+                    {(mainImageError || otherImagesError)?.message as string}
+                </p>
+            )}
+        </div>
     );
 };
 

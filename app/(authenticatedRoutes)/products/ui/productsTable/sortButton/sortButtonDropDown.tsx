@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ISortOption } from "../../../lib/interface";
+import { ISortOption } from "../../../lib/interfaces/interface";
 import { Dispatch, SetStateAction } from "react";
 
 const SortButtonDropDown = ({

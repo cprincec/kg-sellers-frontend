@@ -1,3 +1,12 @@
+import {
+    IconCancelCircle,
+    IconGlobe,
+    IconPackage2,
+    IconPackageOutOfStock,
+    IconPackageProcess2,
+} from "@/public/icons/icons";
+import { IProductsOverview } from "../interfaces/interface";
+
 type StatusTypes = "active" | "paused" | "rejected";
 
 export const getStatusStyle = (status: string): string => {
@@ -53,4 +62,40 @@ export const getSalesTypeStyle = (salesType: string): string => {
     };
 
     return styles[salesTypeLowerCase as SalesTypes] || "text-kaiglo_grey-700";
+};
+
+export const generateProductsOverviewArray = (data: IProductsOverview | undefined) => {
+    if (!data) return [];
+
+    return [
+        {
+            title: "Total Products",
+            value: data.totalProducts,
+            icon: IconPackage2,
+        },
+        {
+            title: "LIVE ON SITE",
+            value: data.liveProducts,
+            icon: IconGlobe,
+            variant: "success",
+        },
+        {
+            title: "Under Review",
+            value: data.reviewProducts,
+            icon: IconPackageProcess2,
+            variant: "warning",
+        },
+        {
+            title: "Out of Stock",
+            value: data.outOfStockProducts,
+            icon: IconPackageOutOfStock,
+            variant: "error",
+        },
+        {
+            title: "Rejected",
+            value: data.rejectedProducts,
+            icon: IconCancelCircle,
+            link: "/products/rejected-products",
+        },
+    ];
 };

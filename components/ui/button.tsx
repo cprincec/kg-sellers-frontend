@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ButtonProps } from "@/app/(auth)/interface";
+import { ButtonProps } from "@/app/(auth)/lib/interfaces/interface";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils/utils";
 import { cva } from "class-variance-authority";

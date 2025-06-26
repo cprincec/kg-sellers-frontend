@@ -1,16 +1,17 @@
-import { IPaymentOptionFormDTO, IStoreDetailsFormDTO } from "../../interface";
+import { IPaymentOptionDTO, IStoreDetailsDTO } from "../interfaces/interface";
 
-export const storeDetailsDefaultValues: IStoreDetailsFormDTO = {
+export const storeDetailsDefaultValues: IStoreDetailsDTO = {
     storeName: "",
     email: "",
-    phone: "",
-    address: "",
-    logo: null,
-    banner: null,
+    phoneNumber: "",
+    storeAddress: "",
+    state: "",
+    businessLogo: "",
+    storeBanner: "",
 };
 
 // Default values for the "Store Details" step
-export const paymentOptionDefaultValues: IPaymentOptionFormDTO = {
+export const paymentOptionDefaultValues: IPaymentOptionDTO = {
     beneficiaryName: "Isaac Udom",
     accountNumber: "023022022",
     bankName: "Access bank",

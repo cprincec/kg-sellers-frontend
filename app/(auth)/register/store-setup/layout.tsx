@@ -1,5 +1,8 @@
+"use client";
+
+import { StoreSetupContextProvider } from "../../contexts/storeSetupContext";
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    return <div className="">{children}</div>;
+    return <StoreSetupContextProvider>{children}</StoreSetupContextProvider>;
 };
 
 export default Layout;

@@ -1,4 +1,4 @@
-import { IStoreDetailsFormDTO } from "@/app/(auth)/interface";
+import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -8,25 +8,24 @@ const ImageUploadPreview = ({
     field,
     name,
 }: {
-    field: ControllerRenderProps<IStoreDetailsFormDTO, keyof IStoreDetailsFormDTO>;
-    name: keyof IStoreDetailsFormDTO;
+    field: ControllerRenderProps<IStoreDetailsDTO, keyof IStoreDetailsDTO>;
+    name: keyof IStoreDetailsDTO;
 }) => {
-    if (!field.value || !(field.value instanceof Blob)) return null;
+    if (!field.value) return null;
+
     return (
         <div className="relative h-full flex flex-col items-center gap-4">
+            {/* Image Preview */}
             <div className="relative w-full h-full">
-                <Image
-                    src={URL.createObjectURL(field.value)}
-                    alt={name}
-                    fill
-                    className="rounded-lg object-fill"
-                />
+                <Image src={field.value} alt={name} fill className="rounded-lg object-fill" />
             </div>
+
+            {/* Remove Image button */}
             <Button
                 type="button"
                 variant={"ghost"}
                 className="z-50 absolute top-4 right-4 bg-transparent p-0 w-8 h-8"
-                onClick={() => field.onChange(null)}
+                onClick={() => field.onChange("")}
             >
                 <Trash2 className="min-w-full min-h-full text-white bg-kaiglo_critical-base p-1.5  rounded-full" />
             </Button>

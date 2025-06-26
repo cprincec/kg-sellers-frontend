@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IProductDTO, IProductsContext } from "@/app/(authenticatedRoutes)/products/lib/interface";
+import { IProductDTO, IProductsContext } from "@/app/(authenticatedRoutes)/products/lib/interfaces/interface";
 import { productsList } from "../lib/data/data";
 import { usePathname } from "next/navigation";
 

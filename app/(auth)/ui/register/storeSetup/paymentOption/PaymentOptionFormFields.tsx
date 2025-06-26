@@ -1,4 +1,4 @@
-import { IPaymentOptionFormDTO } from "@/app/(auth)/interface";
+import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { Control, FieldErrors } from "react-hook-form";
 
@@ -7,8 +7,8 @@ const PaymentOptionFormFields = ({
     errors,
     showNote,
 }: {
-    control: Control<IPaymentOptionFormDTO>;
-    errors: FieldErrors<IPaymentOptionFormDTO>;
+    control: Control<IPaymentOptionDTO>;
+    errors: FieldErrors<IPaymentOptionDTO>;
     showNote: boolean;
 }) => {
     return (

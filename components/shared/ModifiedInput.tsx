@@ -39,9 +39,10 @@ const ModifiedInput = ({
             {label && (
                 <div className={cn("", labelContainerClassName)}>
                     <Label
-                        className={`text-sm md:text-base text-kaiglo_grey-700 capitalize font-normal ${
-                            labelClassNames && labelClassNames
-                        }`}
+                        className={cn(
+                            "text-sm md:text-base text-kaiglo_grey-700 font-normal",
+                            labelClassNames
+                        )}
                     >
                         {label}
                         {isRequired && <span className="text-kaiglo_critical-error font-medium">*</span>}

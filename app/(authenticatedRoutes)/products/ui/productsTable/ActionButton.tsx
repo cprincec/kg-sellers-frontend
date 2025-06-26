@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { IAction } from "../../lib/interface";
+import { IAction } from "../../lib/interfaces/interface";
 
 const ActionButton = ({
     actions,

@@ -1,12 +1,13 @@
 "use client";
 
-import { IStoreDetailsFormDTO } from "@/app/(auth)/interface";
+import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { useRef } from "react";
 import { Control, Controller, FieldError } from "react-hook-form";
 import ImageUploadPrompt from "./ImageUploadPrompt";
 import ImageUploadPreview from "./ImageUploadPreview";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils/utils";
+import { convertToBase64 } from "@/app/(authenticatedRoutes)/products/lib/utils/addProduct.utils";
 
 const ImageUploadInputField = ({
     name,
@@ -16,22 +17,23 @@ const ImageUploadInputField = ({
     ShowMainVariant,
 }: {
     ShowMainVariant?: boolean;
-    name: keyof IStoreDetailsFormDTO;
-    control: Control<IStoreDetailsFormDTO>;
+    name: keyof IStoreDetailsDTO;
+    control: Control<IStoreDetailsDTO>;
     rules: { required?: boolean };
     error: FieldError | undefined;
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleFileChange = (
+    const handleFileChange = async (
         e: React.ChangeEvent<HTMLInputElement>,
-        onChange: (value: File | null) => void
+        onChange: (value: string) => void
     ) => {
         const file = e.target.files?.[0];
 
         if (file) {
             // update file input
-            onChange(file);
+            const base64file = await convertToBase64(file);
+            onChange(base64file);
         }
     };
 
@@ -48,7 +50,7 @@ const ImageUploadInputField = ({
                             ShowMainVariant ? "border-kaiglo_success-base" : "border-kaiglo_grey-300"
                         )}
                     >
-                        {field.value && field.value instanceof Blob ? (
+                        {field.value ? (
                             <ImageUploadPreview field={field} name={name} />
                         ) : (
                             <ImageUploadPrompt

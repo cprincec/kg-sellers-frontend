@@ -39,7 +39,7 @@ const AccountSummary = ({ className }: { className?: string }) => {
         } else if (withdrawStep === "otp") {
             content = (
                 <OtpModal email="" phone="" actionText="Confirm" actionLink="/wallet?withdraw=successful" />
-            );
+            ); 
             clearKeys = ["withdraw"];
         } else if (withdrawStep === "successful") {
             content = <WithdrawalSuccessful />;

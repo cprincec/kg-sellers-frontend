@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "recharts";
-import { IProductVariant, ProductVariant } from "../../../lib/interface";
+import { IProductVariant, ProductVariant } from "../../../lib/interfaces/interface";
 
 type Props = {
     productVariants: IProductVariant[] | ProductVariant[];

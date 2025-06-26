@@ -1,6 +1,6 @@
 import { AccountRecoveryIcon, LogoIcon } from "../logos";
 
-import { LogoWithWelcomeTextProps } from "../../interface";
+import { LogoWithWelcomeTextProps } from "../../lib/interfaces/interface";
 import React from "react";
 import Link from "next/link";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { IPaymentOptionFormDTO } from "@/app/(auth)/interface";
+import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { paymentOptionDefaultValues } from "@/app/(auth)/lib/validations/defaults";
 import { paymentoptionSchema } from "@/app/(auth)/lib/validations/schemas";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
@@ -9,21 +9,32 @@ import { useForm } from "react-hook-form";
 import PaymentOptionFormFields from "./PaymentOptionFormFields";
 import ConfirmAccountModal from "./ConfirmAccountModal";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 
-export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) => {
+export const PaymentOptionForm = ({
+    submitButtonText = "Save Changes",
+    cancelButtonText = "Cancel",
+    showNote = true,
+}: {
+    submitButtonText?: string;
+    cancelButtonText?: string;
+    showNote?: boolean;
+}) => {
     const { setShowModal, setModalContent } = useModalContext();
-
+    const { setCurrentStep } = useStoreSetupContext();
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<IPaymentOptionFormDTO>({
+    } = useForm<IPaymentOptionDTO>({
         defaultValues: paymentOptionDefaultValues,
         resolver: yupResolver(paymentoptionSchema),
     });
 
-    const savePaymentOption = (values: IPaymentOptionFormDTO) => {
-        setModalContent(<ConfirmAccountModal bankDetails={values} />);
+    const savePaymentOption = (values: IPaymentOptionDTO) => {
+        setModalContent(
+            <ConfirmAccountModal action={() => setCurrentStep((prev) => prev + 1)} bankDetails={values} />
+        );
         setShowModal(true);
     };
 
@@ -44,7 +55,8 @@ export const PaymentOptionForm = ({ showNote = true }: { showNote?: boolean }) =
 
                     <FormNavButtons
                         cancelFunc={() => console.log("payment option changes cancelled")}
-                        submitButtonText={"Save Changes"}
+                        submitButtonText={submitButtonText}
+                        cancelButtonText={cancelButtonText}
                     />
                 </form>
             </div>

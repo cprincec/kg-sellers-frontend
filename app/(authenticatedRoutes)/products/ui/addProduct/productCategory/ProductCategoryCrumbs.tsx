@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils/utils";
 import { IconArrowRight } from "@/public/icons/icons";
 import Image from "next/image";
-import { IProductCategoryDTO } from "../../../lib/interface";
+import { IProductCategoryDTO } from "../../../lib/interfaces/interface";
 
 const ProductCategoryCrumbs = ({
     categoryObject,

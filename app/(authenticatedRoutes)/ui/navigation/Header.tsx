@@ -3,7 +3,7 @@
 import { IconMenu, IconNotification } from "@/public/icons/icons";
 
 import Image from "next/image";
-import { ProfileIcon } from "./sidebar-icons";
+import ProfileIconWithDropDown from "./ProfileIconWithDropDown";
 import SideBarMobile from "./SideBarMobile";
 import { usePathname } from "next/navigation";
 import { getHeaderTitleAndDescription } from "../../lib/utils";
@@ -51,7 +51,7 @@ const Header = () => {
                     <Image src={IconNotification} alt="notification" className="w-4 md:w-5 h-4 md:h-5 " />
                 </Button>
 
-                <ProfileIcon />
+                <ProfileIconWithDropDown />
             </div>
         </header>
     );

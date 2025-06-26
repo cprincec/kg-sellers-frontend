@@ -3,7 +3,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
-import { ProductVariant } from "../../../lib/interface";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { productVariantActions } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";
@@ -12,6 +11,7 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { cn } from "@/lib/utils/utils";
 import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { ProductVariant } from "../../../lib/interfaces/interface";
 
 const ProductVariantsTable = ({
     productVariants,
@@ -107,13 +107,13 @@ const ProductVariantsTable = ({
                                 <div className="flex gap-3 items-center">
                                     <Image
                                         src={URL.createObjectURL(product.images[0])}
-                                        alt={productDetails.name}
+                                        alt={productDetails?.productName ?? ""}
                                         width={48}
                                         height={48}
                                         className="w-12 h-12"
                                     />
                                     <span className="mt-1.5 text-sm font-medium capitalize text-kaiglo_grey-base">
-                                        {productDetails.name}
+                                        {productDetails?.productName}
                                     </span>
                                 </div>
                             </TableCell>
