@@ -11,7 +11,7 @@ const Api = axios.create({
 });
 
 Api.interceptors.request.use(
-    async (config: InternalAxiosRequestConfig<any>) => {
+    async (config: InternalAxiosRequestConfig) => {
         const session = await getSession();
 
         if (session) {
