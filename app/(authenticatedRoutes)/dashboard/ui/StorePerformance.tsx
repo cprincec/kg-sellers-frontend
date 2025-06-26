@@ -48,7 +48,7 @@ const StorePerformance = ({ className, showEmptyState }: { className?: string; s
                         <Metric
                             title={item.title || ""}
                             body={item.body || ""}
-                            comparism={item.comparism || null}
+                            comparism={item.comparism}
                             showEmptyState={showEmptyState}
                             className="flex-1"
                             IsCurrency={item.isCurrency || false}
