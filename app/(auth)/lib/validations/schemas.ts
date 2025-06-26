@@ -4,25 +4,12 @@ import * as yup from "yup";
 export const storeDetailsSchema = yup.object({
     storeName: yup.string().required("Store Name is required"),
     email: yup.string().email("Invalid email format").required("Email is required"),
-    phone: yup.string().required("Phone Number is required"),
-    address: yup.string().required("Store Address is required"),
+    phoneNumber: yup.string().required("Phone Number is required"),
+    storeAddress: yup.string().required("Store Address is required"),
+    state: yup.string().required("State is required"),
 
-    logo: yup
-        .mixed<Blob>()
-        .required("Business Logo is required")
-        .test("fileRequired", "Business Logo is required", (value) => {
-            return value instanceof Blob || value === null; // Ensures value is Blob or null
-        })
-        .test("fileType", "Only images are allowed", (value) => {
-            return value instanceof Blob ? value.type.startsWith("image/") : false; // Invalid if it's not a Blob
-        }),
-
-    banner: yup
-        .mixed<Blob>()
-        .nullable() // Allows null for the banner
-        .test("fileType", "Only images are allowed", (value) => {
-            return value instanceof Blob ? value.type.startsWith("image/") : true; // If value is null, it's valid (optional field)
-        }),
+    businessLogo: yup.string().required("Business Logo is required"),
+    storeBanner: yup.string(),
 });
 
 /*********** PAYMENT OPTION SCHEMA ***********/
@@ -34,7 +21,10 @@ export const paymentoptionSchema = yup.object({
 
 /*********** PRODUCT CATEGORY SCHEMA ***********/
 export const productCategorySchema = yup.object({
-    productCategory: yup.string().required("Product category is required"),
+    category: yup
+        .array()
+        .of(yup.string().required("Product category is required"))
+        .required("Product category is required"),
 });
 
 // export const productCategoriesSchema = yup.object({

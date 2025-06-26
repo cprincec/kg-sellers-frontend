@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils/utils";
-import { getProductVariantColor } from "../../lib/utils";
-import { IProductVariant, ProductVariant } from "../../lib/interface";
+import { getProductVariantColor } from "../../lib/utils/utils";
+import { IProductVariant, ProductVariant } from "../../lib/interfaces/interface";
 
 const ProductVariants = ({ productVariants }: { productVariants: IProductVariant[] | ProductVariant[] }) => {
     return (

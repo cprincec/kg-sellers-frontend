@@ -1,21 +1,25 @@
 "use client";
 
-// import { useRouter } from "next/navigation";
-import React, { createContext, useContext, useState } from "react";
-import { StoreSetupContextDTO, StoreSetupContextProviderProps, navigateTpNextStepProps } from "../interface";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import {
+    IOnboardingData,
+    IStoreSetupContext,
+    StoreSetupContextProviderProps,
+    navigateTpNextStepProps,
+} from "../lib/interfaces/interface";
 import { useModalContext } from "@/app/contexts/modalContext";
+import useGetOnboardingStep from "../hooks/register/useGetOnboardingStep";
+import Loader from "@/app/ui/Loader";
 
-const StoreSetupContext = createContext<StoreSetupContextDTO | undefined>(undefined);
+const StoreSetupContext = createContext<IStoreSetupContext | undefined>(undefined);
 
 const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ children }) => {
     const { setShowModal } = useModalContext();
 
+    // Get current onboading step
+    const { onboardingStep, isFetchingOnBoardingStep } = useGetOnboardingStep();
     const [currentStep, setCurrentStep] = useState<number>(0);
-
-    // const router = useRouter();
-
-    // const [email, setEmail] = useState<string>("");
-    // const [phone, setPhone] = useState<string>("");
+    const [onboardingData, setOnboardingData] = useState<IOnboardingData | undefined>(undefined);
 
     const navigateToPreviousStep = () => {
         setCurrentStep((prevStep) => prevStep - 1);
@@ -39,11 +43,20 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
     //     router.push("/dashboard");
     // };
 
+    useEffect(() => {
+        if (onboardingStep) setCurrentStep(onboardingStep.onboardingStep);
+    }, [onboardingStep]);
+
+    // show loader until onboarding step has been fetched
+    if (isFetchingOnBoardingStep) return <Loader />;
+
     return (
         <StoreSetupContext.Provider
             value={{
                 currentStep,
                 setCurrentStep,
+                onboardingData,
+                setOnboardingData,
                 navigateToNextStep,
                 navigateToSpecificStep,
                 navigateToPreviousStep,
@@ -55,7 +68,7 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
     );
 };
 
-const useStoreSetupContext = (): StoreSetupContextDTO => {
+const useStoreSetupContext = (): IStoreSetupContext => {
     const context = useContext(StoreSetupContext);
     if (!context) {
         throw new Error("useStoreSetupContext must be used within a StoreSetupContextProvider");

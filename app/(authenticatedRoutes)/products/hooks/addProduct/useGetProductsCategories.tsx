@@ -2,7 +2,7 @@
 
 import { getRequest } from "@/lib/utils/apiCaller";
 import { useQuery } from "@tanstack/react-query";
-import { IGetAllProductsCategoriesResponse } from "../../lib/interface";
+import { IGetAllProductsCategoriesResponse } from "../../lib/interfaces/interface";
 
 /**
  * Custom hook to fetch product categories from the API.
@@ -16,12 +16,10 @@ const useGetProductsCategories = () => {
             getRequest<IGetAllProductsCategoriesResponse>({
                 url: "/product-category/all",
             }),
-        throwOnError: () => {
-            return true;
-        },
+        throwOnError: true,
     });
 
-    return { data: data?.response, isPending, error };
+    return { productsCategories: data?.response, isFetchingProductsCategories: isPending, error };
 };
 
 export default useGetProductsCategories;

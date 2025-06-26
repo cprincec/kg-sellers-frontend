@@ -1,18 +1,17 @@
 "use client";
 
 import "react-circular-progressbar/dist/styles.css";
-
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-// import { useResendOtp } from "@/hooks/mutation/auth/resendOtp";
 import React, { useEffect, useState } from "react";
+import { OtpTimerProps } from "../../lib/interfaces/interface";
+import { useOtpContext } from "../../contexts/otpContext";
+import { Button } from "@/components/ui/button";
 
-import { OtpTimerProps } from "../../interface";
+const OtpTimer: React.FC<OtpTimerProps> = () => {
+    const { resendOTPMutationFunc, resendOTPMutationFuncIsPending } = useOtpContext();
 
-const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
-    console.log(email, phone);
     const initialTime = 60;
     const [timeLeft, setTimeLeft] = useState(initialTime);
-    // const { resend } = useResendOtp();
 
     useEffect(() => {
         if (timeLeft === 0) return;
@@ -27,7 +26,11 @@ const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
 
     const handleResendOtp = () => {
         if (timeLeft > 0) return;
-        // resend({ email, phone, otpChannel: "ALL" });
+
+        if (resendOTPMutationFunc) {
+            resendOTPMutationFunc();
+        } else throw new Error("Some thing went wrong");
+
         setTimeLeft(initialTime);
     };
 
@@ -48,15 +51,20 @@ const OtpTimer: React.FC<OtpTimerProps> = ({ email, phone }) => {
 
             <p className="space-x-2 text-sm">
                 <span>Did not get any code?</span>
-                <span
-                    className={`${
-                        timeLeft > 0
-                            ? "text-kaiglo_grey-placeholder cursor-not-allowed"
-                            : "text-kaiglo_brand-base cursor-pointer font-medium"
-                    } text-base`}
-                    onClick={handleResendOtp}
-                >
-                    Resend OTP
+                <span>
+                    <Button
+                        type="button"
+                        variant={"ghost"}
+                        className={`bg-transparent p-0 focus-visible:outline ${
+                            timeLeft > 0
+                                ? "text-kaiglo_grey-placeholder cursor-not-allowed"
+                                : "text-kaiglo_brand-base cursor-pointer font-medium"
+                        } text-base`}
+                        onClick={handleResendOtp}
+                        disabled={resendOTPMutationFuncIsPending}
+                    >
+                        Resend OTP
+                    </Button>
                 </span>
             </p>
         </div>

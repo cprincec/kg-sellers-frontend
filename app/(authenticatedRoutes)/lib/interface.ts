@@ -1,20 +1,38 @@
 import { StaticImageData } from "next/image";
 
-export interface MetricProps {
+// Shared type
+export interface Comparism {
+    value: string;
+    date: string;
+    isPositive: boolean;
+}
+
+// Props for MetricHeader
+export interface MetricHeaderProps {
     title: string;
-    body: string;
-    IsCurrency?: boolean;
-    tip?: string;
-    comparism?: {
-        value: string;
-        isPositive: boolean;
-        date: string;
-    } | null;
+    icon?: StaticImageData;
     variant?: string;
-    showEmptyState: boolean;
+    tip?: string;
     canHideData?: boolean;
-    className?: string;
+    onToggleShowData?: () => void;
+}
+
+// Props for MetricBody
+export interface MetricBodyProps {
+    body: string | number;
+    IsCurrency?: boolean;
+    showData?: boolean;
+    canHideData?: boolean;
     actionText?: string;
     actionClassName?: string;
-    icon?: StaticImageData;
+    comparism?: Comparism;
+}
+
+// Props for full Metric component
+export interface MetricProps
+    extends Omit<MetricBodyProps, "showData">,
+        Omit<MetricHeaderProps, "onToggleShowData"> {
+    showEmptyState?: boolean;
+    className?: string;
+    link?: string;
 }

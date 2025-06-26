@@ -2,10 +2,10 @@
 
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { IProductDTO } from "../../lib/interface";
+import { IProductDTO } from "../../lib/interfaces/interface";
 import ActionButton from "./ActionButton";
 import { cn } from "@/lib/utils/utils";
-import { getSalesTypeStyle, getStatusStyle, getStockLevelStyle } from "../../lib/utils";
+import { getSalesTypeStyle, getStatusStyle, getStockLevelStyle } from "../../lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { productActions } from "../../lib/data/data";
 import { ImageProduct1 } from "@/public/images/landingPage/images";

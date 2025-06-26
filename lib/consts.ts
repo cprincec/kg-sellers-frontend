@@ -26,7 +26,7 @@ export const ROUTES = {
     register: "/register",
     termsOfService: "/terms-of-service",
     privacyPolicy: "/privacy-policy",
-    accountRecovery: "/recover-account",
+    accountRecovery: "recover-account?recovery-channel=email",
 };
 
 export const RESULTS_PER_PAGE = 10;

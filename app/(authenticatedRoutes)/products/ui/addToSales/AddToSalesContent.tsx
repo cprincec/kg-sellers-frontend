@@ -3,7 +3,7 @@ import AddToSalesFormFieldsMobile from "./addToSalesFormFieldsMobile/AddToSalesF
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { ImageProduct1 } from "@/public/images/landingPage/images";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { IProductDTO, IProductVariant, ProductVariant } from "../../lib/interface";
+import { IProductDTO, IProductVariant, ProductVariant } from "../../lib/interfaces/interface";
 import AddToSalesFormFieldsDesktop from "./addToSalesFormFieldsDesktop/AddToSalesFormFieldsDesktop";
 
 const AddToSalesContent = ({

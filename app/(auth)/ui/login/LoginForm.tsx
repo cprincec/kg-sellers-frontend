@@ -1,35 +1,61 @@
 "use client";
 
 import { LOGIN_TEXTS, ROUTES } from "@/lib/consts";
-import { Resolver, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-import { ISignInFormDTO } from "@/interfaces/dtos/auth.dto.interface";
+import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
-import OtpModal from "../otp/OtpModal";
 import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
-import { useModalContext } from "@/app/contexts/modalContext";
+import { useSearchParams } from "next/navigation";
+import { useVerifyOtp } from "../../hooks/useVerifyOtp";
+import { useOtpContext } from "../../contexts/otpContext";
+import { ILoginUserDTO } from "../../lib/interfaces/interface";
+import useLoginUser from "../../hooks/login/useLoginUser";
 
 const LoginForm = () => {
-    const { setShowModal, setModalContent } = useModalContext();
+    const searchParams = useSearchParams();
+    const emailFromUrl = searchParams.get("email");
+    const phoneFromUrl = searchParams.get("phone");
+
+    // Get login values from url
+    const defaultValues =
+        emailFromUrl && phoneFromUrl
+            ? {
+                  email: emailFromUrl,
+                  phone: phoneFromUrl.substring(4), // Remove leading country code if present
+              }
+            : signInDefaultValues;
 
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<ISignInFormDTO>({
-        defaultValues: signInDefaultValues,
-        resolver: signInResolver as Resolver<ISignInFormDTO>,
+    } = useForm<ILoginUserDTO>({
+        defaultValues,
+        resolver: signInResolver,
     });
 
-    // temporal
-    const signingUp = false;
+    // get otp context methods for update
+    const {
+        setResendOTPMutationFunc,
+        setOtpFormAction,
+        setOtpFormActionIsPending,
+        setResendOTPMutationFuncIsPending,
+    } = useOtpContext();
 
-    const login = (values: ISignInFormDTO) => {
-        console.log(values);
-        setModalContent(<OtpModal email={""} phone={""} actionLink={"/dashboard"} />);
-        setShowModal(true);
+    const { loginUser, isLoggingUser } = useLoginUser();
+    const { verifyOtp, verifyingOtp } = useVerifyOtp("/dashboard");
+
+    const login = (values: ILoginUserDTO) => {
+        loginUser(values);
+
+        // update otp context with functions to verify received otp and login user in
+        setOtpFormAction(() => (payload: IOtpFormDTO) => verifyOtp(payload));
+        setOtpFormActionIsPending(verifyingOtp);
+        setResendOTPMutationFunc(() => () => loginUser(values));
+        setResendOTPMutationFuncIsPending(isLoggingUser);
     };
 
     return (
@@ -72,9 +98,9 @@ const LoginForm = () => {
                 <div className="flex flex-col gap-5">
                     <ModifiedButton
                         type="submit"
-                        value={signingUp ? "Please wait..." : "Login"}
+                        value={isLoggingUser ? "Please wait..." : "Login"}
                         className="w-full p-3 rounded-full font-medium"
-                        disabled={signingUp}
+                        disabled={isLoggingUser}
                         data-testid="login-submit-button"
                     />
 

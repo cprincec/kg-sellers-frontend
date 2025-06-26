@@ -3,7 +3,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
-import { ProductVariant } from "../../../lib/interface";
+import { ProductVariant } from "../../../lib/interfaces/interface";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { productVariantActions } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";

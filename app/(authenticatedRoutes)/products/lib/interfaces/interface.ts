@@ -22,8 +22,8 @@ export interface IProductsContext {
 export interface IAddProductContext {
     productCategory: IProductCategoryDTO;
     setProductCategory: Dispatch<SetStateAction<IProductCategoryDTO>>;
-    productDetails: IProductDetailsFormValues;
-    setProductDetails: Dispatch<SetStateAction<IProductDetailsFormValues>>;
+    productDetails: IProductDetailsDTO | undefined;
+    setProductDetails: Dispatch<SetStateAction<IProductDetailsDTO | undefined>>;
     productVariants: IProductVariantsFormValues[];
     setProductVariants: Dispatch<SetStateAction<IProductVariantsFormValues[]>>;
 }
@@ -52,23 +52,6 @@ export interface IProductDTO {
     productVariants: ProductVariant[];
     description: string;
     specifications: string[];
-}
-
-export interface IProductCategoryFormValue {
-    productCategory: string;
-    productCategoryPath: string[];
-}
-
-export interface IProductDetailsFormValues {
-    images: File[];
-    name: string;
-    specification1: string;
-    specification2?: string;
-    specification3?: string;
-    specification4?: string;
-    specification5?: string;
-    description: string;
-    seo?: string;
 }
 
 export interface IProductVariantsFormValues {
@@ -109,6 +92,22 @@ export interface IFilterOption {
     options: { label: string; value: string }[];
 }
 
+/******************************************
+ * Product overiew interfaces
+ *****************************************/
+
+export interface IProductsOverview {
+    totalProducts: string;
+    liveProducts: string;
+    reviewProducts: string;
+    outOfStockProducts: string;
+    rejectedProducts: string;
+}
+
+/******************************************
+ * Product overiew interfaces ends
+ ******************************************/
+
 /*********************************
  * Action button interface
  *********************************/
@@ -123,7 +122,6 @@ export interface IAction {
 /*******************************************************************
  * Product category interfaces starts
  ******************************************************************/
-
 export interface IProductCategory {
     id: string;
     name: string;
@@ -176,4 +174,39 @@ export interface IProductCategoryTree {
 
 /*******************************************************************
  * Product category interfaces ends
+ ******************************************************************/
+
+/*******************************************************************
+ * Product details/info interfaces starts
+ ******************************************************************/
+export interface IProductDetails {
+    mainImage: string;
+    otherImages: string[];
+    productName: string;
+    description: string;
+    seo?: string;
+    specifications?: IProductSpecification[];
+}
+
+export interface IProductDetailsDTO {
+    mainImage: string;
+    otherImages: string[];
+    productName: string;
+    description: string;
+    seo: string;
+    specifications: IProductSpecificationDTO[];
+}
+
+export interface IProductSpecificationDTO {
+    name: string;
+    option: string;
+}
+
+export interface IProductSpecification {
+    name: string;
+    options: string[];
+}
+
+/*******************************************************************
+ * Product details/info interfaces ends
  ******************************************************************/

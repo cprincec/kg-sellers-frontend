@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { IProductVariant, ProductVariant } from "../../../lib/interface";
+import { IProductVariant, ProductVariant } from "../../../lib/interfaces/interface";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";

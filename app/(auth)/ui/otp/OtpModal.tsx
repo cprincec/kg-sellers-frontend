@@ -1,7 +1,7 @@
 "use client";
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { EnterOtpProps } from "@/app/(auth)/interface";
+import { EnterOtpProps } from "@/app/(auth)/lib/interfaces/interface";
 import OtpFormInput from "@/app/(auth)/ui/otp/OtpFormInput";
 
 const OtpModal = ({ actionText, actionLink, email, phone }: EnterOtpProps) => {

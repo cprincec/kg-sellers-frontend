@@ -3,10 +3,29 @@
  * This configuration sets up a base URL for API requests and can be extended
  **/
 
-import axios from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
+import { getSession } from "next-auth/react";
 
 const Api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
+
+Api.interceptors.request.use(
+    async (config: InternalAxiosRequestConfig<any>) => {
+        const session = await getSession();
+
+        if (session) {
+            config.headers["Authorization"] = `Bearer ${session.accessToken}`;
+        }
+
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+Api.interceptors.response.use(
+    (response) => response,
+    (error) => Promise.reject(error)
+);
 
 export default Api;

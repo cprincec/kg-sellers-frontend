@@ -96,7 +96,7 @@ export const SellersHubLogo = ({ className }: { className: string }) => {
 export const LogoIcon = ({ className }: { className: string }) => {
     return (
         <div className={`w-fit ${className}`}>
-            <Image src={IconLogo} alt="kaiglo-logo" width={33} height={36} />
+            <Image src={IconLogo} alt="kaiglo-logo" width={33} height={36} className="w-auto h-auto" />
         </div>
     );
 };

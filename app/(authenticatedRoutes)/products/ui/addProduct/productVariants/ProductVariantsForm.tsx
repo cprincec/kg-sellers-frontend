@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { startTransition, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
 import ProductVariantsFormFields from "./ProductVariantsFormFields";
-import { IProductVariantsFormValues } from "../../../lib/interface";
+import { IProductVariantsFormValues } from "../../../lib/interfaces/interface";
 import { productVariantsSchema } from "../../../lib/schemas";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { Button } from "@/components/ui/button";

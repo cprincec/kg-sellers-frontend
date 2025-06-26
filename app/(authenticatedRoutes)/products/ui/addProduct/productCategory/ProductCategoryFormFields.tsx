@@ -14,7 +14,11 @@ import { cn } from "@/lib/utils/utils";
 import { ChevronDown, ChevronLeft } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Control, Controller, FieldErrors, UseFormReset, UseFormSetValue } from "react-hook-form";
-import { IProductCategory, IProductCategoryDTO, IProductSubCategory } from "../../../lib/interface";
+import {
+    IProductCategory,
+    IProductCategoryDTO,
+    IProductSubCategory,
+} from "../../../lib/interfaces/interface";
 import { useAddProductContext } from "../../../contexts/addProductContext";
 
 const ProductCategoryFormFields = ({
@@ -204,7 +208,11 @@ const ProductCategoryFormFields = ({
                     </Dialog>
                 )}
             />
-            {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
+            {errors.category && (
+                <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">
+                    {errors.category.message}
+                </p>
+            )}
         </div>
     );
 };

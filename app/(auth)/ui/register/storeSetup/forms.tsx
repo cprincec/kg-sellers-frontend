@@ -130,9 +130,9 @@ export const StoreDetailsFormFields = ({ formProps }) => {
                         Business Logo<span className="text-kaiglo_critical-error font-medium">*</span>
                     </p>
                     <ImageUploadInputField
-                        name="logo"
+                        name="businessLogo"
                         control={control}
-                        error={errors.logo}
+                        error={errors.businessLogo}
                         rules={{ required: true }}
                     />
                 </div>

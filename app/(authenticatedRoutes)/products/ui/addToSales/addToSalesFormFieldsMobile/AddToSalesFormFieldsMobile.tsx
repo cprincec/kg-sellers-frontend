@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { IconCalendar2 } from "@/public/icons/icons";
-import { IProductVariant, ProductVariant } from "../../../lib/interface";
+import { IProductVariant, ProductVariant } from "../../../lib/interfaces/interface";
 import ProductVariantsFields from "./ProductVariantsFields";
 
 const AddToSalesFormFieldsMobile = ({

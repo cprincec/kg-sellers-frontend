@@ -3,8 +3,8 @@
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { cn } from "@/lib/utils/utils";
-import { getStatusStyle } from "../../../lib/utils";
-import { IRejectedProductDTO } from "../../../lib/interface";
+import { getStatusStyle } from "../../../lib/utils/utils";
+import { IRejectedProductDTO } from "../../../lib/interfaces/interface";
 import { IconEdit, IconTrash2 } from "@/public/icons/icons";
 import Link from "next/link";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";

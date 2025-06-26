@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 // import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { IFilterOption } from "../../../lib/interface";
+import { IFilterOption } from "../../../lib/interfaces/interface";
 import { useState } from "react";
 import ModifiedSelect2 from "@/components/shared/ModifiedSelect2";
 import ModifiedInput from "@/components/shared/ModifiedInput";

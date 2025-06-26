@@ -1,45 +1,36 @@
 "use client";
 
 import { Resolver, useForm } from "react-hook-form";
-import { ISignUpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
-import OtpModal from "../../otp/OtpModal";
 import { signUpDefaultValues } from "@/lib/validations/defaults";
 import { signUpResolver } from "@/lib/validations/resolvers";
-import { useState } from "react";
 import RegisterationFormFields from "./RegistrationFormFields";
-import { useModalContext } from "@/app/contexts/modalContext";
+import { IRegisterUserDTO } from "@/app/(auth)/lib/interfaces/interface";
+import useRegisterUser from "@/app/(auth)/hooks/register/useRegisterUser";
 
 const RegisterationForm = () => {
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const { setShowModal, setModalContent } = useModalContext();
-
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<ISignUpFormDTO>({
+    } = useForm<IRegisterUserDTO>({
         defaultValues: signUpDefaultValues,
-        resolver: signUpResolver as Resolver<ISignUpFormDTO>,
+        resolver: signUpResolver as Resolver<IRegisterUserDTO>,
     });
 
-    // temporal
-    const signingUp = false;
+    const { isRegisteringUser, registerUser } = useRegisterUser();
 
-    const createAccount = (values: ISignUpFormDTO) => {
-        setEmail(values.email);
-        setPhone(values.phone);
-
-        setModalContent(<OtpModal email={email} phone={phone} />);
-        setShowModal(true);
+    const onSubmit = (values: IRegisterUserDTO) => {
+        console.log("RegisterationForm onSubmit", values);
+        registerUser(values);
     };
 
     return (
         <div className="transition-all duration-300 ease-in-out">
-            <form onSubmit={handleSubmit(createAccount)} className="flex flex-col gap-10">
-                <RegisterationFormFields control={control} errors={errors} signingUp={signingUp} />
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
+                <RegisterationFormFields control={control} errors={errors} signingUp={isRegisteringUser} />
             </form>
         </div>
     );
 };
+
 export default RegisterationForm;

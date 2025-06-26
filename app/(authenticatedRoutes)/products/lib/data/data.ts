@@ -22,7 +22,7 @@ import {
     ImageSampleProduct1,
     ImageSampleProduct1plus,
 } from "@/public/images/landingPage/images";
-import { IAction, IProductDTO, IProductVariant } from "../interface";
+import { IAction, IProductDTO, IProductSpecification, IProductVariant } from "../interfaces/interface";
 
 export const productsMetricsData = [
     { title: "Total Products", value: "120", icon: IconPackage2 },
@@ -137,6 +137,54 @@ export const productsList: IProductDTO[] = [
         specifications: [],
         productImages: [],
         productVariants: [],
+    },
+];
+
+export const SampleProductSpecifications: IProductSpecification[] = [
+    {
+        name: "specification 1",
+        options: [
+            "specification 1 option 1",
+            "specification 1 option 2",
+            "specification 1 option 3",
+            "specification 1 option 4",
+        ],
+    },
+    {
+        name: "specification 2",
+        options: [
+            "specification 2 option 1",
+            "specification 2 option 2",
+            "specification 2 option 3",
+            "specification 2 option 4",
+        ],
+    },
+    {
+        name: "specification 3",
+        options: [
+            "specification 3 option 1",
+            "specification 3 option 2",
+            "specification 3 option 3",
+            "specification 3 option 4",
+        ],
+    },
+    {
+        name: "specification 4",
+        options: [
+            "specification 4 option 1",
+            "specification 4 option 2",
+            "specification 4 option 3",
+            "specification 4 option 4",
+        ],
+    },
+    {
+        name: "specification 5",
+        options: [
+            "specification 5 option 1",
+            "specification 5 option 2",
+            "specification 5 option 3",
+            "specification 5 option 4",
+        ],
     },
 ];
 

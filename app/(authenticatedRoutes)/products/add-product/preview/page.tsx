@@ -12,9 +12,10 @@ import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshol
 import { useRouter } from "next/navigation";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { useProductsContext } from "../../contexts/productsContext";
-import { IProductDTO, ProductVariant } from "../../lib/interface";
+import { IProductDTO, ProductVariant } from "../../lib/interfaces/interface";
 import { startTransition } from "react";
 import ProductCategoryCrumbs from "../../ui/addProduct/productCategory/ProductCategoryCrumbs";
+import { showSuccessfulToast } from "@/app/lib/utils/utils";
 
 const Preview = () => {
     const router = useRouter();
@@ -233,12 +234,10 @@ const Preview = () => {
                             const updatedProducts = [newProduct, ...products]; // create new array
                             setProducts(updatedProducts);
 
-                            // prevent user from seeing the product upload success toast when they visit the route
-                            // without actually uploading any product
-                            sessionStorage.setItem("justUploaded", "true");
-                            // sessionStorage.setItem("products", JSON.stringify(updatedProducts)); // sync storage
-
-                            startTransition(() => router.push("/products?upload-status=successful"));
+                            startTransition(() => {
+                                router.push("/products?upload-status=successful");
+                            });
+                            showSuccessfulToast("", "Your product upload was successful and being reviewed");
                         }}
                         className="max-w-[424px] md:ml-auto grid grid-cols-2 gap-3 justify-between p-4"
                     />

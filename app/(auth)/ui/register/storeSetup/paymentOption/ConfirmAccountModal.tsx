@@ -2,15 +2,11 @@
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ConfirmAccountModalProps } from "@/app/(auth)/interface";
+import { ConfirmAccountModalProps } from "@/app/(auth)/lib/interfaces/interface";
 import { VerticalLineIcon } from "../stepper/stepper-icons";
 import { useModalContext } from "@/app/contexts/modalContext";
 
-const ConfirmAccountModal = ({
-    bankDetails,
-    getValues,
-    navigateToSpecificStep,
-}: ConfirmAccountModalProps) => {
+const ConfirmAccountModal = ({ bankDetails, getValues, action }: ConfirmAccountModalProps) => {
     const { setShowModal } = useModalContext();
 
     // @ts-expect-error to be changed
@@ -58,7 +54,7 @@ const ConfirmAccountModal = ({
                     className="p-3 rounded-full"
                     onClick={() => {
                         setShowModal(false);
-                        if (navigateToSpecificStep) navigateToSpecificStep(3);
+                        action();
                     }}
                 >
                     Continue

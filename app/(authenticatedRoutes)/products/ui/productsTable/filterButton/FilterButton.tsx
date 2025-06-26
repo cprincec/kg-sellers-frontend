@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { IconFilter } from "@/public/icons/icons";
 import Image from "next/image";
 import { useState } from "react";
-import { IFilterOption } from "../../../lib/interface";
+import { IFilterOption } from "../../../lib/interfaces/interface";
 import FilterButtonDropDown from "./FIlterButtonDropDown";
 
 const FilterButton = ({
