@@ -1,9 +1,9 @@
-import { IStoreDetailsFormDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { storeDetailsDefaultValues } from "@/app/(auth)/lib/validations/defaults";
 import { storeDetailsSchema } from "@/app/(auth)/lib/validations/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Resolver, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
+import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import StoreDetailsFormFields from "./StoreDetailsFomFields";
 
 const StoreDetailsForm = () => {
@@ -11,9 +11,9 @@ const StoreDetailsForm = () => {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<IStoreDetailsFormDTO>({
+    } = useForm<IStoreDetailsDTO>({
         defaultValues: storeDetailsDefaultValues,
-        resolver: yupResolver(storeDetailsSchema) as Resolver<IStoreDetailsFormDTO>,
+        resolver: yupResolver(storeDetailsSchema),
     });
 
     const saveStoreDetails = () => {

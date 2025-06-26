@@ -1,16 +1,16 @@
 "use client";
 
-import { IStoreDetailsFormDTO } from "@/app/(auth)/lib/interfaces/interface";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import { Control, FieldErrors } from "react-hook-form";
 import StoreDetailsFormImageFields from "./StoreDetailsFormImageFields";
+import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 
 const StoreDetailsFormFields = ({
     control,
     errors,
 }: {
-    control: Control<IStoreDetailsFormDTO>;
-    errors: FieldErrors<IStoreDetailsFormDTO>;
+    control: Control<IStoreDetailsDTO>;
+    errors: FieldErrors<IStoreDetailsDTO>;
 }) => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 ">
@@ -45,12 +45,12 @@ const StoreDetailsFormFields = ({
             <div className="relative">
                 <ControlledModifiedInput
                     label="Phone number"
-                    name="phone"
+                    name="phoneNumber"
                     control={control}
                     rules={{ required: true }}
                     placeholder="08097485832"
                     type="tel"
-                    error={errors.phone}
+                    error={errors.phoneNumber}
                     isRequired={true}
                     data-testid="phone"
                 />
@@ -59,11 +59,11 @@ const StoreDetailsFormFields = ({
             {/* Address */}
             <ControlledModifiedInput
                 label="Business address"
-                name="address"
+                name="storeAddress"
                 control={control}
                 placeholder="3, Ladipo Kuku Street, Ikeja, Lagos"
                 type="text"
-                error={errors.address}
+                error={errors.storeAddress}
                 isRequired={true}
                 className=""
                 containerClassName=""
