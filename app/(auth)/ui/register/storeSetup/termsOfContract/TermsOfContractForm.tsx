@@ -1,6 +1,12 @@
+import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
+import useSaveTermsOfContract from "@/app/(auth)/hooks/register/storeSetup/useSaveTermsOfContract";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
+import { Button } from "@/components/ui/button";
 
 const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean }) => {
+    const { setCurrentStep } = useStoreSetupContext();
+    const { isSavingTermsOfContract, saveTermsOfContract } = useSaveTermsOfContract();
+
     return (
         <div className="grid gap-8">
             {showMainTitle && <h2 className="text-xl font-bold">Kaiglo’s Terms of Contract</h2>}
@@ -44,7 +50,31 @@ const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean
             <FormNavButtons
                 cancelFunc={() => console.log("Agreement cancelled")}
                 submitButtonText={"Save Changes"}
+                className="grid grid-cols-2 lg:hidden"
+                cancelButtonClassName="p-3 lg:min-w-[150px]"
+                submitButtonClassName="p-3 lg:min-w-[150px]"
             />
+
+            <div className="hidden lg:flex justify-between items-end">
+                <Button
+                    variant={"outline"}
+                    className="p-3 rounded-full text-kaiglo_grey-700 border-kaiglo_grey-disabled min-w-[150px] h-min"
+                >
+                    Cancel
+                </Button>
+                <FormNavButtons
+                    className="grid grid-cols-2 lg:w-fit lg:ml-auto"
+                    cancelButtonClassName="p-3 lg:min-w-[150px]"
+                    cancelFunc={() => setCurrentStep((prev) => prev - 1)}
+                    cancelButtonText="Back"
+                    submitButtonClassName="p-3 lg:min-w-[150px]"
+                    submitButtonText={"I agree"}
+                    submitButtonFunc={() => {
+                        saveTermsOfContract({ acceptTerms: true });
+                    }}
+                    disabled={isSavingTermsOfContract}
+                />
+            </div>
         </div>
     );
 };

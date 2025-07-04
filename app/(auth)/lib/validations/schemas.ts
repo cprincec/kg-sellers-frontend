@@ -15,8 +15,11 @@ export const storeDetailsSchema = yup.object({
 /*********** PAYMENT OPTION SCHEMA ***********/
 export const paymentoptionSchema = yup.object({
     beneficiaryName: yup.string().required("Beneficiary Name is required"),
-    accountNumber: yup.string().required("Account Number is required"),
-    bankName: yup.string().required("Bank Name is required"),
+    accountNumber: yup
+        .string()
+        .length(10, "Account number must be 10 digits")
+        .required("Account Number is required"),
+    bankId: yup.string().required("Bank Name is required"),
 });
 
 /*********** PRODUCT CATEGORY SCHEMA ***********/

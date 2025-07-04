@@ -3,14 +3,16 @@
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Link from "next/link";
 import { homeNavLinks } from "../../lib/data";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils/utils";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { LoginAndRegisterButtons } from "./header/buttons";
+import ProfileIconWithDropDown from "@/app/(authenticatedRoutes)/ui/navigation/ProfileIconWithDropDown";
+import { useSession } from "next-auth/react";
 
 const LandingSideBarMobile = () => {
     const pathname = usePathname();
+    const session = useSession();
     const { setShowModal } = useModalContext();
 
     useEffect(() => {
@@ -42,28 +44,13 @@ const LandingSideBarMobile = () => {
                         })}
                     </div>
 
-                    {/* register and login buttons starts */}
-                    <div className="grid gap-6">
-                        <Link
-                            href={"/register"}
-                            className={cn(
-                                buttonVariants({ variant: "primary" }),
-                                "text-sm font-medium rounded-full py-4 border border-kaiglo_success-base"
-                            )}
-                        >
-                            START SELLING
-                        </Link>
-                        <Link
-                            href={"/login"}
-                            className={cn(
-                                buttonVariants({ variant: "outline" }),
-                                "text-sm font-medium py-4 bg-transparent text-kaiglo_grey-900 border-kaiglo_grey-900 rounded-full"
-                            )}
-                        >
-                            LOGIN
-                        </Link>
-                    </div>
-                    {/* register and login buttons ends */}
+                    {session.status === "authenticated" ? (
+                        <div>
+                            <ProfileIconWithDropDown contentClassName="ml-4" />
+                        </div>
+                    ) : (
+                        <LoginAndRegisterButtons status={session.status} />
+                    )}
                 </div>
             </DialogHeader>
         </DialogContent>

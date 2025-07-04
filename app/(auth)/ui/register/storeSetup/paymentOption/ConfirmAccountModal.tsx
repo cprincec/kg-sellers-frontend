@@ -2,16 +2,24 @@
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ConfirmAccountModalProps } from "@/app/(auth)/lib/interfaces/interface";
+import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { VerticalLineIcon } from "../stepper/stepper-icons";
 import { useModalContext } from "@/app/contexts/modalContext";
 
-const ConfirmAccountModal = ({ bankDetails, getValues, action }: ConfirmAccountModalProps) => {
+const ConfirmAccountModal = ({
+    bankDetails,
+    isSavingPaymentOption,
+    savePaymentOption,
+}: {
+    bankDetails: IPaymentOptionDTO & {
+        bankName: string;
+    };
+    isSavingPaymentOption: boolean;
+    savePaymentOption: (values: IPaymentOptionDTO) => void;
+}) => {
     const { setShowModal } = useModalContext();
 
-    // @ts-expect-error to be changed
-    const { beneficiaryName, bankName, accountNumber } = getValues ? getValues() : bankDetails;
-    // const { beneficiaryName, bankName, accountNumber } = bankDetails;
+    const { beneficiaryName, bankName, accountNumber, bankId } = bankDetails;
 
     return (
         <DialogContent
@@ -38,7 +46,7 @@ const ConfirmAccountModal = ({ bankDetails, getValues, action }: ConfirmAccountM
                 </div>
             </section>
 
-            {/* Navigation Buttons starts*/}
+            {/* Navigation Buttons */}
             <div className="grid grid-flow-col items-center gap-3 pt-4 ">
                 <Button
                     type="button"
@@ -52,15 +60,12 @@ const ConfirmAccountModal = ({ bankDetails, getValues, action }: ConfirmAccountM
                 <Button
                     type="button"
                     className="p-3 rounded-full"
-                    onClick={() => {
-                        setShowModal(false);
-                        action();
-                    }}
+                    onClick={() => savePaymentOption({ bankId, beneficiaryName, accountNumber })}
+                    disabled={isSavingPaymentOption}
                 >
-                    Continue
+                    {isSavingPaymentOption ? "Please wait..." : "Continue"}
                 </Button>
             </div>
-            {/* Navigation Buttons ends*/}
         </DialogContent>
     );
 };

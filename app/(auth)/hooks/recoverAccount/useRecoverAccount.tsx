@@ -1,6 +1,5 @@
 /**
- * Custom hook for Recovering user login credentials.
- * Utilizes React Query for mutation handling.
+ * Custom hook for Recovering user login credentials
  */
 
 "use client";

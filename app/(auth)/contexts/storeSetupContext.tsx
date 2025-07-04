@@ -5,50 +5,68 @@ import {
     IOnboardingData,
     IStoreSetupContext,
     StoreSetupContextProviderProps,
-    navigateTpNextStepProps,
 } from "../lib/interfaces/interface";
-import { useModalContext } from "@/app/contexts/modalContext";
-import useGetOnboardingStep from "../hooks/register/useGetOnboardingStep";
+import useGetStoreInfo from "../hooks/register/storeSetup/useGetStoreInfo";
 import Loader from "@/app/ui/Loader";
+import { paymentOptionDefaultValues, storeDetailsDefaultValues } from "../lib/validations/defaults";
 
 const StoreSetupContext = createContext<IStoreSetupContext | undefined>(undefined);
 
 const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ children }) => {
-    const { setShowModal } = useModalContext();
-
     // Get current onboading step
-    const { onboardingStep, isFetchingOnBoardingStep } = useGetOnboardingStep();
-    const [currentStep, setCurrentStep] = useState<number>(0);
-    const [onboardingData, setOnboardingData] = useState<IOnboardingData | undefined>(undefined);
+    const { storeInfo, isFetchingStoreInfo } = useGetStoreInfo();
 
-    const navigateToPreviousStep = () => {
-        setCurrentStep((prevStep) => prevStep - 1);
-    };
-
-    const navigateToNextStep = async ({ trigger }: navigateTpNextStepProps) => {
-        const stepIsValid = await trigger(); // Validate visible form fields
-
-        if (stepIsValid) {
-            if (currentStep === 2) setShowModal(true); // Confirm payment details
-            else setCurrentStep((prevStep) => prevStep + 1);
-        }
-    };
-
-    const navigateToSpecificStep = (step: number) => {
-        setCurrentStep(step);
-    };
-
-    // const saveStoreSetup = (data: any) => {
-    //     console.log(data);
-    //     router.push("/dashboard");
-    // };
+    const [currentStep, setCurrentStep] = useState<number>(1);
+    const [onboardingData, setOnboardingData] = useState<IOnboardingData | null>(null);
 
     useEffect(() => {
-        if (onboardingStep) setCurrentStep(onboardingStep.onboardingStep);
-    }, [onboardingStep]);
+        if (isFetchingStoreInfo) return;
 
-    // show loader until onboarding step has been fetched
-    if (isFetchingOnBoardingStep) return <Loader />;
+        if (!isFetchingStoreInfo && storeInfo) {
+            setCurrentStep(storeInfo.onboardingStep);
+
+            const {
+                storeName,
+                address,
+                bannerImage,
+                profilePic,
+                location,
+                email,
+                phoneNumber,
+                categories,
+                bankDetails,
+            } = storeInfo;
+            setOnboardingData((prev) => ({
+                ...prev,
+                storeDetails: {
+                    storeName,
+                    storeAddress: address,
+                    storeBanner: bannerImage,
+                    businessLogo: profilePic,
+                    state: location,
+                    email,
+                    phoneNumber,
+                },
+                productsCategories: { category: categories },
+                paymentOption: bankDetails
+                    ? {
+                          bankId: bankDetails.bank.id,
+                          beneficiaryName: bankDetails.account_name,
+                          accountNumber: bankDetails.account_number,
+                      }
+                    : paymentOptionDefaultValues,
+            }));
+        } else {
+            setOnboardingData({
+                storeDetails: storeDetailsDefaultValues,
+                productsCategories: { category: [] },
+                paymentOption: paymentOptionDefaultValues,
+                acceptTerms: { acceptTerms: false },
+            });
+        }
+    }, []);
+
+    if (isFetchingStoreInfo) return <Loader />;
 
     return (
         <StoreSetupContext.Provider
@@ -57,10 +75,6 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
                 setCurrentStep,
                 onboardingData,
                 setOnboardingData,
-                navigateToNextStep,
-                navigateToSpecificStep,
-                navigateToPreviousStep,
-                // saveStoreSetup,
             }}
         >
             {children}

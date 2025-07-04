@@ -30,6 +30,8 @@ export interface IPayoutThresholdFormDTO {
 export interface FormNavButtonsProps {
     cancelButtonText?: string;
     submitButtonText?: string;
+    cancelButtonClassName?: string;
+    submitButtonClassName?: string;
     submitButtonType?: "button" | "submit" | "reset";
     showSubmitButton?: boolean;
     cancelFunc: () => void;

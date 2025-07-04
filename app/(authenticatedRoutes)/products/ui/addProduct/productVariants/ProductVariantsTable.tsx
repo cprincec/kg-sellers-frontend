@@ -72,6 +72,8 @@ const ProductVariantsTable = ({
         }
     }, [actionType, variantId]);
 
+    if (!productDetails || !productVariants.length) return null;
+
     return (
         <div className={cn("grid gap-4 overflow-hidden", className)}>
             {showTitle && <h3 className="text-base font-medium">{title || "Added Products"}</h3>}
@@ -107,7 +109,7 @@ const ProductVariantsTable = ({
                                 <div className="flex gap-3 items-center">
                                     <Image
                                         src={URL.createObjectURL(product.images[0])}
-                                        alt={productDetails?.productName ?? ""}
+                                        alt={productDetails?.productName}
                                         width={48}
                                         height={48}
                                         className="w-12 h-12"

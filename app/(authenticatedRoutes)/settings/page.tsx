@@ -6,6 +6,7 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import SettingsContentMobile from "./ui/SettingsContentMobile";
 import { useEffect, useState } from "react";
 import SettingsContentDesktop from "./ui/SettingsContentDesktop";
+import { StoreSetupContextProvider } from "@/app/(auth)/contexts/storeSetupContext";
 
 const Settings = () => {
     const { setSearchParams } = useUpdateSearchParams();
@@ -22,12 +23,20 @@ const Settings = () => {
     }, [searchParams]);
 
     return (
-        <div className="lg:min-h-[calc(100vh-82px)]">
-            <div className="grid gap-2 md:gap-1">
-                <SettingsContentMobile activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
-                <SettingsContentDesktop activeTab={activeTab} handleChangeActiveTab={handleChangeActiveTab} />
+        <StoreSetupContextProvider>
+            <div className="lg:min-h-[calc(100vh-82px)]">
+                <div className="grid gap-2 md:gap-1">
+                    <SettingsContentMobile
+                        activeTab={activeTab}
+                        handleChangeActiveTab={handleChangeActiveTab}
+                    />
+                    <SettingsContentDesktop
+                        activeTab={activeTab}
+                        handleChangeActiveTab={handleChangeActiveTab}
+                    />
+                </div>
             </div>
-        </div>
+        </StoreSetupContextProvider>
     );
 };
 

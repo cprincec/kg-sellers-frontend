@@ -3,19 +3,17 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { ArrowBackLink } from "../buttons";
-import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-import ModifiedButton from "@/components/shared/ModifiedButton";
 import { ROUTES } from "@/lib/consts";
-import { IAccountRecoveryDTO } from "../../lib/interfaces/interface";
+import { IAccountRecoveryDTO, IOtpDTO } from "../../lib/interfaces/interface";
 import useRecoverUserAccount from "../../hooks/recoverAccount/useRecoverAccount";
 import useValidateAccountRecoveryOtp from "../../hooks/recoverAccount/useValidateAccountRecoveryOtp";
 import { useOtpContext } from "../../contexts/otpContext";
-import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
-import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { useSearchParams } from "next/navigation";
+import AccountRecoveryFormFields from "./AccountRecoveryFormFields";
+import { Button } from "@/components/ui/button";
+import { accountRecoveryDefaultValues } from "../../lib/validations/defaults";
 
 const AccountRecoveryForm = () => {
-    const { setSearchParams } = useUpdateSearchParams();
     const searchParams = useSearchParams();
     const [recoveryChannel, setRecoveryChannel] = useState<string>(
         searchParams.get("recovery-channel") || "email"
@@ -28,7 +26,6 @@ const AccountRecoveryForm = () => {
         setResendOTPMutationFuncIsPending,
     } = useOtpContext();
 
-    // Use the verify OTP hook to handle OTP verification
     const { isValidatingRecoveryOtp, validateRecoveryOtp } = useValidateAccountRecoveryOtp();
 
     const {
@@ -37,10 +34,7 @@ const AccountRecoveryForm = () => {
         setError,
         formState: { errors },
     } = useForm<IAccountRecoveryDTO>({
-        defaultValues: {
-            email: "",
-            phone: "",
-        },
+        defaultValues: accountRecoveryDefaultValues,
     });
 
     const recoverAccount = (values: IAccountRecoveryDTO) => {
@@ -67,83 +61,37 @@ const AccountRecoveryForm = () => {
 
         // update otp context with method to validate the received otp
         // and function to trigger resending of otp
-        setOtpFormAction(() => (payload: IOtpFormDTO) => validateRecoveryOtp(payload));
+        setOtpFormAction(() => (payload: IOtpDTO) => validateRecoveryOtp(payload));
         setOtpFormActionIsPending(isValidatingRecoveryOtp);
         setResendOTPMutationFunc(() => () => recoverUserAccount(values));
         setResendOTPMutationFuncIsPending(isRecoveringUserAccount);
     };
 
     return (
-        <>
-            <div className="pt-6 transition-all duration-300 ease-in-out">
-                <form onSubmit={handleSubmit(recoverAccount)}>
-                    <div className="flex flex-col gap-10">
-                        <div className="grid grid-cols-1 gap-3">
-                            {/* Email */}
-                            {recoveryChannel === "email" && (
-                                <ControlledModifiedInput
-                                    name="email"
-                                    control={control}
-                                    placeholder="Email"
-                                    type="email"
-                                    error={errors.email}
-                                    rules={{ required: true }}
-                                    isRequired={true}
-                                />
-                            )}
+        <div className="pt-6 transition-all duration-300 ease-in-out">
+            <form onSubmit={handleSubmit(recoverAccount)}>
+                <div className="flex flex-col gap-10">
+                    <AccountRecoveryFormFields
+                        recoveryChannel={recoveryChannel}
+                        setRecoveryChannel={setRecoveryChannel}
+                        control={control}
+                        errors={errors}
+                    />
 
-                            {/* Phone */}
-                            {recoveryChannel === "phone" && (
-                                <div className="relative">
-                                    <ControlledModifiedInput
-                                        name="phone"
-                                        control={control}
-                                        rules={{ required: true }}
-                                        placeholder="Phone Number"
-                                        type="tel"
-                                        error={errors.phone}
-                                        isRequired={true}
-                                    />
-                                </div>
-                            )}
+                    <div className="flex flex-col gap-5">
+                        <Button
+                            type="submit"
+                            className="w-full h-12 p-3 rounded-full font-medium"
+                            disabled={isRecoveringUserAccount}
+                        >
+                            {isRecoveringUserAccount ? "Please wait..." : "Send OTP"}
+                        </Button>
 
-                            {/* Recovery method starts */}
-                            <div className="text-right">
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        const channel = recoveryChannel === "email" ? "phone" : "email";
-                                        setRecoveryChannel(channel);
-                                        setSearchParams([{ "recovery-channel": channel }]);
-                                    }}
-                                    className="text-kaiglo_brand-base font-medium"
-                                >
-                                    {recoveryChannel === "email"
-                                        ? "Use phone number instead"
-                                        : "Use email instead"}
-                                </button>
-                            </div>
-                            {/* Recovery method ends */}
-                        </div>
-
-                        <div className="flex flex-col gap-5">
-                            <ModifiedButton
-                                type="submit"
-                                value={isRecoveringUserAccount ? "Please wait..." : "Send OTP"}
-                                className="w-full p-3 rounded-full font-medium"
-                                disabled={isRecoveringUserAccount}
-                            />
-
-                            <ArrowBackLink
-                                href={ROUTES.login}
-                                text={"Back to login"}
-                                className="mx-auto mt-4"
-                            />
-                        </div>
+                        <ArrowBackLink href={ROUTES.login} text={"Back to login"} className="mx-auto mt-4" />
                     </div>
-                </form>
-            </div>
-        </>
+                </div>
+            </form>
+        </div>
     );
 };
 

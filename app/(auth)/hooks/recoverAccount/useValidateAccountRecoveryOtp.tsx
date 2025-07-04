@@ -1,16 +1,14 @@
 /**
  * Custom hook for validating OTP for recovering user credentials.
- * Utilizes React Query for mutation handling.
  */
 
 "use client";
 
 import { postRequest } from "@/lib/utils/apiCaller";
 import { useMutation } from "@tanstack/react-query";
-import { IAccountRecoveryOtpValidationDTO } from "../../lib/interfaces/interface";
+import { IAccountRecoveryOtpValidationDTO, IOtpDTO } from "../../lib/interfaces/interface";
 import { handleError, showErrorToast, showSuccessToast } from "@/app/lib/utils/utils";
 import { IRegisterUserResponse } from "../../lib/interfaces/response.interface";
-import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import { useRouter } from "next/navigation";
 import { useModalContext } from "@/app/contexts/modalContext";
 
@@ -19,7 +17,7 @@ const useValidateAccountRecoveryOtp = () => {
     const { setShowModal, setModalContent } = useModalContext();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: IOtpFormDTO) => {
+        mutationFn: (payload: IOtpDTO) => {
             if (!payload || (!payload.email && !payload.phone)) {
                 throw new Error("Missing email or phone in payload");
             }
@@ -33,7 +31,6 @@ const useValidateAccountRecoveryOtp = () => {
                 },
             });
         },
-
         onSuccess: (data, variables) => {
             const { email, phone } = variables;
             if (!data || !data.response) {

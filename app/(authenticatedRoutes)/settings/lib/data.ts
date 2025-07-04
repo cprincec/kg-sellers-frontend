@@ -1,7 +1,7 @@
 import StoreDetailsForm from "../../../(auth)/ui/register/storeSetup/storeDetails2/StoreDetailsForm";
-import { PaymentOptionForm } from "../../../(auth)/ui/register/storeSetup/paymentOption/PaymentOptionForm";
 import StoreVacationForm from "../ui/StoreVacation";
 import TermsOfContractForm from "../../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
+import PaymentOptionFormWrapper from "@/app/(auth)/ui/register/storeSetup/paymentOption/PaymentOptionFormWrapper";
 
 export const tabs = [
     { label: "Store information", value: "store-information" },
@@ -21,8 +21,8 @@ export const settingsMobileContents = [
     },
     {
         id: "payment-information",
-        component: PaymentOptionForm,
-        props: { showNote: false },
+        component: PaymentOptionFormWrapper,
+        props: { showNote: false, variant: "settings" },
     },
     {
         id: "terms-of-contract",

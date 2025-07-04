@@ -42,8 +42,10 @@ export interface ModifiedToastProps {
 export interface ModifiedInputProps {
     id: string;
     type?: string;
+    inputMode?: "url" | "search" | "text" | "email" | "none" | "tel" | "numeric" | "decimal" | undefined;
     placeholder?: string;
     value: string;
+    defaultValue?: string;
     onChange?: (value: string) => void;
     className?: string;
     onValueChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

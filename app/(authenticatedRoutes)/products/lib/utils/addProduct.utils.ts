@@ -8,6 +8,17 @@ export const convertToBase64 = (file: File): Promise<string> => {
     });
 };
 
+// Convert image from 'url'
+// (Example: https://kg-s3-assets-stage.s3.amazonaws.com/914e-653c81dcd4b0.jpeg")
+// to Base64 string
+export const convertUrlToBase64 = async (url: string): Promise<string> => {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("There was a problem fetching image url");
+
+    const blob = await response.blob();
+    return convertToBase64(blob as File);
+};
+
 export const validateImageDimensions = (
     file: File,
     maxWidth: number,

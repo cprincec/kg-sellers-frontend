@@ -1,8 +1,3 @@
-/**
- * Custom hook for registering a user.
- * Utilizes React Query for mutation handling.
- */
-
 "use client";
 
 import { postRequest } from "@/lib/utils/apiCaller";
@@ -12,6 +7,10 @@ import { IRegisterUserResponse } from "../../lib/interfaces/response.interface";
 import { handleError, showErrorToast, showSuccessToast } from "@/app/lib/utils/utils";
 import { useModalContext } from "@/app/contexts/modalContext";
 import OtpModal from "../../ui/otp/OtpModal";
+
+/**
+ * Custom hook for requesting otp for new user during registration.
+ */
 
 const useRegisterUser = () => {
     const { setModalContent, setShowModal } = useModalContext();

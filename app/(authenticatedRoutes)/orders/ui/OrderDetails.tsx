@@ -1,13 +1,13 @@
 "use client";
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { OrderDetailProps } from "@/app/(auth)/lib/interfaces/interface";
 import { OrderStatus } from "@/components/ui/order-status";
 import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
 import { getOrderStatusType } from "../lib/utils/order.utils";
 import OrderDetailsBody from "./OrderDetailsBody";
+import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 
-const OrderDetails = ({ order }: OrderDetailProps) => {
+const OrderDetails = ({ order }: { order: IOrderDTO }) => {
     return (
         <DialogContent
             className="w-[90%] md:w-[343px] m-auto outline-none px-4 py-4 rounded-2xl gap-0"

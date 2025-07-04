@@ -11,7 +11,6 @@ import NavLinks from "./NavLinks";
 import { useModalContext } from "@/app/contexts/modalContext";
 
 const LandingPageHeader = () => {
-    // const [showSideBar, setShowSideBar] = useState<boolean>(false);
     const { setModalContent, setShowModal } = useModalContext();
     const pathname = usePathname();
 

@@ -1,10 +1,30 @@
+"use client";
+
 import SideBarDesktop from "@/app/(authenticatedRoutes)/ui/navigation/SideBarDesktop";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import Header from "./ui/navigation/Header";
 import Loader from "../ui/Loader";
 import { AddProductContextProvider } from "./products/contexts/addProductContext";
+import useGetStoreInfo from "../(auth)/hooks/register/storeSetup/useGetStoreInfo";
+import { MAX_ONBOARDING_STEP } from "@/lib/consts";
+import { useRouter } from "next/navigation";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+    const { isFetchingStoreInfo, storeInfo } = useGetStoreInfo();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (
+            !isFetchingStoreInfo &&
+            (storeInfo === null || (storeInfo && storeInfo?.onboardingStep < MAX_ONBOARDING_STEP))
+        ) {
+            router.replace("/register/store-setup");
+        }
+    }, [isFetchingStoreInfo, storeInfo, router]);
+
+    if (isFetchingStoreInfo) return <Loader />;
+    if (storeInfo === undefined) return null;
+
     return (
         <Suspense fallback={<Loader />}>
             <AddProductContextProvider>
