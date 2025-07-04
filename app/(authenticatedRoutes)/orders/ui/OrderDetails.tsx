@@ -5,7 +5,7 @@ import { OrderStatus } from "@/components/ui/order-status";
 import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
 import { getOrderStatusType } from "../lib/utils/order.utils";
 import OrderDetailsBody from "./OrderDetailsBody";
-import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
+// import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 
 const OrderDetails = ({ order }) => {
     return (
