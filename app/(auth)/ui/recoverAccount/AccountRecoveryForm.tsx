@@ -6,11 +6,10 @@ import { ArrowBackLink } from "../buttons";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import ModifiedButton from "@/components/shared/ModifiedButton";
 import { ROUTES } from "@/lib/consts";
-import { IAccountRecoveryDTO } from "../../lib/interfaces/interface";
+import { IAccountRecoveryDTO, IOtpDTO } from "../../lib/interfaces/interface";
 import useRecoverUserAccount from "../../hooks/recoverAccount/useRecoverAccount";
 import useValidateAccountRecoveryOtp from "../../hooks/recoverAccount/useValidateAccountRecoveryOtp";
 import { useOtpContext } from "../../contexts/otpContext";
-import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { useSearchParams } from "next/navigation";
 
@@ -67,7 +66,7 @@ const AccountRecoveryForm = () => {
 
         // update otp context with method to validate the received otp
         // and function to trigger resending of otp
-        setOtpFormAction(() => (payload: IOtpFormDTO) => validateRecoveryOtp(payload));
+        setOtpFormAction(() => (payload: IOtpDTO) => validateRecoveryOtp(payload));
         setOtpFormActionIsPending(isValidatingRecoveryOtp);
         setResendOTPMutationFunc(() => () => recoverUserAccount(values));
         setResendOTPMutationFuncIsPending(isRecoveringUserAccount);

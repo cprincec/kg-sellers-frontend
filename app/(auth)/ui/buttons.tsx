@@ -1,18 +1,40 @@
 "use client";
 
 import { IconArrowBack, IconContinueWithGoogle, IconGoogle } from "@/public/icons/icons";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
 import { ModifiedButtonProps } from "@/interfaces/elements.interface";
 import { useModalContext } from "@/app/contexts/modalContext";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
+import { cn } from "@/lib/utils/utils";
+import { VariantProps } from "class-variance-authority";
+import { useRouter, useSearchParams } from "next/navigation";
+import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 
 export const GoogleButton = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const param = searchParams.get("callbackUrl");
+    const callbackUrl = param ? param : "/dashboard";
+
     return (
         <Button
-            onClick={() => signIn("google")}
+            onClick={async () => {
+                if (!navigator.onLine) {
+                    showErrorToast({ title: "You are offline.", description: "Please connect to log in." });
+                    return;
+                }
+
+                const result = await signIn("google", { callbackUrl, redirect: false });
+
+                if (result?.error) {
+                    handleError(result.error);
+                } else {
+                    if (result?.url) router.replace(result?.url);
+                }
+            }}
             type="button"
             id="google-button"
             variant={"outline"}
@@ -26,6 +48,28 @@ export const GoogleButton = () => {
                 width={159}
                 height={20}
             />
+        </Button>
+    );
+};
+
+export const LogOutButton = ({
+    children,
+    className,
+    variant,
+}: {
+    children: React.ReactNode;
+    className: string;
+    variant?: VariantProps<typeof buttonVariants>["variant"];
+}) => {
+    return (
+        <Button
+            type="button"
+            aria-label="log-out"
+            variant={variant || "ghost"}
+            className={cn(className)}
+            onClick={() => signOut({ callbackUrl: "/" })}
+        >
+            {children}
         </Button>
     );
 };

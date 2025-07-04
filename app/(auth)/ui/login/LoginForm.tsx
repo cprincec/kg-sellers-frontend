@@ -3,16 +3,15 @@
 import { LOGIN_TEXTS, ROUTES } from "@/lib/consts";
 import { useForm } from "react-hook-form";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
-import { signInDefaultValues } from "@/lib/validations/defaults";
 import { signInResolver } from "@/lib/validations/resolvers";
 import { useSearchParams } from "next/navigation";
 import { useVerifyOtp } from "../../hooks/useVerifyOtp";
 import { useOtpContext } from "../../contexts/otpContext";
-import { ILoginUserDTO } from "../../lib/interfaces/interface";
+import { ILoginUserDTO, IOtpDTO } from "../../lib/interfaces/interface";
 import useLoginUser from "../../hooks/login/useLoginUser";
+import { signInDefaultValues } from "../../lib/validations/defaults";
 
 const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -46,13 +45,13 @@ const LoginForm = () => {
     } = useOtpContext();
 
     const { loginUser, isLoggingUser } = useLoginUser();
-    const { verifyOtp, verifyingOtp } = useVerifyOtp("/dashboard");
+    const { verifyOtp, verifyingOtp } = useVerifyOtp();
 
     const login = (values: ILoginUserDTO) => {
         loginUser(values);
 
         // update otp context with functions to verify received otp and login user in
-        setOtpFormAction(() => (payload: IOtpFormDTO) => verifyOtp(payload));
+        setOtpFormAction(() => (payload: IOtpDTO) => verifyOtp(payload));
         setOtpFormActionIsPending(verifyingOtp);
         setResendOTPMutationFunc(() => () => loginUser(values));
         setResendOTPMutationFuncIsPending(isLoggingUser);

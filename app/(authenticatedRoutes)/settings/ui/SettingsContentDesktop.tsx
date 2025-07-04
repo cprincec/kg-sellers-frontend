@@ -1,11 +1,11 @@
 "use client";
 
 import StoreDetailsForm from "../../../(auth)/ui/register/storeSetup/storeDetails2/StoreDetailsForm";
-import { PaymentOptionForm } from "../../../(auth)/ui/register/storeSetup/paymentOption/PaymentOptionForm";
 import StoreVacationForm from "../ui/StoreVacation";
 import TermsOfContractForm from "../../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tabs } from "../lib/data";
+import PaymentOptionFormWrapper from "@/app/(auth)/ui/register/storeSetup/paymentOption/PaymentOptionFormWrapper";
 
 const SettingsContentDesktop = ({
     activeTab,
@@ -46,7 +46,7 @@ const SettingsContentDesktop = ({
                     <StoreVacationForm />
                 </TabsContent>
                 <TabsContent value={tabs[2].value} className="overflow-auto">
-                    <PaymentOptionForm showNote={false} />
+                    <PaymentOptionFormWrapper variant="settings" showNote={false} />
                 </TabsContent>
                 <TabsContent value={tabs[3].value} className="overflow-auto">
                     <TermsOfContractForm showMainTitle={false} />

@@ -2,16 +2,16 @@
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ConfirmAccountModalProps } from "@/app/(auth)/lib/interfaces/interface";
+import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { VerticalLineIcon } from "../stepper/stepper-icons";
 import { useModalContext } from "@/app/contexts/modalContext";
+import useSavePaymentOptions from "@/app/(auth)/hooks/register/storeSetup/useSavePaymentOptions";
 
-const ConfirmAccountModal = ({ bankDetails, getValues, action }: ConfirmAccountModalProps) => {
+const ConfirmAccountModal = ({ bankDetails }: { bankDetails: IPaymentOptionDTO & { bankName: string } }) => {
     const { setShowModal } = useModalContext();
+    const { isSavingPaymentOptions, savePaymentOptions } = useSavePaymentOptions();
 
-    // @ts-expect-error to be changed
-    const { beneficiaryName, bankName, accountNumber } = getValues ? getValues() : bankDetails;
-    // const { beneficiaryName, bankName, accountNumber } = bankDetails;
+    const { beneficiaryName, bankName, accountNumber, bankId } = bankDetails;
 
     return (
         <DialogContent
@@ -52,10 +52,8 @@ const ConfirmAccountModal = ({ bankDetails, getValues, action }: ConfirmAccountM
                 <Button
                     type="button"
                     className="p-3 rounded-full"
-                    onClick={() => {
-                        setShowModal(false);
-                        action();
-                    }}
+                    onClick={() => savePaymentOptions({ bankId, beneficiaryName, accountNumber })}
+                    disabled={isSavingPaymentOptions}
                 >
                     Continue
                 </Button>

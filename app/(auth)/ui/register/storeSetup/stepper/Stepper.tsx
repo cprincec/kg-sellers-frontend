@@ -10,9 +10,9 @@ const Stepper = ({ currentStep }: { currentStep: number }) => {
         <div className="flex  md:grid justify-center lg:justify-start items-center gap-2 md:gap-0">
             {steps.map((step, index) => {
                 const { icon: Icon, label, description } = step;
-                const isCurrent = index === currentStep;
-                const isCompleted = index < currentStep;
-                const isUpcoming = index > currentStep;
+                const isCurrent = index + 1 === currentStep;
+                const isCompleted = index + 1 < currentStep;
+                const isUpcoming = index + 1 > currentStep;
 
                 return (
                     <Fragment key={label}>

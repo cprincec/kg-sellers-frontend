@@ -1,11 +1,14 @@
-import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import { IUserResponse } from "../../../lib/interfaces/response.interface";
+import { ISocialAuthResponse, IUserResponse } from "../../../lib/interfaces/response.interface";
 import { postRequest } from "@/lib/utils/apiCaller";
+import { IOtpDTO, ISocialAuthDTO } from "@/app/(auth)/lib/interfaces/interface";
 
 const handler = NextAuth({
+    pages: {
+        signIn: "/login",
+    },
     providers: [
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -18,12 +21,11 @@ const handler = NextAuth({
                 phone: { label: "Phone", type: "text" },
                 otp: { label: "OTP", type: "text" },
             },
-            // @ts-expect-error - to be changed
             async authorize(credentials) {
                 if (!credentials) return null;
 
                 try {
-                    const response = await postRequest<IOtpFormDTO, IUserResponse>({
+                    const response = await postRequest<IOtpDTO, IUserResponse>({
                         url: "/auth/login",
                         payload: {
                             email: credentials.email,
@@ -33,8 +35,9 @@ const handler = NextAuth({
                     });
 
                     if (response?.token && response?.user) {
-                        return response;
+                        return { id: response.user.id, customData: { ...response } };
                     }
+
                     // Return null if user data could not be retrieved
                     return null;
                 } catch (error) {
@@ -45,22 +48,58 @@ const handler = NextAuth({
         }),
     ],
     callbacks: {
-        signIn(params) {
-            console.log("signing in", params);
+        async signIn({ user, account }) {
+            if (!user) return false;
+
+            if (account?.provider === "google") {
+                if (!user.name || !user.email || !user.image) return false;
+
+                try {
+                    const response = await postRequest<ISocialAuthDTO, ISocialAuthResponse>({
+                        url: "/auth/social-auth",
+                        payload: {
+                            displayName: user.name,
+                            email: user.email,
+                            pictureUrl: user.image,
+                            provider: account.provider,
+                        },
+                    });
+
+                    if (response === null) return false;
+
+                    if (response?.response) {
+                        if (typeof response.response === "string") {
+                            return `/login?errorMessage=${encodeURIComponent(response.message)}`;
+                        }
+
+                        if (response.message === "successful") {
+                            user.customData = { ...response.response };
+                            return true;
+                        }
+                    }
+
+                    return false;
+                } catch (error) {
+                    console.error("Authentication failed:", error);
+                    return true;
+                }
+            }
+
             return true;
         },
-        async jwt({ token, user }) {
-            if (user) {
-                // @ts-expect-error - to be changed
-                token.accessToken = user.token;
-                // @ts-expect-error - to be changed
-                token.user = user.user;
+        jwt({ token, user }) {
+            // Ensure there is user data and access token from backend
+            if (user && user.customData) {
+                token.accessToken = user.customData?.token;
+                token.user = user.customData?.user;
             }
+
             return token;
         },
-        async session({ session, token }) {
+        session({ session, token }) {
             session.accessToken = token.accessToken;
             session.user = token.user;
+
             return session;
         },
     },

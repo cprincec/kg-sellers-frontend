@@ -85,7 +85,7 @@ const StoreDetailsFormFields = ({
                 {/* Business logo */}
                 <div>
                     <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
-                        Business Logo<span className="text-kaiglo_critical-error font-medium">*</span>
+                        Business Logo<span className="text-kaiglo_critical-error font-medium"> *</span>
                     </p>
                     <ImageUploadInputField
                         name="businessLogo"

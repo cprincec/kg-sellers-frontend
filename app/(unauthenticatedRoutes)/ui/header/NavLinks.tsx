@@ -1,9 +1,12 @@
+import ProfileIconWithDropDown from "@/app/(authenticatedRoutes)/ui/navigation/ProfileIconWithDropDown";
 import { homeNavLinks } from "@/app/lib/data";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils/utils";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { LoginAndRegisterButtons } from "./buttons";
 
 const NavLinks = () => {
+    const session = useSession();
+
     return (
         <div className="hidden md:flex gap-4 lg:gap-6 justify-end items-center">
             <div className="flex gap-4 lg:gap-4">
@@ -21,20 +24,11 @@ const NavLinks = () => {
                 })}
             </div>
 
-            <div>
-                <Link
-                    href={"/login"}
-                    className={cn(
-                        buttonVariants({ variant: "ghost" }),
-                        "bg-transparent text-kaiglo_success-base text-lg"
-                    )}
-                >
-                    Login
-                </Link>
-                <Link href={"/register"} className={cn(buttonVariants({ variant: "primary" }), "text-lg")}>
-                    Start Selling
-                </Link>
-            </div>
+            {session.status === "authenticated" ? (
+                <ProfileIconWithDropDown />
+            ) : (
+                <LoginAndRegisterButtons status={session.status} />
+            )}
         </div>
     );
 };

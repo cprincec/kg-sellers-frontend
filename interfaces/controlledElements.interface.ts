@@ -16,6 +16,7 @@ export interface ControlledModifiedInputProps<TFieldValues extends FieldValues> 
     labelDescription?: React.ReactNode;
     labelContainerClassName?: string;
     type?: string;
+    inputMode?: "url" | "search" | "text" | "email" | "none" | "tel" | "numeric" | "decimal" | undefined;
     error?: FieldError;
     rules?: Rule;
     inputRef?: React.ForwardedRef<HTMLInputElement>;

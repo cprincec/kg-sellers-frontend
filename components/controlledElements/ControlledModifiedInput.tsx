@@ -10,6 +10,7 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
     labelContainerClassName,
     placeholder,
     type,
+    inputMode,
     control,
     rules,
     error,
@@ -31,6 +32,7 @@ const ControlledModifiedInput = <TFormValue extends FieldValues>({
                         <ModifiedInput
                             id={name}
                             type={type}
+                            inputMode={inputMode}
                             value={field.value}
                             onChange={field.onChange}
                             isRequired={isRequired}

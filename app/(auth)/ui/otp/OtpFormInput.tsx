@@ -27,8 +27,6 @@ const OtpFormInput = ({ email, phone, actionText = "Continue" }: OtpFormInputPro
         },
     });
 
-    // const { verifyOtp, verifyingOtp } = useVerifyOtp(continueTo);
-
     function onSubmit(data: z.infer<typeof FormSchema>) {
         const payload = { ...data, email: email, phone: phone };
 
@@ -36,7 +34,7 @@ const OtpFormInput = ({ email, phone, actionText = "Continue" }: OtpFormInputPro
         if (otpFormAction) {
             otpFormAction(payload);
         }
-        // verifyOtp({ ...data, email: email, phone: phone });
+
         form.reset();
     }
 

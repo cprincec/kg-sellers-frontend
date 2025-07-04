@@ -48,3 +48,11 @@ export const handleError = (error: unknown, logMessage?: string, showToastCloseB
     showErrorToast({ title: message, showCloseButton: showToastCloseButton });
     console.error(logMessage, message);
 };
+
+// Capitalize the first letters of a string
+export const capitalizeFirstLetters = (string: string): string => {
+    return string
+        .split(" ")
+        .map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
+        .join(" ");
+};

@@ -1,11 +1,13 @@
 "use client";
 
 import { Resolver, useForm } from "react-hook-form";
-import { signUpDefaultValues } from "@/lib/validations/defaults";
 import { signUpResolver } from "@/lib/validations/resolvers";
 import RegisterationFormFields from "./RegistrationFormFields";
-import { IRegisterUserDTO } from "@/app/(auth)/lib/interfaces/interface";
+import { IOtpDTO, IRegisterUserDTO } from "@/app/(auth)/lib/interfaces/interface";
 import useRegisterUser from "@/app/(auth)/hooks/register/useRegisterUser";
+import { useOtpContext } from "@/app/(auth)/contexts/otpContext";
+import { useVerifyOtp } from "@/app/(auth)/hooks/useVerifyOtp";
+import { signUpDefaultValues } from "@/app/(auth)/lib/validations/defaults";
 
 const RegisterationForm = () => {
     const {
@@ -17,11 +19,27 @@ const RegisterationForm = () => {
         resolver: signUpResolver as Resolver<IRegisterUserDTO>,
     });
 
+    // get otp context methods for update
+    const {
+        setResendOTPMutationFunc,
+        setOtpFormAction,
+        setOtpFormActionIsPending,
+        setResendOTPMutationFuncIsPending,
+    } = useOtpContext();
+
     const { isRegisteringUser, registerUser } = useRegisterUser();
+    const { verifyOtp, verifyingOtp } = useVerifyOtp("/register/store-setup");
 
     const onSubmit = (values: IRegisterUserDTO) => {
-        console.log("RegisterationForm onSubmit", values);
         registerUser(values);
+
+        // for resending otp
+        setResendOTPMutationFunc(() => () => registerUser(values));
+        setResendOTPMutationFuncIsPending(isRegisteringUser);
+
+        // handle user login after providing otp
+        setOtpFormAction(() => (payload: IOtpDTO) => verifyOtp(payload));
+        setOtpFormActionIsPending(verifyingOtp);
     };
 
     return (

@@ -1,13 +1,18 @@
 import { JwtPayload } from "jwt-decode";
-
-export interface IGetOnboardingStepResponse {
-    message: string | null;
-    response: IOnboardingStepResponse;
+import { IBank, IStoreInfo } from "./interface";
+export interface IGetAllBanksResponse {
+    message: string;
+    response: IBank[];
 }
 
-export interface IOnboardingStepResponse {
-    onboardingStep: number;
-    storeId: string;
+export interface IGetStoreInfoResponse {
+    message: string;
+    response: IStoreInfo;
+}
+
+export interface ISocialAuthResponse {
+    response: IUserResponse | string;
+    message: string;
 }
 
 export interface IRegisterUserResponse {
@@ -25,32 +30,33 @@ export interface UserResponse {
     address: Address[];
     boughtItems: BoughtItem[];
     cart: CartItem[];
-    cartItemSize: number;
+    cartItemSize?: number;
     createdDate: string;
-    currentOtp: string;
-    day: number;
-    dob: string;
+    currentOtp?: string;
+    day?: number;
+    dob?: string;
     email: string;
     emailCountDown: number;
-    firebaseToken: string;
+    firebaseToken?: string;
     firstName: string;
     fullName: string;
-    gender: "FEMALE" | "MALE" | "OTHER";
+    gender?: "FEMALE" | "MALE" | "OTHER";
     id: string;
     lastLoggedIn: string;
     lastName: string;
-    month: number;
+    month?: number;
     newUser: boolean;
-    phone: string;
+    phone?: string;
     pictureUrl: string;
     platform: "MOBILE" | "WEB" | "OTHER";
     provider: string;
     receivedDailyReward: boolean;
+    role?: string;
     roles: string[];
     updatedDate: string;
     week: number;
     wishListItems: WishListItem[];
-    year: number;
+    year?: number;
 }
 
 export interface WishListItem {

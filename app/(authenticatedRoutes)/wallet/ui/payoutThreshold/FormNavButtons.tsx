@@ -8,6 +8,8 @@ const FormNavButtons = ({
     submitButtonFunc,
     cancelFunc,
     className,
+    cancelButtonClassName,
+    submitButtonClassName,
     showSubmitButton = true,
     cancelButtonText = "Cancel",
     submitButtonText = "Proceed",
@@ -19,7 +21,10 @@ const FormNavButtons = ({
             <Button
                 type="button"
                 variant={"outline"}
-                className="px-8 py-3 rounded-full text-kaiglo_grey-700 border-kaiglo_grey-disabled"
+                className={cn(
+                    "px-8 py-3 rounded-full text-kaiglo_grey-700 border-kaiglo_grey-disabled",
+                    cancelButtonClassName
+                )}
                 onClick={() => cancelFunc()}
             >
                 {cancelButtonText}
@@ -28,11 +33,11 @@ const FormNavButtons = ({
             {showSubmitButton && (
                 <Button
                     type={submitButtonType}
-                    className="px-8 py-3 rounded-full"
+                    className={cn("px-8 py-3 rounded-full", submitButtonClassName)}
                     onClick={() => submitButtonFunc && submitButtonFunc()}
                     disabled={disabled ?? false}
                 >
-                    {submitButtonText}
+                    {disabled ? "Please wait..." : submitButtonText}
                 </Button>
             )}
         </div>

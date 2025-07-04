@@ -2,11 +2,20 @@ import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { VariantProps } from "class-variance-authority";
 import { buttonVariants } from "@/components/ui/button";
-import { IOtpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
+import { IUserResponse } from "./response.interface";
 
 // ============================================================================
 // Authentication & Welcome Screen Interfaces
 // ============================================================================
+
+/***************** GOOGLE LOGIN ***************/
+export interface ISocialAuthDTO {
+    displayName: string;
+    email: string;
+    pictureUrl: string;
+    platform?: string;
+    provider: string;
+}
 
 /*********** SIGN UP FORM DTO ***********/
 export interface IRegisterUserDTO {
@@ -47,6 +56,12 @@ export interface LogoWithWelcomeTextProps {
 // OTP Related Interfaces
 // ============================================================================
 
+export interface IOtpDTO {
+    email: string;
+    phone: string;
+    otp: string;
+}
+
 export interface OtpFormInputProps {
     email: string;
     phone: string;
@@ -66,8 +81,8 @@ export interface IOtpContext {
     showOtpModal: boolean;
     setShowOtpModal: Dispatch<SetStateAction<boolean>>;
     resetOtpModal: () => void;
-    otpFormAction: ((payload: IOtpFormDTO) => void) | null;
-    setOtpFormAction: Dispatch<SetStateAction<((payload: IOtpFormDTO) => void) | null>>;
+    otpFormAction: ((payload: IOtpDTO) => void) | null;
+    setOtpFormAction: Dispatch<SetStateAction<((payload: IOtpDTO) => void) | null>>;
     otpFormActionIsPending: boolean;
     setOtpFormActionIsPending: Dispatch<SetStateAction<boolean>>;
     resendOTPMutationFunc: (() => void) | null;
@@ -89,6 +104,81 @@ export interface OtpTimerProps {
 // Store Setup Related Interfaces
 // ============================================================================
 
+export interface IStoreInfo {
+    id: string;
+    storeName: string;
+    location: string;
+    phoneNumber: string;
+    storeSummary: IStoreSummary;
+    storeRating: IStoreRating;
+    profilePic: string;
+    bannerImage: string;
+    owner: IUserResponse;
+    createdDate: string;
+    updatedDate: string;
+    storeStatus: IStoreStatus;
+    onboardingStep: number;
+    email: string;
+    address: string;
+
+    // Optional fields
+    storeUrl?: string;
+    closestMarket?: any;
+    category?: string;
+    description?: string;
+    visit?: number;
+    pendingOrder?: number;
+    stock?: number;
+    sales?: number;
+    bestSellingProducts?: any;
+    recentBuyers?: any;
+    coupons?: any;
+    isFollowingStore?: boolean;
+    bankDetails?: any;
+    storeIdentity?: any;
+    newPhoneNumber?: string;
+    isDeleted?: boolean;
+    categories?: any;
+    termsAndCondition?: string;
+}
+
+export interface IStoreSummary {
+    successfulSales: number;
+    productCount: number;
+    followers: number;
+}
+
+export interface IStoreRatingBase {
+    count: number;
+    sum: number;
+}
+
+export interface IStoreQualityRating extends IStoreRatingBase {
+    quality: number;
+}
+
+export interface IStoreDeliveryRating extends IStoreRatingBase {
+    delivery: number;
+}
+
+export interface IStoreCommunicationRating extends IStoreRatingBase {
+    communication: number;
+}
+
+export interface IStoreRating {
+    qualityRating: IStoreQualityRating;
+    deliveryRating: IStoreDeliveryRating;
+    communicationRating: IStoreCommunicationRating;
+    comment?: string;
+}
+
+export interface IStoreStatus {
+    status: string;
+    updatedDate: string;
+    approvedBy?: string;
+    note?: string;
+}
+
 /*********** STORE SETUP FORM DTO ***********/
 export interface IStoreDetailsDTO {
     storeName: string;
@@ -103,8 +193,8 @@ export interface IStoreDetailsDTO {
 export interface IStoreSetupContext {
     currentStep: number;
     setCurrentStep: Dispatch<SetStateAction<number>>;
-    onboardingData: IOnboardingData | undefined;
-    setOnboardingData: Dispatch<SetStateAction<IOnboardingData | undefined>>;
+    onboardingData: IOnboardingData | null;
+    setOnboardingData: Dispatch<SetStateAction<IOnboardingData | null>>;
     navigateToPreviousStep?: () => void;
     navigateToNextStep?: ({ trigger }: navigateTpNextStepProps) => void;
     navigateToSpecificStep?: (step: number) => void;
@@ -113,7 +203,7 @@ export interface IStoreSetupContext {
 
 export interface IOnboardingData {
     storeDetails?: IStoreDetailsDTO;
-    productCategory?: IProductCategoryDTO;
+    productsCategories?: IProductsCategoriesDTO;
     paymentOption?: IPaymentOptionDTO;
     acceptTerms?: ITermsAndConditionsDTO;
 }
@@ -122,7 +212,7 @@ export interface StoreSetupContextProviderProps {
     children: ReactNode;
 }
 
-export interface IProductCategoryDTO {
+export interface IProductsCategoriesDTO {
     category: string[];
 }
 
@@ -138,22 +228,28 @@ export interface navigateTpNextStepProps {
 // Account & Banking Related Interfaces
 // ============================================================================
 
+export interface IBank {
+    code: string;
+    id: string;
+    logo: string;
+    name: string;
+    slug: string;
+    ussd: string;
+}
 export interface IPaymentOptionDTO {
-    beneficiaryName: string;
     accountNumber: string;
-    bankName: string;
+    bankId: string;
+    beneficiaryName: string;
 }
 
-export interface ConfirmAccountModalProps {
-    navigateToSpecificStep?: (int: number) => void;
-    getValues?: () => void;
-    bankDetails?: {
-        beneficiaryName: string;
-        accountNumber: string;
-        bankName: string;
-    };
-    action: () => void;
-}
+export type PaymentOptionFormProps = {
+    banks: IBank[];
+    defaultValues: IPaymentOptionDTO;
+    variant?: string;
+    submitButtonText?: string;
+    cancelButtonText?: string;
+    showNote?: boolean;
+};
 
 // ============================================================================
 // Navigation & UI Component Interfaces

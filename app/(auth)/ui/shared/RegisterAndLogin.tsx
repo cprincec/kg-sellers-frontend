@@ -1,3 +1,5 @@
+"use client";
+
 import { LOGIN_TEXTS, SIGNUP_TEXTS } from "@/lib/consts";
 import { GoogleButton } from "../buttons";
 import SmilingWomanImage from "./SmilingWomanImage";
@@ -5,8 +7,23 @@ import TermsAndConditionsAndPrivacyPolicy from "./TermsAndConditionsAndPrivacyPo
 import { LogoWithWelcomeText } from "./LogoWithWelcomeText";
 import RegisterationForm from "../register/registerationForm/RegisterationForm";
 import LoginForm from "../login/LoginForm";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { showErrorToast } from "@/app/lib/utils/utils";
+import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
 const RegisterAndLogin = ({ isLogin, isRegister }: { isLogin?: boolean; isRegister?: boolean }) => {
+    const { deleteSearchParams } = useUpdateSearchParams();
+    const searchParams = useSearchParams();
+    const errorMessage = searchParams.get("errorMessage") || searchParams.get("error");
+
+    useEffect(() => {
+        if (errorMessage) {
+            showErrorToast({ title: errorMessage });
+            deleteSearchParams(["errorMessage", "error"]);
+        }
+    }, []);
+
     return (
         <div className="grid lg:grid-cols-2 h-screen">
             <SmilingWomanImage />

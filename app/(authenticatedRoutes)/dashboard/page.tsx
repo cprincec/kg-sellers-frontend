@@ -7,17 +7,11 @@ import ProductSummary from "./ui/ProductSummary";
 import StorePerformance from "./ui/StorePerformance";
 import PerformanceMetrics from "./ui/PerformanceMetrics";
 import { PerformanceMetricsContextProvider } from "./contexts/performanceMetricsContext";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 const Dashboard = () => {
     const searchParams = useSearchParams();
     const showEmptyState = searchParams.get("from") === "register";
-    const data = useSession();
 
-    useEffect(() => {
-        console.log("checking", data);
-    }, [data]);
     return (
         <PerformanceMetricsContextProvider>
             <div className="pb-4 lg:pb-0 grid gap-3 md:gap-0 border lg:bg-kaiglo_grey-200">
