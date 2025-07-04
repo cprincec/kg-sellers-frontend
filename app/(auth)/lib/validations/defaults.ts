@@ -1,4 +1,5 @@
 import {
+    IAccountRecoveryDTO,
     ILoginUserDTO,
     IOtpDTO,
     IPaymentOptionDTO,
@@ -28,6 +29,12 @@ export const otpDefaultValues: IOtpDTO = {
     email: "",
     phone: "",
     otp: "",
+};
+
+/*********** ACCOUNT RECOVERY FORM DEFAULTS ***********/
+export const accountRecoveryDefaultValues: IAccountRecoveryDTO = {
+    email: "",
+    phone: "",
 };
 
 export const storeDetailsDefaultValues: IStoreDetailsDTO = {

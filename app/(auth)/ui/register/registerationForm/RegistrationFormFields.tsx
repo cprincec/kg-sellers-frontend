@@ -3,15 +3,15 @@ import ControlledModifiedInput from "@/components/controlledElements/ControlledM
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
 import { Control, FieldErrors } from "react-hook-form";
-import { ISignUpFormDTO } from "@/interfaces/dtos/auth.dto.interface";
+import { IRegisterUserDTO } from "@/app/(auth)/lib/interfaces/interface";
 
 const RegisterationFormFields = ({
     control,
     errors,
     signingUp,
 }: {
-    control: Control<ISignUpFormDTO>;
-    errors: FieldErrors<ISignUpFormDTO>;
+    control: Control<IRegisterUserDTO>;
+    errors: FieldErrors<IRegisterUserDTO>;
     signingUp: boolean;
 }) => {
     return (

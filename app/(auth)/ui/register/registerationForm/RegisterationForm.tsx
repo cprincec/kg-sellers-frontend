@@ -1,6 +1,6 @@
 "use client";
 
-import { Resolver, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { signUpResolver } from "@/lib/validations/resolvers";
 import RegisterationFormFields from "./RegistrationFormFields";
 import { IOtpDTO, IRegisterUserDTO } from "@/app/(auth)/lib/interfaces/interface";
@@ -16,7 +16,7 @@ const RegisterationForm = () => {
         formState: { errors },
     } = useForm<IRegisterUserDTO>({
         defaultValues: signUpDefaultValues,
-        resolver: signUpResolver as Resolver<IRegisterUserDTO>,
+        resolver: signUpResolver,
     });
 
     // get otp context methods for update
