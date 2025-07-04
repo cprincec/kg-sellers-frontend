@@ -1,4 +1,3 @@
-import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { VariantProps } from "class-variance-authority";
 import { buttonVariants } from "@/components/ui/button";
@@ -112,7 +111,7 @@ export interface IStoreInfo {
     storeSummary: IStoreSummary;
     storeRating: IStoreRating;
     profilePic: string;
-    bannerImage: string;
+    bannerImage?: string;
     owner: IUserResponse;
     createdDate: string;
     updatedDate: string;
@@ -123,22 +122,22 @@ export interface IStoreInfo {
 
     // Optional fields
     storeUrl?: string;
-    closestMarket?: any;
+    closestMarket?: unknown;
     category?: string;
     description?: string;
     visit?: number;
     pendingOrder?: number;
     stock?: number;
     sales?: number;
-    bestSellingProducts?: any;
-    recentBuyers?: any;
-    coupons?: any;
+    bestSellingProducts?: unknown;
+    recentBuyers?: unknown;
+    coupons?: unknown;
     isFollowingStore?: boolean;
-    bankDetails?: any;
-    storeIdentity?: any;
+    bankDetails?: IPaymentOptionDTO;
+    storeIdentity?: unknown;
     newPhoneNumber?: string;
     isDeleted?: boolean;
-    categories?: any;
+    categories: string[];
     termsAndCondition?: string;
 }
 
@@ -265,11 +264,3 @@ export interface ButtonProps
         VariantProps<typeof buttonVariants> {
     asChild?: boolean;
 }
-
-// ============================================================================
-// Order Related Interfaces
-// ============================================================================
-
-export type OrderDetailProps = {
-    order: IOrderDTO;
-};
