@@ -20,27 +20,27 @@ const ModifiedBankSelect = ({
     banks,
     value,
 }: {
+    defaultValue?: string;
     value: string;
     banks: IBank[];
     onChange: (value: string) => void;
     itemClassName?: string;
 }) => {
     const [open, setOpen] = useState(false);
+    const defaultValue = banks.find((bank) => bank.id === value)?.name;
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild className="w-full">
                 <Button
+                    type="button"
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
+                    aria-label="Select bank"
                     className="justify-between h-12 px-3 py-1 border-kaiglo_grey-disabled font-normal text-sm md:text-base text-kaiglo_grey-900 transition-colors"
                 >
-                    {value ? (
-                        value.split("-")[1]
-                    ) : (
-                        <span className="text-kaiglo_grey-placeholder">Bank name</span>
-                    )}
+                    {value ? defaultValue : <span className="text-kaiglo_grey-placeholder">Bank name</span>}
                     <ChevronDown
                         className={cn(
                             "h-6 w-6 text-kaiglo_grey-900 transition-transform duration-200",
@@ -60,7 +60,7 @@ const ModifiedBankSelect = ({
                                 return (
                                     <CommandItem
                                         key={id}
-                                        value={`${id}-${name}`}
+                                        value={id}
                                         onSelect={(value) => {
                                             onChange(value);
                                             setOpen(false);

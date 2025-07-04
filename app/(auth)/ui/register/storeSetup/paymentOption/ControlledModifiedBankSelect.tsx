@@ -8,8 +8,7 @@ const ControlledModifiedBankSelect = <TFormValue extends FieldValues>({
     control,
     error,
     banks,
-}: // onChange,
-{
+}: {
     name: Path<TFormValue>;
     control: Control<TFormValue, unknown, IPaymentOptionDTO>;
     banks: IBank[];

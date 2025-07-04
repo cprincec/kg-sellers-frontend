@@ -23,23 +23,37 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
         if (isFetchingStoreInfo) return;
 
         if (!isFetchingStoreInfo && storeInfo) {
-            setCurrentStep(3);
-            // setCurrentStep(storeInfo.onboardingStep);
+            setCurrentStep(storeInfo.onboardingStep);
 
+            const {
+                storeName,
+                address,
+                bannerImage,
+                profilePic,
+                location,
+                email,
+                phoneNumber,
+                categories,
+                bankDetails,
+            } = storeInfo;
             setOnboardingData((prev) => ({
                 ...prev,
                 storeDetails: {
-                    storeName: storeInfo.storeName,
-                    storeAddress: storeInfo.address,
-                    storeBanner: storeInfo.bannerImage,
-                    businessLogo: storeInfo.profilePic,
-                    state: storeInfo.location,
-                    email: storeInfo.email,
-                    phoneNumber: storeInfo.phoneNumber,
+                    storeName,
+                    storeAddress: address,
+                    storeBanner: bannerImage,
+                    businessLogo: profilePic,
+                    state: location,
+                    email,
+                    phoneNumber,
                 },
-                productsCategories: { category: storeInfo.categories },
-                paymentOption: storeInfo.bankDetails
-                    ? { ...storeInfo.bankDetails }
+                productsCategories: { category: categories },
+                paymentOption: bankDetails
+                    ? {
+                          bankId: bankDetails.bank.id,
+                          beneficiaryName: bankDetails.account_name,
+                          accountNumber: bankDetails.account_number,
+                      }
                     : paymentOptionDefaultValues,
             }));
         } else {
@@ -50,7 +64,7 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
                 acceptTerms: { acceptTerms: false },
             });
         }
-    }, [isFetchingStoreInfo, storeInfo]);
+    }, []);
 
     if (isFetchingStoreInfo) return <Loader />;
 

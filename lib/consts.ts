@@ -30,3 +30,4 @@ export const ROUTES = {
 };
 
 export const RESULTS_PER_PAGE = 10;
+export const MAX_ONBOARDING_STEP = 4;

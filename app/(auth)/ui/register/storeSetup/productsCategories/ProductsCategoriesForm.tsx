@@ -87,6 +87,7 @@ const ProductsCategoriesForm = ({ defaultValues }: { defaultValues: IProductsCat
                                 cancelButtonClassName="p-3 lg:min-w-[150px]"
                                 submitButtonClassName="p-3 lg:min-w-[150px]"
                                 disabled={isSavingProductsCategories}
+                                
                             />
                         </form>
                     );

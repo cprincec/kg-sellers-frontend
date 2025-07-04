@@ -133,7 +133,7 @@ export interface IStoreInfo {
     recentBuyers?: unknown;
     coupons?: unknown;
     isFollowingStore?: boolean;
-    bankDetails?: IPaymentOptionDTO;
+    bankDetails?: IBankDetails;
     storeIdentity?: unknown;
     newPhoneNumber?: string;
     isDeleted?: boolean;
@@ -235,6 +235,14 @@ export interface IBank {
     slug: string;
     ussd: string;
 }
+
+export interface IBankDetails {
+    id: string;
+    bank: IBank;
+    account_number: string;
+    account_name: string;
+}
+
 export interface IPaymentOptionDTO {
     accountNumber: string;
     bankId: string;

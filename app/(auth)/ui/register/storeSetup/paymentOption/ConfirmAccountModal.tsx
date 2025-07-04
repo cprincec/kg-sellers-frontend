@@ -5,11 +5,19 @@ import { Button } from "@/components/ui/button";
 import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { VerticalLineIcon } from "../stepper/stepper-icons";
 import { useModalContext } from "@/app/contexts/modalContext";
-import useSavePaymentOptions from "@/app/(auth)/hooks/register/storeSetup/useSavePaymentOptions";
 
-const ConfirmAccountModal = ({ bankDetails }: { bankDetails: IPaymentOptionDTO & { bankName: string } }) => {
+const ConfirmAccountModal = ({
+    bankDetails,
+    isSavingPaymentOption,
+    savePaymentOption,
+}: {
+    bankDetails: IPaymentOptionDTO & {
+        bankName: string;
+    };
+    isSavingPaymentOption: boolean;
+    savePaymentOption: (values: IPaymentOptionDTO) => void;
+}) => {
     const { setShowModal } = useModalContext();
-    const { isSavingPaymentOptions, savePaymentOptions } = useSavePaymentOptions();
 
     const { beneficiaryName, bankName, accountNumber, bankId } = bankDetails;
 
@@ -38,7 +46,7 @@ const ConfirmAccountModal = ({ bankDetails }: { bankDetails: IPaymentOptionDTO &
                 </div>
             </section>
 
-            {/* Navigation Buttons starts*/}
+            {/* Navigation Buttons */}
             <div className="grid grid-flow-col items-center gap-3 pt-4 ">
                 <Button
                     type="button"
@@ -52,13 +60,12 @@ const ConfirmAccountModal = ({ bankDetails }: { bankDetails: IPaymentOptionDTO &
                 <Button
                     type="button"
                     className="p-3 rounded-full"
-                    onClick={() => savePaymentOptions({ bankId, beneficiaryName, accountNumber })}
-                    disabled={isSavingPaymentOptions}
+                    onClick={() => savePaymentOption({ bankId, beneficiaryName, accountNumber })}
+                    disabled={isSavingPaymentOption}
                 >
-                    Continue
+                    {isSavingPaymentOption ? "Please wait..." : "Continue"}
                 </Button>
             </div>
-            {/* Navigation Buttons ends*/}
         </DialogContent>
     );
 };

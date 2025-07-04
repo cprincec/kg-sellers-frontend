@@ -10,6 +10,8 @@ import ConfirmAccountModal from "./ConfirmAccountModal";
 import { useModalContext } from "@/app/contexts/modalContext";
 import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import { cn } from "@/lib/utils/utils";
+import useSavePaymentOption from "@/app/(auth)/hooks/register/storeSetup/useSavePaymentOption";
+import { showErrorToast } from "@/app/lib/utils/utils";
 
 export const PaymentOptionForm = ({
     banks,
@@ -21,6 +23,8 @@ export const PaymentOptionForm = ({
 }: PaymentOptionFormProps) => {
     const { setShowModal, setModalContent } = useModalContext();
     const { setCurrentStep } = useStoreSetupContext();
+    const { isSavingPaymentOption, savePaymentOption } = useSavePaymentOption();
+
     const {
         control,
         handleSubmit,
@@ -30,17 +34,22 @@ export const PaymentOptionForm = ({
         resolver: yupResolver(paymentoptionSchema),
     });
 
-    const savePaymentOption = (values: IPaymentOptionDTO) => {
-        // Because some banks have same id (Example: Access and Access - Diamond),
-        // I attached the bank name to the bankId field value to enforce uniqueness
-        // Upon form submission, I spilt the bankId to get the bank Id and bank name seperately
-        const splitId = values.bankId.split("-");
-        const bankName = splitId[1];
-        const bankId = splitId[0];
+    const onSubmit = (values: IPaymentOptionDTO) => {
+        const bankName = banks.find((bank) => bank.id === values.bankId)?.name;
 
-        if (!bankName || !bankId) return;
+        if (!bankName) {
+            showErrorToast({ title: "Invalid bank selected", description: "Please choose a valid bank" });
+            return;
+        }
 
-        setModalContent(<ConfirmAccountModal bankDetails={{ ...values, bankName, bankId }} />);
+        setModalContent(
+            <ConfirmAccountModal
+                isSavingPaymentOption={isSavingPaymentOption}
+                savePaymentOption={savePaymentOption}
+                bankDetails={{ ...values, bankName }}
+            />
+        );
+
         setShowModal(true);
     };
 
@@ -58,10 +67,7 @@ export const PaymentOptionForm = ({
                 <h3 className={cn("text-sm md:text-base font-normal", !variant && "lg:hidden")}>
                     Bank Account Details
                 </h3>
-                <form
-                    onSubmit={handleSubmit(savePaymentOption)}
-                    className={cn("grid", variant ? "gap-5" : "gap-12")}
-                >
+                <form onSubmit={handleSubmit(onSubmit)} className={cn("grid", variant ? "gap-5" : "gap-12")}>
                     <PaymentOptionFormFields
                         control={control}
                         showNote={showNote}

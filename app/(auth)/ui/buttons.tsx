@@ -63,6 +63,7 @@ export const LogOutButton = ({
 }) => {
     return (
         <Button
+            autoFocus={false}
             type="button"
             aria-label="log-out"
             variant={variant || "ghost"}

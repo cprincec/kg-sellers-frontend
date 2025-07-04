@@ -6,31 +6,32 @@ import { IGetStoreInfoResponse } from "@/app/(auth)/lib/interfaces/response.inte
 import { useModalContext } from "@/app/contexts/modalContext";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { postRequest } from "@/lib/utils/apiCaller";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 /**
  * Custom hook to save bank details of a store
  */
 
-const useSavePaymentOptions = () => {
-    const { setCurrentStep } = useStoreSetupContext();
+const useSavePaymentOption = () => {
+    const { setCurrentStep, setOnboardingData } = useStoreSetupContext();
     const { setModalContent, setShowModal } = useModalContext();
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
         mutationFn: (payload: IPaymentOptionDTO) =>
             postRequest<IPaymentOptionDTO, IGetStoreInfoResponse>({
-                url: ``,
+                url: `/onboarding/bank-information/add`,
                 payload,
             }),
 
-        onSuccess: (data) => {
+        onSuccess: (data, variables) => {
             if (data.message?.toLowerCase() !== "success" || !data.response) {
                 showErrorToast({ title: data.message, description: "Something went wrong" });
                 return;
             }
 
             queryClient.invalidateQueries({ queryKey: ["store-info"] });
+            setOnboardingData((prev) => ({ ...prev, paymentOption: variables }));
             setCurrentStep((prev) => prev + 1);
             setShowModal(false);
             setModalContent(null);
@@ -40,7 +41,7 @@ const useSavePaymentOptions = () => {
         },
     });
 
-    return { isSavingPaymentOptions: isPending, savePaymentOptions: mutate };
+    return { isSavingPaymentOption: isPending, savePaymentOption: mutate };
 };
 
-export default useSavePaymentOptions;
+export default useSavePaymentOption;

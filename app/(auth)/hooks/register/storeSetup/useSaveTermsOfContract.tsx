@@ -4,7 +4,7 @@ import { ITermsAndConditionsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { IGetStoreInfoResponse } from "@/app/(auth)/lib/interfaces/response.interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { postRequest } from "@/lib/utils/apiCaller";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 /**
@@ -12,13 +12,13 @@ import { useRouter } from "next/navigation";
  */
 
 const useSaveTermsOfContract = () => {
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
     const router = useRouter();
 
     const { isPending, mutate } = useMutation({
         mutationFn: (payload: ITermsAndConditionsDTO) =>
             postRequest<ITermsAndConditionsDTO, IGetStoreInfoResponse>({
-                url: ``,
+                url: `/onboarding/terms-condition/add`,
                 payload,
             }),
         onSuccess: (data) => {
@@ -28,7 +28,7 @@ const useSaveTermsOfContract = () => {
             }
 
             queryClient.invalidateQueries({ queryKey: ["store-info"] });
-            router.replace("/dashboard");
+            router.replace("/dashboard?from=register");
         },
         onError(error) {
             handleError(error, "Error saving terms of contract");
