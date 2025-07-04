@@ -7,7 +7,7 @@ import { getOrderStatusType } from "../lib/utils/order.utils";
 import OrderDetailsBody from "./OrderDetailsBody";
 import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
 
-const OrderDetails = ({ order }: { order: IOrderDTO }) => {
+const OrderDetails = ({ order }) => {
     return (
         <DialogContent
             className="w-[90%] md:w-[343px] m-auto outline-none px-4 py-4 rounded-2xl gap-0"
