@@ -13,7 +13,7 @@ const useGetAllBanks = () => {
         queryKey: ["all-banks"],
         queryFn: async () => {
             const { data } = await axios.get<IGetAllBanksResponse>(
-                "https://kg-buy-sell-api-v2.kaidev.xyz/banks/available"
+                `${process.env.NEXT_PUBLIC_API_BASE_URL_2}/banks/available`
             );
             return data;
         },
