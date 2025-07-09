@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { X } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import ProductsCategoriesFormFields from "./ProductsCategoriesFormFields";
+import { motion } from "framer-motion";
 
 const ProductsCategoriesForm = ({ defaultValues }: { defaultValues: IProductsCategoriesDTO }) => {
     const { saveProductsCategories, isSavingProductsCategories } = useSaveProductsCategories();
@@ -28,9 +29,9 @@ const ProductsCategoriesForm = ({ defaultValues }: { defaultValues: IProductsCat
         saveProductsCategories(values);
         setOnboardingData((prev) => ({ ...prev, productsCategories: values }));
     };
-
+    
     return (
-        <div className="grid grid-cols-1 space-y-4">
+        <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} className="grid grid-cols-1 space-y-4">
             <div className="grid gap-2">
                 <h2 className="text-base font-medium">PRODUCT CATEGORY</h2>
                 <p className="text-sm lg:text-base">Select what categorie(s) your product belong</p>
@@ -87,13 +88,12 @@ const ProductsCategoriesForm = ({ defaultValues }: { defaultValues: IProductsCat
                                 cancelButtonClassName="p-3 lg:min-w-[150px]"
                                 submitButtonClassName="p-3 lg:min-w-[150px]"
                                 disabled={isSavingProductsCategories}
-                                
                             />
                         </form>
                     );
                 }}
             />
-        </div>
+        </motion.div>
     );
 };
 

@@ -2,13 +2,14 @@ import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import useSaveTermsOfContract from "@/app/(auth)/hooks/register/storeSetup/useSaveTermsOfContract";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean }) => {
     const { setCurrentStep } = useStoreSetupContext();
     const { isSavingTermsOfContract, saveTermsOfContract } = useSaveTermsOfContract();
 
     return (
-        <div className="grid gap-8">
+        <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} className="grid gap-8">
             {showMainTitle && <h2 className="text-xl font-bold">Kaiglo’s Terms of Contract</h2>}
             <section>
                 <h3 className="text-base font-bold text-kaiglo_grey-900 mb-1 md:mb-2">INTRODUCTION</h3>
@@ -75,7 +76,8 @@ const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean
                     disabled={isSavingTermsOfContract}
                 />
             </div>
-        </div>
+        </motion.div>
     );
 };
+
 export default TermsOfContractForm;

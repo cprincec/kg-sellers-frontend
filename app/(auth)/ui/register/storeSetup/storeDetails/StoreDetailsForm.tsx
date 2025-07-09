@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import useSaveStoreDetails from "@/app/(auth)/hooks/register/storeSetup/useSaveStoreDetails";
 import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
+import { motion } from "framer-motion";
 
 const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }) => {
     const router = useRouter();
@@ -32,7 +33,7 @@ const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }
     if (!defaultValues) throw new Error("Something went wrong");
 
     return (
-        <div>
+        <motion.div initial={{ x: "100%" }} animate={{ x: 0 }}>
             <h2 className="mb-4">STORE DETAILS</h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
@@ -47,7 +48,7 @@ const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }
                     disabled={isSavingStoreDetails}
                 />
             </form>
-        </div>
+        </motion.div>
     );
 };
 
