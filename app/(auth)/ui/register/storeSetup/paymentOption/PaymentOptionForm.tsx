@@ -12,6 +12,7 @@ import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import { cn } from "@/lib/utils/utils";
 import useSavePaymentOption from "@/app/(auth)/hooks/register/storeSetup/useSavePaymentOption";
 import { showErrorToast } from "@/app/lib/utils/utils";
+import { motion } from "framer-motion";
 
 export const PaymentOptionForm = ({
     banks,
@@ -54,7 +55,7 @@ export const PaymentOptionForm = ({
     };
 
     return (
-        <div className="grid gap-6">
+        <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} className="grid gap-6">
             <div>
                 <h2 className="mb-2 text-base md:text-xl font-bold">PREFERRED PAYMENT OPTION</h2>
                 <p className="text-sm md:text-base">
@@ -86,6 +87,6 @@ export const PaymentOptionForm = ({
                     />
                 </form>
             </div>
-        </div>
+        </motion.div>
     );
 };
