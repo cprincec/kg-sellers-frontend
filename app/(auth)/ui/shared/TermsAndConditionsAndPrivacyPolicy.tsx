@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { ROUTES } from '@/lib/consts';
-import React from 'react'
+import Link from "next/link";
+import { ROUTES } from "../../lib/constants";
+import React from "react";
 
 const TermsAndConditionsAndPrivacyPolicy = () => {
     return (
@@ -17,4 +17,4 @@ const TermsAndConditionsAndPrivacyPolicy = () => {
     );
 };
 
-export default TermsAndConditionsAndPrivacyPolicy
+export default TermsAndConditionsAndPrivacyPolicy;

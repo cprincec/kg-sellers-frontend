@@ -11,7 +11,7 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { cn } from "@/lib/utils/utils";
 import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
-import { ProductVariant } from "../../../lib/interfaces/interface";
+import { IProductVariantDTO } from "../../../lib/interfaces/interface";
 
 const ProductVariantsTable = ({
     productVariants,
@@ -20,7 +20,7 @@ const ProductVariantsTable = ({
     showActions = true,
     className,
 }: {
-    productVariants: ProductVariant[];
+    productVariants: IProductVariantDTO[];
     title?: string;
     showTitle?: boolean;
     showActions?: boolean;
@@ -29,7 +29,7 @@ const ProductVariantsTable = ({
     const searchParams = useSearchParams();
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
-    const { productDetails } = useAddProductContext();
+    const { productDraft } = useAddProductContext();
 
     const variantId = searchParams.get("id");
     const actionType = searchParams.get("product-variant-action");
@@ -72,7 +72,7 @@ const ProductVariantsTable = ({
         }
     }, [actionType, variantId]);
 
-    if (!productDetails || !productVariants.length) return null;
+    if (!productDraft || !productVariants.length) return null;
 
     return (
         <div className={cn("grid gap-4 overflow-hidden", className)}>
@@ -103,39 +103,40 @@ const ProductVariantsTable = ({
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {productVariants.map((product, index) => (
+                    {productVariants.map((variant, index) => (
                         <TableRow key={index}>
                             <TableCell className="p-3 max-w-[300px] text-sm text-wrap text-kaiglo_grey-base">
                                 <div className="flex gap-3 items-center">
                                     <Image
-                                        src={URL.createObjectURL(product.images[0])}
-                                        alt={productDetails?.productName}
+                                        src={variant.productColor.colorUrl}
+                                        alt={productDraft.name + " variant" + index + 1}
                                         width={48}
                                         height={48}
                                         className="w-12 h-12"
                                     />
                                     <span className="mt-1.5 text-sm font-medium capitalize text-kaiglo_grey-base">
-                                        {productDetails?.productName}
+                                        {productDraft.name}
                                     </span>
                                 </div>
                             </TableCell>
                             <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
-                                {product.color}
+                                {variant.productColor.color.color}
                             </TableCell>
                             <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
-                                {product.size}
+                                {variant.productColor.productPriceDetails[0].size}
                             </TableCell>
                             <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
-                                {product.quantity}
+                                {variant.productColor.productPriceDetails[0].quantity}
                             </TableCell>
                             <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
-                                {product.price && `₦${product.price.toLocaleString()}`}
+                                {`₦${variant.productColor.productPriceDetails[0].price.toLocaleString()}`}
                             </TableCell>
                             {showActions && (
                                 <TableCell className="p-3 text-sm text-center">
                                     <ActionButton
                                         className="w-max m-auto"
-                                        productId={index.toString()}
+                                        // every variant has an id assigned from the backend
+                                        productId={variant.productColor.productPriceDetails[0].id as string}
                                         actions={productVariantActions}
                                     />
                                 </TableCell>

@@ -35,9 +35,9 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
                 phoneNumber,
                 categories,
                 bankDetails,
+                termsAndCondition,
             } = storeInfo;
-            setOnboardingData((prev) => ({
-                ...prev,
+            setOnboardingData({
                 storeDetails: {
                     storeName,
                     storeAddress: address,
@@ -55,7 +55,8 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
                           accountNumber: bankDetails.account_number,
                       }
                     : paymentOptionDefaultValues,
-            }));
+                acceptTerms: { acceptTerms: termsAndCondition },
+            });
         } else {
             setOnboardingData({
                 storeDetails: storeDetailsDefaultValues,

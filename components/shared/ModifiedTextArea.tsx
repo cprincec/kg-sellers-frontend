@@ -5,6 +5,8 @@ import { Label } from "../ui/label";
 import { cn } from "@/lib/utils/utils";
 
 const ModifiedTextArea = ({
+    id,
+    name,
     value,
     onChange,
     placeholder,
@@ -24,6 +26,8 @@ const ModifiedTextArea = ({
                 </Label>
             )}
             <Textarea
+                name={name}
+                id={id}
                 className="p-3"
                 value={value}
                 onChange={onChange}

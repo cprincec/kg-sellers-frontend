@@ -1,100 +1,132 @@
-import { Control, FieldErrors } from "react-hook-form";
-import { IProductVariantsFormValues } from "../../../lib/interfaces/interface";
-import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-import { Button } from "@/components/ui/button";
-import ProductImageField from "../productDetails/ProductImageField";
+"use client";
+
+import {
+    IColor,
+    IProductMeta,
+    IVariantField,
+    ProductVariantFormInterface,
+} from "../../../lib/interfaces/interface";
+import ModifiedSelect2 from "@/components/shared/ModifiedSelect2";
+import ModifiedInput from "@/components/shared/ModifiedInput";
+import { Dispatch, SetStateAction } from "react";
+import ProductVariantImageUploadField from "./ProductVariantImageUploadField";
+import ModifiedSelect3 from "@/components/shared/ModifiedSelect3";
 
 const ProductVariantsFormFields = ({
-    control,
-    errors,
+    formData,
+    setFormData,
+    productMeta,
+    fields,
+    findFieldIndex,
 }: {
-    control: Control<IProductVariantsFormValues>;
-    errors: FieldErrors<IProductVariantsFormValues>;
+    formData: ProductVariantFormInterface;
+    setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
+    productMeta: IProductMeta;
+    fields: IVariantField[];
+    findFieldIndex: (key: string) => number;
 }) => {
+    const requiredAttributes = ["color", "quantity", "price"];
+
+    const updateValue = (key: string, value: string) => {
+        setFormData((prev) => {
+            const existingIndex = findFieldIndex(key);
+            const attributes = [...prev.attributes];
+
+            const isExisting = existingIndex > -1;
+            const isEmpty = value === "";
+
+            if (isExisting && isEmpty) {
+                // Remove attribute if value is cleared
+                attributes.splice(existingIndex, 1);
+            } else if (isExisting) {
+                // Update existing attribute
+                attributes[existingIndex].value = value;
+            } else if (!isEmpty) {
+                // Add new attribute
+                attributes.push({
+                    key,
+                    value,
+                    metadata: "",
+                });
+            }
+
+            return { ...prev, attributes };
+        });
+    };
+
     return (
         <div className="grid lg:flex gap-4 w-full">
-            <ProductImageField isMultiple={false} mainImageKey="mainImage" />
-
+            <ProductVariantImageUploadField formData={formData} setFormData={setFormData} />
             <div className="grid lg:grid-cols-2 gap-4 w-full">
-                <div className="grid gap-2 lg:order-last lg:col-span-2">
-                    <ControlledModifiedInput
-                        label="Shipping weight"
-                        name="shippingWeight"
-                        control={control}
-                        placeholder="Enter weight in k.g"
-                        type="number"
-                        error={errors.shippingWeight}
-                        isRequired={true}
-                        className="text-sm md:text-sm mt-1"
-                        labelClassNames="text-sm md:text-sm"
-                        labelDescription={
-                            <Button
-                                type="button"
-                                variant={"ghost"}
-                                className="hidden lg:flex lg:order-2 bg-transparent font-normal text-kaiglo_success-700 text-sm justify-self-start p-1 pl-0"
-                            >
-                                See weight guideline
-                            </Button>
-                        }
-                        labelContainerClassName="flex items-baseline justify-between"
-                        rules={{ required: true }}
-                    />
-                    <Button
-                        type="button"
-                        variant={"ghost"}
-                        className="lg:hidden lg:order-2 bg-transparent font-normal text-kaiglo_success-700 text-sm justify-self-start p-1 pl-0"
-                    >
-                        See weight guideline
-                    </Button>
-                </div>
-                <ControlledModifiedInput
-                    label="Color"
+                <ModifiedSelect2
+                    label={"Color"}
                     name="color"
-                    control={control}
-                    placeholder="Select color"
-                    type="text"
-                    error={errors.color}
+                    placeholder="Select Colour"
+                    valueKey="colorCode"
+                    labelKey="color"
+                    options={productMeta?.productColorCode as IColor[]}
+                    onValueChange={(color) => updateValue("color", color)}
                     isRequired={true}
-                    className="text-sm md:text-sm mt-1"
+                    className="text-sm md:text-sm mt-1 lg:mt-2"
                     labelClassNames="text-sm md:text-sm"
-                    rules={{ required: true }}
                 />
-                <ControlledModifiedInput
-                    label="Size"
-                    name="size"
-                    control={control}
-                    placeholder="Select size"
-                    type="text"
-                    error={errors.size}
-                    isRequired={false}
-                    className="text-sm md:text-sm mt-1"
-                    labelClassNames="text-sm md:text-sm"
-                    rules={{ required: false }}
-                />
-                <ControlledModifiedInput
-                    label="Quantity"
-                    name="quantity"
-                    control={control}
-                    placeholder="Quantity"
-                    type="number"
-                    error={errors.quantity}
+
+                <ModifiedInput
+                    id={"quantity"}
+                    value={formData.attributes[findFieldIndex("quantity")]?.value ?? ""}
+                    onValueChange={(e) => updateValue("quantity", e.target.value)}
+                    label={"Quantity"}
+                    placeholder={"Quantity"}
                     isRequired={true}
-                    className="text-sm md:text-sm mt-1"
+                    className="text-sm md:text-sm"
                     labelClassNames="text-sm md:text-sm"
-                    rules={{ required: true }}
                 />
-                <ControlledModifiedInput
-                    label="Price"
-                    name="price"
-                    control={control}
-                    placeholder="Price"
-                    type="number"
-                    error={errors.price}
+
+                <ModifiedInput
+                    id={"price"}
+                    value={formData.attributes[findFieldIndex("price")]?.value ?? ""}
+                    onValueChange={(e) => updateValue("price", e.target.value)}
+                    label={"Price"}
+                    placeholder={"Price"}
+                    type={"number"}
+                    inputMode="numeric"
                     isRequired={true}
-                    className="text-sm md:text-sm mt-1"
+                    className="text-sm md:text-sm"
                     labelClassNames="text-sm md:text-sm"
-                    rules={{ required: true }}
                 />
+
+                {fields.map((field, index) => {
+                    // Color, quantity and price are required fields for all products
+                    if (!requiredAttributes.includes(field.title))
+                        if (field.input === false && field.dialogOption && productMeta) {
+                            return (
+                                <ModifiedSelect3
+                                    label={field.title}
+                                    labelClassName="text-sm md:text-sm"
+                                    className="text-sm md:text-sm mt-1 lg:mt-2"
+                                    onValueChange={(value) => updateValue(field.title, value)}
+                                    name={field.title}
+                                    key={index}
+                                    options={productMeta?.dialogOptions[field.dialogOption]}
+                                />
+                            );
+                        } else {
+                            return (
+                                <ModifiedInput
+                                    key={index}
+                                    id={field.title}
+                                    value={formData.attributes[findFieldIndex(field.title)]?.value ?? ""}
+                                    onValueChange={(e) => updateValue(field.title, e.target.value)}
+                                    label={field.title}
+                                    placeholder={`${field.title[0].toUpperCase()}${field.title.substring(1)}`}
+                                    type={(field.type as string) ?? "text"}
+                                    isRequired={field.required ?? false}
+                                    className="text-sm md:text-sm"
+                                    labelClassNames="text-sm md:text-sm"
+                                />
+                            );
+                        }
+                })}
             </div>
         </div>
     );

@@ -2,9 +2,9 @@ import { AxiosRequestConfig } from "axios";
 
 export type ApiObjType = Record<string, string | undefined | number | string[] | number[]>;
 
-export type PostRequestProp<T> = {
+export type MutationRequestProp<T> = {
     url: string;
-    payload: T;
+    payload?: T;
     config?: AxiosRequestConfig;
 };
 

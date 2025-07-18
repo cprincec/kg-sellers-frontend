@@ -1,30 +1,33 @@
 "use client";
 
-import ProductCategoryForm from "@/app/(authenticatedRoutes)/products/ui/addProduct/productCategory/ProductCategoryForm";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import { JSX, useEffect, useState } from "react";
-import ProductDetailsForm from "../ui/addProduct/productDetails/ProductDetailsForm";
-import ProductVariantsForm from "../ui/addProduct/productVariants/ProductVariantsForm";
 import ProductCategoryCrumbs from "../ui/addProduct/productCategory/ProductCategoryCrumbs";
 import AddProductStepper from "../ui/addProduct/stepper/AddProductStepper";
 import { useAddProductContext } from "../contexts/addProductContext";
+import ProductCategoryFormWrapper from "../ui/addProduct/productCategory/ProductCategoryFormWrapper";
+import ProductVariantsFormWrapper from "../ui/addProduct/productVariants/ProductVariantsFormWrapper";
+import { generateProductCategoryDTO } from "../lib/utils/addProduct.utils";
+import ProductDetailsFormWrapper from "../ui/addProduct/productDetails/ProductDetailsFormWrapper";
 
 const AddProduct = () => {
     const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState<string>(searchParams.get("step") || "product-category");
     const steps: Record<string, JSX.Element> = {
-        "product-category": <ProductCategoryForm />,
-        "product-details": <ProductDetailsForm />,
-        "product-variants": <ProductVariantsForm />,
+        "product-category": <ProductCategoryFormWrapper />,
+        "product-details": <ProductDetailsFormWrapper />,
+        "product-variants": <ProductVariantsFormWrapper />,
     };
-    const { productCategory } = useAddProductContext();
 
     useEffect(() => {
         setCurrentStep(searchParams.get("step") || "product-category");
     }, [searchParams]);
 
+    const { productDraft } = useAddProductContext();
+
     const Component = steps[currentStep];
+
     return (
         <div className="min-h-screen border-l">
             <div>
@@ -38,7 +41,10 @@ const AddProduct = () => {
                             Product guidelines
                         </Button>
                     ) : (
-                        <ProductCategoryCrumbs categoryObject={productCategory} className="w-fit" />
+                        <ProductCategoryCrumbs
+                            categoryObject={generateProductCategoryDTO(productDraft)}
+                            className="w-fit"
+                        />
                     )}
                 </div>
 

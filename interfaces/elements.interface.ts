@@ -61,6 +61,7 @@ export interface ModifiedInputProps {
 
 /*********** MODIFIED TEXT AREA PROPS *********/
 export interface ModifiedTextAreaProps {
+    name: string;
     id: string;
     placeholder?: string;
     value: string;

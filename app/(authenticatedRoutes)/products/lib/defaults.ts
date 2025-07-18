@@ -1,4 +1,4 @@
-import { IProductVariantsFormValues } from "./interfaces/interface";
+import { ProductVariantFormInterface } from "./interfaces/interface";
 
 export const productDetailsFormDefaultValues = {
     mainImage: "",
@@ -9,11 +9,35 @@ export const productDetailsFormDefaultValues = {
     seo: "",
 };
 
-export const productVariantsFormDefaultValues: IProductVariantsFormValues = {
-    images: [],
-    color: "",
-    size: "",
-    shippingWeight: 0,
-    quantity: 0,
-    price: 0,
+export const productVariantsFormDefaultValues: ProductVariantFormInterface = {
+    attributes: [],
+    productUrl: "",
+    // productColor: {
+    //     color: {
+    //         color: "",
+    //         colorCode: "",
+    //     },
+    //     colorUrl: "",
+    //     productPriceDetails: [
+    //         {
+    //             attributes: [],
+    //             discount: 0,
+    //             id: "",
+    //             newPrice: 0,
+    //             price: 0,
+    //             quantity: "",
+    //             ramSize: "",
+    //             size: "",
+    //             sku: "",
+    //             stockLevel: "",
+    //             storage: "",
+    //         },
+    //     ],
+    //     productId: "",
+    //     productView: {
+    //         colorCode: "",
+    //         productUrl: "",
+    //     },
+    //     weightInKG: 0,
+    // },
 };

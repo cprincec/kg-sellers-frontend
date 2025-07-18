@@ -10,7 +10,8 @@ const ProductCategoryCrumbs = ({
     categoryObject: IProductCategoryDTO;
     className?: string;
 }) => {
-    const categoryArray = Object.values(categoryObject);
+    const categoryArray = Object.values(categoryObject).filter((value) => value);
+
     return (
         <div className="overflow-x-auto max-md:max-w-screen  lg:max-w-[750px]">
             <ul

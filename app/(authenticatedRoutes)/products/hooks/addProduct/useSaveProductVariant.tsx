@@ -2,26 +2,25 @@
 
 import { postRequest } from "@/lib/utils/apiCaller";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IProductDetailsDTO } from "../../lib/interfaces/interface";
+import { IProductVariantDTO } from "../../lib/interfaces/interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { IProductResponse } from "../../lib/interfaces/response.interface";
 import { useAddProductContext } from "../../contexts/addProductContext";
-import { startTransition } from "react";
 import { useRouter } from "next/navigation";
 
 /**
- * Custom hook to send product details to the Backend.
+ * Custom hook to save a product variant.
  */
 
-const useSaveProductDetails = () => {
+const useSaveProductVariant = () => {
     const router = useRouter();
     const { setProductDraft } = useAddProductContext();
     const queryClient = useQueryClient();
 
-    const { isPending, mutate } = useMutation({
-        mutationFn: ({ payload, productId }: { payload: IProductDetailsDTO; productId: string }) =>
-            postRequest<IProductDetailsDTO, IProductResponse>({
-                url: `/product/add-product-info?productID=${productId}`,
+    const { isPending, mutate, isSuccess } = useMutation({
+        mutationFn: (payload: IProductVariantDTO) =>
+            postRequest<IProductVariantDTO, IProductResponse>({
+                url: "/product/add-product-variant",
                 payload,
             }),
 
@@ -34,17 +33,19 @@ const useSaveProductDetails = () => {
             // Instantly update cache
             queryClient.setQueryData(["product-raw"], data);
             setProductDraft(data.response);
-            startTransition(() =>
-                router.replace(`/products/add-product?step=product-variants&product-id=${data.response.id}`)
-            );
+            router.replace(`/products/add-product?step=product-variants&product-id=${data.response.id}`);
         },
         onError: (error) => {
             console.error(error);
-            handleError(error, "Error saving product info");
+            handleError(error, "Error saving product variant");
         },
     });
 
-    return { isSavingProductDetails: isPending, saveProductDetails: mutate };
+    return {
+        isSavingProductVariant: isPending,
+        saveProductVariant: mutate,
+        successSavingProductVariant: isSuccess,
+    };
 };
 
-export default useSaveProductDetails;
+export default useSaveProductVariant;

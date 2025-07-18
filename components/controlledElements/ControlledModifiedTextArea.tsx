@@ -24,6 +24,7 @@ const ControlledModifiedTextArea = <TFormValue extends FieldValues>({
                     <div>
                         <ModifiedTextArea
                             id={name}
+                            name={name}
                             value={field.value}
                             onChange={field.onChange}
                             className={className}

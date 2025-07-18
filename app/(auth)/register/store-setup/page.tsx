@@ -8,21 +8,18 @@ import TermsOfContractForm from "../../ui/register/storeSetup/termsOfContract/Te
 import StoreDetailsFormWrapper from "../../ui/register/storeSetup/storeDetails/StoreDetailsFormWrapper";
 import ProductsCategoriesFormWrapper from "../../ui/register/storeSetup/productsCategories/ProductsCategoriesFormWrapper";
 import PaymentOptionFormWrapper from "../../ui/register/storeSetup/paymentOption/PaymentOptionFormWrapper";
-import { MAX_ONBOARDING_STEP } from "@/lib/consts";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { MotionConfig, motion } from "framer-motion";
 
 const StoreSetup = () => {
     const router = useRouter();
-    const { currentStep, setCurrentStep } = useStoreSetupContext();
-
-    if (!currentStep) throw new Error("Storesetupprovider must be used in storesetup contect");
+    const { onboardingData, currentStep, setCurrentStep } = useStoreSetupContext();
 
     useEffect(() => {
         // If the user has completed the onboarding, redirect to the dashboard
-        if (currentStep >= MAX_ONBOARDING_STEP) return router.replace("/dashboard");
-    }, [currentStep, router]);
+        if (onboardingData?.acceptTerms?.acceptTerms) return router.replace("/dashboard");
+    }, [onboardingData, router]);
 
     return (
         <div>

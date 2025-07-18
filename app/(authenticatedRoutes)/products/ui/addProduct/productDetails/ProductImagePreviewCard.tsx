@@ -6,10 +6,18 @@ type Props = {
     index: number;
     previewUrl: string;
     isMainImage: boolean;
-    handleRemoveImage: (isMainImage: boolean, index: number) => void;
+    // making isMainImage and index optional allows me to reuse this component function
+    handleRemoveImage?: (isMainImage?: boolean, index?: number) => void;
+    isRemovable?: boolean;
 };
 
-const ImagePreviewCard = ({ index, previewUrl, isMainImage, handleRemoveImage }: Props) => {
+const ImagePreviewCard = ({
+    index,
+    previewUrl,
+    isMainImage,
+    handleRemoveImage,
+    isRemovable = true,
+}: Props) => {
     return (
         <div className="relative w-[90px] lg:w-[120px] h-[90px] lg:h-[120px]">
             {/* Image preview */}
@@ -18,6 +26,8 @@ const ImagePreviewCard = ({ index, previewUrl, isMainImage, handleRemoveImage }:
                 alt={`Product ${index}`}
                 width={120}
                 height={120}
+                loading="eager"
+                priority
                 className="rounded-xl border border-dashed border-kaiglo_grey-disabled w-[90px] lg:w-[120px] h-[90px] lg:h-[120px] object-cover"
             />
 
@@ -33,13 +43,15 @@ const ImagePreviewCard = ({ index, previewUrl, isMainImage, handleRemoveImage }:
             )}
 
             {/* Button to remove image */}
-            <button
-                type="button"
-                onClick={() => handleRemoveImage(isMainImage, index)}
-                className="w-[20px] h-[20px] flex items-center justify-center p-1 m-0.5 absolute top-0 right-0 bg-kaiglo_critical-600 text-white text-xs px-1 rounded-full"
-            >
-                <span className="font-bold text-[10px] ml-[0.3px]">✕</span>
-            </button>
+            {isRemovable && (
+                <button
+                    type="button"
+                    onClick={() => handleRemoveImage && handleRemoveImage(isMainImage, index)}
+                    className="w-[20px] h-[20px] flex items-center justify-center p-1 m-0.5 absolute top-0 right-0 bg-kaiglo_critical-600 text-white text-xs px-1 rounded-full"
+                >
+                    <span className="font-bold text-[10px] ml-[0.3px]">✕</span>
+                </button>
+            )}
         </div>
     );
 };

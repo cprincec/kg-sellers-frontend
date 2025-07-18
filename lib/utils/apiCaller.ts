@@ -4,12 +4,23 @@
  * allowing for both simple and parameterized requests.
  **/
 
-import { ApiObjType, PostRequestProp, GetRequestProp } from "@/interfaces/api.interface";
+import { ApiObjType, GetRequestProp, MutationRequestProp } from "@/interfaces/api.interface";
 import Api from "@/lib/utils/axiosInterceptorConfig";
 
-export const postRequest = async <TRequest, TResponse>({ url, payload }: PostRequestProp<TRequest>) => {
+export const postRequest = async <TRequest, TResponse>({ url, payload }: MutationRequestProp<TRequest>) => {
     try {
         const response = await Api.post<TResponse>(url, payload);
+        const { data: availData } = response;
+
+        return availData;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const patchRequest = async <TRequest, TResponse>({ url, payload }: MutationRequestProp<TRequest>) => {
+    try {
+        const response = await Api.patch<TResponse>(url, payload);
         const { data: availData } = response;
 
         return availData;
