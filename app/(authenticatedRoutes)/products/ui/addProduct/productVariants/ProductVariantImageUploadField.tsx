@@ -21,9 +21,12 @@ const ProductVariantImageUploadField = ({ formData, setFormData }: Props) => {
 
     const { productUrl, productViews } = productDraft;
     const images = [productUrl];
-    productViews.forEach((productView) => {
-        if (productView.colorCode === null) images.push(productView.productUrl);
-    });
+
+    if (productViews) {
+        productViews.forEach((productView) => {
+            if (productView.colorCode === null) images.push(productView.productUrl);
+        });
+    }
 
     const handleSelect = (newVariantImage: string) => {
         setFormData((prev) => ({
