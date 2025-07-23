@@ -135,8 +135,8 @@ const ProductVariantsTable = ({
                                 <TableCell className="p-3 text-sm text-center">
                                     <ActionButton
                                         className="w-max m-auto"
-                                        // every variant has an id assigned from the backend
-                                        productId={variant.productColor.productPriceDetails[0].id as string}
+                                        variantId={variant.productColor.productPriceDetails[0].id}
+                                        productId={productDraft.id}
                                         actions={productVariantActions}
                                     />
                                 </TableCell>

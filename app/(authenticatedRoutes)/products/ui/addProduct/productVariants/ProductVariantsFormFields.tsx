@@ -26,6 +26,7 @@ const ProductVariantsFormFields = ({
     findFieldIndex: (key: string) => number;
 }) => {
     const requiredAttributes = ["color", "quantity", "price"];
+    const defaultColorValue = formData.attributes.find((a) => a.key === "color")?.value ?? "";
 
     const updateValue = (key: string, value: string) => {
         setFormData((prev) => {
@@ -59,6 +60,8 @@ const ProductVariantsFormFields = ({
             <ProductVariantImageUploadField formData={formData} setFormData={setFormData} />
             <div className="grid lg:grid-cols-2 gap-4 w-full">
                 <ModifiedSelect2
+                    key={`${defaultColorValue}`}
+                    defaultValue={defaultColorValue}
                     label={"Color"}
                     name="color"
                     placeholder="Select Colour"
@@ -99,6 +102,9 @@ const ProductVariantsFormFields = ({
                     // Color, quantity and price are required fields for all products
                     if (!requiredAttributes.includes(field.title))
                         if (field.input === false && field.dialogOption && productMeta) {
+                            const defaultValue =
+                                formData.attributes.find((a) => a.key === field.title.toLowerCase())?.value ??
+                                "";
                             return (
                                 <ModifiedSelect3
                                     label={field.title}
@@ -106,8 +112,12 @@ const ProductVariantsFormFields = ({
                                     className="text-sm md:text-sm mt-1 lg:mt-2"
                                     onValueChange={(value) => updateValue(field.title, value)}
                                     name={field.title}
-                                    key={index}
+                                    key={defaultValue}
                                     options={productMeta?.dialogOptions[field.dialogOption]}
+                                    defaultValue={
+                                        formData.attributes.find((a) => a.key === field.title.toLowerCase())
+                                            ?.value ?? ""
+                                    }
                                 />
                             );
                         } else {

@@ -1,0 +1,1214 @@
+{
+    "address": "string",
+    "appliedCoupon": "string",
+    "appliedCouponAmount": "string",
+    "buyer": "string",
+    "createdDate": "2025-07-23T01:06:49.703Z",
+    "email": "string",
+    "id": "string",
+    "issue": {
+        "createdDate": "2025-07-23T01:06:49.703Z",
+        "handler": {
+            "active": true,
+            "address": [
+                {
+                    "area": "string",
+                    "city": "string",
+                    "defaultAddress": true,
+                    "firstName": "string",
+                    "id": "string",
+                    "lastName": "string",
+                    "name": "string",
+                    "phoneNumber": "string",
+                    "state": "string"
+                }
+            ],
+            "boughtItems": [
+                {
+                    "category": "string",
+                    "color": "string",
+                    "fifthSubCategory": "string",
+                    "fourthSubCategory": "string",
+                    "price": 0,
+                    "productId": "string",
+                    "productName": "string",
+                    "quantity": "string",
+                    "secSubCategory": "string",
+                    "shippingCost": "string",
+                    "size": "string",
+                    "sku": "string",
+                    "subCategory": "string",
+                    "thirdSubCategory": "string",
+                    "totalAmount": 0,
+                    "url": "string"
+                }
+            ],
+            "cart": [
+                {
+                    "color": "string",
+                    "dateAdded": "2025-07-23T01:06:49.703Z",
+                    "id": "string",
+                    "platform": "string",
+                    "price": 0,
+                    "product": {
+                        "category": "string",
+                        "createdDate": "2025-07-23T01:06:49.703Z",
+                        "featured": true,
+                        "fifthSubCategory": "string",
+                        "fourthSubCategory": "string",
+                        "freeShipping": true,
+                        "id": "string",
+                        "inputTag": "string",
+                        "isDeleted": true,
+                        "kaigloSale": "string",
+                        "name": "string",
+                        "paused": true,
+                        "productColors": [
+                            {
+                                "color": {
+                                    "color": "string",
+                                    "colorCode": "string"
+                                },
+                                "colorUrl": "string",
+                                "productPriceDetails": [
+                                    {
+                                        "attributes": [
+                                            {
+                                                "key": "string",
+                                                "metadata": "string",
+                                                "value": "string"
+                                            }
+                                        ],
+                                        "discount": 0,
+                                        "id": "string",
+                                        "newPrice": 0,
+                                        "price": 0,
+                                        "quantity": "string",
+                                        "ramSize": "string",
+                                        "size": "string",
+                                        "sku": "string",
+                                        "stockLevel": "IN_STOCK",
+                                        "storage": "string"
+                                    }
+                                ]
+                            }
+                        ],
+                        "productStatus": {
+                            "approvedBy": "string",
+                            "note": "string",
+                            "status": "ACTIVE",
+                            "updatedDate": "2025-07-23T01:06:49.703Z"
+                        },
+                        "productUrl": "string",
+                        "productViews": [
+                            {
+                                "colorCode": "string",
+                                "productUrl": "string"
+                            }
+                        ],
+                        "sales": true,
+                        "secondSubCategory": "string",
+                        "seo": "string",
+                        "sold": 0,
+                        "specifications": [
+                            {
+                                "name": "string",
+                                "option": "string"
+                            }
+                        ],
+                        "stock": 0,
+                        "store": {
+                            "createdDate": "2025-07-23T01:06:49.703Z",
+                            "id": "string",
+                            "isFollowingStore": true,
+                            "owner": {
+                                "id": "string",
+                                "lastLoggedIn": "2025-07-23T01:06:49.703Z"
+                            },
+                            "profilePic": "string",
+                            "storeName": "string"
+                        },
+                        "subCategory": "string",
+                        "tag": "string",
+                        "thirdSubCategory": "string",
+                        "views": 0
+                    },
+                    "productUrl": "string",
+                    "quantity": 0,
+                    "ramSize": "string",
+                    "size": "string",
+                    "storage": "string"
+                }
+            ],
+            "cartItemSize": 0,
+            "createdDate": "2025-07-23T01:06:49.703Z",
+            "currentOtp": "string",
+            "day": 0,
+            "dob": "string",
+            "email": "string",
+            "emailCountDown": 0,
+            "firebaseToken": "string",
+            "firebaseTokenManager": {
+                "createdDate": "2025-07-23T01:06:49.703Z",
+                "firebaseToken": "string",
+                "id": "string",
+                "isActive": true,
+                "note": "string",
+                "updateDate": "2025-07-23T01:06:49.703Z",
+                "userId": "string"
+            },
+            "firstName": "string",
+            "fullName": "string",
+            "gender": "FEMALE",
+            "id": "string",
+            "lastLoggedIn": "2025-07-23T01:06:49.703Z",
+            "lastName": "string",
+            "month": 0,
+            "newUser": true,
+            "phone": "string",
+            "pictureUrl": "string",
+            "platform": "MOBILE",
+            "provider": "facebook",
+            "receivedDailyReward": true,
+            "role": {
+                "createdDate": "2025-07-23T01:06:49.703Z",
+                "description": "string",
+                "id": "string",
+                "name": "string",
+                "permissions": [
+                    {
+                        "createdDate": "2025-07-23T01:06:49.703Z",
+                        "description": "string",
+                        "id": "string",
+                        "name": "string",
+                        "updateDate": "2025-07-23T01:06:49.703Z",
+                        "userType": "CATEGORY_MANAGER"
+                    }
+                ],
+                "updateDate": "2025-07-23T01:06:49.703Z",
+                "userType": "CATEGORY_MANAGER"
+            },
+            "roles": ["ADMIN"],
+            "updatedDate": "2025-07-23T01:06:49.703Z",
+            "week": 0,
+            "wishListItems": [
+                {
+                    "category": "string",
+                    "dateAdded": "2025-07-23T01:06:49.703Z",
+                    "name": "string",
+                    "price": "string",
+                    "productId": "string",
+                    "productImage": "string"
+                }
+            ],
+            "year": 0
+        },
+        "id": "string",
+        "issueAdditionMessage": "string",
+        "issueSubject": "string",
+        "resolutionMessage": "string",
+        "resolutionTime": "2025-07-23T01:06:49.703Z",
+        "resolvedBy": {
+            "active": true,
+            "address": [
+                {
+                    "area": "string",
+                    "city": "string",
+                    "defaultAddress": true,
+                    "firstName": "string",
+                    "id": "string",
+                    "lastName": "string",
+                    "name": "string",
+                    "phoneNumber": "string",
+                    "state": "string"
+                }
+            ],
+            "boughtItems": [
+                {
+                    "category": "string",
+                    "color": "string",
+                    "fifthSubCategory": "string",
+                    "fourthSubCategory": "string",
+                    "price": 0,
+                    "productId": "string",
+                    "productName": "string",
+                    "quantity": "string",
+                    "secSubCategory": "string",
+                    "shippingCost": "string",
+                    "size": "string",
+                    "sku": "string",
+                    "subCategory": "string",
+                    "thirdSubCategory": "string",
+                    "totalAmount": 0,
+                    "url": "string"
+                }
+            ],
+            "cart": [
+                {
+                    "color": "string",
+                    "dateAdded": "2025-07-23T01:06:49.703Z",
+                    "id": "string",
+                    "platform": "string",
+                    "price": 0,
+                    "product": {
+                        "category": "string",
+                        "createdDate": "2025-07-23T01:06:49.703Z",
+                        "featured": true,
+                        "fifthSubCategory": "string",
+                        "fourthSubCategory": "string",
+                        "freeShipping": true,
+                        "id": "string",
+                        "inputTag": "string",
+                        "isDeleted": true,
+                        "kaigloSale": "string",
+                        "name": "string",
+                        "paused": true,
+                        "productColors": [
+                            {
+                                "color": {
+                                    "color": "string",
+                                    "colorCode": "string"
+                                },
+                                "colorUrl": "string",
+                                "productPriceDetails": [
+                                    {
+                                        "attributes": [
+                                            {
+                                                "key": "string",
+                                                "metadata": "string",
+                                                "value": "string"
+                                            }
+                                        ],
+                                        "discount": 0,
+                                        "id": "string",
+                                        "newPrice": 0,
+                                        "price": 0,
+                                        "quantity": "string",
+                                        "ramSize": "string",
+                                        "size": "string",
+                                        "sku": "string",
+                                        "stockLevel": "IN_STOCK",
+                                        "storage": "string"
+                                    }
+                                ]
+                            }
+                        ],
+                        "productStatus": {
+                            "approvedBy": "string",
+                            "note": "string",
+                            "status": "ACTIVE",
+                            "updatedDate": "2025-07-23T01:06:49.703Z"
+                        },
+                        "productUrl": "string",
+                        "productViews": [
+                            {
+                                "colorCode": "string",
+                                "productUrl": "string"
+                            }
+                        ],
+                        "sales": true,
+                        "secondSubCategory": "string",
+                        "seo": "string",
+                        "sold": 0,
+                        "specifications": [
+                            {
+                                "name": "string",
+                                "option": "string"
+                            }
+                        ],
+                        "stock": 0,
+                        "store": {
+                            "createdDate": "2025-07-23T01:06:49.703Z",
+                            "id": "string",
+                            "isFollowingStore": true,
+                            "owner": {
+                                "id": "string",
+                                "lastLoggedIn": "2025-07-23T01:06:49.703Z"
+                            },
+                            "profilePic": "string",
+                            "storeName": "string"
+                        },
+                        "subCategory": "string",
+                        "tag": "string",
+                        "thirdSubCategory": "string",
+                        "views": 0
+                    },
+                    "productUrl": "string",
+                    "quantity": 0,
+                    "ramSize": "string",
+                    "size": "string",
+                    "storage": "string"
+                }
+            ],
+            "cartItemSize": 0,
+            "createdDate": "2025-07-23T01:06:49.703Z",
+            "currentOtp": "string",
+            "day": 0,
+            "dob": "string",
+            "email": "string",
+            "emailCountDown": 0,
+            "firebaseToken": "string",
+            "firebaseTokenManager": {
+                "createdDate": "2025-07-23T01:06:49.703Z",
+                "firebaseToken": "string",
+                "id": "string",
+                "isActive": true,
+                "note": "string",
+                "updateDate": "2025-07-23T01:06:49.703Z",
+                "userId": "string"
+            },
+            "firstName": "string",
+            "fullName": "string",
+            "gender": "FEMALE",
+            "id": "string",
+            "lastLoggedIn": "2025-07-23T01:06:49.703Z",
+            "lastName": "string",
+            "month": 0,
+            "newUser": true,
+            "phone": "string",
+            "pictureUrl": "string",
+            "platform": "MOBILE",
+            "provider": "facebook",
+            "receivedDailyReward": true,
+            "role": {
+                "createdDate": "2025-07-23T01:06:49.703Z",
+                "description": "string",
+                "id": "string",
+                "name": "string",
+                "permissions": [
+                    {
+                        "createdDate": "2025-07-23T01:06:49.703Z",
+                        "description": "string",
+                        "id": "string",
+                        "name": "string",
+                        "updateDate": "2025-07-23T01:06:49.703Z",
+                        "userType": "CATEGORY_MANAGER"
+                    }
+                ],
+                "updateDate": "2025-07-23T01:06:49.703Z",
+                "userType": "CATEGORY_MANAGER"
+            },
+            "roles": ["ADMIN"],
+            "updatedDate": "2025-07-23T01:06:49.703Z",
+            "week": 0,
+            "wishListItems": [
+                {
+                    "category": "string",
+                    "dateAdded": "2025-07-23T01:06:49.703Z",
+                    "name": "string",
+                    "price": "string",
+                    "productId": "string",
+                    "productImage": "string"
+                }
+            ],
+            "year": 0
+        },
+        "status": "NEW",
+        "store": {
+            "address": "string",
+            "bankDetails": {
+                "account_name": "string",
+                "account_number": "string",
+                "bank": {
+                    "code": "string",
+                    "id": "string",
+                    "logo": "string",
+                    "name": "string",
+                    "slug": "string",
+                    "ussd": "string"
+                },
+                "id": "string"
+            },
+            "bannerImage": "string",
+            "bestSellingProducts": [
+                {
+                    "productName": "string",
+                    "productUrl": "string",
+                    "sold": 0,
+                    "totalSales": 0
+                }
+            ],
+            "categories": ["string"],
+            "category": "string",
+            "closestMarket": "string",
+            "coupons": [
+                {
+                    "active": true,
+                    "admin": true,
+                    "appliedToAll": 0,
+                    "expectedNumberOfUsage": 0,
+                    "expiresAt": "2025-07-23T01:06:49.703Z",
+                    "id": "string",
+                    "name": "string",
+                    "numberOfUsage": 0,
+                    "productCoupons": [
+                        {
+                            "id": "string",
+                            "name": "string",
+                            "url": "string"
+                        }
+                    ],
+                    "productIds": ["string"],
+                    "stores": [
+                        {
+                            "name": "string",
+                            "storeId": "string"
+                        }
+                    ],
+                    "type": "MONETARY",
+                    "usageType": "N_TIME_USAGE",
+                    "value": 0
+                }
+            ],
+            "createdDate": "2025-07-23T01:06:49.703Z",
+            "description": "string",
+            "email": "string",
+            "id": "string",
+            "isDeleted": true,
+            "isFollowingStore": true,
+            "location": "string",
+            "newPhoneNumber": "string",
+            "onboardingStep": 0,
+            "owner": {
+                "active": true,
+                "address": [
+                    {
+                        "area": "string",
+                        "city": "string",
+                        "defaultAddress": true,
+                        "firstName": "string",
+                        "id": "string",
+                        "lastName": "string",
+                        "name": "string",
+                        "phoneNumber": "string",
+                        "state": "string"
+                    }
+                ],
+                "boughtItems": [
+                    {
+                        "category": "string",
+                        "color": "string",
+                        "fifthSubCategory": "string",
+                        "fourthSubCategory": "string",
+                        "price": 0,
+                        "productId": "string",
+                        "productName": "string",
+                        "quantity": "string",
+                        "secSubCategory": "string",
+                        "shippingCost": "string",
+                        "size": "string",
+                        "sku": "string",
+                        "subCategory": "string",
+                        "thirdSubCategory": "string",
+                        "totalAmount": 0,
+                        "url": "string"
+                    }
+                ],
+                "cart": [
+                    {
+                        "color": "string",
+                        "dateAdded": "2025-07-23T01:06:49.703Z",
+                        "id": "string",
+                        "platform": "string",
+                        "price": 0,
+                        "product": {
+                            "category": "string",
+                            "createdDate": "2025-07-23T01:06:49.703Z",
+                            "featured": true,
+                            "fifthSubCategory": "string",
+                            "fourthSubCategory": "string",
+                            "freeShipping": true,
+                            "id": "string",
+                            "inputTag": "string",
+                            "isDeleted": true,
+                            "kaigloSale": "string",
+                            "name": "string",
+                            "paused": true,
+                            "productColors": [
+                                {
+                                    "color": {
+                                        "color": "string",
+                                        "colorCode": "string"
+                                    },
+                                    "colorUrl": "string",
+                                    "productPriceDetails": [
+                                        {
+                                            "attributes": [
+                                                {
+                                                    "key": "string",
+                                                    "metadata": "string",
+                                                    "value": "string"
+                                                }
+                                            ],
+                                            "discount": 0,
+                                            "id": "string",
+                                            "newPrice": 0,
+                                            "price": 0,
+                                            "quantity": "string",
+                                            "ramSize": "string",
+                                            "size": "string",
+                                            "sku": "string",
+                                            "stockLevel": "IN_STOCK",
+                                            "storage": "string"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "productStatus": {
+                                "approvedBy": "string",
+                                "note": "string",
+                                "status": "ACTIVE",
+                                "updatedDate": "2025-07-23T01:06:49.703Z"
+                            },
+                            "productUrl": "string",
+                            "productViews": [
+                                {
+                                    "colorCode": "string",
+                                    "productUrl": "string"
+                                }
+                            ],
+                            "sales": true,
+                            "secondSubCategory": "string",
+                            "seo": "string",
+                            "sold": 0,
+                            "specifications": [
+                                {
+                                    "name": "string",
+                                    "option": "string"
+                                }
+                            ],
+                            "stock": 0,
+                            "store": {
+                                "createdDate": "2025-07-23T01:06:49.703Z",
+                                "id": "string",
+                                "isFollowingStore": true,
+                                "owner": {
+                                    "id": "string",
+                                    "lastLoggedIn": "2025-07-23T01:06:49.703Z"
+                                },
+                                "profilePic": "string",
+                                "storeName": "string"
+                            },
+                            "subCategory": "string",
+                            "tag": "string",
+                            "thirdSubCategory": "string",
+                            "views": 0
+                        },
+                        "productUrl": "string",
+                        "quantity": 0,
+                        "ramSize": "string",
+                        "size": "string",
+                        "storage": "string"
+                    }
+                ],
+                "cartItemSize": 0,
+                "createdDate": "2025-07-23T01:06:49.703Z",
+                "currentOtp": "string",
+                "day": 0,
+                "dob": "string",
+                "email": "string",
+                "emailCountDown": 0,
+                "firebaseToken": "string",
+                "firebaseTokenManager": {
+                    "createdDate": "2025-07-23T01:06:49.703Z",
+                    "firebaseToken": "string",
+                    "id": "string",
+                    "isActive": true,
+                    "note": "string",
+                    "updateDate": "2025-07-23T01:06:49.703Z",
+                    "userId": "string"
+                },
+                "firstName": "string",
+                "fullName": "string",
+                "gender": "FEMALE",
+                "id": "string",
+                "lastLoggedIn": "2025-07-23T01:06:49.703Z",
+                "lastName": "string",
+                "month": 0,
+                "newUser": true,
+                "phone": "string",
+                "pictureUrl": "string",
+                "platform": "MOBILE",
+                "provider": "facebook",
+                "receivedDailyReward": true,
+                "role": {
+                    "createdDate": "2025-07-23T01:06:49.703Z",
+                    "description": "string",
+                    "id": "string",
+                    "name": "string",
+                    "permissions": [
+                        {
+                            "createdDate": "2025-07-23T01:06:49.703Z",
+                            "description": "string",
+                            "id": "string",
+                            "name": "string",
+                            "updateDate": "2025-07-23T01:06:49.703Z",
+                            "userType": "CATEGORY_MANAGER"
+                        }
+                    ],
+                    "updateDate": "2025-07-23T01:06:49.703Z",
+                    "userType": "CATEGORY_MANAGER"
+                },
+                "roles": ["ADMIN"],
+                "updatedDate": "2025-07-23T01:06:49.703Z",
+                "week": 0,
+                "wishListItems": [
+                    {
+                        "category": "string",
+                        "dateAdded": "2025-07-23T01:06:49.703Z",
+                        "name": "string",
+                        "price": "string",
+                        "productId": "string",
+                        "productImage": "string"
+                    }
+                ],
+                "year": 0
+            },
+            "pendingOrder": 0,
+            "phoneNumber": "string",
+            "profilePic": "string",
+            "recentBuyers": [
+                {
+                    "pictureUrl": "string",
+                    "productName": "string",
+                    "userName": "string"
+                }
+            ],
+            "sales": 0,
+            "stock": 0,
+            "storeIdentity": {
+                "address": "string",
+                "name": "string",
+                "verificationDocument": [
+                    {
+                        "documentPic": "string",
+                        "documentType": "string"
+                    }
+                ]
+            },
+            "storeName": "string",
+            "storeRating": {
+                "comment": "string",
+                "communicationRating": {
+                    "communication": 0,
+                    "count": 0,
+                    "sum": 0
+                },
+                "deliveryRating": {
+                    "count": 0,
+                    "delivery": 0,
+                    "sum": 0
+                },
+                "qualityRating": {
+                    "count": 0,
+                    "quality": 0,
+                    "sum": 0
+                }
+            },
+            "storeStatus": {
+                "approvedBy": "string",
+                "note": "string",
+                "status": "DECLINE",
+                "updatedDate": "2025-07-23T01:06:49.703Z"
+            },
+            "storeSummary": {
+                "followers": 0,
+                "productCount": 0,
+                "successfulSales": 0
+            },
+            "storeUrl": "string",
+            "termsAndCondition": true,
+            "updatedDate": "2025-07-23T01:06:49.704Z",
+            "visit": 0
+        },
+        "transactionHistory": {
+            "address": "string",
+            "assignedTo": "string",
+            "buyer": {
+                "active": true,
+                "address": [
+                    {
+                        "area": "string",
+                        "city": "string",
+                        "defaultAddress": true,
+                        "firstName": "string",
+                        "id": "string",
+                        "lastName": "string",
+                        "name": "string",
+                        "phoneNumber": "string",
+                        "state": "string"
+                    }
+                ],
+                "boughtItems": [
+                    {
+                        "category": "string",
+                        "color": "string",
+                        "fifthSubCategory": "string",
+                        "fourthSubCategory": "string",
+                        "price": 0,
+                        "productId": "string",
+                        "productName": "string",
+                        "quantity": "string",
+                        "secSubCategory": "string",
+                        "shippingCost": "string",
+                        "size": "string",
+                        "sku": "string",
+                        "subCategory": "string",
+                        "thirdSubCategory": "string",
+                        "totalAmount": 0,
+                        "url": "string"
+                    }
+                ],
+                "cart": [
+                    {
+                        "color": "string",
+                        "dateAdded": "2025-07-23T01:06:49.704Z",
+                        "id": "string",
+                        "platform": "string",
+                        "price": 0,
+                        "product": {
+                            "category": "string",
+                            "createdDate": "2025-07-23T01:06:49.704Z",
+                            "featured": true,
+                            "fifthSubCategory": "string",
+                            "fourthSubCategory": "string",
+                            "freeShipping": true,
+                            "id": "string",
+                            "inputTag": "string",
+                            "isDeleted": true,
+                            "kaigloSale": "string",
+                            "name": "string",
+                            "paused": true,
+                            "productColors": [
+                                {
+                                    "color": {
+                                        "color": "string",
+                                        "colorCode": "string"
+                                    },
+                                    "colorUrl": "string",
+                                    "productPriceDetails": [
+                                        {
+                                            "attributes": [
+                                                {
+                                                    "key": "string",
+                                                    "metadata": "string",
+                                                    "value": "string"
+                                                }
+                                            ],
+                                            "discount": 0,
+                                            "id": "string",
+                                            "newPrice": 0,
+                                            "price": 0,
+                                            "quantity": "string",
+                                            "ramSize": "string",
+                                            "size": "string",
+                                            "sku": "string",
+                                            "stockLevel": "IN_STOCK",
+                                            "storage": "string"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "productStatus": {
+                                "approvedBy": "string",
+                                "note": "string",
+                                "status": "ACTIVE",
+                                "updatedDate": "2025-07-23T01:06:49.704Z"
+                            },
+                            "productUrl": "string",
+                            "productViews": [
+                                {
+                                    "colorCode": "string",
+                                    "productUrl": "string"
+                                }
+                            ],
+                            "sales": true,
+                            "secondSubCategory": "string",
+                            "seo": "string",
+                            "sold": 0,
+                            "specifications": [
+                                {
+                                    "name": "string",
+                                    "option": "string"
+                                }
+                            ],
+                            "stock": 0,
+                            "store": {
+                                "createdDate": "2025-07-23T01:06:49.704Z",
+                                "id": "string",
+                                "isFollowingStore": true,
+                                "owner": {
+                                    "id": "string",
+                                    "lastLoggedIn": "2025-07-23T01:06:49.704Z"
+                                },
+                                "profilePic": "string",
+                                "storeName": "string"
+                            },
+                            "subCategory": "string",
+                            "tag": "string",
+                            "thirdSubCategory": "string",
+                            "views": 0
+                        },
+                        "productUrl": "string",
+                        "quantity": 0,
+                        "ramSize": "string",
+                        "size": "string",
+                        "storage": "string"
+                    }
+                ],
+                "cartItemSize": 0,
+                "createdDate": "2025-07-23T01:06:49.704Z",
+                "currentOtp": "string",
+                "day": 0,
+                "dob": "string",
+                "email": "string",
+                "emailCountDown": 0,
+                "firebaseToken": "string",
+                "firebaseTokenManager": {
+                    "createdDate": "2025-07-23T01:06:49.704Z",
+                    "firebaseToken": "string",
+                    "id": "string",
+                    "isActive": true,
+                    "note": "string",
+                    "updateDate": "2025-07-23T01:06:49.704Z",
+                    "userId": "string"
+                },
+                "firstName": "string",
+                "fullName": "string",
+                "gender": "FEMALE",
+                "id": "string",
+                "lastLoggedIn": "2025-07-23T01:06:49.704Z",
+                "lastName": "string",
+                "month": 0,
+                "newUser": true,
+                "phone": "string",
+                "pictureUrl": "string",
+                "platform": "MOBILE",
+                "provider": "facebook",
+                "receivedDailyReward": true,
+                "role": {
+                    "createdDate": "2025-07-23T01:06:49.704Z",
+                    "description": "string",
+                    "id": "string",
+                    "name": "string",
+                    "permissions": [
+                        {
+                            "createdDate": "2025-07-23T01:06:49.704Z",
+                            "description": "string",
+                            "id": "string",
+                            "name": "string",
+                            "updateDate": "2025-07-23T01:06:49.704Z",
+                            "userType": "CATEGORY_MANAGER"
+                        }
+                    ],
+                    "updateDate": "2025-07-23T01:06:49.704Z",
+                    "userType": "CATEGORY_MANAGER"
+                },
+                "roles": ["ADMIN"],
+                "updatedDate": "2025-07-23T01:06:49.704Z",
+                "week": 0,
+                "wishListItems": [
+                    {
+                        "category": "string",
+                        "dateAdded": "2025-07-23T01:06:49.704Z",
+                        "name": "string",
+                        "price": "string",
+                        "productId": "string",
+                        "productImage": "string"
+                    }
+                ],
+                "year": 0
+            },
+            "buyerEmail": "string",
+            "buyerName": "string",
+            "createdDate": "2025-07-23T01:06:49.704Z",
+            "gender": "FEMALE",
+            "id": "string",
+            "notes": [
+                {
+                    "createdDate": "2025-07-23T01:06:49.704Z",
+                    "id": "string",
+                    "noteText": "string",
+                    "updateDate": "2025-07-23T01:06:49.704Z",
+                    "username": "string"
+                }
+            ],
+            "orderItem": {
+                "category": "string",
+                "color": "string",
+                "fifthSubCategory": "string",
+                "fourthSubCategory": "string",
+                "price": 0,
+                "productId": "string",
+                "productName": "string",
+                "quantity": "string",
+                "secSubCategory": "string",
+                "shippingCost": "string",
+                "size": "string",
+                "sku": "string",
+                "subCategory": "string",
+                "thirdSubCategory": "string",
+                "totalAmount": 0,
+                "url": "string"
+            },
+            "orderNumber": "string",
+            "orderStatus": "ACCEPTED",
+            "paymentOption": "string",
+            "phoneNumber": "string",
+            "platform": "string",
+            "productType": "string",
+            "resolved": true,
+            "resolvedNote": "string",
+            "seller": {
+                "active": true,
+                "address": [
+                    {
+                        "area": "string",
+                        "city": "string",
+                        "defaultAddress": true,
+                        "firstName": "string",
+                        "id": "string",
+                        "lastName": "string",
+                        "name": "string",
+                        "phoneNumber": "string",
+                        "state": "string"
+                    }
+                ],
+                "boughtItems": [
+                    {
+                        "category": "string",
+                        "color": "string",
+                        "fifthSubCategory": "string",
+                        "fourthSubCategory": "string",
+                        "price": 0,
+                        "productId": "string",
+                        "productName": "string",
+                        "quantity": "string",
+                        "secSubCategory": "string",
+                        "shippingCost": "string",
+                        "size": "string",
+                        "sku": "string",
+                        "subCategory": "string",
+                        "thirdSubCategory": "string",
+                        "totalAmount": 0,
+                        "url": "string"
+                    }
+                ],
+                "cart": [
+                    {
+                        "color": "string",
+                        "dateAdded": "2025-07-23T01:06:49.704Z",
+                        "id": "string",
+                        "platform": "string",
+                        "price": 0,
+                        "product": {
+                            "category": "string",
+                            "createdDate": "2025-07-23T01:06:49.704Z",
+                            "featured": true,
+                            "fifthSubCategory": "string",
+                            "fourthSubCategory": "string",
+                            "freeShipping": true,
+                            "id": "string",
+                            "inputTag": "string",
+                            "isDeleted": true,
+                            "kaigloSale": "string",
+                            "name": "string",
+                            "paused": true,
+                            "productColors": [
+                                {
+                                    "color": {
+                                        "color": "string",
+                                        "colorCode": "string"
+                                    },
+                                    "colorUrl": "string",
+                                    "productPriceDetails": [
+                                        {
+                                            "attributes": [
+                                                {
+                                                    "key": "string",
+                                                    "metadata": "string",
+                                                    "value": "string"
+                                                }
+                                            ],
+                                            "discount": 0,
+                                            "id": "string",
+                                            "newPrice": 0,
+                                            "price": 0,
+                                            "quantity": "string",
+                                            "ramSize": "string",
+                                            "size": "string",
+                                            "sku": "string",
+                                            "stockLevel": "IN_STOCK",
+                                            "storage": "string"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "productStatus": {
+                                "approvedBy": "string",
+                                "note": "string",
+                                "status": "ACTIVE",
+                                "updatedDate": "2025-07-23T01:06:49.704Z"
+                            },
+                            "productUrl": "string",
+                            "productViews": [
+                                {
+                                    "colorCode": "string",
+                                    "productUrl": "string"
+                                }
+                            ],
+                            "sales": true,
+                            "secondSubCategory": "string",
+                            "seo": "string",
+                            "sold": 0,
+                            "specifications": [
+                                {
+                                    "name": "string",
+                                    "option": "string"
+                                }
+                            ],
+                            "stock": 0,
+                            "store": {
+                                "createdDate": "2025-07-23T01:06:49.704Z",
+                                "id": "string",
+                                "isFollowingStore": true,
+                                "owner": {
+                                    "id": "string",
+                                    "lastLoggedIn": "2025-07-23T01:06:49.704Z"
+                                },
+                                "profilePic": "string",
+                                "storeName": "string"
+                            },
+                            "subCategory": "string",
+                            "tag": "string",
+                            "thirdSubCategory": "string",
+                            "views": 0
+                        },
+                        "productUrl": "string",
+                        "quantity": 0,
+                        "ramSize": "string",
+                        "size": "string",
+                        "storage": "string"
+                    }
+                ],
+                "cartItemSize": 0,
+                "createdDate": "2025-07-23T01:06:49.704Z",
+                "currentOtp": "string",
+                "day": 0,
+                "dob": "string",
+                "email": "string",
+                "emailCountDown": 0,
+                "firebaseToken": "string",
+                "firebaseTokenManager": {
+                    "createdDate": "2025-07-23T01:06:49.704Z",
+                    "firebaseToken": "string",
+                    "id": "string",
+                    "isActive": true,
+                    "note": "string",
+                    "updateDate": "2025-07-23T01:06:49.704Z",
+                    "userId": "string"
+                },
+                "firstName": "string",
+                "fullName": "string",
+                "gender": "FEMALE",
+                "id": "string",
+                "lastLoggedIn": "2025-07-23T01:06:49.704Z",
+                "lastName": "string",
+                "month": 0,
+                "newUser": true,
+                "phone": "string",
+                "pictureUrl": "string",
+                "platform": "MOBILE",
+                "provider": "facebook",
+                "receivedDailyReward": true,
+                "role": {
+                    "createdDate": "2025-07-23T01:06:49.704Z",
+                    "description": "string",
+                    "id": "string",
+                    "name": "string",
+                    "permissions": [
+                        {
+                            "createdDate": "2025-07-23T01:06:49.704Z",
+                            "description": "string",
+                            "id": "string",
+                            "name": "string",
+                            "updateDate": "2025-07-23T01:06:49.704Z",
+                            "userType": "CATEGORY_MANAGER"
+                        }
+                    ],
+                    "updateDate": "2025-07-23T01:06:49.704Z",
+                    "userType": "CATEGORY_MANAGER"
+                },
+                "roles": ["ADMIN"],
+                "updatedDate": "2025-07-23T01:06:49.704Z",
+                "week": 0,
+                "wishListItems": [
+                    {
+                        "category": "string",
+                        "dateAdded": "2025-07-23T01:06:49.704Z",
+                        "name": "string",
+                        "price": "string",
+                        "productId": "string",
+                        "productImage": "string"
+                    }
+                ],
+                "year": 0
+            },
+            "sellerName": "string",
+            "state": "string",
+            "token": "string",
+            "txnReference": "string",
+            "updatedDate": "2025-07-23T01:06:49.704Z"
+        },
+        "transactionRef": "string"
+    },
+    "orderItem": {
+        "category": "string",
+        "color": "string",
+        "fifthSubCategory": "string",
+        "fourthSubCategory": "string",
+        "price": 0,
+        "productId": "string",
+        "productName": "string",
+        "quantity": "string",
+        "secSubCategory": "string",
+        "shippingCost": "string",
+        "size": "string",
+        "sku": "string",
+        "subCategory": "string",
+        "thirdSubCategory": "string",
+        "totalAmount": 0,
+        "url": "string"
+    },
+    "orderNumber": "string",
+    "orderRateStatus": true,
+    "orderStatus": "ACCEPTED",
+    "paymentOption": "FLUTTERWAVE",
+    "platform": "string",
+    "productPriceDetail": {
+        "attributes": [
+            {
+                "key": "string",
+                "metadata": "string",
+                "value": "string"
+            }
+        ],
+        "discount": 0,
+        "id": "string",
+        "newPrice": 0,
+        "price": 0,
+        "quantity": "string",
+        "ramSize": "string",
+        "size": "string",
+        "sku": "string",
+        "stockLevel": "IN_STOCK",
+        "storage": "string"
+    },
+    "productType": "string",
+    "shippingCost": "string",
+    "storeId": "string",
+    "storeName": "string",
+    "txnReference": "string",
+    "updatedDate": "2025-07-23T01:06:49.704Z",
+    "userId": "string"
+}

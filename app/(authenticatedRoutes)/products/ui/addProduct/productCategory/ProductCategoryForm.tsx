@@ -8,11 +8,12 @@ import ProductCategoryFormFields from "./ProductCategoryFormFields";
 import { IProductCategory, IProductCategoryDTO } from "../../../lib/interfaces/interface";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { productCategorySchema } from "../../../lib/schemas";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useSaveProductCategory from "../../../hooks/addProduct/useSaveProductCategory";
 import { useEffect } from "react";
 import { generateProductCategoryDTO } from "../../../lib/utils/addProduct.utils";
-import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { showErrorToast } from "@/app/lib/utils/utils";
+import useEditProductCategory from "../../../hooks/addProduct/useEditProductCategory";
 
 const ProductCategoryForm = ({
     categories,
@@ -23,8 +24,10 @@ const ProductCategoryForm = ({
 }) => {
     const { productDraft } = useAddProductContext();
     const { isSavingProductCategory, saveProductCategory } = useSaveProductCategory();
+    const { isEditingProductCategory, editProductCategory } = useEditProductCategory();
     const router = useRouter();
-    const { setSearchParams } = useUpdateSearchParams();
+    const searchParams = useSearchParams();
+    const productAction = searchParams.get("product-action");
 
     const formMethods = useForm<IProductCategoryDTO>({
         defaultValues: { category: "" },
@@ -36,14 +39,27 @@ const ProductCategoryForm = ({
     }, [productDraft, formMethods]);
 
     const onSubmit = (values: IProductCategoryDTO) => {
+        if (!productDraft) {
+            showErrorToast({ title: "Oh something went wrong", description: "Please refresh the page" });
+            return;
+        }
+
         // Only save category if user selected new value
         const categoryObj = generateProductCategoryDTO(productDraft);
         const isEqual = JSON.stringify(values) === JSON.stringify(categoryObj);
 
-        if (!isEqual) {
-            saveProductCategory(values);
-        } else if (productDraft)
-            setSearchParams([{ "product-id": productDraft.id }, { step: "product-details" }]);
+        if (isEqual) {
+            const nextStep =
+                productAction === "edit"
+                    ? `/products/add-product?step=product-details&product-id=${productDraft.id}&product-action=edit`
+                    : `/products/add-product?step=product-details&product-id=${productDraft.id}`;
+
+            router.replace(nextStep);
+            return;
+        }
+
+        if (productAction === "edit") editProductCategory({ productId: productDraft.id, payload: values });
+        else saveProductCategory(values);
     };
 
     return (
@@ -58,13 +74,13 @@ const ProductCategoryForm = ({
                             cancelFunc={() => router.push("/products")}
                             submitButtonText="Save and continue"
                             className="md:max-w-[424px] md:mx-auto hidden md:grid grid-cols-2 gap-6 justify-between"
-                            disabled={isSavingProductCategory}
+                            disabled={isSavingProductCategory || isEditingProductCategory}
                         />
                         <FormNavButtons
                             cancelFunc={() => router.push("/products")}
                             submitButtonText="Save & continue"
                             className="md:max-w-[424px] md:mx-auto grid md:hidden grid-cols-2 gap-6 justify-between"
-                            disabled={isSavingProductCategory}
+                            disabled={isSavingProductCategory || isEditingProductCategory}
                         />
                     </div>
                 </form>

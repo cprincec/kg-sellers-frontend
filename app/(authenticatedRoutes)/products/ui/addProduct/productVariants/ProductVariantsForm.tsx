@@ -20,8 +20,10 @@ import useSaveProductVariant from "../../../hooks/addProduct/useSaveProductVaria
 import {
     generateProductVariantDTOFromFormData,
     generateProductVariantDTOs,
+    generateProductVariantFormDefaults,
 } from "../../../lib/utils/addProduct.utils";
 import ProductVariantsFormHeader from "./ProductVariantsFormHeader";
+import useEditProductVariant from "../../../hooks/addProduct/useEditProductVariant";
 
 const ProductVariantsForm = ({
     fields,
@@ -35,8 +37,11 @@ const ProductVariantsForm = ({
     // Hooks
     const { productDraft } = useAddProductContext();
     const { isSavingProductVariant, saveProductVariant } = useSaveProductVariant();
+    const { isEditingProductVariant, editProductVariant } = useEditProductVariant();
     const searchParams = useSearchParams();
     const action = searchParams.get("action");
+    const productAction = searchParams.get("product-action");
+    const variantId = searchParams.get("variant-id");
 
     // States
     const [formData, setFormData] = useState<ProductVariantFormInterface>(productVariantsFormDefaultValues);
@@ -62,13 +67,20 @@ const ProductVariantsForm = ({
             return;
         }
 
-        saveProductVariant(newVariant);
+        if (productAction === "edit" && variantId) editProductVariant(newVariant);
+        else saveProductVariant(newVariant);
         setFormData(productVariantsFormDefaultValues);
     };
 
     useEffect(() => {
         setShowForm(action === "add-variant");
-    }, [action]);
+
+        // Initialize edit variant form with default values
+        if (productAction === "edit" && variantId && productDraft) {
+            const defaultFormData = generateProductVariantFormDefaults(productDraft, variantId);
+            setFormData(defaultFormData);
+        }
+    }, [action, variantId]);
 
     useEffect(() => {
         if (productDraft) setProductVariants(generateProductVariantDTOs(productDraft));
@@ -95,7 +107,11 @@ const ProductVariantsForm = ({
                         className="text-sm text-kaiglo_success-base justify-self-end p-3 bg-kaiglo_success-100 rounded-lg"
                         disabled={isSavingProductVariant}
                     >
-                        {isSavingProductVariant ? "Please wait..." : "Add variant"}
+                        {isSavingProductVariant || isEditingProductVariant
+                            ? "Please wait..."
+                            : variantId
+                            ? "Edit variant"
+                            : "Add variant"}
                     </Button>
                 </form>
             )}

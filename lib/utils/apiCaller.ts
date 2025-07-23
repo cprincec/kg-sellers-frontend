@@ -29,8 +29,14 @@ export const patchRequest = async <TRequest, TResponse>({ url, payload }: Mutati
     }
 };
 
-export const deleteRequest = async <TResponse>({ url }: { url: string }) => {
-    const { data } = await Api.delete<TResponse>(url);
+export const deleteRequest = async <TRequest, TResponse>({
+    url,
+    payload,
+}: {
+    url: string;
+    payload?: TRequest;
+}) => {
+    const { data } = await Api.delete<TResponse>(url, payload ? { data: payload } : undefined);
 
     return data;
 };

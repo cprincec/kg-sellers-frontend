@@ -10,6 +10,7 @@ import { useAddProductContext } from "../../../contexts/addProductContext";
 import { getLeafCategoryName } from "../../../lib/utils/addProduct.utils";
 import { useModalContext } from "@/app/contexts/modalContext";
 import ProductCategoryOptionsModal from "./ProductCategoryOptionsModal";
+import { useSearchParams } from "next/navigation";
 
 const ProductCategoryFormFields = ({ categories }: { categories: IProductCategory[] }) => {
     const {
@@ -17,6 +18,8 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
         setValue,
         formState: { errors },
     } = useFormContext<IProductCategoryDTO>();
+    const searchParams = useSearchParams();
+    const productAction = searchParams.get("product-action");
     const { productDraft } = useAddProductContext();
     const { showModal, setShowModal, setModalContent } = useModalContext();
     // this is the value displayed on the form field as selected by the user
@@ -38,6 +41,8 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
                     <div
                         className="grid gap-2"
                         onClick={() => {
+                            if (productAction === "edit") return;
+
                             setModalContent(
                                 <ProductCategoryOptionsModal
                                     categories={categories}
@@ -57,6 +62,7 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
                             type="button"
                             variant="outline"
                             className="w-full h-[48px] justify-between rounded-lg"
+                            disabled={productAction === "edit"}
                         >
                             {categoryFieldValue ? (
                                 <span>{categoryFieldValue}</span>

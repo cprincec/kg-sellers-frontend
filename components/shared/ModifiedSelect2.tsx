@@ -3,12 +3,13 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Label } from "../ui/label";
 
 type ModifiedSelect2Props<T extends { [K in keyof T]: string }> = {
+    defaultValue?: string;
     name?: string;
     label?: string;
     labelClassNames?: string;
     placeholder: string;
     options: T[];
-    valueKey: keyof T; // defaults for flexibility
+    valueKey: keyof T;
     labelKey: keyof T;
     onValueChange?: (value: string) => void;
     itemClassName?: string;
@@ -21,6 +22,7 @@ const ModifiedSelect2 = <T extends { [K in keyof T]: string }>({
     labelClassNames,
     className,
     name,
+    defaultValue,
     placeholder,
     options,
     valueKey,
@@ -43,7 +45,12 @@ const ModifiedSelect2 = <T extends { [K in keyof T]: string }>({
                     {label} {isRequired && <span className="text-kaiglo_critical-error font-medium">*</span>}
                 </Label>
             )}
-            <Select name={name} onValueChange={onValueChange} required={isRequired}>
+            <Select
+                name={name}
+                defaultValue={defaultValue}
+                onValueChange={onValueChange}
+                required={isRequired}
+            >
                 <SelectTrigger className={cn("h-12 w-full text-kaiglo_grey-900 ", className)}>
                     <SelectValue placeholder={placeholder} />
                 </SelectTrigger>

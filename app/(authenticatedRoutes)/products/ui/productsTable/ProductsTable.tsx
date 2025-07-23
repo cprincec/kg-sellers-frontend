@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { IProductDTO } from "../../lib/interfaces/interface";
+import { IProduct } from "../../lib/interfaces/interface";
 import { useEffect } from "react";
 import { Table } from "@/components/ui/table";
 import ProductsTableHeader from "./ProductsTableHeader";
@@ -10,22 +10,36 @@ import ProductDetails from "../productDetails/ProductDetails";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import AddToSales from "../addToSales/AddToSales";
 import { useModalContext } from "@/app/contexts/modalContext";
+import useDeleteProduct from "../../hooks/useDeleteProduct";
+import useGetRawProduct from "../../hooks/addProduct/useGetRawProduct";
+// import useGetProductDescription from "../../hooks/addProduct/useGetProductDescription";
 
-const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
+const ProductsTable = ({ products }: { products: IProduct[] }) => {
     const searchParams = useSearchParams();
+    const productId = searchParams.get("product-id");
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
+    const { productRaw } = useGetRawProduct(productId || "");
+    // const { productDescription } = useGetProductDescription(productId || "");
+    const { deleteProduct } = useDeleteProduct();
 
     useEffect(() => {
         // Display relevant modal based on url parameters
         let content = null;
         let clearKeys: string[] = [];
 
-        if (searchParams.get("product-id")) {
-            content = <ProductDetails />;
-            clearKeys = ["product-id"];
-        } else if (searchParams.get("product-action") === "delete-product" && searchParams.get("id")) {
-            content = <ConfirmDeleteProduct />;
+        if (searchParams.get("product-action") === "delete-product" && searchParams.get("product-id")) {
+            content = (
+                <ConfirmDeleteProduct
+                    confirmButtonAction={() => {
+                        console.log(productRaw);
+                        if (productRaw) deleteProduct(productRaw);
+
+                        deleteSearchParams(["product-action", "product-id"]);
+                        setShowModal(false);
+                    }}
+                />
+            );
             clearKeys = ["product-action", "id"];
         } else if (searchParams.get("product-action") === "pause-product" && searchParams.get("id")) {
             content = (
@@ -44,6 +58,9 @@ const ProductsTable = ({ products }: { products: IProductDTO[] }) => {
         } else if (searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) {
             content = <AddToSales />;
             clearKeys = ["product-action", "id"];
+        } else if (searchParams.get("product-id")) {
+            content = <ProductDetails />;
+            clearKeys = ["product-id"];
         }
 
         if (content) {

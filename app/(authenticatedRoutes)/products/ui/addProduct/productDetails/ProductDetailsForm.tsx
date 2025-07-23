@@ -6,12 +6,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { productDetailsSchema } from "../../../lib/schemas";
 import ProductDetailsFormFields from "./ProductDetailsFormFields";
-import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import useSaveProductDetails from "../../../hooks/addProduct/useSaveProductDetails";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { showErrorToast } from "@/app/lib/utils/utils";
 import { useEffect } from "react";
+import { generateProductDetailsDTO } from "../../../lib/utils/addProduct.utils";
+import ProductsDetailsFormNavButtons from "./ProductsDetailsFormNavButtons";
+import useEditProductDetails from "../../../hooks/addProduct/useEditProductDetails";
 
 const ProductDetailsForm = ({
     defaultValues,
@@ -21,8 +23,11 @@ const ProductDetailsForm = ({
     className?: string;
 }) => {
     const router = useRouter();
-    const { productDraft } = useAddProductContext();
+    const searchParams = useSearchParams();
+    const productAction = searchParams.get("product-action");
+    const { productDraft, productDraftDescription } = useAddProductContext();
     const { saveProductDetails, isSavingProductDetails } = useSaveProductDetails();
+    const { editProductDetails, isEditingProductDetails } = useEditProductDetails();
 
     const productDetailsformMethods = useForm<IProductDetailsDTO>({
         defaultValues,
@@ -45,7 +50,21 @@ const ProductDetailsForm = ({
             return;
         }
 
-        saveProductDetails({ payload: values, productId: productDraft.id });
+        const prevValues = generateProductDetailsDTO(productDraft, productDraftDescription);
+        const isEqual = JSON.stringify(prevValues) === JSON.stringify(values);
+
+        if (isEqual) {
+            const nextStep =
+                productAction === "edit"
+                    ? `/products/add-product?step=product-variants&product-id=${productDraft.id}&product-action=edit`
+                    : `/products/add-product?step=product-variants&product-id=${productDraft.id}`;
+
+            router.replace(nextStep);
+            return;
+        }
+
+        if (productAction === "edit") editProductDetails({ payload: values, productId: productDraft.id });
+        else saveProductDetails({ payload: values, productId: productDraft.id });
     };
 
     return (
@@ -56,35 +75,10 @@ const ProductDetailsForm = ({
                     className="grid gap-5 md:gap-10"
                 >
                     <ProductDetailsFormFields />
-
-                    <div>
-                        <FormNavButtons
-                            cancelFunc={() => {
-                                if (productDraft)
-                                    router.replace(
-                                        `/products/add-product?step=product-category&product-id=${productDraft.id}`
-                                    );
-                                else router.replace(`/products/add-product?step=product-category`);
-                            }}
-                            cancelButtonText="Previous"
-                            submitButtonText="Save & continue"
-                            className="hidden md:flex gap-3 justify-between lg:px-6 lg:pt-4 pb-6"
-                            disabled={isSavingProductDetails}
-                        />
-                        <FormNavButtons
-                            cancelFunc={() => {
-                                if (productDraft)
-                                    router.replace(
-                                        `/products/add-product?step=product-category&product-id=${productDraft.id}`
-                                    );
-                                else router.replace(`/products/add-product?step=product-category`);
-                            }}
-                            cancelButtonText="Previous"
-                            submitButtonText="Save & continue"
-                            className="md:max-w-[424px] md:mx-auto grid md:hidden grid-cols-2 gap-3 justify-between"
-                            disabled={isSavingProductDetails}
-                        />
-                    </div>
+                    <ProductsDetailsFormNavButtons
+                        isSavingProductDetails={isSavingProductDetails}
+                        isEditingProductDetails={isEditingProductDetails}
+                    />
                 </form>
             </div>
         </FormProvider>

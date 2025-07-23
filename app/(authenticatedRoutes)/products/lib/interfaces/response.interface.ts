@@ -1,8 +1,10 @@
 import {
     ICategorySpecifications,
+    IPageable,
     IProduct,
     IProductMeta,
     IProductsOverview,
+    ISort,
     IVariantField,
 } from "./interface";
 
@@ -26,11 +28,27 @@ export interface IProductResponse {
     response: IProduct;
 }
 
+export interface IGetPaginatedProducts {
+    content: IProduct[];
+    pageable: IPageable;
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    size: number;
+    number: number;
+    sort: ISort;
+    numberOfElements: number;
+    first: boolean;
+    empty: boolean;
+}
+
+
 export interface IGetVariantFieldsResponse {
     id: string;
     tag: string;
     options: IVariantField[];
 }
+
 export interface IGetProductMetaResponse {
     response: IProductMeta;
     message: string;

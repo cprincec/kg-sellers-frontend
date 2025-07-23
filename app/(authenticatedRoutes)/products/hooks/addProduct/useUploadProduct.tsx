@@ -32,6 +32,7 @@ const useUploadProduct = () => {
             // Instantly update cache
             queryClient.setQueryData(["product-raw"], null);
             queryClient.setQueryData(["product-description"], "");
+            // queryClient.invalidateQueries([])
             flushSync(() => {
                 setProductDraft(null);
                 setProductDraftDescription("");

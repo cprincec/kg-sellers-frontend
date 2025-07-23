@@ -3,7 +3,7 @@
 import { NoResultsIcon } from "../../dashboard/ui/icons";
 import OrderHistoryTable from "./OrderHistoryTable";
 import { useSearchParams } from "next/navigation";
-import { ordersList } from "../lib/data";
+import { IOrder } from "../lib/interfaces/interface";
 
 /******************************************************************************
  * This component fetches orders
@@ -11,13 +11,13 @@ import { ordersList } from "../lib/data";
  * Sorts the orders as needed
  * Renders the order history table with list of  filterd or/and sorted orders
  ******************************************************************************/
-const OrderHistoryTableWrapper = () => {
+const OrderHistoryTableWrapper = ({ orders }: { orders: IOrder[] | undefined | null }) => {
     const searchParams = useSearchParams();
-    let orders = ordersList;
+    // let orders = ordersList;
 
     const searchingFor = searchParams.get("searching-for");
-    const sortBy = searchParams.get("sort-by");
-    const sortRange = searchParams.get("sort-range");
+    // const sortBy = searchParams.get("sort-by");
+    // const sortRange = searchParams.get("sort-range");
     const activeTab = searchParams.get("tab");
 
     // Set custom message for order history results
@@ -26,40 +26,44 @@ const OrderHistoryTableWrapper = () => {
     else if (activeTab && activeTab !== "all") noResultsMessage = `You have no ${activeTab} orders`;
 
     // filter orders by search string
-    if (searchingFor) {
-        orders = orders.filter((order) =>
-            order.productName.toLowerCase().includes(searchingFor.toLowerCase())
-        );
-    }
+    // if (searchingFor) {
+    //     orders = orders.filter((order) =>
+    //         order.productName.toLowerCase().includes(searchingFor.toLowerCase())
+    //     );
+    // }
 
     // filter by order status
-    if (activeTab) {
-        orders = orders.filter((order) => {
-            return activeTab === "all" || order.orderStatus.toLowerCase() === activeTab.toLowerCase();
-        });
-    }
+    // if (activeTab) {
+    //     orders = orders.filter((order) => {
+    //         return activeTab === "all" || order.orderStatus.toLowerCase() === activeTab.toLowerCase();
+    //     });
+    // }
 
     // sort by orders
-    if (sortBy && sortRange) {
-        // sort by amount
-        if (sortBy.toLowerCase() === "amount") {
-            if (sortRange.toLowerCase() === "low-to-high") {
-                orders.sort((a, b) => parseFloat(a.amount) - parseFloat(b.amount));
-            } else if (sortRange.toLowerCase() === "high-to-low") {
-                orders.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
-            }
-        }
+    // if (sortBy && sortRange) {
+    //     // sort by amount
+    //     if (sortBy.toLowerCase() === "amount") {
+    //         if (sortRange.toLowerCase() === "low-to-high") {
+    //             orders.sort((a, b) => parseFloat(a.amount) - parseFloat(b.amount));
+    //         } else if (sortRange.toLowerCase() === "high-to-low") {
+    //             orders.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
+    //         }
+    //     }
 
-        // Sort by quantity
-        if (sortBy.toLowerCase() === "quantity") {
-            if (sortRange.toLowerCase() === "low-to-high") {
-                orders.sort((a, b) => a.quantity - b.quantity);
-            } else if (sortRange.toLowerCase() === "high-to-low") {
-                orders.sort((a, b) => b.quantity - a.quantity);
-            }
-        }
-    }
+    //     // Sort by quantity
+    //     if (sortBy.toLowerCase() === "quantity") {
+    //         if (sortRange.toLowerCase() === "low-to-high") {
+    //             orders.sort((a, b) => a.quantity - b.quantity);
+    //         } else if (sortRange.toLowerCase() === "high-to-low") {
+    //             orders.sort((a, b) => b.quantity - a.quantity);
+    //         }
+    //     }
+    // }
 
-    return orders.length ? <OrderHistoryTable orders={orders} /> : <NoResultsIcon title={noResultsMessage} />;
+    return orders?.length ? (
+        <OrderHistoryTable orders={orders} />
+    ) : (
+        <NoResultsIcon title={noResultsMessage} />
+    );
 };
 export default OrderHistoryTableWrapper;

@@ -33,7 +33,7 @@ export const generateProductDetailsDTO = (
         productRaw.productViews && productRaw.productViews.length
             ? productRaw.productViews.filter((view) => !view.colorCode).map((view) => view.productUrl)
             : [];
-    
+
     const { name, productUrl, specifications, seo } = productRaw;
 
     return {
@@ -54,6 +54,8 @@ export const generateProductDetailsDTO = (
  * variants available in the draft
  * ***********************************************************/
 export const generateProductVariantDTOs = (productRaw: IProduct): IProductVariantDTO[] => {
+    if (!productRaw.productColors || !productRaw.productColors.length) return [];
+
     const variants: IProductVariantDTO[] = [];
     for (const variant of productRaw.productColors) {
         variants.push({
@@ -90,6 +92,22 @@ export const generateProductVariantDTOs = (productRaw: IProduct): IProductVarian
     }
 
     return variants;
+};
+
+export const generateProductVariantFormDefaults = (
+    product: IProduct,
+    variantId: string
+): ProductVariantFormInterface => {
+    if (!product.productColors?.length) return productVariantsFormDefaultValues;
+
+    const variant = product.productColors.find((v) => v.productPriceDetails[0].id === variantId);
+
+    if (!variant) return productVariantsFormDefaultValues;
+
+    return {
+        productUrl: variant.colorUrl,
+        attributes: variant.productPriceDetails[0].attributes,
+    };
 };
 
 export const generateProductVariantDTOFromFormData = (
@@ -257,7 +275,7 @@ import {
     ProductVariantFormInterface,
 } from "../interfaces/interface";
 import { PRODUCT_CATEGORY_KEYS } from "../constants";
-import { productDetailsFormDefaultValues } from "../defaults";
+import { productDetailsFormDefaultValues, productVariantsFormDefaultValues } from "../defaults";
 import { showErrorToast } from "@/app/lib/utils/utils";
 
 type HandleUploadParams<T extends FieldValues> = {

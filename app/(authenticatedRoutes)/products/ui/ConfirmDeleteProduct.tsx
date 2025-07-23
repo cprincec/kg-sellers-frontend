@@ -47,7 +47,7 @@ const ConfirmDeleteProduct = ({
                         onClick={() => {
                             if (cancleButtonAction) cancleButtonAction();
                             else {
-                                deleteSearchParams(["product-action", "id"]);
+                                deleteSearchParams(["product-action", "id", "product-id"]);
                                 setShowModal(false);
                             }
                         }}
@@ -62,7 +62,7 @@ const ConfirmDeleteProduct = ({
                         onClick={() => {
                             if (confirmButtonAction) confirmButtonAction();
                             else {
-                                deleteSearchParams(["product-action", "id"]);
+                                deleteSearchParams(["product-action", "id", "product-id"]);
                                 setShowModal(false);
                             }
                         }}

@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { ArrowBackLink } from "../buttons";
-import { ROUTES } from "@/lib/consts";
+import { ROUTES } from "../../lib/constants";
 import { IAccountRecoveryDTO, IOtpDTO } from "../../lib/interfaces/interface";
 import useRecoverUserAccount from "../../hooks/recoverAccount/useRecoverAccount";
 import useValidateAccountRecoveryOtp from "../../hooks/recoverAccount/useValidateAccountRecoveryOtp";

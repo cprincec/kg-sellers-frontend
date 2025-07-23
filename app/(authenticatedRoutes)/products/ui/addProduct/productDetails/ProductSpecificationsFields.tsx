@@ -9,11 +9,11 @@ import { IProductSpecification, IProductSpecificationDTO } from "../../../lib/in
 const ProductSpecificationsFields = ({ specifications }: { specifications: IProductSpecification[] }) => {
     const {
         setValue,
-        getValues,
+        watch,
         formState: { errors },
     } = useFormContext();
 
-    const defaultSpecs: IProductSpecificationDTO[] = getValues("specifications") ?? [];
+    const defaultSpecs: IProductSpecificationDTO[] = watch("specifications") ?? [];
 
     return (
         <div className="grid gap-3 md:gap-4 lg:px-6 lg:pt-4 pb-6 border-b">
@@ -22,30 +22,39 @@ const ProductSpecificationsFields = ({ specifications }: { specifications: IProd
             </h3>
 
             <div className="grid lg:grid-cols-2 gap-3 md:gap-4">
-                {specifications.map((spec, index) => (
-                    <div key={`${spec.name}-${index}`} className="grid gap-2 text-sm md:text-sm mt-1">
-                        <Label className="font-normal text-sm md:text-base capitalize">{spec.name}</Label>
+                {specifications.map((spec, index) => {
+                    const value =
+                        defaultSpecs.find((d) => {
+                            return d.name.toLowerCase() === spec.name.toLowerCase();
+                        })?.option || "";
 
-                        <ModifiedSelect3
-                            defaultValue={defaultSpecs.find((d) => d.name === spec.name)?.option || ""}
-                            name={spec.name}
-                            options={spec.options}
-                            onValueChange={(value) => {
-                                const currentSpecs = getValues("specifications") ?? [];
-                                const updatedSpecs = currentSpecs.filter(
-                                    (option: IProductSpecification) =>
-                                        option.name.trim().toLowerCase() !== spec.name.trim().toLowerCase()
-                                );
+                    return (
+                        <div key={`${spec.name}-${index}`} className="grid gap-2 text-sm md:text-sm mt-1">
+                            <Label className="font-normal text-sm md:text-base capitalize">{spec.name}</Label>
 
-                                if (value !== "") {
-                                    updatedSpecs.push({ name: spec.name, option: value });
-                                }
+                            <ModifiedSelect3
+                                key={`${spec.name}-${value}`}
+                                value={value}
+                                name={spec.name}
+                                options={spec.options}
+                                onValueChange={(value) => {
+                                    const currentSpecs = watch("specifications") ?? [];
+                                    const updatedSpecs = currentSpecs.filter(
+                                        (option: IProductSpecification) =>
+                                            option.name.trim().toLowerCase() !==
+                                            spec.name.trim().toLowerCase()
+                                    );
 
-                                setValue("specifications", updatedSpecs);
-                            }}
-                        />
-                    </div>
-                ))}
+                                    if (value !== "") {
+                                        updatedSpecs.push({ name: spec.name, option: value });
+                                    }
+
+                                    setValue("specifications", updatedSpecs);
+                                }}
+                            />
+                        </div>
+                    );
+                })}
 
                 {errors.specifications && (
                     <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">

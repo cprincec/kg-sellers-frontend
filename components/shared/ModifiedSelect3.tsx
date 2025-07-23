@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils/utils";
@@ -11,6 +10,7 @@ const ModifiedSelect3 = ({
     className,
     name,
     defaultValue,
+    value,
     placeholder,
     options,
     onValueChange,
@@ -18,6 +18,7 @@ const ModifiedSelect3 = ({
 }: {
     name: string;
     options: string[];
+    value?: string;
     defaultValue?: string;
     placeholder?: string;
     label?: string;
@@ -27,7 +28,6 @@ const ModifiedSelect3 = ({
     isRequired?: boolean;
     onValueChange: (value: string) => void;
 }) => {
-    const [selectedValue, setSelectedValue] = useState<string>(defaultValue || "");
     const uniqueOptions = [...new Set(options)];
 
     return (
@@ -45,17 +45,12 @@ const ModifiedSelect3 = ({
             <Select
                 name={name}
                 onValueChange={(value) => {
-                    // This will allow user to disselect value after
+                    // This null check will allow user to disselect value after
                     // already selecting one
-                    if (value === "null") {
-                        onValueChange("");
-                        setSelectedValue("");
-                    } else {
-                        onValueChange(value);
-                        setSelectedValue(value);
-                    }
+                    onValueChange(value === "null" ? "" : value);
                 }}
-                value={selectedValue}
+                defaultValue={defaultValue}
+                value={value}
                 required={isRequired}
             >
                 <SelectTrigger className={cn("h-12 w-full text-kaiglo_grey-900 ", className)}>

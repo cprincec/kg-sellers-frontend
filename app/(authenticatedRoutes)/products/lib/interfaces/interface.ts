@@ -116,7 +116,8 @@ export interface IAction {
     icon: StaticImageData;
     actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
     style?: string;
-    // disabled?: (product: IProductDTO) => boolean;
+    disabled?: boolean;
+    link?: (productId: string, variantId?: string) => string;
 }
 
 /*******************************************************************
@@ -294,37 +295,50 @@ export interface IProductVariantDTO {
  ******************************************************************/
 
 export interface IProduct {
-    id: string;
-    name: string;
-    productUrl: string;
-    productColors: IProductColor[];
-    productViews: IProductView[];
-    specifications: IProductSpecificationDTO[];
     category: string;
-    subCategory: string;
-    secondSubCategory: string;
-    thirdSubCategory: string;
-    fourthSubCategory: string;
-    fifthSubCategory: string;
-    tag: string;
-    inputTag: string;
-    sales: boolean;
-    featured: boolean;
-    kaigloSale: string;
-    freeShipping: boolean;
-    productStatus: IProductStatus;
-    paused: boolean;
-    isDeleted: boolean;
-    store: IStore;
     createdDate: string;
-    views: number;
-    sold: number;
-    stock: number;
+    featured: boolean;
+    fifthSubCategory: string;
+    freeShipping: boolean;
+    fourthSubCategory: string;
+    id: string;
+    inputTag: string;
+    isDeleted: boolean;
+    kaigloSale: string;
+    name: string;
+    paused: boolean;
+    productColors: IProductColor[] | null;
+    productDescriptionSummary: string;
+    productRating: IProductRating;
+    productStatus: IProductStatus;
+    productUrl: string;
+    productUrlDuplicate: string;
+    productViews: IProductView[] | null;
+    productViewsDuplicate: IProductView[] | null;
+    qname: string;
+    salesTag: string;
+    sales: boolean;
+    secondSubCategory: string;
     seo: string;
-    weightInKG: number;
+    sold: number;
+    specifications: IProductSpecificationDTO[];
+    stock: number;
+    store: IStore;
+    subCategory: string;
+    tag: string;
+    thirdSubCategory: string;
+    updatedDate: "";
+    views: number;
+    weightInKG?: number;
 }
 
-interface IProductColor {
+export interface IProductRating {
+    additionalProp1: number;
+    additionalProp2: number;
+    additionalProp3: number;
+}
+
+export interface IProductColor {
     color: {
         color: string;
         colorCode: string;
@@ -333,7 +347,7 @@ interface IProductColor {
     productPriceDetails: IProductPriceDetail[];
 }
 
-interface IProductPriceDetail {
+export interface IProductPriceDetail {
     id: string;
     price: number;
     newPrice: number;
@@ -347,25 +361,27 @@ interface IProductPriceDetail {
     attributes: IProductAttribute[];
 }
 
-interface IProductAttribute {
+export interface IProductAttribute {
     key: string;
     value: string;
     metadata: string;
 }
 
-interface IProductView {
+export interface IProductView {
     colorCode: string | null;
     productUrl: string;
 }
 
-interface IProductStatus {
-    status: "ACTIVE" | "DRAFT" | "ARCHIVED" | "PAUSED" | string;
+export interface IProductStatus {
+    status: StatusTypes;
     updatedDate: string;
     approvedBy: string;
     note: string;
 }
 
-interface IStore {
+export type StatusTypes = "ACTIVE" | "DRAFT" | "PAUSED" | "PENDING" | "REJECTED";
+
+export interface IStore {
     id: string;
     storeName: string;
     profilePic: string;
@@ -374,7 +390,7 @@ interface IStore {
     owner: IStoreOwner;
 }
 
-interface IStoreOwner {
+export interface IStoreOwner {
     id: string;
     lastLoggedIn: string;
 }
@@ -387,6 +403,21 @@ export interface IVariantField {
     choices: unknown;
     placeholder: string;
     required: boolean | null;
+}
+
+export interface IPageable {
+    sort: ISort;
+    pageNumber: number;
+    pageSize: number;
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
+}
+
+export interface ISort {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
 }
 
 /*******************************************************************

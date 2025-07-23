@@ -12,32 +12,4 @@ export const productDetailsFormDefaultValues = {
 export const productVariantsFormDefaultValues: ProductVariantFormInterface = {
     attributes: [],
     productUrl: "",
-    // productColor: {
-    //     color: {
-    //         color: "",
-    //         colorCode: "",
-    //     },
-    //     colorUrl: "",
-    //     productPriceDetails: [
-    //         {
-    //             attributes: [],
-    //             discount: 0,
-    //             id: "",
-    //             newPrice: 0,
-    //             price: 0,
-    //             quantity: "",
-    //             ramSize: "",
-    //             size: "",
-    //             sku: "",
-    //             stockLevel: "",
-    //             storage: "",
-    //         },
-    //     ],
-    //     productId: "",
-    //     productView: {
-    //         colorCode: "",
-    //         productUrl: "",
-    //     },
-    //     weightInKG: 0,
-    // },
 };

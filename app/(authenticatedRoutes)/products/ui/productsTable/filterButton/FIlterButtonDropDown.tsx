@@ -52,6 +52,8 @@ const FilterButtonDropDown = ({
                     return (
                         <ModifiedSelect2
                             key={category.value}
+                            labelKey={"label"}
+                            valueKey={"value"}
                             placeholder={category.label}
                             options={options}
                         />
