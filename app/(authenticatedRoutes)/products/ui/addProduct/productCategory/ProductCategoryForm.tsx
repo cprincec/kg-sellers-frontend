@@ -12,7 +12,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useSaveProductCategory from "../../../hooks/addProduct/useSaveProductCategory";
 import { useEffect } from "react";
 import { generateProductCategoryDTO } from "../../../lib/utils/addProduct.utils";
-import { showErrorToast } from "@/app/lib/utils/utils";
 import useEditProductCategory from "../../../hooks/addProduct/useEditProductCategory";
 
 const ProductCategoryForm = ({
@@ -39,16 +38,12 @@ const ProductCategoryForm = ({
     }, [productDraft, formMethods]);
 
     const onSubmit = (values: IProductCategoryDTO) => {
-        if (!productDraft) {
-            showErrorToast({ title: "Oh something went wrong", description: "Please refresh the page" });
-            return;
-        }
-
         // Only save category if user selected new value
         const categoryObj = generateProductCategoryDTO(productDraft);
         const isEqual = JSON.stringify(values) === JSON.stringify(categoryObj);
 
-        if (isEqual) {
+        // User has saved category before
+        if (isEqual && productDraft) {
             const nextStep =
                 productAction === "edit"
                     ? `/products/add-product?step=product-details&product-id=${productDraft.id}&product-action=edit`
@@ -58,7 +53,8 @@ const ProductCategoryForm = ({
             return;
         }
 
-        if (productAction === "edit") editProductCategory({ productId: productDraft.id, payload: values });
+        if (productAction === "edit" && productDraft)
+            editProductCategory({ productId: productDraft.id, payload: values });
         else saveProductCategory(values);
     };
 
