@@ -1,17 +1,18 @@
 "use client";
 
-import { LOGIN_TEXTS, ROUTES } from "@/lib/consts";
+import { LOGIN_TEXTS, ROUTES } from "../../lib/constants";
 import { useForm } from "react-hook-form";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";
-import { signInResolver } from "@/lib/validations/resolvers";
 import { useSearchParams } from "next/navigation";
 import { useVerifyOtp } from "../../hooks/useVerifyOtp";
 import { useOtpContext } from "../../contexts/otpContext";
 import { ILoginUserDTO, IOtpDTO } from "../../lib/interfaces/interface";
 import useLoginUser from "../../hooks/login/useLoginUser";
 import { signInDefaultValues } from "../../lib/validations/defaults";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signInSchema } from "@/lib/validations/schemas";
 
 const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -33,7 +34,7 @@ const LoginForm = () => {
         formState: { errors },
     } = useForm<ILoginUserDTO>({
         defaultValues,
-        resolver: signInResolver,
+        resolver: yupResolver(signInSchema),
     });
 
     // get otp context methods for update

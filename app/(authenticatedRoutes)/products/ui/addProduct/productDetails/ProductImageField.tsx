@@ -52,7 +52,9 @@ const ProductImageField = <T extends FieldValues>({
         });
     };
 
-    const handleRemoveImage = (isMainImage: boolean, index: number) => {
+    const handleRemoveImage = (isMainImage?: boolean, index?: number) => {
+        if (index === null || index === undefined) return;
+
         if (isMainImage) {
             // replace main image with first image in 'other images' array
             setValue(mainImageKey, otherImagesValue[0] || "");

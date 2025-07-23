@@ -1,6 +1,6 @@
 "use client";
 
-import { LOGIN_TEXTS, SIGNUP_TEXTS } from "@/lib/consts";
+import { LOGIN_TEXTS, SIGNUP_TEXTS } from "../../lib/constants";
 import { GoogleButton } from "../buttons";
 import SmilingWomanImage from "./SmilingWomanImage";
 import TermsAndConditionsAndPrivacyPolicy from "./TermsAndConditionsAndPrivacyPolicy";

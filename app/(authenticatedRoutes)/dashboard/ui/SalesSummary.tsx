@@ -3,9 +3,18 @@ import { IconVerticalLine } from "@/public/icons/icons";
 import Image from "next/image";
 import { Fragment } from "react";
 import Metric from "../../ui/metrics/Metric";
+import { ISalesSummary } from "../../orders/lib/interfaces/interface";
 
-const SalesSummary = ({ className, showEmptyState }: { className?: string; showEmptyState: boolean }) => {
-    const salesSummaryMock = [
+const SalesSummary = ({
+    salesSummaryData,
+    className,
+    showEmptyState,
+}: {
+    salesSummaryData?: ISalesSummary[];
+    className?: string;
+    showEmptyState: boolean;
+}) => {
+    const salesSummaryMock = salesSummaryData ?? [
         {
             title: "COMPLETED SALES",
             body: "200000",

@@ -3,7 +3,6 @@
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { cn } from "@/lib/utils/utils";
-import { getStatusStyle } from "../../../lib/utils/utils";
 import { IRejectedProductDTO } from "../../../lib/interfaces/interface";
 import { IconEdit, IconTrash2 } from "@/public/icons/icons";
 import Link from "next/link";
@@ -39,12 +38,7 @@ const RejectedProductsTableBody = ({ rejectedProducts }: { rejectedProducts: IRe
                         <TableCell className="p-3 text-sm text-center">₦{product.amount}</TableCell>
                         <TableCell className="p-3 text-sm">
                             <div className="w-min m-auto flex justify-center border border-kaiglo_grey-200 rounded-lg">
-                                <span
-                                    className={cn(
-                                        "capitalize px-3 py-1",
-                                        getStatusStyle(product.status.toLowerCase())
-                                    )}
-                                >
+                                <span className={cn("capitalize px-3 py-1 text-kaiglo_critical-600")}>
                                     {product.status}
                                 </span>
                             </div>

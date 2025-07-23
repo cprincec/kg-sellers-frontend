@@ -1,5 +1,6 @@
 import { StaticImageData } from "next/image";
 import { Dispatch, SetStateAction } from "react";
+import { UseFormSetValue } from "react-hook-form";
 
 export interface ProductDtO {
     productImage: StaticImageData;
@@ -20,12 +21,11 @@ export interface IProductsContext {
 }
 
 export interface IAddProductContext {
-    productCategory: IProductCategoryDTO;
-    setProductCategory: Dispatch<SetStateAction<IProductCategoryDTO>>;
-    productDetails: IProductDetailsDTO | undefined;
-    setProductDetails: Dispatch<SetStateAction<IProductDetailsDTO | undefined>>;
-    productVariants: IProductVariantsFormValues[];
-    setProductVariants: Dispatch<SetStateAction<IProductVariantsFormValues[]>>;
+    storeId: string;
+    productDraft: IProduct | null;
+    setProductDraft: Dispatch<SetStateAction<IProduct | null>>;
+    productDraftDescription: string;
+    setProductDraftDescription: Dispatch<SetStateAction<string>>;
 }
 
 export interface IProductVariant {
@@ -36,6 +36,15 @@ export interface IProductVariant {
     amount: number;
     price: number;
     shippingWeight: number;
+}
+
+export interface IProductVariantsFormValues {
+    images: File[];
+    shippingWeight: number;
+    color: string;
+    size?: string;
+    quantity: number;
+    price: number;
 }
 
 export interface IProductDTO {
@@ -52,15 +61,6 @@ export interface IProductDTO {
     productVariants: ProductVariant[];
     description: string;
     specifications: string[];
-}
-
-export interface IProductVariantsFormValues {
-    images: File[];
-    shippingWeight: number;
-    color: string;
-    size?: string;
-    quantity: number;
-    price: number;
 }
 
 export interface ProductVariant {
@@ -116,7 +116,8 @@ export interface IAction {
     icon: StaticImageData;
     actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
     style?: string;
-    // disabled?: (product: IProductDTO) => boolean;
+    disabled?: boolean;
+    link?: (productId: string, variantId?: string) => string;
 }
 
 /*******************************************************************
@@ -153,6 +154,14 @@ export interface IProductCategoryDTO {
     fifthSubCategory?: string;
 }
 
+export type IProductCategoryOptionsModalProps = {
+    categories: IProductCategory[];
+    showModal: boolean;
+    setShowModal: Dispatch<SetStateAction<boolean>>;
+    setCategoryFieldValue: Dispatch<SetStateAction<string>>;
+    setValue: UseFormSetValue<IProductCategoryDTO>;
+};
+
 // product category DTOs ends
 
 // product category api responses starts
@@ -179,6 +188,15 @@ export interface IProductCategoryTree {
 /*******************************************************************
  * Product details/info interfaces starts
  ******************************************************************/
+
+// All specificatipons belonging to a selected category
+export interface ICategorySpecifications {
+    id: string;
+    spec: string;
+    specifications: IProductSpecification[];
+    tag: string;
+}
+
 export interface IProductDetails {
     mainImage: string;
     otherImages: string[];
@@ -193,8 +211,8 @@ export interface IProductDetailsDTO {
     otherImages: string[];
     productName: string;
     description: string;
-    seo: string;
-    specifications: IProductSpecificationDTO[];
+    seo?: string;
+    specifications?: IProductSpecificationDTO[];
 }
 
 export interface IProductSpecificationDTO {
@@ -209,4 +227,199 @@ export interface IProductSpecification {
 
 /*******************************************************************
  * Product details/info interfaces ends
+ ******************************************************************/
+
+/*******************************************************************
+ * Product variants interfaces starts
+ ******************************************************************/
+
+export interface ProductVariantFormInterface {
+    attributes: {
+        key: string;
+        metadata?: string;
+        value: string;
+    }[];
+    productUrl: string;
+}
+
+export interface IProductMeta {
+    id: string;
+    productColorCode: IColor[];
+    dialogOptions: IDialogOptions;
+}
+
+export interface IColor {
+    color: string;
+    colorCode: string;
+}
+
+export interface IDialogOptions {
+    [key: string]: string[];
+}
+
+export interface IProductVariantDTO {
+    productColor: {
+        color: IColor;
+        colorUrl: string;
+        productPriceDetails: {
+            attributes: {
+                key: string;
+                metadata?: string;
+                value: string;
+            }[];
+            discount?: number;
+            id?: string;
+            newPrice?: number;
+            price: number;
+            quantity: string;
+            ramSize?: string;
+            size?: string;
+            sku?: string;
+            stockLevel?: string;
+            storage?: string;
+        }[];
+    };
+    productId: string;
+    productView: {
+        colorCode: string;
+        productUrl: string;
+    };
+    weightInKG?: number;
+}
+/*******************************************************************
+ * Product variants interfaces ends
+ ******************************************************************/
+
+/*******************************************************************
+ * Product interfaces starts
+ ******************************************************************/
+
+export interface IProduct {
+    category: string;
+    createdDate: string;
+    featured: boolean;
+    fifthSubCategory: string;
+    freeShipping: boolean;
+    fourthSubCategory: string;
+    id: string;
+    inputTag: string;
+    isDeleted: boolean;
+    kaigloSale: string;
+    name: string;
+    paused: boolean;
+    productColors: IProductColor[] | null;
+    productDescriptionSummary: string;
+    productRating: IProductRating;
+    productStatus: IProductStatus;
+    productUrl: string;
+    productUrlDuplicate: string;
+    productViews: IProductView[] | null;
+    productViewsDuplicate: IProductView[] | null;
+    qname: string;
+    salesTag: string;
+    sales: boolean;
+    secondSubCategory: string;
+    seo: string;
+    sold: number;
+    specifications: IProductSpecificationDTO[];
+    stock: number;
+    store: IStore;
+    subCategory: string;
+    tag: string;
+    thirdSubCategory: string;
+    updatedDate: "";
+    views: number;
+    weightInKG?: number;
+}
+
+export interface IProductRating {
+    additionalProp1: number;
+    additionalProp2: number;
+    additionalProp3: number;
+}
+
+export interface IProductColor {
+    color: {
+        color: string;
+        colorCode: string;
+    };
+    colorUrl: string;
+    productPriceDetails: IProductPriceDetail[];
+}
+
+export interface IProductPriceDetail {
+    id: string;
+    price: number;
+    newPrice: number;
+    discount: number;
+    quantity: string;
+    ramSize: string;
+    size: string;
+    sku: string;
+    stockLevel: "IN_STOCK" | "OUT_OF_STOCK" | "LOW_STOCK";
+    storage: string;
+    attributes: IProductAttribute[];
+}
+
+export interface IProductAttribute {
+    key: string;
+    value: string;
+    metadata: string;
+}
+
+export interface IProductView {
+    colorCode: string | null;
+    productUrl: string;
+}
+
+export interface IProductStatus {
+    status: StatusTypes;
+    updatedDate: string;
+    approvedBy: string;
+    note: string;
+}
+
+export type StatusTypes = "ACTIVE" | "DRAFT" | "PAUSED" | "PENDING" | "REJECTED";
+
+export interface IStore {
+    id: string;
+    storeName: string;
+    profilePic: string;
+    isFollowingStore: boolean;
+    createdDate: string;
+    owner: IStoreOwner;
+}
+
+export interface IStoreOwner {
+    id: string;
+    lastLoggedIn: string;
+}
+
+export interface IVariantField {
+    type: unknown;
+    title: string;
+    input: boolean;
+    dialogOption: string;
+    choices: unknown;
+    placeholder: string;
+    required: boolean | null;
+}
+
+export interface IPageable {
+    sort: ISort;
+    pageNumber: number;
+    pageSize: number;
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
+}
+
+export interface ISort {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
+}
+
+/*******************************************************************
+ * Product interfaces ends
  ******************************************************************/

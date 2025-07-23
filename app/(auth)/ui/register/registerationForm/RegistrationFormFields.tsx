@@ -1,4 +1,4 @@
-import { ROUTES, SIGNUP_TEXTS } from "@/lib/consts";
+import { ROUTES, SIGNUP_TEXTS } from "../../../lib/constants";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
 import Link from "next/link";
 import ModifiedButton from "@/components/shared/ModifiedButton";

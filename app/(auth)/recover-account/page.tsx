@@ -2,7 +2,7 @@
 
 import AccountRecoveryForm from "../ui/recoverAccount/AccountRecoveryForm";
 import { LogoWithAccountRecoveryText } from "../ui/shared/LogoWithWelcomeText";
-import { RECOVER_ACCOUNT_TEXTS } from "@/lib/consts";
+import { RECOVER_ACCOUNT_TEXTS } from "../lib/constants";
 const RecoverAccount = () => {
     return (
         <div className="h-screen bg-kaiglo_success-25 flex items-center justify-center">

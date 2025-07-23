@@ -19,9 +19,9 @@ const ProductsTableHeader = () => {
                 <TableHead className="font-medium text-kaiglo_grey-700 text-xs md:text-base text-center p-3 whitespace-nowrap">
                     Quantity
                 </TableHead>
-                <TableHead className="font-medium text-kaiglo_grey-700 text-xs md:text-base text-center p-3 whitespace-nowrap">
+                {/* <TableHead className="font-medium text-kaiglo_grey-700 text-xs md:text-base text-center p-3 whitespace-nowrap">
                     Stock Level
-                </TableHead>
+                </TableHead> */}
                 <TableHead className="font-medium text-kaiglo_grey-700 text-xs md:text-base text-center p-3 whitespace-nowrap">
                     Sales type
                 </TableHead>

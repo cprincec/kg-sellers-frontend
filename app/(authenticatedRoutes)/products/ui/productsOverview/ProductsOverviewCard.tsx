@@ -34,6 +34,7 @@ const ProductsOverviewCard = ({ overViewItem, isFirst, isLast }: Props) => {
         showEmptyState: false,
         className,
     };
+
     return link ? (
         <Link href={link} className="flex-1">
             <Metric {...metricProps} />

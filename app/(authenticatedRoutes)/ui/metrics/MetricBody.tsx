@@ -18,9 +18,9 @@ const MetricBody = ({
 }: MetricBodyProps) => {
     const { setSearchParams } = useUpdateSearchParams();
 
-    // Show empty state if body is zero, undefined or null
-    const isZeroOrMissing = Number(body) === 0 || body === undefined;
-    const displayValue = isZeroOrMissing ? "--" : IsCurrency ? formatCurrency(body) : body;
+    // Show empty state if body is undefined or null
+    const isMissing = body === null || body === undefined;
+    const displayValue = isMissing ? "--" : IsCurrency ? formatCurrency(body) : body;
 
     return (
         <div className="grid gap-1 md:px-4 lg:px-2">

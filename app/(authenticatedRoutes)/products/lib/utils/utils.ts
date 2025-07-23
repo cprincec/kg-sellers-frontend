@@ -5,19 +5,18 @@ import {
     IconPackageOutOfStock,
     IconPackageProcess2,
 } from "@/public/icons/icons";
-import { IProductsOverview } from "../interfaces/interface";
+import { IProduct, IProductsOverview, StatusTypes } from "../interfaces/interface";
 
-type StatusTypes = "active" | "paused" | "rejected";
-
-export const getStatusStyle = (status: string): string => {
-    const staustLowerCase = status.toLowerCase();
+export const getStatusStyle = (status: StatusTypes): string => {
     const styles: Record<StatusTypes, string> = {
-        active: "before:bg-kaiglo_success-500 text-kaiglo_success-500",
-        paused: "before:bg-kaiglo_warning-500 text-kaiglo_warning-500",
-        rejected: "text-kaiglo_critical-600",
+        ACTIVE: "before:bg-kaiglo_success-500 text-kaiglo_success-500",
+        PAUSED: "before:bg-kaiglo_warning-500 text-kaiglo_warning-500",
+        REJECTED: "text-kaiglo_critical-600",
+        DRAFT: "before:bg-kaiglo_grey-base text-kaiglo_grey-base",
+        PENDING: "before:bg-kaiglo_critical-600 text-kaiglo_critical-600",
     };
 
-    return styles[staustLowerCase as StatusTypes] || styles.active;
+    return styles[status] || styles.ACTIVE;
 };
 
 type StockLevel = "in stock" | "out of stock" | "low stock";
@@ -98,4 +97,22 @@ export const generateProductsOverviewArray = (data: IProductsOverview | undefine
             link: "/products/rejected-products",
         },
     ];
+};
+
+export const calculateProductQuantity = (product: IProduct): number => {
+    if (!product.productColors) return 0;
+
+    // productColors represent each product variant
+    return product.productColors.reduce(
+        (total, variant) => total + Number(variant.productPriceDetails[0]?.quantity || 0),
+        0
+    );
+};
+
+// Format date in this format
+// D MMM YYYY
+export const formatDateDMMMYYY = (rawDate: string): string => {
+    const date = new Date(rawDate);
+    const month = date.toLocaleString("default", { month: "short" });
+    return `${date.getDay()} ${month} ${date.getFullYear()}`;
 };

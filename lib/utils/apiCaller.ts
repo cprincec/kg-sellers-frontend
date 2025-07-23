@@ -4,10 +4,10 @@
  * allowing for both simple and parameterized requests.
  **/
 
-import { ApiObjType, PostRequestProp, GetRequestProp } from "@/interfaces/api.interface";
+import { ApiObjType, GetRequestProp, MutationRequestProp } from "@/interfaces/api.interface";
 import Api from "@/lib/utils/axiosInterceptorConfig";
 
-export const postRequest = async <TRequest, TResponse>({ url, payload }: PostRequestProp<TRequest>) => {
+export const postRequest = async <TRequest, TResponse>({ url, payload }: MutationRequestProp<TRequest>) => {
     try {
         const response = await Api.post<TResponse>(url, payload);
         const { data: availData } = response;
@@ -18,8 +18,25 @@ export const postRequest = async <TRequest, TResponse>({ url, payload }: PostReq
     }
 };
 
-export const deleteRequest = async <TResponse>({ url }: { url: string }) => {
-    const { data } = await Api.delete<TResponse>(url);
+export const patchRequest = async <TRequest, TResponse>({ url, payload }: MutationRequestProp<TRequest>) => {
+    try {
+        const response = await Api.patch<TResponse>(url, payload);
+        const { data: availData } = response;
+
+        return availData;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteRequest = async <TRequest, TResponse>({
+    url,
+    payload,
+}: {
+    url: string;
+    payload?: TRequest;
+}) => {
+    const { data } = await Api.delete<TResponse>(url, payload ? { data: payload } : undefined);
 
     return data;
 };

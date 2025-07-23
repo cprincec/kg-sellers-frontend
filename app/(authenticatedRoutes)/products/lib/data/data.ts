@@ -204,7 +204,12 @@ export const sampleProduct = {
 };
 
 export const productActions: IAction[] = [
-    { name: "edit product", icon: IconEditSquare },
+    {
+        name: "Edit Product",
+        icon: IconEditSquare,
+        link: (productId: string) =>
+            `/products/add-product/preview?product-action=edit&product-id=${productId}`,
+    },
     {
         name: "add to sales",
         icon: IconPriceTag,
@@ -216,7 +221,7 @@ export const productActions: IAction[] = [
                 }[]
             ) => void
         ) => setSearchParams([{ "product-action": "add-to-sales" }, { id: productId }]),
-        // disabled: (product) => !product.productVariants || product.productVariants.length === 0,
+        disabled: true,
     },
     {
         name: "pause product",
@@ -229,8 +234,9 @@ export const productActions: IAction[] = [
                 }[]
             ) => void
         ) => setSearchParams([{ "product-action": "pause-product" }, { id: productId }]),
+        disabled: true,
     },
-    { name: "duplicate product", icon: IconDuplicate },
+    { name: "duplicate product", icon: IconDuplicate, disabled: true },
     {
         name: "delete product",
         icon: IconTrash,
@@ -242,7 +248,7 @@ export const productActions: IAction[] = [
                 }[]
             ) => void
         ) => {
-            setSearchParams([{ "product-action": "delete-product" }, { id: productId }]);
+            setSearchParams([{ "product-action": "delete-product" }, { "product-id": productId }]);
         },
         style: "text-kaiglo_critical-600",
     },
@@ -448,8 +454,13 @@ export const productVariantsList: IProductVariant[] = [
 /**********************************************************************
  * Product variant actions
  *********************************************************************/
-export const productVariantActions = [
-    { name: "edit variant", icon: IconEdit },
+export const productVariantActions: IAction[] = [
+    {
+        name: "edit variant",
+        icon: IconEdit,
+        link: (productId: string, variantId) =>
+            `/products/add-product?step=product-variants&product-id=${productId}&variant-id=${variantId}&action=add-variant&product-action=edit`,
+    },
     {
         name: "pause variant",
         icon: IconPauseBlue,

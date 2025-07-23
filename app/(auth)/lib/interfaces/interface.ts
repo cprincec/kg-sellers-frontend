@@ -138,7 +138,7 @@ export interface IStoreInfo {
     newPhoneNumber?: string;
     isDeleted?: boolean;
     categories: string[];
-    termsAndCondition?: string;
+    termsAndCondition: boolean;
 }
 
 export interface IStoreSummary {
