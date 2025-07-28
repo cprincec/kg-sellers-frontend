@@ -40,8 +40,6 @@ const ProductVariantsTable = ({
     const { productRaw, isFetchingProductRaw } = useGetRawProduct(productId ?? "");
     const { productMetaData } = useGetProductMeta();
     const { deleteProductVariant, isDeletingProductVariant } = useDeleteProductVariant();
-    // const [productVariants, setProductVariants] = useState<IProductVariantDTO[]>([]);
-
     const productVariants = productRaw ? generateProductVariantDTOs(productRaw) : [];
 
     // useEffect(() => {

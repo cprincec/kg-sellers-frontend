@@ -222,11 +222,7 @@ const Preview = () => {
                         <h2 className="text-sm md:text-base font-medium">PRODUCT VARIANTS</h2>
 
                         {productVariants.length ? (
-                            <ProductVariantsTable
-                                productVariants={productVariants}
-                                showTitle={false}
-                                showActions={false}
-                            />
+                            <ProductVariantsTable showTitle={false} showActions={false} />
                         ) : (
                             <h3>No variants added</h3>
                         )}
