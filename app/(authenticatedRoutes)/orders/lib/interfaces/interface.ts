@@ -102,7 +102,7 @@ export interface IOrder {
     orderItem: IOrderItem;
     orderNumber: string;
     orderRateStatus: boolean;
-    orderStatus: "NEW" | "CANCELLED" | "PROCESSING" | "SHIPPED" | "DELIVERED";
+    orderStatus: OrderStatusTypes;
     paymentOption: string;
     platform: string;
     productPriceDetail: IProductPriceDetail;
@@ -114,3 +114,24 @@ export interface IOrder {
     updatedDate: string;
     userId: string;
 }
+
+export type OrderStatusTypes =
+    | "ACCEPTED"
+    | "AWAITING_PICK_UP"
+    | "CANCELLED_ORDER"
+    | "CANCELLED_PAYMENT"
+    | "CARD_PAYMENT_FAILED"
+    | "CONFIRMED"
+    | "DECLINED"
+    | "DELIVERED"
+    | "DROPPED_AT_CHECKOUT"
+    | "FAILED_PAYMENT_CONFIRMATION"
+    | "FULFILLED"
+    | "NEW"
+    | "NEW_WITH_ISSUE"
+    | "PENDING"
+    | "PENDING_PAYMENT"
+    | "PROCESSING"
+    | "RETURNED"
+    | "SHIPPED"
+    | "USSD_PAYMENT_FAILED";

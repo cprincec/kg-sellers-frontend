@@ -4,6 +4,7 @@ import {
     IColor,
     IProductMeta,
     IVariantField,
+    ProductVariantFormErrors,
     ProductVariantFormInterface,
 } from "../../../lib/interfaces/interface";
 import ModifiedSelect2 from "@/components/shared/ModifiedSelect2";
@@ -18,12 +19,14 @@ const ProductVariantsFormFields = ({
     productMeta,
     fields,
     findFieldIndex,
+    formErrors,
 }: {
     formData: ProductVariantFormInterface;
     setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
     productMeta: IProductMeta;
     fields: IVariantField[];
     findFieldIndex: (key: string) => number;
+    formErrors: ProductVariantFormErrors;
 }) => {
     const requiredAttributes = ["color", "quantity", "price"];
     const defaultColorValue = formData.attributes.find((a) => a.key === "color")?.value ?? "";
@@ -57,7 +60,11 @@ const ProductVariantsFormFields = ({
 
     return (
         <div className="grid lg:flex gap-4 w-full">
-            <ProductVariantImageUploadField formData={formData} setFormData={setFormData} />
+            <ProductVariantImageUploadField
+                formData={formData}
+                setFormData={setFormData}
+                error={formErrors.productUrl}
+            />
             <div className="grid lg:grid-cols-2 gap-4 w-full">
                 <ModifiedSelect2
                     key={`${defaultColorValue}`}

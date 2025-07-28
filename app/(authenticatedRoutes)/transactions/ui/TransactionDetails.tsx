@@ -3,13 +3,11 @@
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
 import OrderDetailsBody from "./TransactionDetailsBody";
-import { TransactionDetailProps } from "../lib/interface";
+import { ITransaction } from "../lib/interface";
 import { getTransactionStatusStyle } from "../lib/utils/utils";
 import clsx from "clsx";
 
-const TransactionDetails = ({ transaction }: TransactionDetailProps) => {
-    const { orderId, status } = transaction;
-
+const TransactionDetails = ({ transaction }: { transaction: ITransaction }) => {
     return (
         <DialogContent
             className="w-[90%] md:w-[500px] lg:max-h-full lg:items-start outline-none p-0 py-4 lg:py-6 rounded-2xl lg:rounded-none gap-0 lg:right-0 lg:top-0 lg:bottom-0 lg:left-auto lg:translate-x-0 lg:translate-y-0 overflow-y-auto"
@@ -26,10 +24,15 @@ const TransactionDetails = ({ transaction }: TransactionDetailProps) => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <h2 className="flex lg:gap-2 text-sm md:text-base text-kaiglo_grey-700 font-normal">
-                            <span>Order ID</span> <span>{orderId}</span>
+                            <span>Order ID</span> <span>{transaction.reference}</span>
                         </h2>
-                        <p className={clsx("text-center self-start", getTransactionStatusStyle(status))}>
-                            {status}
+                        <p
+                            className={clsx(
+                                "text-center self-start",
+                                getTransactionStatusStyle(transaction.status)
+                            )}
+                        >
+                            {transaction.status}
                         </p>
                     </div>
                 </div>

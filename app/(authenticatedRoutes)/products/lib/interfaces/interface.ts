@@ -111,13 +111,28 @@ export interface IProductsOverview {
 /*********************************
  * Action button interface
  *********************************/
-export interface IAction {
+export interface IBaseAction {
     name: string;
     icon: StaticImageData;
-    actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
     style?: string;
     disabled?: boolean;
-    link?: (productId: string, variantId?: string) => string;
+    type: "product" | "variant";
+}
+
+export interface IProductAction extends IBaseAction {
+    type: "product";
+    actionFunc?: (productId: string, setSearchParams: (params: { [key: string]: string }[]) => void) => void;
+    link?: (productId: string) => string;
+}
+
+export interface IVariantAction extends IBaseAction {
+    type: "variant";
+    actionFunc?: (
+        productId: string,
+        variantId: string,
+        setSearchParams: (params: { [key: string]: string }[]) => void
+    ) => void;
+    link?: (productId: string, variantId: string) => string;
 }
 
 /*******************************************************************
@@ -242,6 +257,13 @@ export interface ProductVariantFormInterface {
     productUrl: string;
 }
 
+export interface ProductVariantFormErrors {
+    productUrl: string;
+    color: string;
+    quantity: string;
+    price: string;
+}
+
 export interface IProductMeta {
     id: string;
     productColorCode: IColor[];
@@ -257,27 +279,31 @@ export interface IDialogOptions {
     [key: string]: string[];
 }
 
+export interface IProductVariantAttribute {
+    key: string;
+    metadata?: string;
+    value: string;
+}
+
+export interface IProductVariantPriceDetail {
+    attributes: IProductVariantAttribute[];
+    discount?: number;
+    id?: string;
+    newPrice?: number;
+    price: number;
+    quantity: string;
+    ramSize?: string;
+    size?: string;
+    sku?: string;
+    stockLevel?: string;
+    storage?: string;
+}
+
 export interface IProductVariantDTO {
     productColor: {
         color: IColor;
         colorUrl: string;
-        productPriceDetails: {
-            attributes: {
-                key: string;
-                metadata?: string;
-                value: string;
-            }[];
-            discount?: number;
-            id?: string;
-            newPrice?: number;
-            price: number;
-            quantity: string;
-            ramSize?: string;
-            size?: string;
-            sku?: string;
-            stockLevel?: string;
-            storage?: string;
-        }[];
+        productPriceDetails: IProductVariantPriceDetail[];
     };
     productId: string;
     productView: {
@@ -286,6 +312,13 @@ export interface IProductVariantDTO {
     };
     weightInKG?: number;
 }
+
+export interface IEditProductVariant {
+    coloUrl: string;
+    productId: string;
+    productPriceDetail: IProductVariantPriceDetail;
+}
+
 /*******************************************************************
  * Product variants interfaces ends
  ******************************************************************/

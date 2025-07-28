@@ -28,12 +28,11 @@ const ProductsTable = ({ products }: { products: IProduct[] }) => {
         let content = null;
         let clearKeys: string[] = [];
 
-        if (searchParams.get("product-action") === "delete-product" && searchParams.get("product-id")) {
+        if (searchParams.get("product-action") === "delete" && searchParams.get("product-id")) {
             content = (
                 <ConfirmDeleteProduct
                     confirmButtonAction={() => {
-                        console.log(productRaw);
-                        if (productRaw) deleteProduct(productRaw);
+                        if (productRaw) deleteProduct({ product: productRaw, message: "" });
 
                         deleteSearchParams(["product-action", "product-id"]);
                         setShowModal(false);
@@ -41,23 +40,23 @@ const ProductsTable = ({ products }: { products: IProduct[] }) => {
                 />
             );
             clearKeys = ["product-action", "id"];
-        } else if (searchParams.get("product-action") === "pause-product" && searchParams.get("id")) {
+        } else if (searchParams.get("product-action") === "pause" && searchParams.get("product-id")) {
             content = (
                 <ConfirmDeleteProduct
                     title="Pause product"
                     body="Product will be paused and will no longer appear to customers. You can activate it anytime"
                     confirmButtonText="Confirm"
                     confirmButtonAction={() => {
-                        deleteSearchParams(["product-action", "id"]);
+                        deleteSearchParams(["product-action", "product-id"]);
                         setShowModal(false);
                     }}
                     isPause={true}
                 />
             );
-            clearKeys = ["product-action", "id"];
-        } else if (searchParams.get("product-action") === "add-to-sales" && searchParams.get("id")) {
+            clearKeys = ["product-action", "product-id"];
+        } else if (searchParams.get("product-action") === "add-to-sales" && searchParams.get("product-id")) {
             content = <AddToSales />;
-            clearKeys = ["product-action", "id"];
+            clearKeys = ["product-action", "product-id"];
         } else if (searchParams.get("product-id")) {
             content = <ProductDetails />;
             clearKeys = ["product-id"];
@@ -68,7 +67,7 @@ const ProductsTable = ({ products }: { products: IProduct[] }) => {
             setModalContent(content);
             setShowModal(true);
         }
-    }, [searchParams]);
+    }, [productId, products, productRaw, searchParams]);
 
     return (
         <div className="overflow-auto">

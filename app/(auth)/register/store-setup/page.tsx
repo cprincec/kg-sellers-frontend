@@ -18,7 +18,7 @@ const StoreSetup = () => {
 
     useEffect(() => {
         // If the user has completed the onboarding, redirect to the dashboard
-        if (onboardingData?.acceptTerms?.acceptTerms) return router.replace("/dashboard");
+        if (onboardingData?.acceptTerms?.acceptTerms === true) return router.replace("/dashboard");
     }, [onboardingData, router]);
 
     return (

@@ -11,9 +11,10 @@ type Props = {
     formData: ProductVariantFormInterface;
     setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
     className?: string;
+    error?: string;
 };
 
-const ProductVariantImageUploadField = ({ formData, setFormData }: Props) => {
+const ProductVariantImageUploadField = ({ formData, setFormData, error }: Props) => {
     const { productDraft } = useAddProductContext();
     const { setShowModal, setModalContent } = useModalContext();
 
@@ -59,6 +60,12 @@ const ProductVariantImageUploadField = ({ formData, setFormData }: Props) => {
 
             {!formData.productUrl && (
                 <ProductVariantImageUploadTrigger images={images} handleSelect={handleSelect} />
+            )}
+
+            {!formData.productUrl && error && (
+                <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">
+                    {error}
+                </p>
             )}
         </div>
     );

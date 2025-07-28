@@ -10,6 +10,29 @@ export const tabs = [
     { label: "Returned", value: "returned" },
 ];
 
+export const orderTabs = [
+    "ALL",
+    "ACCEPTED",
+    "AWAITING_PICK_UP",
+    "CANCELLED_ORDER",
+    "CANCELLED_PAYMENT",
+    "CARD_PAYMENT_FAILED",
+    "CONFIRMED",
+    "DECLINED",
+    "DELIVERED",
+    "DROPPED_AT_CHECKOUT",
+    "FAILED_PAYMENT_CONFIRMATION",
+    "FULFILLED",
+    "NEW",
+    "NEW_WITH_ISSUE",
+    "PENDING",
+    "PENDING_PAYMENT",
+    "PROCESSING",
+    "RETURNED",
+    "SHIPPED",
+    "USSD_PAYMENT_FAILED",
+];
+
 export const ordersList = [
     {
         productImage: ImageProduct1,

@@ -3,60 +3,93 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
 import { productVariantActions } from "../../../lib/data/data";
 import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";
 import { useSearchParams } from "next/navigation";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { cn } from "@/lib/utils/utils";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
-import { IProductVariantDTO } from "../../../lib/interfaces/interface";
+import useDeleteProductVariant from "../../../hooks/addProduct/useDeleteProductVariant";
+import {
+    generateProductVariantDeleteDTOFromProduct,
+    generateProductVariantDTOs,
+} from "../../../lib/utils/addProduct.utils";
+import { showErrorToast } from "@/app/lib/utils/utils";
+import useGetRawProduct from "../../../hooks/addProduct/useGetRawProduct";
+import Loader from "@/app/ui/Loader";
+import useGetProductMeta from "../../../hooks/addProduct/useGetProductMeta";
 
 const ProductVariantsTable = ({
-    productVariants,
     title,
     showTitle = true,
     showActions = true,
     className,
 }: {
-    productVariants: IProductVariantDTO[];
     title?: string;
     showTitle?: boolean;
     showActions?: boolean;
     className?: string;
 }) => {
     const searchParams = useSearchParams();
+    const variantId = searchParams.get("variant-id");
+    const productId = searchParams.get("product-id");
+    const variantAction = searchParams.get("variant-action");
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
-    const { productDraft } = useAddProductContext();
+    const { productRaw, isFetchingProductRaw } = useGetRawProduct(productId ?? "");
+    const { productMetaData } = useGetProductMeta();
+    const { deleteProductVariant, isDeletingProductVariant } = useDeleteProductVariant();
+    const productVariants = productRaw ? generateProductVariantDTOs(productRaw) : [];
 
-    const variantId = searchParams.get("id");
-    const actionType = searchParams.get("product-variant-action");
+    // useEffect(() => {
+    //     if (productRaw) setProductVariants(generateProductVariantDTOs(productRaw));
+    // }, [productRaw, variantAction]);
+
+    const handleClose = useCallback(() => {
+        deleteSearchParams(["variant-action", "variant-id"]);
+        setShowModal(false);
+    }, [deleteSearchParams]);
+
+    const handleDelete = useCallback(() => {
+        if (!variantId) {
+            showErrorToast({ title: "Invalid product variant id" });
+            return;
+        }
+
+        if (!productRaw) {
+            showErrorToast({ title: "Invalid product" });
+            return;
+        }
+
+        const variantToDelete = generateProductVariantDeleteDTOFromProduct(variantId, productRaw);
+        if (!variantToDelete) {
+            showErrorToast({ title: "Error deleting product" });
+            return;
+        }
+
+        deleteProductVariant(variantToDelete);
+        handleClose();
+    }, [variantId, productRaw, productId, deleteProductVariant, handleClose]);
 
     useEffect(() => {
-        if (!variantId || !actionType) return;
+        if (!variantAction || !variantId) return;
 
-        const handleClose = () => {
-            deleteSearchParams(["product-variant-action", "id"]);
-            setShowModal(false);
-        };
-
-        if (actionType === "delete-product-variant") {
+        if (variantAction === "delete") {
             setModalContent(
                 <ConfirmDeleteProduct
                     title="Delete variant"
                     body="Deleted variant will no longer be visible to buyers."
                     confirmButtonText="Delete variant"
-                    confirmButtonAction={handleClose}
+                    confirmButtonAction={handleDelete}
                     cancleButtonAction={handleClose}
                 />
             );
-            setOnClose(() => () => deleteSearchParams(["product-variant-action", "id"]));
+            setOnClose(() => () => deleteSearchParams(["variant-action", "variant-id"]));
             setShowModal(true);
         }
 
-        if (actionType === "pause-product-variant") {
+        if (variantAction === "pause") {
             setModalContent(
                 <ConfirmDeleteProduct
                     title="Pause product variant"
@@ -64,15 +97,16 @@ const ProductVariantsTable = ({
                     confirmButtonText="Confirm"
                     confirmButtonAction={handleClose}
                     cancleButtonAction={handleClose}
-                    isPause={true}
+                    isPause
                 />
             );
-            setOnClose(() => () => deleteSearchParams(["product-variant-action", "id"]));
+            setOnClose(() => () => deleteSearchParams(["variant-action", "variant-id"]));
             setShowModal(true);
         }
-    }, [actionType, variantId]);
+    }, [variantAction, variantId]);
 
-    if (!productDraft || !productVariants.length) return null;
+    if (isFetchingProductRaw || isDeletingProductVariant) return <Loader />;
+    if (!productRaw || !productVariants.length) return null;
 
     return (
         <div className={cn("grid gap-4 overflow-hidden", className)}>
@@ -103,46 +137,61 @@ const ProductVariantsTable = ({
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {productVariants.map((variant, index) => (
-                        <TableRow key={index}>
-                            <TableCell className="p-3 max-w-[300px] text-sm text-wrap text-kaiglo_grey-base">
-                                <div className="flex gap-3 items-center">
-                                    <Image
-                                        src={variant.productColor.colorUrl}
-                                        alt={productDraft.name + " variant" + index + 1}
-                                        width={48}
-                                        height={48}
-                                        className="w-12 h-12"
-                                    />
-                                    <span className="mt-1.5 text-sm font-medium capitalize text-kaiglo_grey-base">
-                                        {productDraft.name}
-                                    </span>
-                                </div>
-                            </TableCell>
-                            <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
-                                {variant.productColor.color.color}
-                            </TableCell>
-                            <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
-                                {variant.productColor.productPriceDetails[0].size}
-                            </TableCell>
-                            <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
-                                {variant.productColor.productPriceDetails[0].quantity}
-                            </TableCell>
-                            <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
-                                {`₦${variant.productColor.productPriceDetails[0].price.toLocaleString()}`}
-                            </TableCell>
-                            {showActions && (
-                                <TableCell className="p-3 text-sm text-center">
-                                    <ActionButton
-                                        className="w-max m-auto"
-                                        variantId={variant.productColor.productPriceDetails[0].id}
-                                        productId={productDraft.id}
-                                        actions={productVariantActions}
-                                    />
+                    {productVariants.map((variant, index) => {
+                        const size = variant.productColor.productPriceDetails[0].attributes.find(
+                            (a) => a.key === "size"
+                        )?.value;
+
+                        const colorCode = variant.productColor.productPriceDetails[0].attributes.find(
+                            (a) => a.key === "color"
+                        )?.value;
+
+                        // find the color using color code
+                        const color = productMetaData?.productColorCode.find(
+                            (colorObj) => colorObj.colorCode === colorCode
+                        )?.color;
+
+                        return (
+                            <TableRow key={index}>
+                                <TableCell className="p-3 max-w-[300px] text-sm text-wrap text-kaiglo_grey-base">
+                                    <div className="flex gap-3 items-center">
+                                        <Image
+                                            src={variant.productColor.colorUrl}
+                                            alt={productRaw.name + " variant" + index + 1}
+                                            width={48}
+                                            height={48}
+                                            className="w-12 h-12"
+                                        />
+                                        <span className="mt-1.5 text-sm font-medium capitalize text-kaiglo_grey-base">
+                                            {productRaw.name}
+                                        </span>
+                                    </div>
                                 </TableCell>
-                            )}
-                        </TableRow>
-                    ))}
+                                <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
+                                    {color ?? variant.productColor.color.color}
+                                </TableCell>
+                                <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
+                                    {size ?? variant.productColor.productPriceDetails[0].size}
+                                </TableCell>
+                                <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
+                                    {variant.productColor.productPriceDetails[0].quantity}
+                                </TableCell>
+                                <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
+                                    {`₦${variant.productColor.productPriceDetails[0].price.toLocaleString()}`}
+                                </TableCell>
+                                {showActions && (
+                                    <TableCell className="p-3 text-sm text-center">
+                                        <ActionButton
+                                            className="w-max m-auto"
+                                            variantId={variant.productColor.productPriceDetails[0].id}
+                                            productId={productRaw.id}
+                                            actions={productVariantActions}
+                                        />
+                                    </TableCell>
+                                )}
+                            </TableRow>
+                        );
+                    })}
                 </TableBody>
             </Table>
         </div>

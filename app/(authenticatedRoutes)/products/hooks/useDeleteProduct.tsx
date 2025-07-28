@@ -2,24 +2,16 @@
 
 import { deleteRequest } from "@/lib/utils/apiCaller";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-// import { useRouter } from "next/navigation";
 import { IProduct } from "../lib/interfaces/interface";
 import { IGenericResponse } from "../lib/interfaces/response.interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 
-/**
- * Custom hook to delete a product
- */
-
 const useDeleteProduct = () => {
-    // const router = useRouter();
-    // const { setProductDraft } = useAddProductContext();
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: IProduct) =>
-            deleteRequest<IProduct, IGenericResponse>({
+        mutationFn: (payload: { product: IProduct; message: string }) =>
+            deleteRequest<{ product: IProduct; message: string }, IGenericResponse>({
                 url: "/product/delete",
                 payload,
             }),
@@ -29,19 +21,14 @@ const useDeleteProduct = () => {
                 return;
             }
 
-            console.log(data);
-
-            // Instantly update cache
-            queryClient.invalidateQueries({
-                queryKey: ["product"],
-                exact: false,
-            });
-            // setProductDraft(data.response);
-            // router.replace(`/products/add-product?step=product-variants&product-id=${data.response.id}`);
+            // Update queries
+            queryClient.refetchQueries({ queryKey: ["products"], exact: false });
+            queryClient.refetchQueries({ queryKey: ["products-stats"] });
+            queryClient.invalidateQueries({ queryKey: ["product-raw"] });
         },
         onError: (error) => {
             console.error(error);
-            handleError(error, "Error saving product variant");
+            handleError(error, "Error deleting product");
         },
     });
 

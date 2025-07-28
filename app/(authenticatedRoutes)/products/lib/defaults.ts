@@ -13,3 +13,10 @@ export const productVariantsFormDefaultValues: ProductVariantFormInterface = {
     attributes: [],
     productUrl: "",
 };
+
+export const productVariantFormErrorsDefaultValues = {
+    productUrl: "",
+    color: "",
+    quantity: "",
+    price: "",
+};

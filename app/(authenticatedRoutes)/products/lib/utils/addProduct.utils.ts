@@ -1,3 +1,28 @@
+import {
+    FieldValues,
+    Path,
+    PathValue,
+    UseFormSetValue,
+    UseFormSetError,
+    UseFormClearErrors,
+} from "react-hook-form";
+import {
+    IEditProductVariant,
+    IProduct,
+    IProductCategory,
+    IProductCategoryDTO,
+    IProductDetailsDTO,
+    IProductMeta,
+    IProductSubCategory,
+    IProductVariantDTO,
+    ProductVariantFormErrors,
+    ProductVariantFormInterface,
+} from "../interfaces/interface";
+import { PRODUCT_CATEGORY_KEYS } from "../constants";
+import { productDetailsFormDefaultValues, productVariantsFormDefaultValues } from "../defaults";
+import { showErrorToast } from "@/app/lib/utils/utils";
+import { Dispatch, SetStateAction } from "react";
+
 /**************************************************************
  * Generate product category DTO from product draft
  * Product draft contains properties like:
@@ -68,7 +93,7 @@ export const generateProductVariantDTOs = (productRaw: IProduct): IProductVarian
 
                 productPriceDetails: [
                     {
-                        attributes: [...variant.productPriceDetails[0].attributes],
+                        attributes: variant.productPriceDetails[0].attributes,
                         price: variant.productPriceDetails[0].price,
                         quantity: variant.productPriceDetails[0].quantity,
                         newPrice: variant.productPriceDetails[0].newPrice,
@@ -101,7 +126,6 @@ export const generateProductVariantFormDefaults = (
     if (!product.productColors?.length) return productVariantsFormDefaultValues;
 
     const variant = product.productColors.find((v) => v.productPriceDetails[0].id === variantId);
-
     if (!variant) return productVariantsFormDefaultValues;
 
     return {
@@ -110,6 +134,26 @@ export const generateProductVariantFormDefaults = (
     };
 };
 
+export const validateProductVariantForm = (
+    formData: ProductVariantFormInterface,
+    setFormErrors: Dispatch<SetStateAction<ProductVariantFormErrors>>
+): boolean => {
+    const findFieldIndex = (key: string) =>
+        formData.attributes.findIndex((a) => a.key.toLowerCase() === key.toLowerCase());
+    const color = formData.attributes[findFieldIndex("color")].value;
+    const quantity = formData.attributes[findFieldIndex("quantity")].value;
+    const price = formData.attributes[findFieldIndex("price")].value;
+
+    if (!formData.productUrl)
+        setFormErrors((prev) => ({ ...prev, productUrl: "Please select an image for this variant" }));
+    if (!color) setFormErrors((prev) => ({ ...prev, color: "Colour is required" }));
+    if (!quantity) setFormErrors((prev) => ({ ...prev, quantity: "Quantity is required" }));
+    if (!price) setFormErrors((prev) => ({ ...prev, price: "Price is required" }));
+
+    return !!formData.productUrl && !!color && !!quantity && !!price;
+};
+
+// This function contructs the payload for creating a new product variant
 export const generateProductVariantDTOFromFormData = (
     productId: string,
     formData: ProductVariantFormInterface,
@@ -117,11 +161,11 @@ export const generateProductVariantDTOFromFormData = (
 ): IProductVariantDTO | null => {
     const findFieldIndex = (key: string) =>
         formData.attributes.findIndex((a) => a.key.toLowerCase() === key.toLowerCase());
-
     const price = Number(formData.attributes[findFieldIndex("price")].value);
     const quantity = formData.attributes[findFieldIndex("quantity")].value;
     const colorCode = formData.attributes[findFieldIndex("color")].value;
     const color = productMeta?.productColorCode.find((colorObj) => colorObj.colorCode === colorCode)?.color;
+    const size = formData.attributes[findFieldIndex("size")]?.value;
 
     if (!color) {
         showErrorToast({
@@ -145,6 +189,7 @@ export const generateProductVariantDTOFromFormData = (
                     attributes: formData.attributes,
                     price,
                     quantity,
+                    size: size ?? "",
                 },
             ],
         },
@@ -154,6 +199,70 @@ export const generateProductVariantDTOFromFormData = (
             colorCode,
         },
     };
+};
+
+// This function contructs the payload for editing product variant
+export const generateProductVariantEditDTOFromFormData = (
+    productId: string,
+    variantId: string,
+    formData: ProductVariantFormInterface,
+    productMeta: IProductMeta
+): IEditProductVariant | null => {
+    const findFieldIndex = (key: string) =>
+        formData.attributes.findIndex((a) => a.key.toLowerCase() === key.toLowerCase());
+    const price = Number(formData.attributes[findFieldIndex("price")]?.value);
+    const quantity = formData.attributes[findFieldIndex("quantity")]?.value;
+    const colorCode = formData.attributes[findFieldIndex("color")]?.value;
+    const color = productMeta.productColorCode.find((colorObj) => colorObj.colorCode === colorCode)?.color;
+    const size = formData.attributes[findFieldIndex("size")]?.value;
+
+    if (!color) {
+        showErrorToast({
+            title: "Invalid product variant colour",
+            description: "Please select a variant colour",
+        });
+
+        return null;
+    }
+
+    return {
+        coloUrl: formData.productUrl,
+        productId,
+        productPriceDetail: {
+            attributes: formData.attributes,
+            id: variantId,
+            price,
+            quantity,
+            size: size ?? "",
+        },
+    };
+};
+
+// This function constructs the payload for deleting a product variant
+export const generateProductVariantDeleteDTOFromProduct = (
+    variantId: string,
+    product: IProduct
+): IEditProductVariant | null => {
+    if (!product?.productColors) return null;
+
+    for (const variant of product.productColors) {
+        const priceDetail = variant.productPriceDetails[0];
+        if (priceDetail?.id === variantId) {
+            return {
+                coloUrl: variant.colorUrl,
+                productId: product.id,
+                productPriceDetail: {
+                    attributes: priceDetail.attributes,
+                    id: variantId,
+                    price: priceDetail.price,
+                    quantity: priceDetail.quantity,
+                    size: priceDetail.size ?? "",
+                },
+            };
+        }
+    }
+
+    return null;
 };
 
 // Return the leaf node (inner-most category/subCategory) in a product Draft
@@ -256,27 +365,6 @@ export const validateImageDimensions = (
 
 // Upload product image
 // Validation added
-import {
-    FieldValues,
-    Path,
-    PathValue,
-    UseFormSetValue,
-    UseFormSetError,
-    UseFormClearErrors,
-} from "react-hook-form";
-import {
-    IProduct,
-    IProductCategory,
-    IProductCategoryDTO,
-    IProductDetailsDTO,
-    IProductMeta,
-    IProductSubCategory,
-    IProductVariantDTO,
-    ProductVariantFormInterface,
-} from "../interfaces/interface";
-import { PRODUCT_CATEGORY_KEYS } from "../constants";
-import { productDetailsFormDefaultValues, productVariantsFormDefaultValues } from "../defaults";
-import { showErrorToast } from "@/app/lib/utils/utils";
 
 type HandleUploadParams<T extends FieldValues> = {
     e: React.ChangeEvent<HTMLInputElement>;

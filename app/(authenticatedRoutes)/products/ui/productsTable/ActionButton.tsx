@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { IAction } from "../../lib/interfaces/interface";
-import Link from "next/link";
+import { IProductAction, IVariantAction } from "../../lib/interfaces/interface";
+import { useRouter } from "next/navigation";
 
 const ActionButton = ({
     actions,
@@ -15,7 +15,7 @@ const ActionButton = ({
     className,
     disabled = false,
 }: {
-    actions: IAction[];
+    actions: IProductAction[] | IVariantAction[];
     productId: string;
     variantId?: string;
     className?: string;
@@ -23,6 +23,7 @@ const ActionButton = ({
 }) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const { setSearchParams } = useUpdateSearchParams();
+    const router = useRouter();
 
     return (
         <div className={className}>
@@ -35,44 +36,39 @@ const ActionButton = ({
                 <PopoverContent className="w-fit p-2 rounded-xl" align="end">
                     <ul className="grid gap-1">
                         {actions.map((action, index) => {
-                            const { name, icon, actionFunc, style, link } = action;
-                            const href = link ? link(productId, variantId ?? variantId) : undefined;
+                            const { name, icon, actionFunc, style, link, type } = action;
+                            const href = link
+                                ? type === "variant"
+                                    ? link(productId, variantId ?? "")
+                                    : link(productId)
+                                : undefined;
 
                             return (
-                                <li key={name + "-" + index}>
-                                    {href ? (
-                                        <Link href={href}>
-                                            <Button
-                                                type="button"
-                                                variant={"ghost"}
-                                                className={cn(
-                                                    "flex gap-2 items-center justify-start p-2 font-normal capitalize bg-transparent cursor-pointer min-w-full",
-                                                    index === actions.length - 1 && "text-kaiglo_critical-600"
-                                                )}
-                                                disabled={disabled || action.disabled}
-                                            >
-                                                <Image src={icon} alt="icon" className="w-6 h-6" />
-                                                <span className={cn(style)}>{name}</span>
-                                            </Button>
-                                        </Link>
-                                    ) : (
-                                        <Button
-                                            type="button"
-                                            variant={"ghost"}
-                                            className={cn(
-                                                "flex gap-2 items-center justify-start p-2 font-normal capitalize bg-transparent cursor-pointer min-w-full",
-                                                index === actions.length - 1 && "text-kaiglo_critical-600"
-                                            )}
-                                            onClick={() =>
-                                                actionFunc && actionFunc(productId, setSearchParams)
-                                            }
-                                            disabled={disabled || action.disabled}
-                                        >
-                                            <Image src={icon} alt="icon" className="w-6 h-6" />
-                                            <span className={cn(style)}>{name}</span>
-                                        </Button>
+                                <Button
+                                    key={action.name + "-" + index}
+                                    type="button"
+                                    variant={"ghost"}
+                                    className={cn(
+                                        "flex gap-2 items-center justify-start p-2 font-normal capitalize bg-transparent cursor-pointer min-w-full",
+                                        index === actions.length - 1 && "text-kaiglo_critical-600"
                                     )}
-                                </li>
+                                    onClick={() => {
+                                        if (href) {
+                                            router.replace(href);
+                                            return;
+                                        }
+
+                                        if (actionFunc) {
+                                            if (type === "variant")
+                                                actionFunc(productId, variantId ?? "", setSearchParams);
+                                            else actionFunc(productId, setSearchParams);
+                                        }
+                                    }}
+                                    disabled={disabled || action.disabled}
+                                >
+                                    <Image src={icon} alt="icon" className="w-6 h-6" />
+                                    <span className={cn(style)}>{name}</span>
+                                </Button>
                             );
                         })}
                     </ul>

@@ -1,35 +1,82 @@
 "use client";
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { OrderStatus } from "@/components/ui/order-status";
-import { PackageIcon } from "@/app/(auth)/ui/register/storeSetup/stepper/stepper-icons";
-import { getOrderStatusType } from "../lib/utils/order.utils";
-import OrderDetailsBody from "./OrderDetailsBody";
-import { IOrderDTO } from "@/interfaces/orders/orders.dto.interfaces";
+import { IOrder } from "../lib/interfaces/interface";
+import { cn } from "@/lib/utils/utils";
+import { buttonVariants } from "@/components/ui/button";
+import Image from "next/image";
+import { formatDateDMMMYYY } from "../../products/lib/utils/utils";
 
-const OrderDetails = ({ order }: { order: IOrderDTO }) => {
+const OrderDetails = ({ order }: { order: IOrder }) => {
     return (
         <DialogContent
-            className="w-[90%] md:w-[343px] m-auto outline-none px-4 py-4 rounded-2xl gap-0"
+            className="w-[90%] md:w-[443px] m-auto outline-none px-3 py-3 rounded-2xl gap-3"
             data-testid="otp-dialog"
         >
             <DialogHeader>
-                <DialogTitle className="w-0 h-0 min-w-0" />
+                <DialogTitle className="text-base text-start text-kaiglo_grey-900 font-medium">
+                    Order Details
+                </DialogTitle>
                 <DialogDescription />
             </DialogHeader>
+            <hr />
             <div className="grid gap-3">
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 flex items-center justify-center border border-kaiglo_grey-200 rounded-lg">
-                        <PackageIcon className="w-5 h-5" strokeColor="#344054" />
+                <div className="flex justify-between">
+                    <div className="flex flex-col gap-1 text-sm">
+                        <p>Order ID</p>
+                        <h3 className="text-kaiglo_grey-800 font-medium">{order.id}</h3>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <h2 className="text-sm text-kaiglo_grey-700 font-medium">Order ID {order.orderId}</h2>
-                        <OrderStatus className="self-start" status={getOrderStatusType(order.orderStatus)}>
-                            {order.orderStatus}
-                        </OrderStatus>
+
+                    <p
+                        className={cn(
+                            buttonVariants({ variant: "secondary" }),
+                            "px-2 py-1 bg-kaiglo_success-100 rounded-lg self-end"
+                        )}
+                    >
+                        Paid
+                    </p>
+                </div>
+
+                <div className="flex items-center gap-3 py-2">
+                    {order.orderItem.url && (
+                        <Image
+                            src={order.orderItem.url}
+                            alt={order.orderItem.productName}
+                            width={48}
+                            height={48}
+                            className="flex-shrink-0 w-12 h-12 rounded-lg"
+                        />
+                    )}
+                    <h4 className="text-sm text-kaiglo_grey-800 font-normal w-[65%]">
+                        {order.orderItem.productName}
+                    </h4>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                    <div className="grid grid-cols-2">
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm text-kaiglo_grey-500">Date of purchase</p>
+                            <h5 className="text-sm text-kaiglo_grey-800 font-medium">
+                                {formatDateDMMMYYY(order.createdDate)}
+                            </h5>
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm text-kaiglo_grey-500">Color</p>
+                            <h5 className="text-sm text-kaiglo_grey-800 font-medium capitalize">
+                                {order.orderItem.color}
+                            </h5>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm text-kaiglo_grey-500">Amount paid</p>
+                            <h5 className="text-sm text-kaiglo_grey-800 font-medium capitalize">
+                                NGN {order.orderItem.totalAmount.toLocaleString()}
+                            </h5>
+                        </div>
                     </div>
                 </div>
-                <OrderDetailsBody order={order} />
             </div>
         </DialogContent>
     );

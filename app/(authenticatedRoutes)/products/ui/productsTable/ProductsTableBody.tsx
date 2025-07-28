@@ -21,6 +21,7 @@ const ProductsTableBody = ({ products }: { products: IProduct[] }) => {
     return (
         <TableBody>
             {products.map((product, index: number) => {
+                // console.log(product.createdDate, formatDateDMMMYYY(product.createdDate));
                 // let salesType, daysLeft, noSales;
 
                 // if (product.salesType.length === 1) {
@@ -53,7 +54,7 @@ const ProductsTableBody = ({ products }: { products: IProduct[] }) => {
                         <TableCell className="p-3 text-base">{index + 1}</TableCell>
                         <TableCell
                             className="p-3 text-sm text-wrap max-w-[300px] cursor-pointer"
-                            onClick={() => setSearchParams([{ "product-id": index.toString() }])}
+                            onClick={() => setSearchParams([{ "product-id": product.id }])}
                         >
                             <div className="flex gap-1.5 items-center">
                                 {product.productUrl ? (
