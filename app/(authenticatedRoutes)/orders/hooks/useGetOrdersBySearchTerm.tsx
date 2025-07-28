@@ -8,28 +8,29 @@ import { useSearchParams } from "next/navigation";
 import { IGetAllOrdersResponse } from "../lib/interfaces/response.interface";
 
 /**
- * Custom hook to fetch all orders
+ * Custom hook to fetch all orders by order search term
  */
-
-const useGetAllOrders = () => {
+const useGetOrdersBySearchTerm = () => {
     const { storeInfo } = useGetStoreInfo();
     const searchParams = useSearchParams();
-    const page = searchParams.get("page");
+    const searchTerm = searchParams.get("searching-for")?.trim();
+    const page = Number(searchParams.get("page")) || 1;
 
     const { isLoading, data, error } = useQuery({
-        queryKey: ["orders"],
+        queryKey: ["orders", searchTerm, page],
         queryFn: () =>
             getRequest<IGetAllOrdersResponse>({
-                url: `/store/order/get-orders?page=${page || 1}&size=${RESULTS_PER_PAGE}&storeId=${
-                    storeInfo?.id
-                }`,
+                url: `/store/order/search-product-&-sku?page=${page}&searchTerm=${searchTerm}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
             }),
-        enabled: !!storeInfo?.id,
+        enabled: !!searchTerm && !!storeInfo?.id,
         throwOnError: true,
-        staleTime: 1000 * 60 * 5,
     });
 
-    return { orders: data, isFetchingOrders: isLoading, errorFetchingOrders: error };
+    return {
+        ordersBySearchTerm: data,
+        isFetchingOrdersBySearchTerm: isLoading,
+        errorFetchingOrdersBySearchTerm: error,
+    };
 };
 
-export default useGetAllOrders;
+export default useGetOrdersBySearchTerm;

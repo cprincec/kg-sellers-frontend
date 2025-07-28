@@ -3,48 +3,55 @@
 import { useEffect } from "react";
 import { Table } from "@/components/ui/table";
 import { useSearchParams } from "next/navigation";
-import { ITransactionDTO } from "../lib/interface";
+import { ITransaction } from "../lib/interface";
 import TransactionHistoryTableHeader from "./TransactionHistoryTableHeader";
 import TransactionHistoryTableBody from "./TransactionHistoryTableBody";
 import TransactionDetails from "./TransactionDetails";
 import PaginationComponent from "@/components/shared/Pagination";
-import { RESULTS_PER_PAGE } from "@/lib/consts";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 
-const TransactionHistoryTable = ({ transactions }: { transactions: ITransactionDTO[] }) => {
+const TransactionHistoryTable = ({
+    transactions,
+    totalPages,
+    pageSize,
+}: {
+    transactions: ITransaction[];
+    totalPages: number;
+    pageSize: number;
+}) => {
     const searchParams = useSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
     const { deleteSearchParams } = useUpdateSearchParams();
-
-    // Get page number from Url
-    const pageParam = searchParams.get("page");
-    const page = pageParam !== null ? parseInt(pageParam, 10) : 1;
-
-    // Get transaction index from URL
-    const transactionIndex = parseInt(searchParams.get("transaction-index") || "-1", 10);
-    const isValidIndex = transactionIndex >= 0 && transactionIndex < transactions.length;
+    const transactionId = searchParams.get("transaction-id");
 
     useEffect(() => {
-        if (isValidIndex) {
-            setModalContent(<TransactionDetails transaction={transactions[transactionIndex]} />);
-            setOnClose(() => () => deleteSearchParams(["transaction-index"]));
-            setShowModal(true);
+        if (transactionId) {
+            const transaction = transactions.find((t) => t.reference === transactionId);
+            if (transaction) {
+                setModalContent(<TransactionDetails transaction={transaction} />);
+                setOnClose(() => () => deleteSearchParams(["transaction-id"]));
+                setShowModal(true);
+            }
         }
-    }, [isValidIndex, transactionIndex, transactions, setModalContent, setShowModal]);
+    }, [transactionId, transactions]);
 
-    const start = (page - 1) * RESULTS_PER_PAGE;
-    const end = start + RESULTS_PER_PAGE;
-    const paginatedTransactions = transactions.slice(start, end);
+    // const start = (page - 1) * RESULTS_PER_PAGE;
+    // const end = start + RESULTS_PER_PAGE;
+    // const paginatedTransactions = transactions.slice(start, end);
 
     return (
         <div className="overflow-auto">
             <Table className="w-[950px] lg:w-full border">
                 <TransactionHistoryTableHeader />
-                <TransactionHistoryTableBody transactions={paginatedTransactions} />
+                <TransactionHistoryTableBody transactions={transactions} />
             </Table>
 
-            <PaginationComponent dataLength={transactions.length} />
+            <PaginationComponent
+                totalPages={totalPages}
+                pageSize={pageSize}
+                dataLength={transactions.length}
+            />
         </div>
     );
 };

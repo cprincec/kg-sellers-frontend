@@ -1,12 +1,7 @@
 import {
-    IconCancelCircle,
     IconDuplicate,
     IconEdit,
     IconEditSquare,
-    IconGlobe,
-    IconPackage2,
-    IconPackageOutOfStock,
-    IconPackageProcess2,
     IconPause,
     IconPauseBlue,
     IconPriceTag,
@@ -22,15 +17,7 @@ import {
     ImageSampleProduct1,
     ImageSampleProduct1plus,
 } from "@/public/images/landingPage/images";
-import { IAction, IProductDTO, IProductSpecification, IProductVariant } from "../interfaces/interface";
-
-export const productsMetricsData = [
-    { title: "Total Products", value: "120", icon: IconPackage2 },
-    { title: "LIVE ON SITE", value: "74", icon: IconGlobe, variant: "success" },
-    { title: "Under Review", value: "26", icon: IconPackageProcess2, variant: "warning" },
-    { title: "Out of Stock", value: "12", icon: IconPackageOutOfStock, variant: "error" },
-    { title: "Rejected", value: "8", icon: IconCancelCircle, link: "rejected-products" },
-];
+import { IProductAction, IProductDTO, IProductSpecification, IVariantAction } from "../interfaces/interface";
 
 export const productsList: IProductDTO[] = [
     {
@@ -203,14 +190,55 @@ export const sampleProduct = {
     salesType: "Valentine sales",
 };
 
-export const productActions: IAction[] = [
+export const productVariantsList = [
     {
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "green",
+        size: "44",
+        quantity: 17,
+        price: 35000,
+        amount: 35000,
+    },
+    {
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "blue",
+        size: "36",
+        quantity: 15,
+        price: 2500,
+        amount: 2500,
+    },
+    {
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "blue",
+        size: "36",
+        quantity: 15,
+        price: 2500,
+        amount: 2500,
+    },
+    {
+        images: [ImageSampleProduct1],
+        shippingWeight: 20,
+        color: "blue",
+        size: "36",
+        quantity: 15,
+        price: 2500,
+        amount: 2500,
+    },
+];
+
+export const productActions: IProductAction[] = [
+    {
+        type: "product",
         name: "Edit Product",
         icon: IconEditSquare,
         link: (productId: string) =>
             `/products/add-product/preview?product-action=edit&product-id=${productId}`,
     },
     {
+        type: "product",
         name: "add to sales",
         icon: IconPriceTag,
         actionFunc: (
@@ -220,10 +248,11 @@ export const productActions: IAction[] = [
                     [key: string]: string;
                 }[]
             ) => void
-        ) => setSearchParams([{ "product-action": "add-to-sales" }, { id: productId }]),
+        ) => setSearchParams([{ product: "add-to-sales" }, { id: productId }]),
         disabled: true,
     },
     {
+        type: "product",
         name: "pause product",
         icon: IconPause,
         actionFunc: (
@@ -233,11 +262,17 @@ export const productActions: IAction[] = [
                     [key: string]: string;
                 }[]
             ) => void
-        ) => setSearchParams([{ "product-action": "pause-product" }, { id: productId }]),
+        ) => setSearchParams([{ "product-action": "pause" }, { id: productId }]),
         disabled: true,
     },
-    { name: "duplicate product", icon: IconDuplicate, disabled: true },
     {
+        type: "product",
+        name: "duplicate product",
+        icon: IconDuplicate,
+        disabled: true,
+    },
+    {
+        type: "product",
         name: "delete product",
         icon: IconTrash,
         actionFunc: (
@@ -248,7 +283,7 @@ export const productActions: IAction[] = [
                 }[]
             ) => void
         ) => {
-            setSearchParams([{ "product-action": "delete-product" }, { "product-id": productId }]);
+            setSearchParams([{ "product-action": "delete" }, { "product-id": productId }]);
         },
         style: "text-kaiglo_critical-600",
     },
@@ -409,85 +444,68 @@ export const productsCategoriesList = [
     "Sports & Outdoors",
 ];
 
-/*****************************************************************************
- * Added products variants table data
- *****************************************************************************/
-export const productVariantsList: IProductVariant[] = [
-    {
-        images: [ImageSampleProduct1],
-        shippingWeight: 20,
-        color: "green",
-        size: "44",
-        quantity: 17,
-        price: 35000,
-        amount: 35000,
-    },
-    {
-        images: [ImageSampleProduct1],
-        shippingWeight: 20,
-        color: "blue",
-        size: "36",
-        quantity: 15,
-        price: 2500,
-        amount: 2500,
-    },
-    {
-        images: [ImageSampleProduct1],
-        shippingWeight: 20,
-        color: "blue",
-        size: "36",
-        quantity: 15,
-        price: 2500,
-        amount: 2500,
-    },
-    {
-        images: [ImageSampleProduct1],
-        shippingWeight: 20,
-        color: "blue",
-        size: "36",
-        quantity: 15,
-        price: 2500,
-        amount: 2500,
-    },
-];
-
 /**********************************************************************
  * Product variant actions
  *********************************************************************/
-export const productVariantActions: IAction[] = [
+export const productVariantActions: IVariantAction[] = [
     {
+        type: "variant",
         name: "edit variant",
         icon: IconEdit,
-        link: (productId: string, variantId) =>
-            `/products/add-product?step=product-variants&product-id=${productId}&variant-id=${variantId}&action=add-variant&product-action=edit`,
+        actionFunc: (
+            productId: string,
+            variantId: string,
+            setSearchParams: (
+                array: {
+                    [key: string]: string;
+                }[]
+            ) => void
+        ) => {
+            setSearchParams([
+                { "variant-action": "edit" },
+                { "variant-id": variantId },
+                { "product-id": productId },
+            ]);
+        },
+        // link: (productId: string, variantId) =>
+        //     `/products/add-product?step=product-variants&product-id=${productId}&variant-id=${variantId}&action=add-variant&product-action=edit&variant-action=edit`,
     },
     {
+        type: "variant",
         name: "pause variant",
         icon: IconPauseBlue,
         actionFunc: (
             productId: string,
+            variantId: string,
             setSearchParams: (
                 array: {
                     [key: string]: string;
                 }[]
             ) => void
         ) => {
-            setSearchParams([{ "product-variant-action": "pause-product-variant" }, { id: productId }]);
+            setSearchParams([{ "variant-action": "pause" }, { "variant-id": variantId }]);
         },
         style: "text-kaiglo_info-base",
+        disabled: true,
     },
     {
-        name: "delete variant",
+        type: "variant",
+        name: "Delete Variant",
         icon: IconTrash,
         actionFunc: (
             productId: string,
+            variantId: string,
             setSearchParams: (
                 array: {
                     [key: string]: string;
                 }[]
             ) => void
         ) => {
-            setSearchParams([{ "product-variant-action": "delete-product-variant" }, { id: productId }]);
+            setSearchParams([
+                { "variant-action": "delete" },
+                { "variant-id": variantId },
+                { "product-id": productId },
+            ]);
         },
         style: "text-kaiglo_critical-600",
     },

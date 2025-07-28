@@ -12,7 +12,9 @@ import { useRouter } from "next/navigation";
  * Custom hook to save a product variant.
  */
 
-const useSaveProductVariant = () => {
+// The productAction parameter indicates if user is adding a variant to a new product
+// or adding a variant to an existing product
+const useSaveProductVariant = (productAction: string) => {
     const router = useRouter();
     const { setProductDraft } = useAddProductContext();
     const queryClient = useQueryClient();
@@ -23,17 +25,20 @@ const useSaveProductVariant = () => {
                 url: "/product/add-product-variant",
                 payload,
             }),
-
         onSuccess: (data) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
+            const redirectUrl =
+                productAction === "edit"
+                    ? `/products/add-product?step=product-variants&product-id=${data.response.id}&product-action=edit`
+                    : `/products/add-product?step=product-variants&product-id=${data.response.id}`;
 
             // Instantly update cache
             queryClient.setQueryData(["product-raw"], data);
             setProductDraft(data.response);
-            router.replace(`/products/add-product?step=product-variants&product-id=${data.response.id}`);
+            router.replace(redirectUrl);
         },
         onError: (error) => {
             console.error(error);

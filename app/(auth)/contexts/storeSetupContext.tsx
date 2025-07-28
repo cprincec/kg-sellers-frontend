@@ -23,7 +23,7 @@ const StoreSetupContextProvider: React.FC<StoreSetupContextProviderProps> = ({ c
         if (isFetchingStoreInfo) return;
 
         if (!isFetchingStoreInfo && storeInfo) {
-            setCurrentStep(storeInfo.onboardingStep);
+            setCurrentStep(storeInfo.onboardingStep ?? 1);
 
             const {
                 storeName,

@@ -1,42 +1,33 @@
 "use client";
 
 import { NoResultsIcon } from "../../dashboard/ui/icons";
+import { IGetAllOrdersResponse } from "../lib/interfaces/response.interface";
 import OrderHistoryTable from "./OrderHistoryTable";
 import { useSearchParams } from "next/navigation";
-import { IOrder } from "../lib/interfaces/interface";
 
-/******************************************************************************
- * This component fetches orders
- * Filters the product for search results
- * Sorts the orders as needed
- * Renders the order history table with list of  filterd or/and sorted orders
- ******************************************************************************/
-const OrderHistoryTableWrapper = ({ orders }: { orders: IOrder[] | undefined | null }) => {
+const OrderHistoryTableWrapper = ({
+    ordersResponse,
+}: {
+    ordersResponse: IGetAllOrdersResponse | undefined;
+}) => {
     const searchParams = useSearchParams();
-    // let orders = ordersList;
-
     const searchingFor = searchParams.get("searching-for");
-    // const sortBy = searchParams.get("sort-by");
-    // const sortRange = searchParams.get("sort-range");
     const activeTab = searchParams.get("tab");
 
-    // Set custom message for order history results
-    let noResultsMessage = "No results yet";
+    // Set custom message for orders results
+    let noResultsMessage = "You have no orders";
     if (searchingFor) noResultsMessage = `No results for ${searchingFor}`;
-    else if (activeTab && activeTab !== "all") noResultsMessage = `You have no ${activeTab} orders`;
+    else if (activeTab && activeTab.toUpperCase() !== "ALL")
+        noResultsMessage = `You have no ${activeTab} orders`;
+
+    // const sortBy = searchParams.get("sort-by");
+    // const sortRange = searchParams.get("sort-range");
 
     // filter orders by search string
     // if (searchingFor) {
     //     orders = orders.filter((order) =>
     //         order.productName.toLowerCase().includes(searchingFor.toLowerCase())
     //     );
-    // }
-
-    // filter by order status
-    // if (activeTab) {
-    //     orders = orders.filter((order) => {
-    //         return activeTab === "all" || order.orderStatus.toLowerCase() === activeTab.toLowerCase();
-    //     });
     // }
 
     // sort by orders
@@ -60,8 +51,12 @@ const OrderHistoryTableWrapper = ({ orders }: { orders: IOrder[] | undefined | n
     //     }
     // }
 
-    return orders?.length ? (
-        <OrderHistoryTable orders={orders} />
+    return ordersResponse?.content.length ? (
+        <OrderHistoryTable
+            orders={ordersResponse.content}
+            totalPages={ordersResponse.totalPages}
+            size={ordersResponse.size}
+        />
     ) : (
         <NoResultsIcon title={noResultsMessage} />
     );

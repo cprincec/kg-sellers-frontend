@@ -1,11 +1,11 @@
 "use client";
 
 import { getRequest } from "@/lib/utils/apiCaller";
-import { useQuery } from "@tanstack/react-query";
 import { IGetPaginatedProducts } from "../lib/interfaces/response.interface";
-import { RESULTS_PER_PAGE } from "@/lib/consts";
+// import { RESULTS_PER_PAGE } from "@/lib/consts";
 import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
 import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 /**
  * Custom hook to fetch paginated products by recent activity
@@ -20,10 +20,13 @@ const useGetProductsByRecentActivity = () => {
         queryKey: ["products", page],
         queryFn: () =>
             getRequest<IGetPaginatedProducts>({
-                url: `/product/product-most-recent?page=${page}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
+                url: `/product/store-management/${storeInfo?.id}/${page}`,
+                //    `/product/product-most-recent?page=${page}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
             }),
+
         enabled: !!storeInfo?.id,
         throwOnError: true,
+        staleTime: 1000 * 60 * 60,
     });
 
     return { products: data, isFetchingProducts: isPending, ErrorFetchingProducts: error };

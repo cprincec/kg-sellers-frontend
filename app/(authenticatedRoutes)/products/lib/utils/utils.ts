@@ -114,5 +114,5 @@ export const calculateProductQuantity = (product: IProduct): number => {
 export const formatDateDMMMYYY = (rawDate: string): string => {
     const date = new Date(rawDate);
     const month = date.toLocaleString("default", { month: "short" });
-    return `${date.getDay()} ${month} ${date.getFullYear()}`;
+    return `${date.getDate()} ${month} ${date.getFullYear()}`;
 };

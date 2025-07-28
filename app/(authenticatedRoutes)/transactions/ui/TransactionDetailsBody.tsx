@@ -1,9 +1,14 @@
 import Image from "next/image";
 import { ImageProduct1 } from "@/public/images/landingPage/images";
-import { ITransactionDTO } from "../lib/interface";
+import { ITransaction } from "../lib/interface";
 
-const TransactionDetailsBody = ({ transaction }: { transaction: ITransactionDTO }) => {
-    const { quantity, payoutAmount, rate, subTotal } = transaction;
+const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) => {
+    const {
+        orderItem: { quantity },
+        amount,
+        commissionPercentage,
+        subTotal,
+    } = transaction;
     return (
         <div className="grid gap-3 lg:gap-6 px-3 lg:px-5">
             <section className="grid gap-3 lg:gap-4">
@@ -50,13 +55,13 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransactionDTO 
                         <div className="grid grid-cols-2 justify-between">
                             <p className="text-sm md:text-base">Sub-total</p>
                             <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                                ₦{parseFloat(subTotal).toLocaleString()}
+                                ₦{subTotal.toLocaleString()}
                             </span>
                         </div>
                         <div className="grid grid-cols-2 justify-between">
                             <p className="text-sm md:text-base`">Rate</p>
                             <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                                {rate}%
+                                {commissionPercentage}%
                             </span>
                         </div>
                         <div className="grid grid-cols-2 justify-between">
@@ -70,7 +75,7 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransactionDTO 
                     <div className="grid grid-cols-2 justify-between px-3 py-4 border-t border-kaiglo_grey-200">
                         <p className="text-sm md:text-base">Payout amount</p>
                         <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                            ₦{parseFloat(payoutAmount).toLocaleString()}
+                            ₦{amount.toLocaleString()}
                         </span>
                     </div>
                 </div>
