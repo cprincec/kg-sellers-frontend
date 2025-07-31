@@ -35,8 +35,9 @@ const useSaveProductVariant = (productAction: string) => {
                     ? `/products/add-product?step=product-variants&product-id=${data.response.id}&product-action=edit`
                     : `/products/add-product?step=product-variants&product-id=${data.response.id}`;
 
-            // Instantly update cache
-            queryClient.setQueryData(["product-raw"], data);
+            // update cache
+            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.refetchQueries({ queryKey: ["product-description"], exact: false });
             setProductDraft(data.response);
             router.replace(redirectUrl);
         },

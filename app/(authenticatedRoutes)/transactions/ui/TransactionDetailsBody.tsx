@@ -29,7 +29,7 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) 
                     <div className="grid grid-cols-2 justify-between">
                         <p className="text-sm md:text-base">Amount</p>
                         <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                            ₦4,000
+                            {transaction.orderItem.price}
                         </span>
                     </div>
                     <div className="grid grid-cols-2 justify-between">

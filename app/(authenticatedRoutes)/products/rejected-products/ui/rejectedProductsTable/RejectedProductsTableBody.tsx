@@ -45,9 +45,13 @@ const RejectedProductsTableBody = ({ rejectedProducts }: { rejectedProducts: IRe
                         </TableCell>
                         <TableCell className="p-3 text-sm text-center">
                             <div className="w-max m-auto flex gap-6">
-                                <Image src={IconEdit} alt="Edit" />
                                 <Link
-                                    href={`/products/rejected-products?product-action=delete-product&id=${index}`}
+                                    href={`/products/add-product/preview?product-action=edit&product-id=${index}`}
+                                >
+                                    <Image src={IconEdit} alt="Edit" />
+                                </Link>
+                                <Link
+                                    href={`/products/rejected-products?product-action=delete&product-id=${index}`}
                                 >
                                     <Image src={IconTrash2} alt="Trash" />
                                 </Link>

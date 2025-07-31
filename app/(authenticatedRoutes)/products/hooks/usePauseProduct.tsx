@@ -1,19 +1,18 @@
 "use client";
 
-import { deleteRequest } from "@/lib/utils/apiCaller";
+import { postRequest } from "@/lib/utils/apiCaller";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IProduct } from "../lib/interfaces/interface";
 import { IGenericResponse } from "../lib/interfaces/response.interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 
-const useDeleteProduct = () => {
+const usePauseProduct = () => {
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: { product: IProduct; message: string }) =>
-            deleteRequest<{ product: IProduct; message: string }, IGenericResponse>({
-                url: "/product/delete",
-                payload,
+        mutationFn: (productId: string) =>
+            postRequest<{ handler: string; notes: string }, IGenericResponse>({
+                url: `/product/pause/${productId}?isPaused=true`,
+                payload: { handler: "", notes: "" },
             }),
         onSuccess: (data) => {
             if (!data.response) {
@@ -29,14 +28,14 @@ const useDeleteProduct = () => {
         },
         onError: (error) => {
             console.error(error);
-            handleError(error, "Error deleting product");
+            handleError(error, "Error pausing product");
         },
     });
 
     return {
-        isDeletingProduct: isPending,
-        deleteProduct: mutate,
+        isPausingProduct: isPending,
+        pauseProduct: mutate,
     };
 };
 
-export default useDeleteProduct;
+export default usePauseProduct;

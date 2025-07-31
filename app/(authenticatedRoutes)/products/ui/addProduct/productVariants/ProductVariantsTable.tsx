@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
 import { productVariantActions } from "../../../lib/data/data";
-import ConfirmDeleteProduct from "../../ConfirmDeleteProduct";
+import ConfirmProductAction from "../../ConfirmProductAction";
 import { useSearchParams } from "next/navigation";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { cn } from "@/lib/utils/utils";
@@ -77,7 +77,7 @@ const ProductVariantsTable = ({
 
         if (variantAction === "delete") {
             setModalContent(
-                <ConfirmDeleteProduct
+                <ConfirmProductAction
                     title="Delete variant"
                     body="Deleted variant will no longer be visible to buyers."
                     confirmButtonText="Delete variant"
@@ -91,13 +91,13 @@ const ProductVariantsTable = ({
 
         if (variantAction === "pause") {
             setModalContent(
-                <ConfirmDeleteProduct
+                <ConfirmProductAction
                     title="Pause product variant"
                     body="Product variant will be paused and will no longer appear to customers. You can activate it anytime."
                     confirmButtonText="Confirm"
                     confirmButtonAction={handleClose}
                     cancleButtonAction={handleClose}
-                    isPause
+                    action="PAUSE"
                 />
             );
             setOnClose(() => () => deleteSearchParams(["variant-action", "variant-id"]));

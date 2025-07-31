@@ -23,7 +23,7 @@ const TransactionHistoryTableBody = ({ transactions }: { transactions: ITransact
                         {transaction.orderItem.quantity}
                     </TableCell>
                     <TableCell className="p-3 text-sm text-center">
-                        ₦{transaction.subTotal.toLocaleString()}
+                        ₦{transaction.amount.toLocaleString()}
                     </TableCell>
                     <TableCell className="p-3 text-sm text-center">
                         {transaction.commissionPercentage}%

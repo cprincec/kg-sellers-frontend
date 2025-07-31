@@ -1,20 +1,27 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { IProduct } from "../../lib/interfaces/interface";
+import { IOngoingSale, IProduct } from "../../lib/interfaces/interface";
 import { useEffect } from "react";
 import { Table } from "@/components/ui/table";
 import ProductsTableHeader from "./ProductsTableHeader";
 import ProductsTableBody from "./ProductsTableBody";
-import ConfirmDeleteProduct from "../ConfirmDeleteProduct";
+import ConfirmProductAction from "../ConfirmProductAction";
 import ProductDetails from "../productDetails/ProductDetails";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import AddToSales from "../addToSales/AddToSales";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useDeleteProduct from "../../hooks/useDeleteProduct";
 import useGetRawProduct from "../../hooks/addProduct/useGetRawProduct";
+import usePauseProduct from "../../hooks/usePauseProduct";
 // import useGetProductDescription from "../../hooks/addProduct/useGetProductDescription";
 
-const ProductsTable = ({ products }: { products: IProduct[] }) => {
+const ProductsTable = ({
+    products,
+    ongoingSales,
+}: {
+    products: IProduct[];
+    ongoingSales: IOngoingSale[];
+}) => {
     const searchParams = useSearchParams();
     const productId = searchParams.get("product-id");
     const { deleteSearchParams } = useUpdateSearchParams();
@@ -22,6 +29,7 @@ const ProductsTable = ({ products }: { products: IProduct[] }) => {
     const { productRaw } = useGetRawProduct(productId || "");
     // const { productDescription } = useGetProductDescription(productId || "");
     const { deleteProduct } = useDeleteProduct();
+    const { pauseProduct } = usePauseProduct();
 
     useEffect(() => {
         // Display relevant modal based on url parameters
@@ -30,34 +38,38 @@ const ProductsTable = ({ products }: { products: IProduct[] }) => {
 
         if (searchParams.get("product-action") === "delete" && searchParams.get("product-id")) {
             content = (
-                <ConfirmDeleteProduct
+                <ConfirmProductAction
                     confirmButtonAction={() => {
                         if (productRaw) deleteProduct({ product: productRaw, message: "" });
 
                         deleteSearchParams(["product-action", "product-id"]);
                         setShowModal(false);
+                        setModalContent(null);
                     }}
                 />
             );
             clearKeys = ["product-action", "id"];
         } else if (searchParams.get("product-action") === "pause" && searchParams.get("product-id")) {
             content = (
-                <ConfirmDeleteProduct
+                <ConfirmProductAction
                     title="Pause product"
                     body="Product will be paused and will no longer appear to customers. You can activate it anytime"
                     confirmButtonText="Confirm"
                     confirmButtonAction={() => {
+                        if (productId) pauseProduct(productId);
+
                         deleteSearchParams(["product-action", "product-id"]);
+                        setModalContent(null);
                         setShowModal(false);
                     }}
-                    isPause={true}
+                    action={"PAUSE"}
                 />
             );
             clearKeys = ["product-action", "product-id"];
         } else if (searchParams.get("product-action") === "add-to-sales" && searchParams.get("product-id")) {
             content = <AddToSales />;
             clearKeys = ["product-action", "product-id"];
-        } else if (searchParams.get("product-id")) {
+        } else if (searchParams.get("product-id") && !searchParams.get("product-action")) {
             content = <ProductDetails />;
             clearKeys = ["product-id"];
         }
@@ -73,7 +85,7 @@ const ProductsTable = ({ products }: { products: IProduct[] }) => {
         <div className="overflow-auto">
             <Table className="w-[1100px] lg:w-full">
                 <ProductsTableHeader />
-                <ProductsTableBody products={products} />
+                <ProductsTableBody ongoingSales={ongoingSales} products={products} />
             </Table>
         </div>
     );

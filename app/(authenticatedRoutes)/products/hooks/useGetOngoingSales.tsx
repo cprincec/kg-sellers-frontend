@@ -2,27 +2,28 @@
 
 import { getRequest } from "@/lib/utils/apiCaller";
 import { useQuery } from "@tanstack/react-query";
-import { IProductsOverviewResponse } from "../lib/interfaces/response.interface";
+import { IGetOngoingSalesResponse } from "../lib/interfaces/response.interface";
 import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
 
 /**
  * Custom hook to fetch stats for the products overview page.
  */
 
-const useGetProductsOverview = () => {
+const useGetOngoingSales = () => {
     const { storeInfo } = useGetStoreInfo();
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ["products-stats"],
+        queryKey: ["ongoing-sales"],
         queryFn: () =>
-            getRequest<IProductsOverviewResponse>({
-                url: `/product/product-overview?storeId=${storeInfo?.id}`,
+            getRequest<IGetOngoingSalesResponse>({
+                url: "/sales",
             }),
         enabled: !!storeInfo?.id,
         throwOnError: true,
+        staleTime: 1000 * 60 * 20,
     });
 
-    return { productsOverviewData: data?.response, isFetchingProductsOverview: isLoading, error };
+    return { ongoingSales: data?.response, isFetchingOngoingSales: isLoading, error };
 };
 
-export default useGetProductsOverview;
+export default useGetOngoingSales;

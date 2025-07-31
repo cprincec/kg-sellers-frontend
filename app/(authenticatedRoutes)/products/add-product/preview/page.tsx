@@ -84,6 +84,7 @@ const Preview = () => {
                         {images.length ? (
                             <div className="flex gap-3 flex-wrap items-center">
                                 {images.map((image, index) => {
+                                    // do not display more than 5 images
                                     const isCollapsed = index + 1 > MAX_PREVIEW_IMAGES;
                                     const isMainImage = index === 0;
 

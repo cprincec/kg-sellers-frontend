@@ -4,16 +4,17 @@ import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/c
 import { Button } from "@/components/ui/button";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { ProductActionTypes } from "../lib/interfaces/interface";
 
-const ConfirmDeleteProduct = ({
+const ConfirmProductAction = ({
     title,
     body,
     confirmButtonText,
     confirmButtonAction,
     cancleButtonAction,
-    isPause,
+    action = "DELETE",
 }: {
-    isPause?: boolean;
+    action?: ProductActionTypes;
     title?: string;
     body?: string;
     confirmButtonText?: string;
@@ -57,7 +58,7 @@ const ConfirmDeleteProduct = ({
 
                     <Button
                         type="button"
-                        variant={isPause ? "primary" : "critical_solid"}
+                        variant={action === "PAUSE" ? "primary" : "critical_solid"}
                         className="p-3 text-base capitalize"
                         onClick={() => {
                             if (confirmButtonAction) confirmButtonAction();
@@ -76,4 +77,4 @@ const ConfirmDeleteProduct = ({
     );
 };
 
-export default ConfirmDeleteProduct;
+export default ConfirmProductAction;

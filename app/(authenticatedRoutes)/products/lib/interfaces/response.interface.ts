@@ -1,5 +1,6 @@
 import {
     ICategorySpecifications,
+    IOngoingSale,
     IPageable,
     IProduct,
     IProductMeta,
@@ -42,7 +43,6 @@ export interface IGetPaginatedProducts {
     empty: boolean;
 }
 
-
 export interface IGetVariantFieldsResponse {
     id: string;
     tag: string;
@@ -56,5 +56,12 @@ export interface IGetProductMetaResponse {
 
 export interface IGetProductDescriptionResponse {
     response: string;
+    message: string;
+}
+
+export interface IGetOngoingSalesResponse {
+    response: {
+        salesObjectList: IOngoingSale[];
+    };
     message: string;
 }

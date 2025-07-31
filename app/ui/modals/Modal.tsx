@@ -16,7 +16,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <Dialog open={showModal} onOpenChange={handleOpenchange}>
+        <Dialog open={showModal} onOpenChange={handleOpenchange} >
             {children}
         </Dialog>
     );

@@ -111,6 +111,8 @@ export interface IProductsOverview {
 /*********************************
  * Action button interface
  *********************************/
+export type ProductActionTypes = "DELETE" | "PAUSE" | "DUPLICATE";
+
 export interface IBaseAction {
     name: string;
     icon: StaticImageData;
@@ -279,14 +281,8 @@ export interface IDialogOptions {
     [key: string]: string[];
 }
 
-export interface IProductVariantAttribute {
-    key: string;
-    metadata?: string;
-    value: string;
-}
-
 export interface IProductVariantPriceDetail {
-    attributes: IProductVariantAttribute[];
+    attributes: IProductAttribute[];
     discount?: number;
     id?: string;
     newPrice?: number;
@@ -295,7 +291,7 @@ export interface IProductVariantPriceDetail {
     ramSize?: string;
     size?: string;
     sku?: string;
-    stockLevel?: string;
+    stockLevel?: "IN_STOCK" | "OUT_OF_STOCK" | "LOW_STOCK" | string;
     storage?: string;
 }
 
@@ -389,7 +385,7 @@ export interface IProductPriceDetail {
     ramSize: string;
     size: string;
     sku: string;
-    stockLevel: "IN_STOCK" | "OUT_OF_STOCK" | "LOW_STOCK";
+    stockLevel: "IN_STOCK" | "OUT_OF_STOCK" | "LOW_STOCK" | string;
     storage: string;
     attributes: IProductAttribute[];
 }
@@ -397,7 +393,7 @@ export interface IProductPriceDetail {
 export interface IProductAttribute {
     key: string;
     value: string;
-    metadata: string;
+    metadata?: string;
 }
 
 export interface IProductView {
@@ -455,4 +451,47 @@ export interface ISort {
 
 /*******************************************************************
  * Product interfaces ends
+ ******************************************************************/
+
+/*******************************************************************
+ * Ongoing sales starts
+ ******************************************************************/
+
+export interface IOngoingSale {
+    imageUrl: string;
+    name: string;
+    description: string;
+    banners: IBanners;
+    colors: IColors;
+    startDate: string;
+    endDate: string;
+}
+
+export interface IBanners {
+    mobileHome: string;
+    mobileSalesPage: string;
+    desktopHome: string;
+    desktopHome2: string;
+    desktopSalesPage: string;
+    background: string;
+}
+
+export interface IColors {
+    background: string;
+    productCard: string;
+    productName: string;
+    priceContainer: string;
+    priceText: string;
+    slashedPriceText: string;
+    itemCountBG: string;
+    itemCountText: string;
+}
+
+export interface IAddToSalesDTO {
+    colorCode: string;
+    productPriceDetail: IProductPriceDetail[];
+}
+
+/*******************************************************************
+ * Ongoing sales ends
  ******************************************************************/

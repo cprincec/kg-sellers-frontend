@@ -7,6 +7,7 @@ import {
     UseFormClearErrors,
 } from "react-hook-form";
 import {
+    IAddToSalesDTO,
     IEditProductVariant,
     IProduct,
     IProductCategory,
@@ -235,6 +236,28 @@ export const generateProductVariantEditDTOFromFormData = (
             quantity,
             size: size ?? "",
         },
+    };
+};
+
+// This function contructs the payload adding product to sales
+export const generateAddToSaleDTOFromProductVariant = (variant: IProductVariantDTO): IAddToSalesDTO => {
+    return {
+        colorCode: variant.productColor.color.colorCode,
+        productPriceDetail: [
+            {
+                attributes: variant.productColor.productPriceDetails[0].attributes,
+                discount: variant.productColor.productPriceDetails[0].discount ?? 0,
+                id: variant.productColor.productPriceDetails[0].id ?? "",
+                newPrice: variant.productColor.productPriceDetails[0].newPrice ?? 0.0,
+                price: variant.productColor.productPriceDetails[0].price ?? 0.0,
+                quantity: variant.productColor.productPriceDetails[0].quantity,
+                ramSize: variant.productColor.productPriceDetails[0].ramSize ?? "",
+                size: variant.productColor.productPriceDetails[0].size ?? "",
+                sku: variant.productColor.productPriceDetails[0].sku ?? "",
+                stockLevel: variant.productColor.productPriceDetails[0].stockLevel ?? "IN_STOCK",
+                storage: variant.productColor.productPriceDetails[0].storage ?? "",
+            },
+        ],
     };
 };
 

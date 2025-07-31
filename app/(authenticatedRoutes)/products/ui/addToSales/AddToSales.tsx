@@ -4,51 +4,23 @@ import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/c
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { IconArrowBackShort } from "@/public/icons/icons";
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { useProductsContext } from "../../contexts/productsContext";
-import { productVariantsList } from "../../lib/data/data";
 import AddToSalesContent from "./AddToSalesContent";
 import { useModalContext } from "@/app/contexts/modalContext";
 import { Button } from "@/components/ui/button";
+import useGetOngoingSales from "../../hooks/useGetOngoingSales";
+import useGetRawProduct from "../../hooks/addProduct/useGetRawProduct";
+import Loader from "@/app/ui/Loader";
 
 const AddToSales = () => {
-    const { products } = useProductsContext();
-    const searchParams = useSearchParams();
-    const productIdRaw = searchParams.get("id");
+    const productId = useSearchParams().get("product-id");
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal } = useModalContext();
+    const { ongoingSales, isFetchingOngoingSales } = useGetOngoingSales();
+    const { productRaw, isFetchingProductRaw } = useGetRawProduct(productId ?? "");
 
-    // Parse id from url to base 10 integer
-    const parsedId = useMemo(() => parseInt(productIdRaw ?? "", 10), [productIdRaw]);
-
-    // Endure id from url is valid
-    const isValidProduct =
-        productIdRaw !== null &&
-        !isNaN(parsedId) &&
-        parsedId >= 0 &&
-        parsedId < products.length &&
-        products[parsedId];
-
-    useEffect(() => {
-        if (!isValidProduct) {
-            deleteSearchParams(["product-action", "id"], "replace");
-            setShowModal(false);
-        }
-    }, [isValidProduct, deleteSearchParams, setShowModal]);
-
-    if (!isValidProduct) return null;
-
-    const product = products[parsedId];
-
-    // Retrieve product data from context
-    const { productImage, productName, productVariants, productImages } = product;
-    const image = productImages?.length ? URL.createObjectURL(productImages[0]) : productImage;
-
-    const variants = productVariants.length ? productVariants : productVariantsList;
-
-    // Only products with variants can be added to sales
-    const canBeAddedToSales = variants.length > 0;
+    if (isFetchingOngoingSales || isFetchingOngoingSales || isFetchingProductRaw) return <Loader />;
+    if (!productRaw || !productId) return null;
 
     return (
         <DialogContent
@@ -61,7 +33,7 @@ const AddToSales = () => {
                     onClick={() => {
                         setShowModal(false);
                         setTimeout(() => {
-                            deleteSearchParams(["product-action", "id"]);
+                            deleteSearchParams(["product-action", "product-id"]);
                         }, 400);
                     }}
                     className="flex lg:hidden items-start gap-[15px] bg-transparent hover:bg-transparent p-0"
@@ -72,17 +44,15 @@ const AddToSales = () => {
                     </DialogTitle>
                 </Button>
                 <DialogTitle className="hidden lg:block text-xl font-bold text-kaiglo_grey-900 text-left">
-                    Add {productName} to Sales
+                    Add {productRaw?.name} to Sales
                 </DialogTitle>
                 <DialogDescription />
             </DialogHeader>
 
             <AddToSalesContent
-                image={image}
-                product={product}
-                productName={productName}
-                canBeAddedToSales={canBeAddedToSales}
-                productVariants={variants}
+                productId={productId}
+                ongoingSales={ongoingSales?.salesObjectList ?? []}
+                product={productRaw}
             />
         </DialogContent>
     );

@@ -9,7 +9,7 @@ import axios from "axios";
  */
 
 const useGetAllBanks = () => {
-    const { isPending, data } = useQuery({
+    const { isLoading, data } = useQuery({
         queryKey: ["all-banks"],
         queryFn: async () => {
             const { data } = await axios.get<IGetAllBanksResponse>(
@@ -25,7 +25,7 @@ const useGetAllBanks = () => {
 
     return {
         banks: data?.response,
-        isFetchingBanks: isPending,
+        isFetchingBanks: isLoading,
     };
 };
 

@@ -9,7 +9,7 @@ import { IGetProductMetaResponse } from "../../lib/interfaces/response.interface
  */
 
 const useGetProductMeta = () => {
-    const { isPending, data } = useQuery({
+    const { isLoading, data } = useQuery({
         queryKey: ["product-meta"],
         queryFn: () =>
             getRequest<IGetProductMetaResponse>({
@@ -19,7 +19,7 @@ const useGetProductMeta = () => {
         staleTime: 1000 * 60 * 120,
     });
 
-    return { productMetaData: data?.response, isFetchingProductMetaData: isPending };
+    return { productMetaData: data?.response, isFetchingProductMetaData: isLoading };
 };
 
 export default useGetProductMeta;

@@ -28,6 +28,7 @@ const ModifiedSelect3 = ({
     isRequired?: boolean;
     onValueChange: (value: string) => void;
 }) => {
+    // There was an api returning duplicate options
     const uniqueOptions = [...new Set(options)];
 
     return (
@@ -53,7 +54,9 @@ const ModifiedSelect3 = ({
                 value={value}
                 required={isRequired}
             >
-                <SelectTrigger className={cn("h-12 w-full text-kaiglo_grey-900 ", className)}>
+                <SelectTrigger
+                    className={cn("h-12 w-full text-kaiglo_grey-900 first-letter:capitalize", className)}
+                >
                     <SelectValue placeholder={placeholder || `Select ${name}`} />
                 </SelectTrigger>
                 <SelectContent>
