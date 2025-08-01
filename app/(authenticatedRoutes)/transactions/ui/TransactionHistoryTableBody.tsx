@@ -5,6 +5,7 @@ import { ITransaction } from "../lib/interface";
 import clsx from "clsx";
 import { getTransactionStatusStyle } from "../lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import { format } from "date-fns";
 
 const TransactionHistoryTableBody = ({ transactions }: { transactions: ITransaction[] }) => {
     const { setSearchParams } = useUpdateSearchParams();
@@ -18,7 +19,7 @@ const TransactionHistoryTableBody = ({ transactions }: { transactions: ITransact
                     onClick={() => setSearchParams([{ "transaction-id": transaction.reference }])}
                 >
                     <TableCell className="p-3 text-base">{index + 1}</TableCell>
-                    <TableCell className="p-3 text-sm text-center">{}</TableCell>
+                    <TableCell className="p-3 text-sm text-center">{transaction.orderNumber}</TableCell>
                     <TableCell className="p-3 text-sm text-center">
                         {transaction.orderItem.quantity}
                     </TableCell>
@@ -47,9 +48,11 @@ const TransactionHistoryTableBody = ({ transactions }: { transactions: ITransact
                             {transaction.status}
                         </span>
                     </TableCell>
-                    <TableCell className="p-3 text-sm text-center"></TableCell>
+                    <TableCell className="p-3 text-sm text-center">
+                        {format(transaction.createdDate, "dd MM yyyy")}
+                    </TableCell>
                     <TableCell className="p-3 text-sm text-center capitalize">
-                        ₦{transaction.amount.toLocaleString()}
+                        ₦{transaction.subTotal.toLocaleString()}
                     </TableCell>
                 </TableRow>
             ))}

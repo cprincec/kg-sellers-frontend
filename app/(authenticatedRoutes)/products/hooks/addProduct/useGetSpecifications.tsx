@@ -38,7 +38,7 @@ const useGetSpecifications = () => {
         }
     }, [productDraft, productsCategories]);
 
-    const { isLoading, data } = useQuery({
+    const { isPending, data } = useQuery({
         queryKey: ["specifications", tag],
         queryFn: () =>
             getRequest<IGetSpecificationsResponse>({
@@ -49,7 +49,7 @@ const useGetSpecifications = () => {
         staleTime: 1000 * 60 * 10,
     });
 
-    return { specifications: data?.response, isFetchingSpecifications: isLoading };
+    return { specifications: data?.response, isFetchingSpecifications: isPending };
 };
 
 export default useGetSpecifications;

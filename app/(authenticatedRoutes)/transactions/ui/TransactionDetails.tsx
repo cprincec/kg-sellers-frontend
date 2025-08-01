@@ -24,7 +24,7 @@ const TransactionDetails = ({ transaction }: { transaction: ITransaction }) => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <h2 className="flex lg:gap-2 text-sm md:text-base text-kaiglo_grey-700 font-normal">
-                            <span>Order ID</span> <span>{transaction.reference}</span>
+                            <span>Order ID</span> <span>{transaction.orderNumber}</span>
                         </h2>
                         <p
                             className={clsx(
@@ -32,7 +32,7 @@ const TransactionDetails = ({ transaction }: { transaction: ITransaction }) => {
                                 getTransactionStatusStyle(transaction.status)
                             )}
                         >
-                            {transaction.status}
+                            {transaction.orderStatus}
                         </p>
                     </div>
                 </div>

@@ -160,7 +160,7 @@ const ProductVariantsTable = ({
                                             alt={productRaw.name + " variant" + index + 1}
                                             width={48}
                                             height={48}
-                                            className="w-12 h-12"
+                                            className="w-12 h-12 object-cover"
                                         />
                                         <span className="mt-1.5 text-sm font-medium capitalize text-kaiglo_grey-base">
                                             {productRaw.name}

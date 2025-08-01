@@ -21,6 +21,6 @@ export const getTransactionStatusStyle = (status: string) => {
         case "in wallet":
             return "py-1 px-2 text-sm text-kaiglo_success-600 bg-kaiglo_success-50 rounded-lg";
         default:
-            return "";
+            return "py-1 px-2 text-sm border border-kaiglo_grey-base rounded-lg";
     }
 };

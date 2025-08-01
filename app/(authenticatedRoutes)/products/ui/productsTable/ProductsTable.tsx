@@ -82,7 +82,7 @@ const ProductsTable = ({
     }, [productId, products, productRaw, searchParams]);
 
     return (
-        <div className="overflow-auto">
+        <div className="overflow-auto lg:mx-2">
             <Table className="w-[1100px] lg:w-full">
                 <ProductsTableHeader />
                 <ProductsTableBody ongoingSales={ongoingSales} products={products} />

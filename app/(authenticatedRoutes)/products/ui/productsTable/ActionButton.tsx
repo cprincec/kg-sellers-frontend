@@ -73,7 +73,9 @@ const ActionButton = ({
                                         }
                                     }}
                                     disabled={
-                                        typeof disabled === "boolean"
+                                        action.disabled
+                                            ? action.disabled
+                                            : typeof disabled === "boolean"
                                             ? disabled
                                             : disabled(action.name) || action.disabled || isDuplicatingProduct
                                     }

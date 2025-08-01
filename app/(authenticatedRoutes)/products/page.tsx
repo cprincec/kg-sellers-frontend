@@ -2,6 +2,7 @@
 
 import AddProductButton from "./ui/AddProductButton";
 import ProductsOverview from "./ui/productsOverview/ProductsOverview";
+import ProductsTableToolsBar from "./ui/productsTable/ProductsTableToolsBar";
 import ProductsTableWrapper from "./ui/productsTable/ProductsTableWrapper";
 
 const Products = () => {
@@ -16,7 +17,10 @@ const Products = () => {
                     <AddProductButton />
                 </div>
                 <ProductsOverview className="lg:rounded-none lg:border-x-0 px-2 max-lg:py-2" />
-                <ProductsTableWrapper className="lg:mx-5" />
+                <div className="grid gap-2 md:gap-3 border border-kaiglo_grey-200 rounded-xl lg:mx-5">
+                    <ProductsTableToolsBar />
+                    <ProductsTableWrapper />
+                </div>
             </div>
         </div>
     );

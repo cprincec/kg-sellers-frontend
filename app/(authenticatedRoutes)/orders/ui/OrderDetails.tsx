@@ -33,7 +33,7 @@ const OrderDetails = ({ order }: { order: IOrder }) => {
                             "px-2 py-1 bg-kaiglo_success-100 rounded-lg self-end"
                         )}
                     >
-                        Paid
+                        N/A
                     </p>
                 </div>
 

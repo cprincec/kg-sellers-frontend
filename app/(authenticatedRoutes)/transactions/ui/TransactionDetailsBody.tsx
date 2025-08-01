@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ImageProduct1 } from "@/public/images/landingPage/images";
 import { ITransaction } from "../lib/interface";
+import { format } from "date-fns";
 
 const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) => {
     const {
@@ -14,9 +14,14 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) 
             <section className="grid gap-3 lg:gap-4">
                 <h4 className="text-base font-medium">Details</h4>
                 <div className="flex items-center gap-3">
-                    <Image src={ImageProduct1} alt="transaction product image" width={64} height={64}></Image>
+                    <Image
+                        src={transaction.productUrl}
+                        alt={transaction.productName}
+                        width={64}
+                        height={64}
+                    ></Image>
                     <h5 className="text-sm md:text-base text-kaiglo_grey-800 font-medium w-full">
-                        Bose Silver Color Quietcomfort 45 Headset Bluetooth Wireless Noise
+                        {transaction.productName}
                     </h5>
                 </div>
                 <div className="grid gap-3">
@@ -29,19 +34,19 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) 
                     <div className="grid grid-cols-2 justify-between">
                         <p className="text-sm md:text-base">Amount</p>
                         <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                            {transaction.orderItem.price}
+                            ₦{transaction.orderItem.price.toLocaleString()}
                         </span>
                     </div>
                     <div className="grid grid-cols-2 justify-between">
                         <p className="text-sm md:text-base">Order date</p>
                         <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                            12 August 2024
+                            {format(transaction.orderDate, "dd MMMM yyyy")}
                         </span>
                     </div>
                     <div className="grid grid-cols-2 justify-between">
                         <p className="text-sm md:text-base">Delivery date</p>
                         <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                            15 August 2024
+                            {format(transaction.createdDate, "dd MMMM yyyy")}
                         </span>
                     </div>
                 </div>
@@ -55,7 +60,7 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) 
                         <div className="grid grid-cols-2 justify-between">
                             <p className="text-sm md:text-base">Sub-total</p>
                             <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                                ₦{subTotal.toLocaleString()}
+                                ₦{amount.toLocaleString()}
                             </span>
                         </div>
                         <div className="grid grid-cols-2 justify-between">
@@ -67,7 +72,7 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) 
                         <div className="grid grid-cols-2 justify-between">
                             <p className="text-sm md:text-base">Commission</p>
                             <span className="font-medium text-sm md:text-base text-kaiglo_critical-600 text-right">
-                                ₦4,000
+                                ₦{Number(transaction.commissionAmount).toLocaleString()}
                             </span>
                         </div>
                     </div>
@@ -75,7 +80,7 @@ const TransactionDetailsBody = ({ transaction }: { transaction: ITransaction }) 
                     <div className="grid grid-cols-2 justify-between px-3 py-4 border-t border-kaiglo_grey-200">
                         <p className="text-sm md:text-base">Payout amount</p>
                         <span className="font-medium text-sm md:text-base text-right text-kaiglo_grey-900">
-                            ₦{amount.toLocaleString()}
+                            ₦{subTotal.toLocaleString()}
                         </span>
                     </div>
                 </div>

@@ -34,6 +34,8 @@ const useSaveProductDetails = () => {
             // update cache
             queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
             queryClient.refetchQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+
             setProductDraft(data.response);
             startTransition(() =>
                 router.replace(`/products/add-product?step=product-variants&product-id=${data.response.id}`)

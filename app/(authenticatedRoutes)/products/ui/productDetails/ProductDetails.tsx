@@ -15,6 +15,7 @@ import Link from "next/link";
 import ProductDetailsImageSection from "./ProductDetailsImageSection";
 import ProductDetailsSpecificationsSection from "./ProductDetailsSpecificationsSection";
 import ProductDetailsIntroSection from "./ProductDetailsIntroSection";
+import useGetOngoingSales from "../../hooks/useGetOngoingSales";
 
 const ProductDetails = () => {
     const { deleteSearchParams } = useUpdateSearchParams();
@@ -23,12 +24,19 @@ const ProductDetails = () => {
     const productId = useSearchParams().get("product-id")?.trim();
     const { productRaw, isRefetchingProductRaw } = useGetRawProduct(productId ?? "");
     const { productDescription, isFetchingProductDescription } = useGetProductDescription(productId ?? "");
+    const { ongoingSales, isFetchingOngoingSales } = useGetOngoingSales();
 
-    if (isRefetchingProductRaw || isFetchingProductDescription) return <Loader />;
-    if (!productRaw) return null;
+    if (isRefetchingProductRaw || isFetchingProductDescription || isFetchingOngoingSales) return <Loader />;
+    if (!productRaw || !ongoingSales) return null;
 
     const product = generateProductDetailsDTO(productRaw, productDescription ?? "");
     const variants = generateProductVariantDTOs(productRaw);
+    const salesType =
+        productRaw.sales && ongoingSales.salesObjectList.length
+            ? ongoingSales.salesObjectList.find(
+                  (s) => s.name.toLowerCase() === productRaw.kaigloSale.toLowerCase()
+              )
+            : undefined;
 
     return (
         <DialogContent
@@ -70,10 +78,14 @@ const ProductDetails = () => {
                 <DialogDescription />
             </DialogHeader>
             <div className="grid gap-5">
-                <ProductDetailsIntroSection product={productRaw} />
+                <ProductDetailsIntroSection product={productRaw} salesType={salesType} />
                 <section className="grid gap-2">
                     <h2 className="text-sm ">Description</h2>
-                    <p className="text-sm text-kaiglo_grey-600">{productDescription} </p>
+                    {productDescription ? (
+                        <p className="text-sm text-kaiglo_grey-600">{productDescription} </p>
+                    ) : (
+                        <p>No description added</p>
+                    )}
                 </section>
                 <ProductDetailsSpecificationsSection product={product} />
                 <ProductDetailsImageSection product={product} />

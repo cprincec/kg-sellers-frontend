@@ -28,13 +28,6 @@ const OrderHistory = () => {
         ? ordersByStatus
         : orders;
 
-    if (isFetchingOrders || isFetchingOrdersByStatus || isFetchingOrdersBySearchTerm)
-        return (
-            <div className="lg:mx-2">
-                <TableSkeleton />
-            </div>
-        );
-
     if (errorFetchingOrders || errorFetchingOrdersByStatus || errorFetchingOrdersBySearchTerm)
         return (
             <div className="grid items-center justify-center">
@@ -57,12 +50,12 @@ const OrderHistory = () => {
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="px-4 py-2"
+                                className="px-4 py-2 lowercase first-letter:capitalize"
                                 onClick={() => {
                                     router.replace(`/orders?tab=${tab}`);
                                 }}
                             >
-                                {tab}
+                                {tab === "CANCELLED_ORDER" ? "Cancelled" : tab}
                             </TabsTrigger>
                         ))}
                     </div>
@@ -75,6 +68,14 @@ const OrderHistory = () => {
                 <>
                     {orderTabs.map((tab) => (
                         <TabsContent key={`${tab}-orders`} value={tab} className="overflow-auto">
+                            {(isFetchingOrders ||
+                                isFetchingOrdersByStatus ||
+                                isFetchingOrdersBySearchTerm) && (
+                                <div className="lg:mx-2">
+                                    <TableSkeleton />
+                                </div>
+                            )}
+                            
                             <OrderHistoryTableWrapper ordersResponse={ordersResponse} />
                         </TabsContent>
                     ))}

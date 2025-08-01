@@ -40,9 +40,7 @@ const OrderHistoryTableBody = ({ orders }: { orders: IOrder[] }) => {
                     <TableCell className="p-3 text-sm text-center">
                         ₦{order.orderItem.totalAmount.toLocaleString()}
                     </TableCell>
-                    <TableCell className="p-3 text-sm text-center capitalize">
-                        {/* {order.paymentStatus} */}
-                    </TableCell>
+                    <TableCell className="p-3 text-sm text-center capitalize">N/A</TableCell>
                     <TableCell className={"p-3 "}>
                         <div className="flex items-center justify-center">
                             <span

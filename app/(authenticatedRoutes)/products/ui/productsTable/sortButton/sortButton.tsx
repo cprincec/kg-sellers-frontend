@@ -11,15 +11,17 @@ import { ISortOption } from "../../../lib/interfaces/interface";
 const SortButton2 = ({
     sortOptions,
     alignDropDown = "start",
+    disabled,
 }: {
     sortOptions: ISortOption[];
     alignDropDown?: "start" | "center" | "end";
+    disabled?: boolean;
 }) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
 
     return (
         <Popover open={showDropDown} onOpenChange={setShowDropDown}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild disabled={disabled}>
                 <Button variant="outline">
                     <div className="relative w-5 h-5">
                         <Image src={IconSortDesc} alt="sort" sizes="100%" fill />

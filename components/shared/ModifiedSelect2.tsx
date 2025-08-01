@@ -15,6 +15,7 @@ type ModifiedSelect2Props<T extends { [K in keyof T]: string }> = {
     itemClassName?: string;
     isRequired?: boolean;
     className?: string;
+    disabled?: boolean;
 };
 
 const ModifiedSelect2 = <T extends { [K in keyof T]: string }>({
@@ -30,6 +31,7 @@ const ModifiedSelect2 = <T extends { [K in keyof T]: string }>({
     onValueChange,
     itemClassName,
     isRequired = false,
+    disabled,
 }: ModifiedSelect2Props<T>) => {
     if (!options) return null;
 
@@ -50,8 +52,15 @@ const ModifiedSelect2 = <T extends { [K in keyof T]: string }>({
                 defaultValue={defaultValue}
                 onValueChange={onValueChange}
                 required={isRequired}
+                disabled={disabled}
             >
-                <SelectTrigger className={cn("h-12 w-full text-kaiglo_grey-900 ", className)}>
+                <SelectTrigger
+                    title={disabled ? "Color cannot be edited" : undefined}
+                    className={cn(
+                        "h-12 w-full text-kaiglo_grey-900 disabled:cursor-not-allowed disabled:opacity-70",
+                        className
+                    )}
+                >
                     <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
                 <SelectContent>

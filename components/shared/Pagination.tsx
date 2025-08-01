@@ -65,7 +65,7 @@ const PaginationComponent = ({
     return (
         <div
             className={cn(
-                "flex flex-col lg:grid lg:grid-cols-[1fr_3fr_1fr] justify-center lg:justify-between items-center gap-4 py-4",
+                "flex flex-col lg:flex lg:flex-row justify-center lg:justify-between items-center gap-4 py-4 lg:py-6 lg:mt-5",
                 className
             )}
         >
@@ -101,7 +101,7 @@ const PaginationComponent = ({
                 </PaginationContent>
             </Pagination>
 
-            <Pagination className="hidden lg:block h-full">
+            <Pagination className="hidden lg:block h-full w-max">
                 <PaginationContent className="flex items-center justify-end h-full">
                     <PaginationItem className="h-full">
                         <PaginationPrevious
@@ -121,7 +121,7 @@ const PaginationComponent = ({
                 </PaginationContent>
             </Pagination>
 
-            <p className="text-sm lg:order-first">Showing {size} results per page</p>
+            <p className="text-sm lg:order-first lg:shrink-0">Showing {size} results per page</p>
         </div>
     );
 };

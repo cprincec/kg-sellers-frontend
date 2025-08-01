@@ -4,7 +4,7 @@ import { NoResultsIcon } from "../../dashboard/ui/icons";
 import TransactionHistoryTable from "./TransactionHistoryTable";
 import { useSearchParams } from "next/navigation";
 import useGetAllTransactions from "../hooks/useGetAllTransactions";
-import Loader from "@/app/ui/Loader";
+import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
 
 const TransactionHistoryTableWrapper = () => {
     const searchParams = useSearchParams();
@@ -46,7 +46,7 @@ const TransactionHistoryTableWrapper = () => {
     //     }
     // }
 
-    if (isFetchingTransactions) return <Loader />;
+    if (isFetchingTransactions) return <TableSkeleton />;
 
     return transactions?.content.length ? (
         <TransactionHistoryTable

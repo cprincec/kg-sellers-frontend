@@ -37,7 +37,10 @@ const useEditProductVariant = (productAction: string) => {
                     : `/products/add-product?step=product-variants&product-id=${data.response.id}`;
 
             // Instantly update cache
-            queryClient.setQueryData(["product-raw"], data);
+            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+
             setProductDraft(data.response);
             router.replace(redirectUrl);
         },

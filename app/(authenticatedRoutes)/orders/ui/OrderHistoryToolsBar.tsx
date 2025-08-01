@@ -40,7 +40,7 @@ const OrderHistoryToolsBar = ({
 
                 {/* Download */}
                 {showAction && (
-                    <Button className="text-base rounded-3xl hidden lg:flex ">
+                    <Button className="text-base rounded-3xl hidden lg:flex" disabled>
                         <DownloadIcon width="24px" height="24px" />
                         <span className="text-base">{actionText}</span>
                     </Button>

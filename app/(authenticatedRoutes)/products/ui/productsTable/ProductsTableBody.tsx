@@ -118,7 +118,6 @@ const ProductsTableBody = ({
                                 className="w-max m-auto"
                                 productId={product.id}
                                 disabled={(action: string) => {
-                                    console.log(action);
                                     if (action.toLowerCase() === "edit product")
                                         return product.productStatus.status === "PENDING";
                                     else return false;

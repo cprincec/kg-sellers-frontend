@@ -12,9 +12,10 @@ type Props = {
     setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
     className?: string;
     error?: string;
+    imageTriggerIsDisabled: boolean;
 };
 
-const ProductVariantImageUploadField = ({ formData, setFormData, error }: Props) => {
+const ProductVariantImageUploadField = ({ formData, setFormData, error, imageTriggerIsDisabled }: Props) => {
     const { productDraft } = useAddProductContext();
     const { setShowModal, setModalContent } = useModalContext();
 
@@ -54,12 +55,17 @@ const ProductVariantImageUploadField = ({ formData, setFormData, error }: Props)
                     previewUrl={formData.productUrl}
                     isMainImage={false}
                     handleRemoveImage={handleRemove}
-                    isRemovable={true}
+                    // Allow images to be removed only if field is enabled
+                    isRemovable={imageTriggerIsDisabled === false ? true : false}
                 />
             )}
 
             {!formData.productUrl && (
-                <ProductVariantImageUploadTrigger images={images} handleSelect={handleSelect} />
+                <ProductVariantImageUploadTrigger
+                    disabled={imageTriggerIsDisabled}
+                    images={images}
+                    handleSelect={handleSelect}
+                />
             )}
 
             {!formData.productUrl && error && (
