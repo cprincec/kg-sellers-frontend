@@ -14,13 +14,13 @@ import { IGetAllOrdersResponse } from "../lib/interfaces/response.interface";
 const useGetAllOrders = () => {
     const { storeInfo } = useGetStoreInfo();
     const searchParams = useSearchParams();
-    const page = searchParams.get("page");
+    const page = Number(searchParams.get("page")) || 1;
 
     const { isLoading, data, error } = useQuery({
         queryKey: ["orders"],
         queryFn: () =>
             getRequest<IGetAllOrdersResponse>({
-                url: `/store/order/get-orders?page=${page || 1}&size=${RESULTS_PER_PAGE}&storeId=${
+                url: `/store/order/get-orders?page=${page - 1}&size=${RESULTS_PER_PAGE}&storeId=${
                     storeInfo?.id
                 }`,
             }),

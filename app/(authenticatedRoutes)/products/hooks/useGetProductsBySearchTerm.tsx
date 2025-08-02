@@ -14,12 +14,15 @@ const useGetProductsBySearchTerm = () => {
     const { storeInfo } = useGetStoreInfo();
     const searchParams = useSearchParams();
     const searchTerm = searchParams.get("searching-for")?.trim();
+    const page = Number(searchParams.get("page")) || 1;
 
     const { isLoading, data, error } = useQuery({
-        queryKey: ["products", searchTerm],
+        queryKey: ["products", searchTerm, page],
         queryFn: () =>
             getRequest<IGetPaginatedProducts>({
-                url: `product/search-overview?page=0&searchTerm=${searchTerm}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
+                url: `product/search-overview?page=${
+                    page - 1
+                }&searchTerm=${searchTerm}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
             }),
         enabled: !!searchTerm && !!storeInfo?.id,
         throwOnError: true,
