@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
@@ -108,8 +109,23 @@ const ProductVariantsTable = ({
     if (isFetchingProductRaw || isDeletingProductVariant) return <Loader />;
     if (!productRaw || !productVariants.length) return null;
 
+    const fadeVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -20 },
+    };
+
     return (
-        <div className={cn("grid gap-4 overflow-hidden", className)}>
+        <motion.div
+            layout
+            key="variantTable"
+            variants={fadeVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className={cn("grid gap-4 overflow-hidden", className)}
+        >
             {showTitle && <h3 className="text-base font-medium">{title || "Added Products"}</h3>}
             <Table className="min-w-[1000px] border">
                 <TableHeader className="w-auto">
@@ -137,7 +153,7 @@ const ProductVariantsTable = ({
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {productVariants.map((variant, index) => {
+                    {productVariants.map((variant, index: number) => {
                         const size = variant.productColor.productPriceDetails[0].attributes.find(
                             (a) => a.key === "size"
                         )?.value;
@@ -146,7 +162,6 @@ const ProductVariantsTable = ({
                             (a) => a.key === "color"
                         )?.value;
 
-                        // find the color using color code
                         const color = productMetaData?.productColorCode.find(
                             (colorObj) => colorObj.colorCode === colorCode
                         )?.color;
@@ -194,7 +209,7 @@ const ProductVariantsTable = ({
                     })}
                 </TableBody>
             </Table>
-        </div>
+        </motion.div>
     );
 };
 

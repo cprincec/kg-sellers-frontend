@@ -23,6 +23,7 @@ import { PRODUCT_CATEGORY_KEYS } from "../constants";
 import { productDetailsFormDefaultValues, productVariantsFormDefaultValues } from "../defaults";
 import { showErrorToast } from "@/app/lib/utils/utils";
 import { Dispatch, SetStateAction } from "react";
+import { Area } from "react-easy-crop";
 
 /**************************************************************
  * Generate product category DTO from product draft
@@ -471,3 +472,88 @@ export async function handleProductImageUpload<T extends FieldValues>({
         }
     }
 }
+
+export const getCroppedImg = async (
+    imageSrc: string,
+    pixelCrop: Area,
+    rotation = 0,
+    flip = { horizontal: false, vertical: false }
+): Promise<string | null> => {
+    const createImage = (url: string): Promise<HTMLImageElement> =>
+        new Promise((resolve, reject) => {
+            const image = new Image();
+            image.addEventListener("load", () => resolve(image));
+            image.addEventListener("error", (error) => {
+                console.log("there was an error in creating image");
+                reject(error);
+            });
+            image.src = url;
+        });
+
+    const getRadianAngle = (degreeValue: number) => {
+        return (degreeValue * Math.PI) / 180;
+    };
+
+    /**
+     * Returns the new bounding area of a rotated rectangle.
+     */
+    const rotateSize = (width: number, height: number, rotation: number) => {
+        const rotRad = getRadianAngle(rotation);
+
+        return {
+            width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
+            height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
+        };
+    };
+
+    const image = await createImage(imageSrc);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) {
+        return null;
+    }
+
+    const rotRad = getRadianAngle(rotation);
+
+    // calculate bounding box of the rotated image
+    const { width: bBoxWidth, height: bBoxHeight } = rotateSize(image.width, image.height, rotation);
+
+    // set canvas size to match the bounding box
+    canvas.width = bBoxWidth;
+    canvas.height = bBoxHeight;
+
+    // translate canvas context to a central location to allow rotating and flipping around the center
+    ctx.translate(bBoxWidth / 2, bBoxHeight / 2);
+    ctx.rotate(rotRad);
+    ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1);
+    ctx.translate(-image.width / 2, -image.height / 2);
+
+    // draw rotated image
+    ctx.drawImage(image, 0, 0);
+
+    const croppedCanvas = document.createElement("canvas");
+
+    const croppedCtx = croppedCanvas.getContext("2d");
+
+    if (!croppedCtx) {
+        return null;
+    }
+
+    // Set the size of the cropped canvas
+    croppedCanvas.width = 600;
+    croppedCanvas.height = 600;
+
+    // Draw the cropped image onto the new canvas
+    croppedCtx.drawImage(canvas, pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height, 0, 0, 600, 600);
+
+    return new Promise((resolve, reject) => {
+        try {
+            const base64String = croppedCanvas.toDataURL("image/jpeg");
+            resolve(base64String);
+        } catch (error) {
+            reject(new Error("Failed to generate base64 image."));
+            console.error(error);
+        }
+    });
+};

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FormNavButtonsProps } from "../../lib/interface";
 import { cn } from "@/lib/utils/utils";
@@ -17,7 +18,12 @@ const FormNavButtons = ({
     disabled,
 }: FormNavButtonsProps) => {
     return (
-        <div className={cn("flex justify-end items-center gap-3 pt-4", className)}>
+        <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className={cn("flex justify-end items-center gap-3 pt-4", className)}
+        >
             <Button
                 type="button"
                 variant={"outline"}
@@ -40,7 +46,7 @@ const FormNavButtons = ({
                     {disabled ? "Please wait..." : submitButtonText}
                 </Button>
             )}
-        </div>
+        </motion.div>
     );
 };
 export default FormNavButtons;

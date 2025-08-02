@@ -37,6 +37,7 @@ const ProductDetailsFormFields = () => {
                 <ProductImageField<IProductDetailsDTO>
                     mainImageKey="mainImage"
                     otherImagesKey="otherImages"
+                    isCroppable={true}
                 />
             </div>
 
