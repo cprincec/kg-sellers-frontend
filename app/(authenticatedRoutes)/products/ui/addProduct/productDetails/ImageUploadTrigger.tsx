@@ -5,7 +5,7 @@ import Image from "next/image";
 import { RefObject } from "react";
 
 type Props = {
-    isMultiple: boolean;
+    isMultiple?: boolean;
     fileInputRef: RefObject<HTMLInputElement | null>;
     handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -15,7 +15,7 @@ const ImageUploadTrigger = ({ isMultiple, fileInputRef, handleImageUpload }: Pro
         <div>
             <input
                 type="file"
-                multiple={isMultiple}
+                multiple={isMultiple ?? false}
                 accept="image/*"
                 hidden
                 ref={fileInputRef}

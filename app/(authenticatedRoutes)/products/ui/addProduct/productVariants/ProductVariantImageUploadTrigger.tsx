@@ -4,6 +4,8 @@ import { useModalContext } from "@/app/contexts/modalContext";
 import { IconUploadImage } from "@/public/icons/icons";
 import Image from "next/image";
 import ImageOptionsModal from "./ImageOptionsModal";
+import ToolTip from "@/app/(authenticatedRoutes)/ui/ToolTip";
+import { useState } from "react";
 
 const ProductVariantImageUploadTrigger = ({
     images,
@@ -15,9 +17,24 @@ const ProductVariantImageUploadTrigger = ({
     disabled: boolean;
 }) => {
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
+    const [showTip, setShowTip] = useState(false);
 
     return (
-        <div title={disabled ? "Select a color before selecting an image" : undefined}>
+        <div
+            onMouseOver={() => {
+                if (disabled) setShowTip(true);
+            }}
+            onTouchStart={() => {
+                if (disabled) setShowTip(true);
+            }}
+            onMouseOut={() => {
+                if (disabled) setShowTip(false);
+            }}
+            onTouchEnd={() => {
+                if (disabled) setShowTip(false);
+            }}
+            className="relative w-max"
+        >
             <button
                 type="button"
                 onClick={() => {
@@ -30,6 +47,14 @@ const ProductVariantImageUploadTrigger = ({
             >
                 <Image src={IconUploadImage} alt="upload icon" className="w-8 h-8" />
             </button>
+            {showTip && (
+                <ToolTip
+                    showTip={showTip}
+                    className="absolute  w-full h-full top-0 bottom-0 right-0"
+                    tipClassName="max-w-[100px]"
+                    info="Select a color before selecting an image"
+                />
+            )}
         </div>
     );
 };
