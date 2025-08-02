@@ -12,7 +12,7 @@ import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreI
 const useGetProductsOverview = () => {
     const { storeInfo } = useGetStoreInfo();
 
-    const { isPending, error, data } = useQuery({
+    const { isLoading, error, data } = useQuery({
         queryKey: ["products-stats"],
         queryFn: () =>
             getRequest<IProductsOverviewResponse>({
@@ -22,7 +22,7 @@ const useGetProductsOverview = () => {
         throwOnError: true,
     });
 
-    return { productsOverviewData: data?.response, isFetchingProductsOverview: isPending, error };
+    return { productsOverviewData: data?.response, isFetchingProductsOverview: isLoading, error };
 };
 
 export default useGetProductsOverview;

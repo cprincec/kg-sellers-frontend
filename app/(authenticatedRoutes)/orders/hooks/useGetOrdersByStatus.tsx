@@ -24,7 +24,9 @@ const useGetOrdersByStatus = () => {
         queryKey: ["orders", status, page],
         queryFn: () =>
             getRequest<IGetAllOrdersResponse>({
-                url: `/store/order/get-orders-via-status?orderStatus=${status}&page=${page}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
+                url: `/store/order/get-orders-via-status?orderStatus=${status}&page=${
+                    page - 1
+                }&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
             }),
         enabled: isValidStatus && !!storeInfo?.id,
         throwOnError: true,

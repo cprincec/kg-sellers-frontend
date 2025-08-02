@@ -11,28 +11,32 @@ const ProductsTableToolsBar = () => {
             <div className="hidden lg:block">
                 <div className="flex gap-4 justify-between p-4 border-b border-kaiglo_grey-200">
                     <SearchBar
-                        placeholder="Seach by product ID"
+                        placeholder="Seach by product name"
                         className="hidden lg:block max-w-[350px]"
                         scroll={false}
                     />
                     <div className="flex gap-4 justify-end items-center">
                         <DateRangePicker />
-                        <DownloadButton />
+                        <DownloadButton disabled={true} />
                     </div>
                 </div>
 
                 <div className="flex gap-4 p-4 border-b border-kaiglo_grey-200">
-                    <FilterButton filterOptions={productsFilterOptions} />
-                    <SortButton2 sortOptions={productsSortOptions} />
+                    <FilterButton filterOptions={productsFilterOptions} disabled={true} />
+                    <SortButton2 sortOptions={productsSortOptions} disabled={true} />
                 </div>
             </div>
 
             <div className="flex gap-4 justify-between items-center p-2 lg:hidden border-b">
-                <SearchBar placeholder="Seach by product ID" className="h-fit lg:hidden" scroll={false} />
+                <SearchBar placeholder="Seach by product name" className="h-fit lg:hidden" scroll={false} />
 
                 <div className="flex gap-3 border-kaiglo_grey-200">
-                    <FilterButton filterOptions={productsFilterOptions} alignDropDown="start" />
-                    <SortButton2 sortOptions={productsSortOptions} alignDropDown="start" />
+                    <FilterButton
+                        filterOptions={productsFilterOptions}
+                        alignDropDown="start"
+                        disabled={true}
+                    />
+                    <SortButton2 sortOptions={productsSortOptions} alignDropDown="start" disabled={true} />
                 </div>
             </div>
         </div>

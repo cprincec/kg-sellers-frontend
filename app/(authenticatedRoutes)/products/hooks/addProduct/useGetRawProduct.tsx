@@ -9,8 +9,8 @@ import { IProductResponse } from "../../lib/interfaces/response.interface";
  **/
 
 const useGetRawProduct = (productId: string) => {
-    const { isPending, data, refetch, isRefetching } = useQuery({
-        queryKey: ["product-raw"],
+    const { isLoading, data, refetch, isRefetching } = useQuery({
+        queryKey: ["product-raw", productId],
         queryFn: () =>
             getRequest<IProductResponse>({
                 url: `/product/raw-product?productID=${productId}`,
@@ -22,7 +22,7 @@ const useGetRawProduct = (productId: string) => {
 
     return {
         productRaw: data?.response,
-        isFetchingProductRaw: isPending,
+        isFetchingProductRaw: isLoading,
         isRefetchingProductRaw: isRefetching,
         refetchProductRaw: refetch,
     };

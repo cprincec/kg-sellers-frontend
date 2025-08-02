@@ -21,10 +21,8 @@ const useDeleteProductVariant = () => {
                 return;
             }
 
-            // Update queries
-            // queryClient.refetchQueries({ queryKey: ["products"], exact: false });
-            // queryClient.setQueryData(["product-raw"], data.response);
-            queryClient.refetchQueries({ queryKey: ["product-raw"] });
+            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
         },
         onError: (error) => {
             console.error(error);

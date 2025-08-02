@@ -30,9 +30,10 @@ const useUploadProduct = () => {
             }
 
             // Instantly update cache
-            queryClient.setQueryData(["product-raw"], null);
-            queryClient.setQueryData(["product-description"], "");
-            // queryClient.invalidateQueries([])
+            queryClient.invalidateQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+
             flushSync(() => {
                 setProductDraft(null);
                 setProductDraftDescription("");

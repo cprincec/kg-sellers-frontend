@@ -9,7 +9,7 @@ import { IGetAllProductsCategoriesResponse } from "../../lib/interfaces/interfac
  */
 
 const useGetProductsCategories = () => {
-    const { isPending, data } = useQuery({
+    const { isLoading, data } = useQuery({
         queryKey: ["products-categories"],
         queryFn: () =>
             getRequest<IGetAllProductsCategoriesResponse>({
@@ -19,7 +19,7 @@ const useGetProductsCategories = () => {
         staleTime: 1000 * 60 * 60 * 2,
     });
 
-    return { productsCategories: data?.response, isFetchingProductsCategories: isPending };
+    return { productsCategories: data?.response, isFetchingProductsCategories: isLoading };
 };
 
 export default useGetProductsCategories;

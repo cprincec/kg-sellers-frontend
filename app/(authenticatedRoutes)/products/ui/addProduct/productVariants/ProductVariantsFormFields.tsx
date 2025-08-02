@@ -2,6 +2,7 @@
 
 import {
     IColor,
+    IProduct,
     IProductMeta,
     IVariantField,
     ProductVariantFormErrors,
@@ -12,6 +13,7 @@ import ModifiedInput from "@/components/shared/ModifiedInput";
 import { Dispatch, SetStateAction } from "react";
 import ProductVariantImageUploadField from "./ProductVariantImageUploadField";
 import ModifiedSelect3 from "@/components/shared/ModifiedSelect3";
+import { useSearchParams } from "next/navigation";
 
 const ProductVariantsFormFields = ({
     formData,
@@ -20,6 +22,7 @@ const ProductVariantsFormFields = ({
     fields,
     findFieldIndex,
     formErrors,
+    product,
 }: {
     formData: ProductVariantFormInterface;
     setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
@@ -27,9 +30,25 @@ const ProductVariantsFormFields = ({
     fields: IVariantField[];
     findFieldIndex: (key: string) => number;
     formErrors: ProductVariantFormErrors;
+    product: IProduct;
 }) => {
+    const variantAction = useSearchParams().get("variant-action");
     const requiredAttributes = ["color", "quantity", "price"];
     const defaultColorValue = formData.attributes.find((a) => a.key === "color")?.value ?? "";
+    const colorIndex = findFieldIndex("color");
+    const colorFieldIsDisabled = variantAction === "edit";
+
+    /******************************************************************************
+     * The image selector will be disabled in these scenerios:
+     * 1. if color is not yet selected
+     * 2. if color is selected and a variant with same color already exists
+     * in the above case, the image for that variant should already be displaying
+     ******************************************************************************/
+    const selectedColor = colorIndex > -1 ? formData.attributes[colorIndex].value : "";
+    const imageTriggerIsDisabled =
+        !formData.attributes.find((a) => a.key === "color")?.value ||
+        !!product.productColors?.find((variant) => variant.color.colorCode === selectedColor) ||
+        colorFieldIsDisabled;
 
     const updateValue = (key: string, value: string) => {
         setFormData((prev) => {
@@ -64,6 +83,7 @@ const ProductVariantsFormFields = ({
                 formData={formData}
                 setFormData={setFormData}
                 error={formErrors.productUrl}
+                imageTriggerIsDisabled={imageTriggerIsDisabled}
             />
             <div className="grid lg:grid-cols-2 gap-4 w-full">
                 <ModifiedSelect2
@@ -75,10 +95,27 @@ const ProductVariantsFormFields = ({
                     valueKey="colorCode"
                     labelKey="color"
                     options={productMeta?.productColorCode as IColor[]}
-                    onValueChange={(color) => updateValue("color", color)}
+                    onValueChange={(color) => {
+                        updateValue("color", color);
+
+                        const variantWithSameColor = product.productColors?.find(
+                            (variant) => variant.color.colorCode === color
+                        );
+                        if (variantWithSameColor) {
+                            setFormData((prev) => ({
+                                ...prev,
+                                productUrl: variantWithSameColor.colorUrl,
+                            }));
+                        } else
+                            setFormData((prev) => ({
+                                ...prev,
+                                productUrl: "",
+                            }));
+                    }}
                     isRequired={true}
                     className="text-sm md:text-sm mt-1 lg:mt-2"
                     labelClassNames="text-sm md:text-sm"
+                    disabled={colorFieldIsDisabled}
                 />
 
                 <ModifiedInput

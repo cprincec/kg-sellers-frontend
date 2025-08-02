@@ -115,6 +115,8 @@ const ProductVariantsForm = ({
         }
     }, [action, variantId, productDraft, searchParams]);
 
+    if (!productDraft) return <div>Product not found. Please refresh the page</div>;
+
     return (
         <div className={cn("grid gap-6 overflow-hidden", className)}>
             <ProductVariantsFormHeader showForm={showForm} />
@@ -129,6 +131,7 @@ const ProductVariantsForm = ({
                         setFormData={setFormData}
                         fields={fields}
                         formErrors={formErrors}
+                        product={productDraft}
                     />
 
                     <div className="flex justify-self-end gap-4">

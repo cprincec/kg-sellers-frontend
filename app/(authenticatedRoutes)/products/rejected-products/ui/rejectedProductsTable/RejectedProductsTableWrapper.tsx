@@ -3,12 +3,12 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { rejectedProductsData } from "../../../lib/data/data";
-import ConfirmDeleteProduct from "../../../ui/ConfirmDeleteProduct";
 import RejectedProductDetails from "../RejectedProductDetails";
 import RejectedProductsTableMobile from "./RejectedProductsTableMobile";
 import RejectedProductsTableDesktop from "./RejectedProductsTableDesktop";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import ConfirmProductAction from "../../../ui/ConfirmProductAction";
 
 const RejectedProductsTableWrapper = () => {
     const searchParams = useSearchParams();
@@ -24,8 +24,8 @@ const RejectedProductsTableWrapper = () => {
         if (searchParams.get("rejected-product-id")) {
             content = <RejectedProductDetails />;
             clearKeys = ["rejected-product-id"];
-        } else if (searchParams.get("product-action") === "delete-product" && searchParams.get("id")) {
-            content = <ConfirmDeleteProduct />;
+        } else if (searchParams.get("product-action") === "delete" && searchParams.get("product-id")) {
+            content = <ConfirmProductAction />;
             clearKeys = ["product-action", "id"];
         }
 

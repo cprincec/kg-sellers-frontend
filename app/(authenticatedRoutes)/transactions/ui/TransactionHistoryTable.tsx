@@ -36,10 +36,6 @@ const TransactionHistoryTable = ({
         }
     }, [transactionId, transactions]);
 
-    // const start = (page - 1) * RESULTS_PER_PAGE;
-    // const end = start + RESULTS_PER_PAGE;
-    // const paginatedTransactions = transactions.slice(start, end);
-
     return (
         <div className="overflow-auto">
             <Table className="w-[950px] lg:w-full border">

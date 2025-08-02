@@ -232,7 +232,7 @@ export const productVariantsList = [
 export const productActions: IProductAction[] = [
     {
         type: "product",
-        name: "Edit Product",
+        name: "edit product",
         icon: IconEditSquare,
         link: (productId: string) =>
             `/products/add-product/preview?product-action=edit&product-id=${productId}`,
@@ -248,8 +248,7 @@ export const productActions: IProductAction[] = [
                     [key: string]: string;
                 }[]
             ) => void
-        ) => setSearchParams([{ product: "add-to-sales" }, { id: productId }]),
-        disabled: true,
+        ) => setSearchParams([{ "product-action": "add-to-sales" }, { "product-id": productId }]),
     },
     {
         type: "product",
@@ -262,14 +261,12 @@ export const productActions: IProductAction[] = [
                     [key: string]: string;
                 }[]
             ) => void
-        ) => setSearchParams([{ "product-action": "pause" }, { id: productId }]),
-        disabled: true,
+        ) => setSearchParams([{ "product-action": "pause" }, { "product-id": productId }]),
     },
     {
         type: "product",
         name: "duplicate product",
         icon: IconDuplicate,
-        disabled: true,
     },
     {
         type: "product",

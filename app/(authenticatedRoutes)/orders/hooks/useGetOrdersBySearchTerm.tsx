@@ -20,7 +20,9 @@ const useGetOrdersBySearchTerm = () => {
         queryKey: ["orders", searchTerm, page],
         queryFn: () =>
             getRequest<IGetAllOrdersResponse>({
-                url: `/store/order/search-product-&-sku?page=${page}&searchTerm=${searchTerm}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
+                url: `/store/order/search-product-&-sku?page=${
+                    page - 1
+                }&searchTerm=${searchTerm}&size=${RESULTS_PER_PAGE}&storeId=${storeInfo?.id}`,
             }),
         enabled: !!searchTerm && !!storeInfo?.id,
         throwOnError: true,

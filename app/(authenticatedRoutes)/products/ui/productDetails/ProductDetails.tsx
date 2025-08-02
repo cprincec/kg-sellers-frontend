@@ -1,34 +1,49 @@
 "use client";
 
-import { DialogContent, DialogTitle } from "@/components/ui/dialog";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { sampleProduct } from "../../lib/data/data";
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button, buttonVariants } from "@/components/ui/button";
 import ProductVariants from "./ProductVariants";
 import { cn } from "@/lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { useSearchParams } from "next/navigation";
+import useGetRawProduct from "../../hooks/addProduct/useGetRawProduct";
+import Loader from "@/app/ui/Loader";
+import useGetProductDescription from "../../hooks/addProduct/useGetProductDescription";
+import { generateProductDetailsDTO, generateProductVariantDTOs } from "../../lib/utils/addProduct.utils";
+import Link from "next/link";
+import ProductDetailsImageSection from "./ProductDetailsImageSection";
+import ProductDetailsSpecificationsSection from "./ProductDetailsSpecificationsSection";
+import ProductDetailsIntroSection from "./ProductDetailsIntroSection";
+import useGetOngoingSales from "../../hooks/useGetOngoingSales";
 
 const ProductDetails = () => {
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal, setModalContent } = useModalContext();
-    const product = sampleProduct;
-    const {
-        productImage,
-        productName,
-        sku,
-        productImages,
-        productVariants,
-        description,
-        specifications,
-        salesType,
-    } = product;
+
+    const productId = useSearchParams().get("product-id")?.trim();
+    const { productRaw, isRefetchingProductRaw } = useGetRawProduct(productId ?? "");
+    const { productDescription, isFetchingProductDescription } = useGetProductDescription(productId ?? "");
+    const { ongoingSales, isFetchingOngoingSales } = useGetOngoingSales();
+
+    if (isRefetchingProductRaw || isFetchingProductDescription || isFetchingOngoingSales) return <Loader />;
+    if (!productRaw || !ongoingSales) return null;
+
+    const product = generateProductDetailsDTO(productRaw, productDescription ?? "");
+    const variants = generateProductVariantDTOs(productRaw);
+    const salesType =
+        productRaw.sales && ongoingSales.salesObjectList.length
+            ? ongoingSales.salesObjectList.find(
+                  (s) => s.name.toLowerCase() === productRaw.kaigloSale.toLowerCase()
+              )
+            : undefined;
+
     return (
         <DialogContent
             className="w-[90%] md:w-[600px] md:max-w-[600px] max-h-[95%] m-auto overflow-y-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-5"
             closeBtnClassName="md:hidden left-4 -ml-1 mt-0.5"
         >
-            <div className="flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-4 max-md:mb-5">
                 <Button
                     onClick={() => {
                         setShowModal(false);
@@ -40,63 +55,41 @@ const ProductDetails = () => {
                 >
                     Cancel
                 </Button>
-                <Button
-                    variant={"ghost"}
-                    className="md:flex px-3 py-1 text-kaiglo_success-600 text-sm bg-transparent"
-                >
-                    Edit
-                </Button>
+                {productRaw.productStatus.status !== "PENDING" && (
+                    <Link
+                        onClick={() => {
+                            setShowModal(false);
+                            setModalContent(null);
+                        }}
+                        href={`/products/add-product/preview?product-id=${productRaw.id}&product-action=edit`}
+                        className={cn(
+                            buttonVariants({ variant: "ghost" }),
+                            "md:flex px-3 py-1 text-kaiglo_success-600 text-sm bg-transparent"
+                        )}
+                    >
+                        Edit
+                    </Link>
+                )}
             </div>
-            <DialogTitle className="font-medium text-base text-kaiglo_grey-900 text-left">
-                Product details
-            </DialogTitle>
+            <DialogHeader>
+                <DialogTitle className="font-medium text-base text-kaiglo_grey-900 text-left">
+                    Product details
+                </DialogTitle>
+                <DialogDescription />
+            </DialogHeader>
             <div className="grid gap-5">
-                <div className="flex gap-3 lg:items-center">
-                    <Image src={productImage} alt="product image" className="w-[64px] h-[64px]" />
-                    <div className="grid gap-2">
-                        <div className="grid grid-flow-col gap-2 justify-between">
-                            <p className="text-sm text-kaiglo_grey-800">{productName}</p>
-                            <span className="hidden md:inline-flex self-start px-2 py-1 text-kaiglo_critical-600 text-sm font-medium bg-kaiglo_critical-50 rounded-lg">
-                                {salesType}
-                            </span>
-                        </div>
-                        <h2 className="text-sm font-normal text-kaiglo_grey-500">SKU: {sku}</h2>
-                    </div>
-                </div>
+                <ProductDetailsIntroSection product={productRaw} salesType={salesType} />
                 <section className="grid gap-2">
                     <h2 className="text-sm ">Description</h2>
-                    <p className="text-sm text-kaiglo_grey-600">{description} </p>
+                    {productDescription ? (
+                        <p className="text-sm text-kaiglo_grey-600">{productDescription} </p>
+                    ) : (
+                        <p>No description added</p>
+                    )}
                 </section>
-                <section className="grid gap-2">
-                    <h3 className="font-medium text-sm text-kaiglo_grey-900">Specifications</h3>
-                    <ul className="grid gap-2 list-disc pl-7">
-                        {specifications.map((specification) => (
-                            <li key={specification} className="px-3 py-2 text-sm font-medium capitalize pl-0">
-                                {specification}
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-                <section className="grid gap-2">
-                    <h3 className="text-sm font-medium">Product images</h3>
-                    <div className="flex gap-3">
-                        {productImages.map((image, index) => (
-                            <Image
-                                key={productName + index}
-                                src={image}
-                                alt={productName}
-                                className={cn(
-                                    "w-[64px] h-[64px]",
-                                    index !== 0 && index !== productImages.length - 1
-                                        ? "hidden md:block"
-                                        : "block"
-                                )}
-                            />
-                        ))}
-                    </div>
-                </section>
-                {/*  @ts-expect-error to be changed */}
-                <ProductVariants productVariants={productVariants} />
+                <ProductDetailsSpecificationsSection product={product} />
+                <ProductDetailsImageSection product={product} />
+                <ProductVariants productVariants={variants} />
             </div>
         </DialogContent>
     );

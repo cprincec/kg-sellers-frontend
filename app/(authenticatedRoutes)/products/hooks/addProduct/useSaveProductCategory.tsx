@@ -33,8 +33,11 @@ const useSaveProductCategory = () => {
                 return;
             }
 
-            // Instantly update cache
-            queryClient.setQueryData(["product-raw"], data);
+            // update cache
+            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.refetchQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+
             setProductDraft(data.response);
             startTransition(() =>
                 router.replace(`/products/add-product?step=product-details&product-id=${data.response.id}`)

@@ -2,40 +2,34 @@
 
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { IProduct } from "../../lib/interfaces/interface";
+import { IOngoingSale, IProduct } from "../../lib/interfaces/interface";
 import ActionButton from "./ActionButton";
 import { cn } from "@/lib/utils/utils";
-import {
-    calculateProductQuantity,
-    formatDateDMMMYYY,
-    // getSalesTypeStyle,
-    getStatusStyle,
-    // getStockLevelStyle,
-} from "../../lib/utils/utils";
+import { calculateProductQuantity, formatDateDMMMYYY, getStatusStyle } from "../../lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { productActions } from "../../lib/data/data";
+import { formatDistance } from "date-fns";
 
-const ProductsTableBody = ({ products }: { products: IProduct[] }) => {
+const ProductsTableBody = ({
+    products,
+    ongoingSales,
+}: {
+    products: IProduct[];
+    ongoingSales: IOngoingSale[];
+}) => {
     const { setSearchParams } = useUpdateSearchParams();
 
     return (
         <TableBody>
             {products.map((product, index: number) => {
-                // console.log(product.createdDate, formatDateDMMMYYY(product.createdDate));
-                // let salesType, daysLeft, noSales;
+                const saleType =
+                    product.sales &&
+                    ongoingSales.length &&
+                    ongoingSales.find((s) => s.name.toLowerCase() === product.kaigloSale.toLowerCase());
 
-                // if (product.salesType.length === 1) {
-                //     salesType = product.salesType[0];
-                // } else if (product.salesType.length === 2) {
-                //     salesType = product.salesType[0];
-                //     daysLeft = product.salesType[1];
-                // } else {
-                //     noSales = "no sales";
-                //     salesType = "";
-                //     daysLeft = "";
-                // }
+                const daysLeft =
+                    saleType && formatDistance(new Date(saleType.startDate), new Date(saleType.endDate));
 
-                const sales = product.sales || "no sales";
                 const quantity =
                     product.productColors && product.productColors.length
                         ? calculateProductQuantity(product)
@@ -56,7 +50,7 @@ const ProductsTableBody = ({ products }: { products: IProduct[] }) => {
                             className="p-3 text-sm text-wrap max-w-[300px] cursor-pointer"
                             onClick={() => setSearchParams([{ "product-id": product.id }])}
                         >
-                            <div className="flex gap-1.5 items-center">
+                            <div className="flex gap-1.5 items-center min-w-max">
                                 {product.productUrl ? (
                                     <Image
                                         src={product.productUrl}
@@ -90,40 +84,28 @@ const ProductsTableBody = ({ products }: { products: IProduct[] }) => {
                         <TableCell className="p-3 text-sm text-kaiglo_grey-700 font-medium text-center">
                             {quantity}
                         </TableCell>
-                        {/* <TableCell className="p-3 text-sm capitalize">
-                            <div className="flex items-center justify-center">
-                                 <span
-                                    className={cn(
-                                        "border px-2 py-1 rounded-xl",
-                                        getStockLevelStyle(product.stockLevel)
-                                    )}
-                                >
-                                    {product.stockLevel}
-                                </span> 
-                            </div>
-                        </TableCell> */}
-                        <TableCell className="p-3 text-sm capitalize">
+                        <TableCell className="p-3 text-sm">
                             {/* <div> */}
                             <ul className="grid gap-2 justify-center">
-                                {/* {salesType && (
+                                {saleType && (
                                     <li
                                         className={cn(
-                                            "font-medium text-center border border-kaiglo_grey-200 rounded-2xl px-2 py-1",
-                                            getSalesTypeStyle(salesType)
+                                            "font-medium text-center border border-kaiglo_grey-200 rounded-2xl px-2 py-1 lowercase first-letter:capitalize"
                                         )}
+                                        style={{ color: saleType.colors.productName }}
                                     >
-                                        {salesType}
-                                    </li>
-                                )} */}
-                                {/* {daysLeft && (
-                                    <li className="text-kaiglo_grey-700 font-medium text-center border border-kaiglo_grey-200 rounded-2xl px-2 py-1">
-                                        {daysLeft}
+                                        {saleType.name}
                                     </li>
                                 )}
-                                {noSales && <li className="text-kaiglo_grey-700 font-medium">{noSales}</li>} */}
-                                <li className="text-kaiglo_grey-700 font-medium">{sales}</li>
+
+                                {daysLeft && (
+                                    <li className="text-kaiglo_grey-700 font-medium text-center border border-kaiglo_grey-200 rounded-2xl px-2 py-1 first-letter:capitalize">
+                                        {daysLeft} left
+                                    </li>
+                                )}
+
+                                {!saleType && <li className="text-kaiglo_grey-700 font-medium">No sales</li>}
                             </ul>
-                            {/* </div> */}
                         </TableCell>
 
                         <TableCell className="p-3 text-sm text-center">{price}</TableCell>
@@ -135,6 +117,11 @@ const ProductsTableBody = ({ products }: { products: IProduct[] }) => {
                                 actions={productActions}
                                 className="w-max m-auto"
                                 productId={product.id}
+                                disabled={(action: string) => {
+                                    if (action.toLowerCase() === "edit product")
+                                        return product.productStatus.status === "PENDING";
+                                    else return false;
+                                }}
                             />
                         </TableCell>
                     </TableRow>

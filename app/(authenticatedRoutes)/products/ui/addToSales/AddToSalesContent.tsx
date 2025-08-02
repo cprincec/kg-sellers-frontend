@@ -1,58 +1,55 @@
-import Image, { StaticImageData } from "next/image";
-import AddToSalesFormFieldsMobile from "./addToSalesFormFieldsMobile/AddToSalesFormFieldsMobile";
-import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
-import { ImageProduct1 } from "@/public/images/landingPage/images";
-import useUpdateSearchParams from "@/hooks/useSetSearchParams";
-import { IProductDTO, IProductVariant, ProductVariant } from "../../lib/interfaces/interface";
-import AddToSalesFormFieldsDesktop from "./addToSalesFormFieldsDesktop/AddToSalesFormFieldsDesktop";
+import Image from "next/image";
+import { IOngoingSale, IProduct } from "../../lib/interfaces/interface";
+import AddToSalesFormDesktop from "./addToSalesFormDesktop/AddToSalesFormDesktop";
+import { generateProductVariantDTOs } from "../../lib/utils/addProduct.utils";
+import AddToSalesFormMobile from "./addToSalesFormFieldsMobile/AddToSalesFormMobile";
 
 const AddToSalesContent = ({
-    image,
     product,
-    productVariants,
-    productName,
-    canBeAddedToSales,
+    ongoingSales,
+    productId,
 }: {
-    image: StaticImageData | string | undefined;
-    product: IProductDTO;
-    productVariants: IProductVariant[] | ProductVariant[];
-    productName: string;
-    canBeAddedToSales: boolean;
+    product: IProduct;
+    ongoingSales: IOngoingSale[];
+    productId: string;
 }) => {
-    const { deleteSearchParams } = useUpdateSearchParams();
+    const variants = generateProductVariantDTOs(product);
+    const canBeAddedToSales = variants.length > 0;
 
     return (
         <div className="w-full grid gap-5 lg:gap-4">
             <div className="grid lg:flex lg:items-start gap-5">
+                {/* Product Image and Name */}
                 <div className="flex gap-2 items-center py-3 lg:py-0">
                     <div className="relative w-[72px] lg:w-[120px] h-[72px] lg:h-[120px] border border-[#A3A3A3] rounded-lg shrink-0">
                         <Image
-                            src={image || ImageProduct1}
-                            alt={product.productName}
+                            src={product.productUrl}
+                            alt={product.name}
                             fill
                             className="object-cover rounded-lg"
                         />
                     </div>
-                    <h1 className="lg:hidden text-base font-bold">{productName}</h1>
+                    <h1 className="lg:hidden text-base font-bold">{product.name}</h1>
                 </div>
 
+                {/* Mobile and Desktop view forms */}
                 {canBeAddedToSales ? (
                     <div className="w-full">
-                        <AddToSalesFormFieldsMobile productVariants={productVariants} />
-                        <AddToSalesFormFieldsDesktop productVariants={productVariants} />
+                        <AddToSalesFormMobile
+                            productId={productId}
+                            ongoingSales={ongoingSales}
+                            productVariants={variants}
+                        />
+                        <AddToSalesFormDesktop
+                            productId={productId}
+                            ongoingSales={ongoingSales}
+                            productVariants={variants}
+                        />
                     </div>
                 ) : (
                     <h3>No product variants to add to sales. Please add variants to this product.</h3>
                 )}
             </div>
-
-            {/* Footer Buttons */}
-            <FormNavButtons
-                submitButtonText="Add to Sales"
-                cancelFunc={() => deleteSearchParams(["product-action", "id"], "push")}
-                className="w-full grid lg:flex grid-cols-2 gap-6 justify-between lg:justify-end"
-                submitButtonFunc={() => deleteSearchParams(["product-action", "id"], "push")}
-            />
         </div>
     );
 };

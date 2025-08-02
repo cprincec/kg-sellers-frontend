@@ -1,4 +1,4 @@
-import { IOrderItem } from "../../orders/lib/interfaces/interface";
+import { IOrderItem, OrderStatusTypes } from "../../orders/lib/interfaces/interface";
 import { IPageable, ISort } from "../../products/lib/interfaces/interface";
 
 /*********** TRANSACTION DTO **********************/
@@ -23,7 +23,11 @@ export interface ITransaction {
     channel: string;
     commissionAmount: string;
     commissionPercentage: number;
+    createdDate: string;
+    orderDate: string;
     orderItem: IOrderItem;
+    orderNumber: string;
+    orderStatus: OrderStatusTypes;
     productName: string;
     productUrl: string;
     purpose: string;

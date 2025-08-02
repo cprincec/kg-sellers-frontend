@@ -11,15 +11,17 @@ import FilterButtonDropDown from "./FIlterButtonDropDown";
 const FilterButton = ({
     filterOptions,
     alignDropDown = "start",
+    disabled,
 }: {
     filterOptions: IFilterOption[];
     alignDropDown?: "start" | "center" | "end";
+    disabled?: boolean;
 }) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
 
     return (
         <Popover open={showDropDown} onOpenChange={setShowDropDown}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild disabled={disabled}>
                 <Button variant="outline" className="py-3">
                     <div className="relative w-5 h-5">
                         <Image src={IconFilter} alt="filter" sizes="100%" fill />

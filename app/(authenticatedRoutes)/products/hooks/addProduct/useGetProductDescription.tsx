@@ -9,8 +9,8 @@ import { IGetProductDescriptionResponse } from "../../lib/interfaces/response.in
  **/
 
 const useGetProductDescription = (productId: string) => {
-    const { isPending, data } = useQuery({
-        queryKey: ["product-description"],
+    const { isLoading, data } = useQuery({
+        queryKey: ["product-description", productId],
         queryFn: () =>
             getRequest<IGetProductDescriptionResponse>({
                 url: `/product/product-description?productId=${productId}`,
@@ -19,7 +19,7 @@ const useGetProductDescription = (productId: string) => {
         throwOnError: true,
     });
 
-    return { productDescription: data?.response, isFetchingProductDescription: isPending };
+    return { productDescription: data?.response, isFetchingProductDescription: isLoading };
 };
 
 export default useGetProductDescription;

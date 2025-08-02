@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { IconMenuDots } from "@/public/icons/icons";
@@ -7,6 +9,7 @@ import { cn } from "@/lib/utils/utils";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { IProductAction, IVariantAction } from "../../lib/interfaces/interface";
 import { useRouter } from "next/navigation";
+import useDuplicateProduct from "../../hooks/useDuplicateProduct";
 
 const ActionButton = ({
     actions,
@@ -19,10 +22,11 @@ const ActionButton = ({
     productId: string;
     variantId?: string;
     className?: string;
-    disabled?: boolean;
+    disabled?: boolean | ((action: string) => boolean);
 }) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const { setSearchParams } = useUpdateSearchParams();
+    const { duplicateProduct, isDuplicatingProduct } = useDuplicateProduct();
     const router = useRouter();
 
     return (
@@ -53,6 +57,10 @@ const ActionButton = ({
                                         index === actions.length - 1 && "text-kaiglo_critical-600"
                                     )}
                                     onClick={() => {
+                                        if (action.name === "duplicate product") {
+                                            duplicateProduct(productId);
+                                        }
+
                                         if (href) {
                                             router.replace(href);
                                             return;
@@ -64,7 +72,13 @@ const ActionButton = ({
                                             else actionFunc(productId, setSearchParams);
                                         }
                                     }}
-                                    disabled={disabled || action.disabled}
+                                    disabled={
+                                        action.disabled
+                                            ? action.disabled
+                                            : typeof disabled === "boolean"
+                                            ? disabled
+                                            : disabled(action.name) || action.disabled || isDuplicatingProduct
+                                    }
                                 >
                                     <Image src={icon} alt="icon" className="w-6 h-6" />
                                     <span className={cn(style)}>{name}</span>

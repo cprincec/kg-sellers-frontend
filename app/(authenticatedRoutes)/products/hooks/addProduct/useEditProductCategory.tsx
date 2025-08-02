@@ -31,8 +31,11 @@ const useEditProductCategory = () => {
                 return;
             }
 
-            // Instantly update cache
-            queryClient.setQueryData(["product-raw"], data);
+            // update cache
+            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+
             setProductDraft(data.response);
             startTransition(() =>
                 router.replace(

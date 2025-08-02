@@ -36,7 +36,7 @@ const useGetVariantFields = () => {
         }
     }, [productDraft, productsCategories]);
 
-    const { isPending, data } = useQuery({
+    const { isLoading, data } = useQuery({
         queryKey: ["variantFields", inputTag],
         queryFn: () =>
             getRequest<IGetVariantFieldsResponse>({
@@ -49,7 +49,7 @@ const useGetVariantFields = () => {
 
     return {
         variantFields: data?.options ?? [],
-        isFetchingVariantFields: isPending,
+        isFetchingVariantFields: isLoading,
     };
 };
 
