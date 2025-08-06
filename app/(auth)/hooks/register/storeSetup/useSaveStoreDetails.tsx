@@ -12,7 +12,7 @@ import { IGetStoreInfoResponse } from "../../../lib/interfaces/response.interfac
  */
 
 const useSaveStoreDetails = () => {
-    const { setCurrentStep, setOnboardingData } = useStoreSetupContext();
+    const { setCurrentStep } = useStoreSetupContext();
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
@@ -22,14 +22,13 @@ const useSaveStoreDetails = () => {
                 payload,
             });
         },
-        onSuccess: (data, variables) => {
+        onSuccess: (data) => {
             if (data.message?.toLowerCase() !== "success" || !data.response) {
                 showErrorToast({ title: data.message, description: "Something went wrong" });
                 return;
             }
 
             queryClient.invalidateQueries({ queryKey: ["store-info"] });
-            setOnboardingData((prev) => ({ ...prev, storeDetails: variables }));
             setCurrentStep((prev) => prev + 1);
         },
         onError(error) {

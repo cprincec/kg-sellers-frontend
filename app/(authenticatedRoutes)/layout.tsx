@@ -11,14 +11,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const { isFetchingStoreInfo, storeInfo } = useGetStoreInfo();
     const router = useRouter();
 
+    // Direct user to storesetup if not already done
     useEffect(() => {
-        if (!isFetchingStoreInfo && (storeInfo === null || (storeInfo && !storeInfo?.termsAndCondition))) {
+        if (!isFetchingStoreInfo && (storeInfo === null || (storeInfo && !storeInfo.termsAndCondition))) {
             router.replace("/register/store-setup");
         }
     }, [isFetchingStoreInfo, storeInfo, router]);
 
     if (isFetchingStoreInfo) return <Loader />;
-    if (storeInfo === undefined) return null;
 
     return (
         <Suspense fallback={<Loader />}>

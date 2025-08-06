@@ -28,7 +28,7 @@ const useSaveTermsOfContract = () => {
             }
 
             queryClient.invalidateQueries({ queryKey: ["store-info"] });
-            router.replace("/dashboard?from=register");
+            router.push("/dashboard?from=register");
         },
         onError(error) {
             handleError(error, "Error saving terms of contract");

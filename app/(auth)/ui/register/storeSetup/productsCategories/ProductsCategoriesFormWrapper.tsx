@@ -1,15 +1,17 @@
 "use client";
 
-import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import Loader from "@/app/ui/Loader";
 import ProductsCategoriesForm from "./ProductsCategoriesForm";
+import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
 
 const ProductsCategoriesFormWrapper = () => {
-    const { onboardingData } = useStoreSetupContext();
+    const { storeInfo, isFetchingStoreInfo } = useGetStoreInfo();
 
-    if (!onboardingData?.productsCategories) return <Loader />;
+    if (isFetchingStoreInfo) return <Loader />;
 
-    return <ProductsCategoriesForm defaultValues={onboardingData.productsCategories} />;
+    const defaultValues =
+        storeInfo && storeInfo.categories?.length ? { category: storeInfo.categories } : { category: [] };
+    return <ProductsCategoriesForm defaultValues={defaultValues} />;
 };
 
 export default ProductsCategoriesFormWrapper;

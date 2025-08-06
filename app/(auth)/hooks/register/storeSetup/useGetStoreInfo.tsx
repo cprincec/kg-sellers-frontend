@@ -15,10 +15,8 @@ const useGetStoreInfo = () => {
             getRequest<IGetStoreInfoResponse>({
                 url: "/onboarding/store-information/get",
             }),
-
-        retry: false,
-        throwOnError: true,
-        staleTime: 1000 * 60 * 20,
+        // throwOnError: true,
+        staleTime: 1000 * 60 * 60,
     });
 
     return {

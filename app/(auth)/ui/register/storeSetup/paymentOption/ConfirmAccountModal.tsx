@@ -18,7 +18,6 @@ const ConfirmAccountModal = ({
     savePaymentOption: (values: IPaymentOptionDTO) => void;
 }) => {
     const { setShowModal } = useModalContext();
-
     const { beneficiaryName, bankName, accountNumber, bankId } = bankDetails;
 
     return (
