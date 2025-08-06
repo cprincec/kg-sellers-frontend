@@ -18,7 +18,6 @@ const useGetAllBanks = () => {
             return data;
         },
 
-        retry: false,
         throwOnError: true,
         staleTime: 1000 * 60 * 60,
     });

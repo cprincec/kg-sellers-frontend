@@ -49,11 +49,15 @@ const TermsOfContractForm = ({ showMainTitle = true }: { showMainTitle?: boolean
             </section>
 
             <FormNavButtons
-                cancelFunc={() => console.log("Agreement cancelled")}
-                submitButtonText={"Save Changes"}
+                cancelFunc={() => setCurrentStep((prev) => prev - 1)}
+                submitButtonText={"I agree"}
                 className="grid grid-cols-2 lg:hidden"
                 cancelButtonClassName="p-3 lg:min-w-[150px]"
                 submitButtonClassName="p-3 lg:min-w-[150px]"
+                submitButtonFunc={() => {
+                    saveTermsOfContract({ acceptTerms: true });
+                }}
+                disabled={isSavingTermsOfContract}
             />
 
             <div className="hidden lg:flex justify-between items-end">

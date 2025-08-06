@@ -65,8 +65,9 @@ const ProductImageField = <T extends FieldValues>({
         setShowModal(true);
         e.target.value = "";
     };
+
     const handleCrop = (croppedImage: string) => {
-        // Main image has be uploaded
+        // Main image has been uploaded
         if (mainImageValue && otherImagesKey) {
             setValue(otherImagesKey, [...otherImagesValue, croppedImage] as PathValue<
                 T,

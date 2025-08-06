@@ -23,13 +23,13 @@ const ProductsTableBody = ({
         <TableBody>
             {products.map((product, index: number) => {
                 const saleType =
-                    product.sales &&
-                    ongoingSales.length &&
-                    ongoingSales.find((s) => s.name.toLowerCase() === product.kaigloSale.toLowerCase());
+                    product.sales && ongoingSales.length
+                        ? ongoingSales.find((s) => s.name.toLowerCase() === product.kaigloSale.toLowerCase())
+                        : null;
 
-                const daysLeft =
-                    saleType && formatDistance(new Date(saleType.startDate), new Date(saleType.endDate));
-
+                const daysLeft = saleType
+                    ? formatDistance(new Date(saleType.startDate), new Date(saleType.endDate))
+                    : null;
                 const quantity =
                     product.productColors && product.productColors.length
                         ? calculateProductQuantity(product)

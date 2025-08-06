@@ -1,3 +1,5 @@
+"use client";
+
 import { accountSummaryMock } from "../lib/data";
 import { Fragment, useEffect } from "react";
 import Image from "next/image";
@@ -12,12 +14,16 @@ import WithdrawalSuccessful from "./withdraw/WithdrawalSuccessful";
 import Metric from "../../ui/metrics/Metric";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import useGetAccountSummary from "../hooks/useGetAccountSummary";
+import Loader from "@/app/ui/Loader";
+import { format } from "date-fns";
+import { generateAccountSummaryData } from "../lib/utils/utils";
 
 const AccountSummary = ({ className }: { className?: string }) => {
-    const lastUpdated = "Oct 8, 2024";
     const searchParams = useSearchParams();
     const { showModal, setShowModal, setOnClose, setModalContent } = useModalContext();
     const { deleteSearchParams } = useUpdateSearchParams();
+    const { accountSummary, isFetchingAccountSummary, errorFetchingAccountSummary } = useGetAccountSummary();
 
     // show withdrawal steps modals
     const withdrawStep = searchParams.get("withdraw");
@@ -39,7 +45,7 @@ const AccountSummary = ({ className }: { className?: string }) => {
         } else if (withdrawStep === "otp") {
             content = (
                 <OtpModal email="" phone="" actionText="Confirm" actionLink="/wallet?withdraw=successful" />
-            ); 
+            );
             clearKeys = ["withdraw"];
         } else if (withdrawStep === "successful") {
             content = <WithdrawalSuccessful />;
@@ -53,6 +59,12 @@ const AccountSummary = ({ className }: { className?: string }) => {
         }
     }, [withdrawStep, payoutStep]);
 
+    if (isFetchingAccountSummary) return <Loader />;
+    if (errorFetchingAccountSummary) return <p>Error fetching account summary</p>;
+    if (!accountSummary) return null;
+
+    const accountSummaryData = generateAccountSummaryData(accountSummary);
+
     return (
         <article
             className={cn(
@@ -63,12 +75,12 @@ const AccountSummary = ({ className }: { className?: string }) => {
             <h2 className="flex items-center gap-2 md:gap-3 flex-wrap p-3 md:p-[8px_24px_12px_24px] text-base text-kaiglo_grey-800 font-medium border-b border-kaiglo_grey-200">
                 ACCOUNT SUMMARY
                 <span className="font-normal px-2 py-1 rounded bg-kaiglo_grey-100 text-kaiglo_grey-800 text-sm md:text-base">
-                    Last updated {lastUpdated}
+                    Last updated {format(accountSummary.updateDate, "MMM d, yyyy")}
                 </span>
             </h2>
 
             <div className="grid lg:flex lg:items-center lg:px-4 lg:py-3">
-                {accountSummaryMock.map((item, index) => (
+                {accountSummaryData.map((item, index) => (
                     <Fragment key={item.title}>
                         <Metric
                             title={item.title}
@@ -87,7 +99,7 @@ const AccountSummary = ({ className }: { className?: string }) => {
                         />
 
                         {/* divider */}
-                        {index !== accountSummaryMock.length - 1 && (
+                        {index !== accountSummaryData.length - 1 && (
                             <div className="hidden lg:block">
                                 <Image
                                     src={IconVerticalLine}

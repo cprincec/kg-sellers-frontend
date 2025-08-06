@@ -92,8 +92,12 @@ const StoreDetailsFormFields = ({
                         control={control}
                         error={errors.businessLogo}
                         rules={{ required: true }}
+                        isCroppable={true}
+                        width={600}
+                        height={600}
                     />
                 </div>
+
                 {/* Banner */}
                 <div>
                     <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
@@ -104,6 +108,9 @@ const StoreDetailsFormFields = ({
                         control={control}
                         error={errors.storeBanner}
                         rules={{ required: false }}
+                        isCroppable={true}
+                        width={1080}
+                        height={320}
                     />
                 </div>
             </div>

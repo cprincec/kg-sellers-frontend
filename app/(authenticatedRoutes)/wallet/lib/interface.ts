@@ -19,8 +19,6 @@ export interface IPayoutDTO {
 
 export interface PayoutDetailsProps {
     payout: IPayoutDTO;
-    // showPayoutDetail: boolean;
-    // setShowPayoutDetail: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IPayoutThresholdFormDTO {
@@ -38,4 +36,18 @@ export interface FormNavButtonsProps {
     submitButtonFunc?: () => void;
     className?: string;
     disabled?: boolean;
+}
+
+export interface IAccountSummary {
+    active: boolean;
+    availableBalance: number;
+    createdDate: string;
+    id: string;
+    pendingBalance: number;
+    updateDate: string;
+}
+
+export interface IGetAccountSummaryResponse {
+    message: string;
+    response: IAccountSummary;
 }
