@@ -477,6 +477,8 @@ export const getCroppedImg = async (
     imageSrc: string,
     pixelCrop: Area,
     rotation = 0,
+    width: number,
+    height: number,
     flip = { horizontal: false, vertical: false }
 ): Promise<string | null> => {
     const createImage = (url: string): Promise<HTMLImageElement> =>
@@ -541,11 +543,21 @@ export const getCroppedImg = async (
     }
 
     // Set the size of the cropped canvas
-    croppedCanvas.width = 600;
-    croppedCanvas.height = 600;
+    croppedCanvas.width = width;
+    croppedCanvas.height = height;
 
     // Draw the cropped image onto the new canvas
-    croppedCtx.drawImage(canvas, pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height, 0, 0, 600, 600);
+    croppedCtx.drawImage(
+        canvas,
+        pixelCrop.x,
+        pixelCrop.y,
+        pixelCrop.width,
+        pixelCrop.height,
+        0,
+        0,
+        width,
+        height
+    );
 
     return new Promise((resolve, reject) => {
         try {

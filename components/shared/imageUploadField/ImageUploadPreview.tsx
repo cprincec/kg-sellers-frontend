@@ -17,7 +17,7 @@ const ImageUploadPreview = ({
         <div className="relative h-full flex flex-col items-center gap-4">
             {/* Image Preview */}
             <div className="relative w-full h-full">
-                <Image src={field.value} alt={name} fill className="rounded-lg object-fill" />
+                <Image src={field.value} alt={name} fill className="rounded-lg object-cover" />
             </div>
 
             {/* Remove Image button */}

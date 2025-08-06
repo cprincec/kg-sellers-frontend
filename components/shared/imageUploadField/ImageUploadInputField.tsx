@@ -1,13 +1,15 @@
 "use client";
 
 import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import { Control, Controller, FieldError } from "react-hook-form";
 import ImageUploadPrompt from "./ImageUploadPrompt";
 import ImageUploadPreview from "./ImageUploadPreview";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils/utils";
 import { convertToBase64 } from "@/app/(authenticatedRoutes)/products/lib/utils/addProduct.utils";
+import CropperModal from "@/app/(authenticatedRoutes)/products/ui/addProduct/productDetails/CropperModal";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const ImageUploadInputField = ({
     name,
@@ -15,25 +17,46 @@ const ImageUploadInputField = ({
     rules,
     error,
     ShowMainVariant,
+    width,
+    height,
+    isCroppable = false,
 }: {
     ShowMainVariant?: boolean;
     name: keyof IStoreDetailsDTO;
     control: Control<IStoreDetailsDTO>;
     rules: { required?: boolean };
     error: FieldError | undefined;
+    width?: number;
+    height?: number;
+    isCroppable?: boolean;
 }) => {
+    const { setModalContent, setShowModal } = useModalContext();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleFileChange = async (
-        e: React.ChangeEvent<HTMLInputElement>,
-        onChange: (value: string) => void
-    ) => {
+    const handleFileChange = async (e: ChangeEvent<HTMLInputElement>, onChange: (value: string) => void) => {
         const file = e.target.files?.[0];
 
         if (file) {
-            // update file input
-            const base64file = await convertToBase64(file);
-            onChange(base64file);
+            if (isCroppable) {
+                const imageUrl = URL.createObjectURL(file);
+                const handleCrop = (croppedImage: string) => {
+                    onChange(croppedImage);
+                    setShowModal(false);
+                    setModalContent(null);
+                };
+                const modalProps =
+                    width && height
+                        ? { uploadedFile: imageUrl, handleCrop, width, height }
+                        : { uploadedFile: imageUrl, handleCrop };
+                setModalContent(<CropperModal {...modalProps} />);
+                setShowModal(true);
+                e.target.value = "";
+            } else {
+                // update file input
+                const base64file = await convertToBase64(file);
+                onChange(base64file);
+                e.target.value = "";
+            }
         }
     };
 

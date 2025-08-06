@@ -1,3 +1,5 @@
+import { IAccountSummary } from "../interface";
+
 // Return appropriate styling for payout given payout status
 export const getPayoutStatusStyle = (status: string) => {
     switch (status.toLowerCase()) {
@@ -8,4 +10,31 @@ export const getPayoutStatusStyle = (status: string) => {
         default:
             return "";
     }
+};
+
+export const generateAccountSummaryData = (data: IAccountSummary) => {
+    const { availableBalance, pendingBalance } = data;
+
+    return [
+        {
+            title: "Wallet balance",
+            body: availableBalance,
+            actionText: "withdraw",
+            canHideData: true,
+            isCurrency: true,
+        },
+        {
+            title: "In Excrow",
+            body: pendingBalance,
+            canHideData: true,
+            isCurrency: true,
+        },
+        {
+            title: "Payout Threshold",
+            body: 0.0,
+            actionText: "set threshold",
+            tip: "Payout threshold",
+            isCurrency: true,
+        },
+    ];
 };

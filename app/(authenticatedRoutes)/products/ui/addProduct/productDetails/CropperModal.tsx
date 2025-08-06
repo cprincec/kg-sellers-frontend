@@ -11,8 +11,12 @@ import { getCroppedImg } from "../../../lib/utils/addProduct.utils";
 const CropperModal = ({
     uploadedFile,
     handleCrop,
+    width = 600,
+    height = 600,
 }: {
     uploadedFile: string;
+    width?: number;
+    height?: number;
     handleCrop: (croppedImage: string) => void;
 }) => {
     const { setModalContent, setShowModal } = useModalContext();
@@ -37,7 +41,7 @@ const CropperModal = ({
                     <Cropper
                         image={uploadedFile}
                         crop={crop}
-                        aspect={1}
+                        aspect={width / height}
                         zoom={zoom}
                         rotation={rotation}
                         onCropChange={setCrop}
@@ -78,7 +82,9 @@ const CropperModal = ({
                                 const croppedImage = await getCroppedImg(
                                     uploadedFile,
                                     croppedAreaPixels,
-                                    rotation
+                                    rotation,
+                                    width,
+                                    height
                                 );
 
                                 if (croppedImage) handleCrop(croppedImage);

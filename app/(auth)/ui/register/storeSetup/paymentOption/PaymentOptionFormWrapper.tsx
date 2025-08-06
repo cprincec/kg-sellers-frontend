@@ -4,6 +4,7 @@ import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import Loader from "@/app/ui/Loader";
 import { PaymentOptionForm } from "./PaymentOptionForm";
 import useGetAllBanks from "@/app/(auth)/hooks/register/storeSetup/useGetAllBanks";
+import { showErrorToast } from "@/app/lib/utils/utils";
 
 const PaymentOptionFormWrapper = ({
     variant,
@@ -19,8 +20,10 @@ const PaymentOptionFormWrapper = ({
     const { onboardingData } = useStoreSetupContext();
     const { banks, isFetchingBanks } = useGetAllBanks();
 
-    if (!onboardingData?.paymentOption || isFetchingBanks) return <Loader />;
-    if (!banks) throw new Error("Could not fetch banks");
+    if (isFetchingBanks) return <Loader />;
+    if (!banks) showErrorToast({ title: "Error fetching banks", description: "Please refresh the page" });
+    if (!onboardingData?.paymentOption || !banks) return null;
+    if (!banks) showErrorToast({ title: "Error fetching banks", description: "Please refresh the page" });
 
     return (
         <PaymentOptionForm
