@@ -5,23 +5,25 @@ import { cn } from "@/lib/utils/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import ProductCategoryFormFields from "./ProductCategoryFormFields";
-import { IProductCategory, IProductCategoryDTO } from "../../../lib/interfaces/interface";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
+import { IProduct, IProductCategory, IProductCategoryDTO } from "../../../lib/interfaces/interface";
 import { productCategorySchema } from "../../../lib/schemas";
 import { useRouter, useSearchParams } from "next/navigation";
 import useSaveProductCategory from "../../../hooks/addProduct/useSaveProductCategory";
-import { useEffect } from "react";
-import { generateProductCategoryDTO } from "../../../lib/utils/addProduct.utils";
 import useEditProductCategory from "../../../hooks/addProduct/useEditProductCategory";
 
 const ProductCategoryForm = ({
     categories,
+    storeId,
     className,
+    product,
+    defaultValues,
 }: {
+    storeId: string;
+    product: IProduct | undefined;
+    defaultValues: IProductCategoryDTO;
     categories: IProductCategory[];
     className?: string;
 }) => {
-    const { productDraft } = useAddProductContext();
     const { isSavingProductCategory, saveProductCategory } = useSaveProductCategory();
     const { isEditingProductCategory, editProductCategory } = useEditProductCategory();
     const router = useRouter();
@@ -29,33 +31,30 @@ const ProductCategoryForm = ({
     const productAction = searchParams.get("product-action");
 
     const formMethods = useForm<IProductCategoryDTO>({
-        defaultValues: { category: "" },
+        defaultValues,
         resolver: yupResolver(productCategorySchema),
     });
 
-    useEffect(() => {
-        if (productDraft) formMethods.reset(generateProductCategoryDTO(productDraft));
-    }, [productDraft, formMethods]);
-
     const onSubmit = (values: IProductCategoryDTO) => {
         // Only save category if user selected new value
-        const categoryObj = generateProductCategoryDTO(productDraft);
-        const isEqual = JSON.stringify(values) === JSON.stringify(categoryObj);
+        // const categoryObj = generateProductCategoryDTO(productDraft);
+        const isEqual = JSON.stringify(values) === JSON.stringify(defaultValues);
 
         // User has saved category before
-        if (isEqual && productDraft) {
+        // no need saving again
+        if (isEqual && product) {
             const nextStep =
                 productAction === "edit"
-                    ? `/products/add-product?step=product-details&product-id=${productDraft.id}&product-action=edit`
-                    : `/products/add-product?step=product-details&product-id=${productDraft.id}`;
+                    ? `/products/add-product?step=product-details&product-id=${product.id}&product-action=edit`
+                    : `/products/add-product?step=product-details&product-id=${product.id}`;
 
             router.replace(nextStep);
             return;
         }
 
-        if (productAction === "edit" && productDraft)
-            editProductCategory({ productId: productDraft.id, payload: values });
-        else saveProductCategory(values);
+        if (productAction === "edit" && product)
+            editProductCategory({ productId: product.id, payload: values });
+        else saveProductCategory({ payload: values, storeId });
     };
 
     return (

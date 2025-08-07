@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IProductCategoryDTO } from "../../lib/interfaces/interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { IProductResponse } from "../../lib/interfaces/response.interface";
-import { useAddProductContext } from "../../contexts/addProductContext";
 import { startTransition } from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,11 +14,10 @@ import { useRouter } from "next/navigation";
 
 const useSaveProductCategory = () => {
     const router = useRouter();
-    const { storeId, setProductDraft } = useAddProductContext();
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: IProductCategoryDTO) => {
+        mutationFn: ({ payload, storeId }: { payload: IProductCategoryDTO; storeId: string }) => {
             if (!storeId) throw new Error("No store Id");
 
             return postRequest<IProductCategoryDTO, IProductResponse>({
@@ -38,7 +36,6 @@ const useSaveProductCategory = () => {
             queryClient.refetchQueries({ queryKey: ["product-description"], exact: false });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
 
-            setProductDraft(data.response);
             startTransition(() =>
                 router.replace(`/products/add-product?step=product-details&product-id=${data.response.id}`)
             );

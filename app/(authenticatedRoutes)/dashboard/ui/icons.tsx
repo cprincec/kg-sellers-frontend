@@ -36,13 +36,19 @@ export const TermsOfContractNotice = () => {
             <p className="text-sm md:text-base font-medium">
                 Terms of contract agreement has been sent to your email.
             </p>
-            <X
-                className="w-5 h-5"
-                onClick={() => {
-                    router.replace("/dashboard");
-                    setShowNotice(false);
-                }}
-            />
+            <Button
+                variant={"ghost"}
+                className="w-max p-0 bg-transparent hover:scale-[1.1] cursor-pointer"
+                asChild
+            >
+                <X
+                    className="w-5 h-5"
+                    onClick={() => {
+                        router.replace("/dashboard");
+                        setShowNotice(false);
+                    }}
+                />
+            </Button>
         </div>
     );
 };

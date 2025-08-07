@@ -2,30 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
-import { JSX, useEffect, useState } from "react";
+import { JSX } from "react";
 import ProductCategoryCrumbs from "../ui/addProduct/productCategory/ProductCategoryCrumbs";
 import AddProductStepper from "../ui/addProduct/stepper/AddProductStepper";
-import { useAddProductContext } from "../contexts/addProductContext";
 import ProductCategoryFormWrapper from "../ui/addProduct/productCategory/ProductCategoryFormWrapper";
 import ProductVariantsFormWrapper from "../ui/addProduct/productVariants/ProductVariantsFormWrapper";
 import { generateProductCategoryDTO } from "../lib/utils/addProduct.utils";
 import ProductDetailsFormWrapper from "../ui/addProduct/productDetails/ProductDetailsFormWrapper";
+import useGetRawProduct from "../hooks/addProduct/useGetRawProduct";
 
 const AddProduct = () => {
     const searchParams = useSearchParams();
-    const [currentStep, setCurrentStep] = useState<string>(searchParams.get("step") || "product-category");
     const steps: Record<string, JSX.Element> = {
         "product-category": <ProductCategoryFormWrapper />,
         "product-details": <ProductDetailsFormWrapper />,
         "product-variants": <ProductVariantsFormWrapper />,
     };
-
-    useEffect(() => {
-        setCurrentStep(searchParams.get("step") || "product-category");
-    }, [searchParams]);
-
-    const { productDraft } = useAddProductContext();
-
+    const productId = searchParams.get("product-id") ?? "";
+    const { productRaw } = useGetRawProduct(productId ?? "");
+    const currentStep = searchParams.get("step") || "product-category";
     const Component = steps[currentStep];
 
     return (
@@ -40,12 +35,12 @@ const AddProduct = () => {
                         >
                             Product guidelines
                         </Button>
-                    ) : (
+                    ) : productRaw ? (
                         <ProductCategoryCrumbs
-                            categoryObject={generateProductCategoryDTO(productDraft)}
+                            categoryObject={generateProductCategoryDTO(productRaw)}
                             className="w-fit"
                         />
-                    )}
+                    ) : null}
                 </div>
 
                 <div className="grid gap-3 py-3">

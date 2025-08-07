@@ -4,20 +4,20 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
 import { productVariantActions } from "../../../lib/data/data";
-import { Dispatch, SetStateAction } from "react";
+// import { Dispatch, SetStateAction } from "react";
 import { generateProductVariantDTOs } from "../../../lib/utils/addProduct.utils";
 import { IProduct, IProductMeta } from "../../../lib/interfaces/interface";
 
 const ProductVariantsTableBody = ({
     product,
     productMetaData,
-    setShowSizeColumn,
+    showSizeColumn,
     showActions,
 }: {
     product: IProduct;
     productMetaData: IProductMeta;
     showActions: boolean;
-    setShowSizeColumn: Dispatch<SetStateAction<boolean>>;
+    showSizeColumn: boolean;
 }) => {
     const productVariants = generateProductVariantDTOs(product);
 
@@ -28,7 +28,7 @@ const ProductVariantsTableBody = ({
                     (a) => a.key === "size"
                 )?.value;
 
-                if (!size) setShowSizeColumn(false);
+                // if (!size) setShowSizeColumn(false);
 
                 const colorCode = variant.productColor.productPriceDetails[0].attributes.find(
                     (a) => a.key === "color"
@@ -57,9 +57,11 @@ const ProductVariantsTableBody = ({
                         <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
                             {color ?? variant.productColor.color.color}
                         </TableCell>
-                        <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
-                            {size ?? variant.productColor.productPriceDetails[0].size}
-                        </TableCell>
+                        {showSizeColumn && (
+                            <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
+                                {size ?? variant.productColor.productPriceDetails[0].size}
+                            </TableCell>
+                        )}
                         <TableCell className="p-3 text-sm text-center font-medium text-kaiglo_grey-base">
                             {variant.productColor.productPriceDetails[0].quantity}
                         </TableCell>

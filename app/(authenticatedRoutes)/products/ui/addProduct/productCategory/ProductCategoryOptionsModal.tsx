@@ -13,7 +13,6 @@ import { useRef, useState } from "react";
 const ProductCategoryOptionsModal = ({
     categories,
     setShowModal,
-    setCategoryFieldValue,
     setValue,
 }: IProductCategoryOptionsModalProps) => {
     const [path, setPath] = useState<(IProductCategory | IProductSubCategory)[]>([]);
@@ -33,7 +32,6 @@ const ProductCategoryOptionsModal = ({
             if (isSiblingNode) updatedPath = [...path.splice(0, currentDepth.current), option];
 
             // Display the clicked category name in the form field
-            setCategoryFieldValue(option.name);
             setShowModal(false);
 
             // Update all category field values

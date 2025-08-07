@@ -1,6 +1,10 @@
-import { ProductVariantFormInterface } from "./interfaces/interface";
+import { IProductDetailsDTO, ProductVariantFormInterface } from "./interfaces/interface";
 
-export const productDetailsFormDefaultValues = {
+export const productCategoryFormDefaultValues = {
+    category: "",
+};
+
+export const productDetailsFormDefaultValues: IProductDetailsDTO = {
     mainImage: "",
     otherImages: [],
     description: "",

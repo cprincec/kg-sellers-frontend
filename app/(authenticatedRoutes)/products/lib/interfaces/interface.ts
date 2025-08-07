@@ -1,3 +1,4 @@
+import { IStoreInfo } from "@/app/(auth)/lib/interfaces/interface";
 import { StaticImageData } from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { UseFormSetValue } from "react-hook-form";
@@ -21,11 +22,7 @@ export interface IProductsContext {
 }
 
 export interface IAddProductContext {
-    storeId: string;
-    productDraft: IProduct | null;
-    setProductDraft: Dispatch<SetStateAction<IProduct | null>>;
-    productDraftDescription: string;
-    setProductDraftDescription: Dispatch<SetStateAction<string>>;
+    storeInfo: IStoreInfo;
 }
 
 export interface IProductVariant {
@@ -175,7 +172,6 @@ export type IProductCategoryOptionsModalProps = {
     categories: IProductCategory[];
     showModal: boolean;
     setShowModal: Dispatch<SetStateAction<boolean>>;
-    setCategoryFieldValue: Dispatch<SetStateAction<string>>;
     setValue: UseFormSetValue<IProductCategoryDTO>;
 };
 
@@ -250,6 +246,16 @@ export interface IProductSpecification {
  * Product variants interfaces starts
  ******************************************************************/
 
+export type ProductVariantsFormFieldProps = {
+    formData: ProductVariantFormInterface;
+    setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
+    productMeta: IProductMeta;
+    fields: IVariantField[];
+    findFieldIndex: (key: string) => number;
+    formErrors: ProductVariantFormErrors;
+    product: IProduct;
+};
+
 export interface ProductVariantFormInterface {
     attributes: {
         key: string;
@@ -322,6 +328,17 @@ export interface IEditProductVariant {
 /*******************************************************************
  * Product interfaces starts
  ******************************************************************/
+export type productVariantsFormProps = {
+    product: IProduct;
+    defaultValues: ProductVariantFormInterface;
+    productAction: string;
+    productId: string;
+    variantAction: string;
+    variantId: string | undefined | null;
+    fields: IVariantField[];
+    productMeta: IProductMeta;
+    className?: string;
+};
 
 export interface IProduct {
     category: string;

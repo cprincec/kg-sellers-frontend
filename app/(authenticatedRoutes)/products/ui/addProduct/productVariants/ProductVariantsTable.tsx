@@ -6,7 +6,7 @@ import ConfirmProductAction from "../../ConfirmProductAction";
 import { useSearchParams } from "next/navigation";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { cn } from "@/lib/utils/utils";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useDeleteProductVariant from "../../../hooks/addProduct/useDeleteProductVariant";
 import {
@@ -31,7 +31,6 @@ const ProductVariantsTable = ({
     showActions?: boolean;
     className?: string;
 }) => {
-    const [showSizeColumn, setShowSizeColumn] = useState<boolean>(true);
     const searchParams = useSearchParams();
     const variantId = searchParams.get("variant-id");
     const productId = searchParams.get("product-id");
@@ -105,6 +104,12 @@ const ProductVariantsTable = ({
     if (isFetchingProductRaw || isDeletingProductVariant) return <Loader />;
     if (!productRaw || !productVariants.length || !productMetaData) return null;
 
+    // Check if the variants have a size attribute
+    // This controls if the size column will be shown on the variants table
+    const size = productVariants[0].productColor.productPriceDetails[0].attributes.find(
+        (a) => a.key === "size"
+    );
+
     const fadeVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
@@ -112,27 +117,29 @@ const ProductVariantsTable = ({
     };
 
     return (
-        <motion.div
-            layout
-            key="variantTable"
-            variants={fadeVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className={cn("grid gap-4 overflow-hidden", className)}
-        >
-            {showTitle && <h3 className="text-base font-medium">{title || "Added Products"}</h3>}
-            <Table className="min-w-[1000px] border">
-                <ProductVariantsTableHeader showActions={showActions} showSize={showSizeColumn} />
-                <ProductVariantsTableBody
-                    showActions={showActions}
-                    setShowSizeColumn={setShowSizeColumn}
-                    product={productRaw}
-                    productMetaData={productMetaData}
-                />
-            </Table>
-        </motion.div>
+        <div className="overflow-hidden">
+            <motion.div
+                layout
+                key="variantTable"
+                variants={fadeVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className={cn("grid gap-4 overflow-hidden", className)}
+            >
+                {showTitle && <h3 className="text-base font-medium">{title || "Added Products"}</h3>}
+                <Table className="min-w-[1000px] border">
+                    <ProductVariantsTableHeader showActions={showActions} showSize={!!size} />
+                    <ProductVariantsTableBody
+                        showActions={showActions}
+                        showSizeColumn={!!size}
+                        product={productRaw}
+                        productMetaData={productMetaData}
+                    />
+                </Table>
+            </motion.div>
+        </div>
     );
 };
 

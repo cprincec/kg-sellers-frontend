@@ -1,16 +1,8 @@
 "use client";
 
-import {
-    IColor,
-    IProduct,
-    IProductMeta,
-    IVariantField,
-    ProductVariantFormErrors,
-    ProductVariantFormInterface,
-} from "../../../lib/interfaces/interface";
+import { IColor, ProductVariantsFormFieldProps } from "../../../lib/interfaces/interface";
 import ModifiedSelect2 from "@/components/shared/ModifiedSelect2";
 import ModifiedInput from "@/components/shared/ModifiedInput";
-import { Dispatch, SetStateAction } from "react";
 import ProductVariantImageUploadField from "./ProductVariantImageUploadField";
 import ModifiedSelect3 from "@/components/shared/ModifiedSelect3";
 import { useSearchParams } from "next/navigation";
@@ -23,15 +15,7 @@ const ProductVariantsFormFields = ({
     findFieldIndex,
     formErrors,
     product,
-}: {
-    formData: ProductVariantFormInterface;
-    setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
-    productMeta: IProductMeta;
-    fields: IVariantField[];
-    findFieldIndex: (key: string) => number;
-    formErrors: ProductVariantFormErrors;
-    product: IProduct;
-}) => {
+}: ProductVariantsFormFieldProps) => {
     const variantAction = useSearchParams().get("variant-action");
     const requiredAttributes = ["color", "quantity", "price"];
     const defaultColorValue = formData.attributes.find((a) => a.key === "color")?.value ?? "";
@@ -42,7 +26,8 @@ const ProductVariantsFormFields = ({
      * The image selector will be disabled in these scenerios:
      * 1. if color is not yet selected
      * 2. if color is selected and a variant with same color already exists
-     * in the above case, the image for that variant should already be displaying
+     * in the above case, the image for that variant should already be displayed
+     * instead of the trigger button
      ******************************************************************************/
     const selectedColor = colorIndex > -1 ? formData.attributes[colorIndex].value : "";
     const imageTriggerIsDisabled =
@@ -80,6 +65,7 @@ const ProductVariantsFormFields = ({
     return (
         <div className="grid lg:flex gap-4 w-full">
             <ProductVariantImageUploadField
+                product={product}
                 formData={formData}
                 setFormData={setFormData}
                 error={formErrors.productUrl}

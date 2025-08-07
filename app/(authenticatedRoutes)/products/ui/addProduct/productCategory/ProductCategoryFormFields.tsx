@@ -3,10 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ChevronDown } from "lucide-react";
-import { useState, useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { IProductCategory, IProductCategoryDTO } from "../../../lib/interfaces/interface";
-import { useAddProductContext } from "../../../contexts/addProductContext";
 import { getLeafCategoryName } from "../../../lib/utils/addProduct.utils";
 import { useModalContext } from "@/app/contexts/modalContext";
 import ProductCategoryOptionsModal from "./ProductCategoryOptionsModal";
@@ -16,21 +14,14 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
     const {
         control,
         setValue,
+        watch,
         formState: { errors },
     } = useFormContext<IProductCategoryDTO>();
     const searchParams = useSearchParams();
     const productAction = searchParams.get("product-action");
-    const { productDraft } = useAddProductContext();
     const { showModal, setShowModal, setModalContent } = useModalContext();
-    // this is the value displayed on the form field as selected by the user
-    const [categoryFieldValue, setCategoryFieldValue] = useState<string>("");
-
-    useEffect(() => {
-        if (productDraft) {
-            // Set the value displayed on the category field
-            setCategoryFieldValue(getLeafCategoryName(productDraft));
-        }
-    }, [productDraft]);
+    // This is the value displayed on the form field as selected by the user
+    const categoryFieldValue = getLeafCategoryName(watch());
 
     return (
         <div className="grid gap-2">
@@ -47,7 +38,6 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
                                 <ProductCategoryOptionsModal
                                     categories={categories}
                                     showModal={showModal}
-                                    setCategoryFieldValue={setCategoryFieldValue}
                                     setShowModal={setShowModal}
                                     setValue={setValue}
                                 />

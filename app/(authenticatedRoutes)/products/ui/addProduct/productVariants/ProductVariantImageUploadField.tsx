@@ -1,13 +1,13 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { ProductVariantFormInterface } from "../../../lib/interfaces/interface";
+import { IProduct, ProductVariantFormInterface } from "../../../lib/interfaces/interface";
 import ProductVariantImageUploadTrigger from "./ProductVariantImageUploadTrigger";
-import { useAddProductContext } from "../../../contexts/addProductContext";
 import { useModalContext } from "@/app/contexts/modalContext";
 import ImagePreviewCard from "../productDetails/ProductImagePreviewCard";
 
 type Props = {
+    product: IProduct;
     formData: ProductVariantFormInterface;
     setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
     className?: string;
@@ -15,20 +15,21 @@ type Props = {
     imageTriggerIsDisabled: boolean;
 };
 
-const ProductVariantImageUploadField = ({ formData, setFormData, error, imageTriggerIsDisabled }: Props) => {
-    const { productDraft } = useAddProductContext();
+const ProductVariantImageUploadField = ({
+    product,
+    formData,
+    setFormData,
+    error,
+    imageTriggerIsDisabled,
+}: Props) => {
     const { setShowModal, setModalContent } = useModalContext();
+    const { productUrl, productViews } = product;
 
-    if (!productDraft) return null;
-
-    const { productUrl, productViews } = productDraft;
-    const images = [productUrl];
-
-    if (productViews) {
-        productViews.forEach((productView) => {
-            if (productView.colorCode === null) images.push(productView.productUrl);
-        });
-    }
+    // product 'otherImages' are contained in the productViews property
+    const images =
+        productViews && productViews.length
+            ? [productUrl, ...productViews.map((v) => v.productUrl)]
+            : [productUrl];
 
     const handleSelect = (newVariantImage: string) => {
         setFormData((prev) => ({
