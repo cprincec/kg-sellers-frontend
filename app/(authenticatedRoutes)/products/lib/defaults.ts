@@ -1,6 +1,6 @@
-import { IProductDetailsDTO, ProductVariantFormInterface } from "./interfaces/interface";
+import { IProductCategoryDTO, IProductDetailsDTO, ProductVariantFormInterface } from "./interfaces/interface";
 
-export const productCategoryFormDefaultValues = {
+export const productCategoryFormDefaultValues: IProductCategoryDTO = {
     category: "",
 };
 

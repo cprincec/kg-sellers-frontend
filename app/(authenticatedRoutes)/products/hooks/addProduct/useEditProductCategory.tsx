@@ -17,28 +17,31 @@ const useEditProductCategory = () => {
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: ({ productId, payload }: { productId: string; payload: IProductCategoryDTO }) => {
+        mutationFn: ({
+            productId,
+            payload,
+        }: {
+            productId: string;
+            payload: IProductCategoryDTO;
+            redirectUrl: string;
+        }) => {
             return patchRequest<IProductCategoryDTO, IProductResponse>({
                 url: `/product/edit-category/${productId}`,
                 payload,
             });
         },
-        onSuccess: (data) => {
+        onSuccess: (data, variables) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
 
             // update cache
-            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.setQueryData(["product-raw", data.response.id], data);
             queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
 
-            startTransition(() =>
-                router.replace(
-                    `/products/add-product?step=product-details&product-id=${data.response.id}&product-action=edit`
-                )
-            );
+            startTransition(() => router.replace(variables.redirectUrl));
         },
         onError: (error) => {
             console.error(error);

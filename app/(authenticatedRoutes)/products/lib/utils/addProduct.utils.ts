@@ -32,7 +32,7 @@ import { Area } from "react-easy-crop";
  * fourthSubCategory, and fifthSubCategory
  * ********************************************************/
 export const generateProductCategoryDTO = (product: IProduct): IProductCategoryDTO => {
-    const productCategoryObj: IProductCategoryDTO = productCategoryFormDefaultValues;
+    const productCategoryObj: IProductCategoryDTO = { ...productCategoryFormDefaultValues };
 
     PRODUCT_CATEGORY_KEYS.forEach((key) => {
         productCategoryObj[key] = product[key] ?? "";
@@ -65,7 +65,7 @@ export const generateProductDetailsDTO = (
         otherImages,
         description: productDescription,
         specifications: specifications,
-        seo: seo,
+        seo: seo ?? "",
     };
 };
 
@@ -102,6 +102,7 @@ export const generateProductVariantDTOs = (productRaw: IProduct): IProductVarian
                         sku: variant.productPriceDetails[0].sku,
                         stockLevel: variant.productPriceDetails[0].stockLevel,
                         storage: variant.productPriceDetails[0].storage,
+                        isPaused: variant.productPriceDetails[0].isPaused,
                     },
                 ],
             },
@@ -121,7 +122,7 @@ export const generateProductVariantFormDefaults = (
     product: IProduct,
     variantId: string
 ): ProductVariantFormInterface => {
-    if (!product.productColors?.length) return productVariantsFormDefaultValues;
+    if (!product.productColors?.length) return { ...productVariantsFormDefaultValues };
 
     const variant = product.productColors.find((v) => v.productPriceDetails[0].id === variantId);
     if (!variant) return productVariantsFormDefaultValues;
@@ -253,6 +254,7 @@ export const generateAddToSaleDTOFromProductVariant = (variant: IProductVariantD
                 sku: variant.productColor.productPriceDetails[0].sku ?? "",
                 stockLevel: variant.productColor.productPriceDetails[0].stockLevel ?? "IN_STOCK",
                 storage: variant.productColor.productPriceDetails[0].storage ?? "",
+                isPaused: variant.productColor.productPriceDetails[0].isPaused ?? false,
             },
         ],
     };
@@ -277,6 +279,7 @@ export const generateProductVariantDeleteDTOFromProduct = (
                     price: priceDetail.price,
                     quantity: priceDetail.quantity,
                     size: priceDetail.size ?? "",
+                    isPaused: priceDetail.isPaused ?? false,
                 },
             };
         }

@@ -5,33 +5,27 @@ import { cn } from "@/lib/utils/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import ProductCategoryFormFields from "./ProductCategoryFormFields";
-import { IProduct, IProductCategory, IProductCategoryDTO } from "../../../lib/interfaces/interface";
+import { IProductCategoryDTO, ProductCategoryFormProps } from "../../../lib/interfaces/interface";
 import { productCategorySchema } from "../../../lib/schemas";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useSaveProductCategory from "../../../hooks/addProduct/useSaveProductCategory";
 import useEditProductCategory from "../../../hooks/addProduct/useEditProductCategory";
 
 const ProductCategoryForm = ({
     categories,
     storeId,
+    productId,
+    productAction,
     className,
     product,
     defaultValues,
-}: {
-    storeId: string;
-    product: IProduct | undefined;
-    defaultValues: IProductCategoryDTO;
-    categories: IProductCategory[];
-    className?: string;
-}) => {
+}: ProductCategoryFormProps) => {
     const { isSavingProductCategory, saveProductCategory } = useSaveProductCategory();
     const { isEditingProductCategory, editProductCategory } = useEditProductCategory();
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const productAction = searchParams.get("product-action");
 
     const formMethods = useForm<IProductCategoryDTO>({
-        defaultValues,
+        defaultValues: defaultValues,
         resolver: yupResolver(productCategorySchema),
     });
 
@@ -52,9 +46,18 @@ const ProductCategoryForm = ({
             return;
         }
 
-        if (productAction === "edit" && product)
-            editProductCategory({ productId: product.id, payload: values });
-        else saveProductCategory({ payload: values, storeId });
+        if (productId) {
+            // Edit category
+            let nextPage = `/products/add-product?step=product-details&product-id=${productId}`;
+
+            if (productAction === "edit")
+                nextPage = `/products/add-product?step=product-details&product-id=${productId}&product-action=edit`;
+
+            editProductCategory({ productId, payload: values, redirectUrl: nextPage });
+        } else {
+            // Save new a category
+            saveProductCategory({ payload: values, storeId });
+        }
     };
 
     return (

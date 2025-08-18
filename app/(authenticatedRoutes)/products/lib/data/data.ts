@@ -483,7 +483,6 @@ export const productVariantActions: IVariantAction[] = [
             setSearchParams([{ "variant-action": "pause" }, { "variant-id": variantId }]);
         },
         style: "text-kaiglo_info-base",
-        disabled: true,
     },
     {
         type: "variant",

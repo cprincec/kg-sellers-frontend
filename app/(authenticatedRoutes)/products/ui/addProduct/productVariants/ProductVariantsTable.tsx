@@ -19,6 +19,7 @@ import Loader from "@/app/ui/Loader";
 import useGetProductMeta from "../../../hooks/addProduct/useGetProductMeta";
 import ProductVariantsTableHeader from "./ProductVariantsTableHeader";
 import ProductVariantsTableBody from "./ProductVariantsTableBody";
+import usePauseProductVariant from "../../../hooks/addProduct/usePauseProductVariant";
 
 const ProductVariantsTable = ({
     title,
@@ -34,18 +35,41 @@ const ProductVariantsTable = ({
     const searchParams = useSearchParams();
     const variantId = searchParams.get("variant-id");
     const productId = searchParams.get("product-id");
+    const productAction = searchParams.get("product-action") ?? "";
     const variantAction = searchParams.get("variant-action");
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
     const { productRaw, isFetchingProductRaw } = useGetRawProduct(productId ?? "");
     const { productMetaData } = useGetProductMeta();
     const { deleteProductVariant, isDeletingProductVariant } = useDeleteProductVariant();
+    const { pauseProductVariant, isPausingProductVariant } = usePauseProductVariant();
     const productVariants = productRaw ? generateProductVariantDTOs(productRaw) : [];
 
     const handleClose = useCallback(() => {
         deleteSearchParams(["variant-action", "variant-id"]);
         setShowModal(false);
     }, [deleteSearchParams]);
+
+    const handlePause = useCallback(() => {
+        if (!variantId) {
+            showErrorToast({ title: "Invalid product variant id" });
+            return;
+        }
+
+        if (!productRaw) {
+            showErrorToast({ title: "Invalid product" });
+            return;
+        }
+
+        const variantToPause = generateProductVariantDeleteDTOFromProduct(variantId, productRaw);
+        if (!variantToPause) {
+            showErrorToast({ title: "Error deleting product" });
+            return;
+        }
+
+        pauseProductVariant(variantToPause);
+        handleClose();
+    }, [variantId, productRaw, productId, deleteProductVariant, handleClose]);
 
     const handleDelete = useCallback(() => {
         if (!variantId) {
@@ -58,6 +82,7 @@ const ProductVariantsTable = ({
             return;
         }
 
+        // This function is reused for generating pause payload
         const variantToDelete = generateProductVariantDeleteDTOFromProduct(variantId, productRaw);
         if (!variantToDelete) {
             showErrorToast({ title: "Error deleting product" });
@@ -91,7 +116,7 @@ const ProductVariantsTable = ({
                     title="Pause product variant"
                     body="Product variant will be paused and will no longer appear to customers. You can activate it anytime."
                     confirmButtonText="Confirm"
-                    confirmButtonAction={handleClose}
+                    confirmButtonAction={handlePause}
                     cancleButtonAction={handleClose}
                     action="PAUSE"
                 />
@@ -101,7 +126,7 @@ const ProductVariantsTable = ({
         }
     }, [variantAction, variantId]);
 
-    if (isFetchingProductRaw || isDeletingProductVariant) return <Loader />;
+    if (isFetchingProductRaw || isDeletingProductVariant || isPausingProductVariant) return <Loader />;
     if (!productRaw || !productVariants.length || !productMetaData) return null;
 
     // Check if the variants have a size attribute
@@ -110,7 +135,7 @@ const ProductVariantsTable = ({
         (a) => a.key === "size"
     );
 
-    const fadeVariants = {
+    const animationVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
         exit: { opacity: 0, y: -20 },
@@ -119,13 +144,12 @@ const ProductVariantsTable = ({
     return (
         <div className="overflow-hidden">
             <motion.div
-                layout
                 key="variantTable"
-                variants={fadeVariants}
+                variants={animationVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                transition={{ duration: 0.4, ease: "easeInOut" }}
+                transition={{ duration: 0.4, ease: "linear" }}
                 className={cn("grid gap-4 overflow-hidden", className)}
             >
                 {showTitle && <h3 className="text-base font-medium">{title || "Added Products"}</h3>}
@@ -135,6 +159,7 @@ const ProductVariantsTable = ({
                         showActions={showActions}
                         showSizeColumn={!!size}
                         product={productRaw}
+                        productAction={productAction}
                         productMetaData={productMetaData}
                     />
                 </Table>

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { NoResultsIcon } from "../../dashboard/ui/icons";
 import OrderHistoryTable from "./OrderHistoryTable";
 import { useSearchParams } from "next/navigation";
@@ -9,11 +8,13 @@ import useGetOrdersByStatus from "../hooks/useGetOrdersByStatus";
 import useGetOrdersBySearchTerm from "../hooks/useGetOrdersBySearchTerm";
 import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
 import { orderTabs } from "../lib/data";
+import { TableError } from "@/app/ui/errors";
 
 const OrderHistoryTableWrapper = () => {
     const searchParams = useSearchParams();
     const searchingFor = searchParams.get("searching-for");
-    const { isFetchingOrders, orders, errorFetchingOrders } = useGetAllOrders();
+    const { isFetchingOrders, orders, errorFetchingOrders, refetchOrders, isRefetchingOrders } =
+        useGetAllOrders();
     const { isFetchingOrdersBySearchTerm, ordersBySearchTerm, errorFetchingOrdersBySearchTerm } =
         useGetOrdersBySearchTerm();
     const { isFetchingOrdersByStatus, ordersByStatus, errorFetchingOrdersByStatus } = useGetOrdersByStatus();
@@ -27,7 +28,7 @@ const OrderHistoryTableWrapper = () => {
         : orders;
 
     const ordersResponseIsLoading =
-        isFetchingOrders || isFetchingOrdersByStatus || isFetchingOrdersBySearchTerm;
+        isFetchingOrders || isFetchingOrdersByStatus || isFetchingOrdersBySearchTerm || isRefetchingOrders;
 
     // Set custom message for orders results
     let noResultsMessage = "You have no orders";
@@ -74,12 +75,7 @@ const OrderHistoryTableWrapper = () => {
         );
 
     if (errorFetchingOrders || errorFetchingOrdersByStatus || errorFetchingOrdersBySearchTerm)
-        return (
-            <div className="grid items-center justify-center">
-                <h2>There was an error fetching products.</h2>
-                <Button variant={"critical_solid"}>Try again</Button>
-            </div>
-        );
+        return <TableError title="There was an error fetching orders." retryFunction={refetchOrders} />;
 
     return ordersResponse?.content.length ? (
         <OrderHistoryTable

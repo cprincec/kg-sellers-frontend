@@ -37,6 +37,7 @@ const ProductsTable = ({
         let clearKeys: string[] = [];
 
         if (searchParams.get("product-action") === "delete" && searchParams.get("product-id")) {
+           
             content = (
                 <ConfirmProductAction
                     confirmButtonAction={() => {

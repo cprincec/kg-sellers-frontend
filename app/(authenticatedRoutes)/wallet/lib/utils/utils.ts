@@ -32,6 +32,7 @@ export const generateAccountSummaryData = (data: IAccountSummary) => {
         {
             title: "Payout Threshold",
             body: 0.0,
+            canHideData: false,
             actionText: "set threshold",
             tip: "Payout threshold",
             isCurrency: true,

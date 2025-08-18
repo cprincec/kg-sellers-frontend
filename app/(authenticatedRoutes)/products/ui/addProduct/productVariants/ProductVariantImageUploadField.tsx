@@ -26,10 +26,11 @@ const ProductVariantImageUploadField = ({
     const { productUrl, productViews } = product;
 
     // product 'otherImages' are contained in the productViews property
-    const images =
-        productViews && productViews.length
-            ? [productUrl, ...productViews.map((v) => v.productUrl)]
-            : [productUrl];
+    const images = !productUrl
+        ? []
+        : productViews && productViews.length
+        ? [productUrl, ...productViews.map((v) => v.productUrl)]
+        : [productUrl];
 
     const handleSelect = (newVariantImage: string) => {
         setFormData((prev) => ({

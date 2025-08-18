@@ -5,11 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { IGetAccountSummaryResponse } from "../lib/interface";
 
 /**
- * Custom hook to fetch all orders
+ * Custom hook to fetch all account summary data
  */
 
 const useGetAccountSummary = () => {
-    const { isLoading, data, error } = useQuery({
+    const { isLoading, data, error, refetch, isRefetching } = useQuery({
         queryKey: ["account-summary"],
         queryFn: () =>
             getRequest<IGetAccountSummaryResponse>({
@@ -22,6 +22,8 @@ const useGetAccountSummary = () => {
         accountSummary: data?.response,
         isFetchingAccountSummary: isLoading,
         errorFetchingAccountSummary: error,
+        refetchAccountSummary: refetch,
+        isRefetchingAccountSummary: isRefetching,
     };
 };
 

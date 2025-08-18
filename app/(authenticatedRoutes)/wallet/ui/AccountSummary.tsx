@@ -15,15 +15,22 @@ import Metric from "../../ui/metrics/Metric";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import useGetAccountSummary from "../hooks/useGetAccountSummary";
-import Loader from "@/app/ui/Loader";
 import { format } from "date-fns";
 import { generateAccountSummaryData } from "../lib/utils/utils";
+import { AccountSummarySkeleton } from "./skeletons";
+import { Button } from "@/components/ui/button";
 
 const AccountSummary = ({ className }: { className?: string }) => {
     const searchParams = useSearchParams();
     const { showModal, setShowModal, setOnClose, setModalContent } = useModalContext();
     const { deleteSearchParams } = useUpdateSearchParams();
-    const { accountSummary, isFetchingAccountSummary, errorFetchingAccountSummary } = useGetAccountSummary();
+    const {
+        accountSummary,
+        isFetchingAccountSummary,
+        errorFetchingAccountSummary,
+        refetchAccountSummary,
+        isRefetchingAccountSummary,
+    } = useGetAccountSummary();
 
     // show withdrawal steps modals
     const withdrawStep = searchParams.get("withdraw");
@@ -59,8 +66,16 @@ const AccountSummary = ({ className }: { className?: string }) => {
         }
     }, [withdrawStep, payoutStep]);
 
-    if (isFetchingAccountSummary) return <Loader />;
-    if (errorFetchingAccountSummary) return <p>Error fetching account summary</p>;
+    if (isFetchingAccountSummary || isRefetchingAccountSummary) return <AccountSummarySkeleton />;
+    if (errorFetchingAccountSummary)
+        return (
+            <div className="flex gap-2 p-3 items-center">
+                <p>Error fetching account summary.</p>
+                <Button onClick={() => refetchAccountSummary()} variant="critical_solid">
+                    Try again
+                </Button>
+            </div>
+        );
     if (!accountSummary) return null;
 
     const accountSummaryData = generateAccountSummaryData(accountSummary);

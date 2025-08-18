@@ -6,6 +6,7 @@ import ProductsTableToolsBar from "./ui/productsTable/ProductsTableToolsBar";
 import ProductsTableWrapper from "./ui/productsTable/ProductsTableWrapper";
 
 const Products = () => {
+    
     return (
         <div className="lg:min-h-[calc(100vh-82px)]">
             <div className="grid gap-5 lg:gap-5 p-4 lg:px-0">

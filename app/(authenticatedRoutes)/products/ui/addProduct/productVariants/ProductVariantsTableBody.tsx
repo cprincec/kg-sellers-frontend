@@ -10,11 +10,13 @@ import { IProduct, IProductMeta } from "../../../lib/interfaces/interface";
 
 const ProductVariantsTableBody = ({
     product,
+    productAction,
     productMetaData,
     showSizeColumn,
     showActions,
 }: {
     product: IProduct;
+    productAction: string;
     productMetaData: IProductMeta;
     showActions: boolean;
     showSizeColumn: boolean;
@@ -75,6 +77,18 @@ const ProductVariantsTableBody = ({
                                     variantId={variant.productColor.productPriceDetails[0].id}
                                     productId={product.id}
                                     actions={productVariantActions}
+                                    disabled={
+                                        productAction !== "edit" ||
+                                        ((action: string) => {
+                                            if (action.toLowerCase() === "pause variant") {
+                                                return (
+                                                    variant.productColor.productPriceDetails[0].isPaused ??
+                                                    false
+                                                );
+                                            }
+                                            return false;
+                                        })
+                                    }
                                 />
                             </TableCell>
                         )}

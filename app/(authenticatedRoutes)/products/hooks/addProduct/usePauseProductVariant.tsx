@@ -2,49 +2,40 @@
 
 import { patchRequest } from "@/lib/utils/apiCaller";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IEditProductVariant } from "../../lib/interfaces/interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { IProductResponse } from "../../lib/interfaces/response.interface";
-import { useRouter } from "next/navigation";
+import { IEditProductVariant } from "../../lib/interfaces/interface";
 
-/**
- * Custom hook to edit a product variant
- */
-
-// The productAction parameter indicates if user is editing a variant of a new product
-// or editing a variant of an existing product
-const useEditProductVariant = () => {
-    const router = useRouter();
+const usePauseProductVariant = () => {
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: ({ payload }: { payload: IEditProductVariant; redirectUrl: string }) =>
+        mutationFn: (payload: IEditProductVariant) =>
             patchRequest<IEditProductVariant, IProductResponse>({
-                url: "/product/edit-product-variant",
+                url: `product/pause-product-variant`,
                 payload,
             }),
-        onSuccess: (data, variables) => {
+        onSuccess: (data) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
 
-            // Instantly update cache
+            // Update cache
             queryClient.setQueryData(["product-raw", data.response.id], data);
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
-
-            router.replace(variables.redirectUrl);
+            queryClient.invalidateQueries({ queryKey: ["products-stats"] });
         },
         onError: (error) => {
             console.error(error);
-            handleError(error, "Error editing product variant");
+            handleError(error, "Error pausing product variant");
         },
     });
 
     return {
-        isEditingProductVariant: isPending,
-        editProductVariant: mutate,
+        isPausingProductVariant: isPending,
+        pauseProductVariant: mutate,
     };
 };
 
-export default useEditProductVariant;
+export default usePauseProductVariant;

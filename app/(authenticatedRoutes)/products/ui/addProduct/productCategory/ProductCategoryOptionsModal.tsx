@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils/utils";
 import { ChevronLeft } from "lucide-react";
 import {
     IProductCategory,
-    IProductCategoryOptionsModalProps,
     IProductSubCategory,
+    ProductCategoryOptionsModalProps,
 } from "../../../lib/interfaces/interface";
 import { PRODUCT_CATEGORY_KEYS } from "../../../lib/constants";
 import { useRef, useState } from "react";
@@ -14,7 +14,7 @@ const ProductCategoryOptionsModal = ({
     categories,
     setShowModal,
     setValue,
-}: IProductCategoryOptionsModalProps) => {
+}: ProductCategoryOptionsModalProps) => {
     const [path, setPath] = useState<(IProductCategory | IProductSubCategory)[]>([]);
     const currentDepth = useRef(0);
     // Compute current level dynamically from the path

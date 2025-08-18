@@ -26,6 +26,8 @@ const Wallet = () => {
                             <OrderHistoryToolsBar
                                 showSort={false}
                                 showAction={false}
+                                showSearchBarDesktop={false}
+                                dateFilterDisabled={true}
                                 className="px-0 jlg:ustify-end border-none"
                             />
 

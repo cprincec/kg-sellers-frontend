@@ -2,7 +2,7 @@
 
 import PaginationComponent from "@/components/shared/Pagination";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { IPayoutDTO } from "../../lib/interface";
+import { IPayout } from "../../lib/interface";
 import { Button } from "@/components/ui/button";
 import PayoutDetails from "./PayoutDetails";
 import { useSearchParams } from "next/navigation";
@@ -10,30 +10,38 @@ import { getPayoutStatusStyle } from "../../lib/utils/utils";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { useEffect } from "react";
+import { format } from "date-fns";
+import { showErrorToast } from "@/app/lib/utils/utils";
 
-const PayoutHistoryTable = ({ payoutHistory }: { payoutHistory: IPayoutDTO[] }) => {
+const PayoutHistoryTable = ({
+    payoutHistory,
+    totalPages,
+    pageSize,
+}: {
+    payoutHistory: IPayout[];
+    totalPages: number;
+    pageSize: number;
+}) => {
     const searchParams = useSearchParams();
     const { setSearchParams, deleteSearchParams } = useUpdateSearchParams();
-
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
 
     useEffect(() => {
         // Check if payout index is present in the URL
         // and if it is valid
-        const payoutIndex = searchParams.get("payout-index");
+        const payoutReference = searchParams.get("payout-reference");
 
-        if (
-            !payoutIndex ||
-            isNaN(Number(payoutIndex)) ||
-            parseInt(payoutIndex) < 0 ||
-            parseInt(payoutIndex) >= payoutHistory.length
-        )
-            return;
+        if (!payoutReference) return;
 
         // Show payout details modal
-        setModalContent(<PayoutDetails payout={payoutHistory[parseInt(payoutIndex)]} />);
+        const payoutToDisplay = payoutHistory.find((payout) => payout.reference === payoutReference);
+        if (!payoutToDisplay) {
+            showErrorToast({ title: "Invalid payout reference" });
+            return;
+        }
+        setModalContent(<PayoutDetails payout={payoutToDisplay} />);
         setShowModal(true);
-        setOnClose(() => () => deleteSearchParams(["payout-index"]));
+        setOnClose(() => () => deleteSearchParams(["payout-reference"]));
     }, [searchParams, payoutHistory, setModalContent, setShowModal]);
 
     return (
@@ -69,13 +77,15 @@ const PayoutHistoryTable = ({ payoutHistory }: { payoutHistory: IPayoutDTO[] }) 
                             <TableRow
                                 key={index}
                                 className="cursor-pointer"
-                                onClick={() => setSearchParams([{ "payout-index": index.toString() }])}
+                                onClick={() => setSearchParams([{ "payout-reference": reference }])}
                             >
                                 <TableCell className="p-3 md:text-base max-w-[20px]">{index + 1}</TableCell>
                                 <TableCell className="p-3 text-sm text-center">{reference}</TableCell>
-                                <TableCell className="p-3 text-sm md:text-base text-center">{date}</TableCell>
                                 <TableCell className="p-3 text-sm md:text-base text-center">
-                                    ₦{parseFloat(amount).toLocaleString()}
+                                    {format(date, "dd MMM yyyy hh:mm a")}
+                                </TableCell>
+                                <TableCell className="p-3 text-sm md:text-base text-center">
+                                    ₦{amount.toLocaleString()}
                                 </TableCell>
                                 <TableCell className="p-3 text-center">
                                     <span className={getPayoutStatusStyle(status)}>{status}</span>
@@ -95,7 +105,7 @@ const PayoutHistoryTable = ({ payoutHistory }: { payoutHistory: IPayoutDTO[] }) 
             </Table>
 
             {/* pagination */}
-            <PaginationComponent dataLength={payoutHistory.length} />
+            <PaginationComponent pageSize={pageSize} totalPages={totalPages} />
         </div>
     );
 };

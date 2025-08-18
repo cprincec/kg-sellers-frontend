@@ -17,20 +17,27 @@ const ImageOptionsModal = ({
                 <DialogDescription className="hidden" />
             </DialogHeader>
             <div className="flex flex-wrap gap-5 -mt-0 overflow-auto">
-                {images.map((url, index) => (
-                    <div
-                        key={index}
-                        onClick={() => handleSelect(url)}
-                        className="border-2 border-transparent hover:border-2 hover:border-kaiglo_brand-base cursor-pointer rounded-xl"
-                    >
-                        <ImagePreviewCard
-                            index={index}
-                            previewUrl={url}
-                            isMainImage={false}
-                            isRemovable={false}
-                        />
-                    </div>
-                ))}
+                {images.length ? (
+                    images.map((url, index) => (
+                        <div
+                            key={index}
+                            onClick={() => handleSelect(url)}
+                            className="border-2 border-transparent hover:border-2 hover:border-kaiglo_brand-base cursor-pointer rounded-xl"
+                        >
+                            <ImagePreviewCard
+                                index={index}
+                                previewUrl={url}
+                                isMainImage={false}
+                                isRemovable={false}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>
+                        No images have been added to this product. Navigate to the the previous page to add an
+                        image.
+                    </p>
+                )}
             </div>
         </DialogContent>
     );

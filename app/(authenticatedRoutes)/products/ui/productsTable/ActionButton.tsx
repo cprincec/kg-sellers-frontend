@@ -57,9 +57,7 @@ const ActionButton = ({
                                         index === actions.length - 1 && "text-kaiglo_critical-600"
                                     )}
                                     onClick={() => {
-                                        if (action.name === "duplicate product") {
-                                            duplicateProduct(productId);
-                                        }
+                                        if (action.name === "duplicate product") duplicateProduct(productId);
 
                                         if (href) {
                                             router.replace(href);

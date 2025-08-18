@@ -21,6 +21,7 @@ import {
 import ProductVariantsFormHeader from "./ProductVariantsFormHeader";
 import useEditProductVariant from "../../../hooks/addProduct/useEditProductVariant";
 import ProductVariantsFormContent from "./ProductVariantsFormContent";
+import { AnimatePresence } from "framer-motion";
 
 const ProductVariantsForm = ({
     product,
@@ -42,7 +43,6 @@ const ProductVariantsForm = ({
     const [formErrors, setFormErrors] = useState<ProductVariantFormErrors>(
         productVariantFormErrorsDefaultValues
     );
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
@@ -91,20 +91,24 @@ const ProductVariantsForm = ({
             <ProductVariantsFormHeader product={product} productAction={productAction} showForm={showForm} />
 
             {/* Product variant form  */}
-            {showForm && (
-                <ProductVariantsFormContent
-                    product={product}
-                    formData={formData}
-                    formErrors={formErrors}
-                    fields={fields}
-                    setFormData={setFormData}
-                    isEditingProductVariant={isEditingProductVariant}
-                    isSavingProductVariant={isSavingProductVariant}
-                    variantId={variantId ?? ""}
-                    productMeta={productMeta}
-                    handleSubmit={handleSubmit}
-                />
-            )}
+            <AnimatePresence mode="wait">
+                {showForm && (
+                    <ProductVariantsFormContent
+                        product={product}
+                        formData={formData}
+                        formErrors={formErrors}
+                        fields={fields}
+                        setFormData={setFormData}
+                        isEditingProductVariant={isEditingProductVariant}
+                        isSavingProductVariant={isSavingProductVariant}
+                        variantId={variantId ?? ""}
+                        productMeta={productMeta}
+                        handleSubmit={handleSubmit}
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Product variants table */}
             <ProductVariantsTable className="p-4 lg:px-6" />
 
             {/* Navigation buttons */}

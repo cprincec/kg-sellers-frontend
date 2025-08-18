@@ -2,36 +2,39 @@
 
 import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import PayoutHistoryTable from "./PayoutHistoryTable";
-import { useSearchParams } from "next/navigation";
-import { payoutList } from "../../lib/data";
-import { RESULTS_PER_PAGE } from "@/lib/consts";
+import { TableError } from "@/app/ui/errors";
+import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
+import useGetPayoutData from "../../hooks/useGetPayoutData";
 
 /******************************************************************************
  * This component fetches payout history
  * Filters the history data as needed and renders payout history table
  ******************************************************************************/
 const PayoutHistoryTableWrapper = () => {
-    const searchParams = useSearchParams();
-    // Get page number from Url
-    const pageParam = searchParams.get("page");
-    const page = pageParam !== null ? parseInt(pageParam) : 1;
+    const {
+        payoutData,
+        isFetchingPayoutData,
+        errorFetchingPayoutData,
+        refetchPayoutData,
+        isRefetchingPayoutData,
+    } = useGetPayoutData();
 
-    const payoutHistory = payoutList || [];
-    let paginatedPayoutHistory;
+    if (isFetchingPayoutData || isRefetchingPayoutData) return <TableSkeleton />;
 
-    if (payoutHistory.length <= RESULTS_PER_PAGE) {
-        paginatedPayoutHistory = payoutHistory;
-    } else {
-        // Select 10 wallet history data
-        const start = (page - 1) * RESULTS_PER_PAGE;
-        const end = start + RESULTS_PER_PAGE;
-        paginatedPayoutHistory = payoutHistory.slice(start, end);
-    }
+    if (errorFetchingPayoutData || payoutData === null)
+        return (
+            <TableError title="There was an error fetching payout data." retryFunction={refetchPayoutData} />
+        );
 
-    return payoutHistory?.length ? (
-        <PayoutHistoryTable payoutHistory={paginatedPayoutHistory} />
+    return payoutData?.content.length ? (
+        <PayoutHistoryTable
+            payoutHistory={payoutData.content}
+            totalPages={payoutData.totalPages}
+            pageSize={payoutData.pageable.pageSize}
+        />
     ) : (
-        <NoResultsIcon title={"No results"} />
+        <NoResultsIcon title={"No payout data"} />
     );
 };
+
 export default PayoutHistoryTableWrapper;

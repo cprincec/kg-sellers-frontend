@@ -20,21 +20,23 @@ const useUploadProduct = () => {
                 url: `/product/upload-product?productID=${productId}`,
             }),
 
-        onSuccess: (data) => {
+        onSuccess: (data, productId) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
 
             // Instantly update cache
-            queryClient.invalidateQueries({ queryKey: ["product-raw"], exact: false });
-            queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.removeQueries({ queryKey: ["product-raw", productId], exact: true });
+            queryClient.removeQueries({ queryKey: ["product-description", productId], exact: true });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products-stats"], exact: true });
 
-            router.replace("/products");
             showSuccessToast({
                 title: "Your product upload was successful and being reviewed",
             });
+
+            router.replace("/products");
         },
 
         onError: (error) => {

@@ -24,7 +24,7 @@ const MetricBody = ({
 
     return (
         <div className="grid gap-1 md:px-4 lg:px-2">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-end">
                 {canHideData && !showData ? (
                     <p className="text-3xl">*******</p>
                 ) : (

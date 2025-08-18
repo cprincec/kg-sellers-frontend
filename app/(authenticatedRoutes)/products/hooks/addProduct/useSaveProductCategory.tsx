@@ -32,7 +32,7 @@ const useSaveProductCategory = () => {
             }
 
             // update cache
-            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.setQueryData(["product-raw", data.response.id], data);
             queryClient.refetchQueries({ queryKey: ["product-description"], exact: false });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
 

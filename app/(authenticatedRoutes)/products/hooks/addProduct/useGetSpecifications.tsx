@@ -16,6 +16,7 @@ import useGetRawProduct from "./useGetRawProduct";
 
 const useGetSpecifications = () => {
     const productId = useSearchParams().get("product-id");
+    const productAction = useSearchParams().get("product-action");
     const { productsCategories } = useGetProductsCategories();
     const { productRaw } = useGetRawProduct(productId ?? "");
     const [tag, setTag] = useState<string>("");
@@ -27,8 +28,16 @@ const useGetSpecifications = () => {
             description: "Please select another category",
         });
 
-        if (productId) router.replace(`/products/add-product?step=product-category&product-id=${productId}`);
-        else router.replace(`/products/add-product?step=product-category`);
+        let url = "/products/add-product?step=product-category";
+        if (productId) {
+            if (productAction === "edit") {
+                url = `/products/add-product?step=product-category&product-id=${productId}&product-action=edit`;
+            } else {
+                url = `/products/add-product?step=product-category&product-id=${productId}`;
+            }
+        }
+
+        router.replace(url);
     };
 
     useEffect(() => {
@@ -39,7 +48,7 @@ const useGetSpecifications = () => {
             if (categoryTag) setTag(categoryTag);
             else handleMissingSpecs();
         }
-    }, [productRaw, productsCategories]);
+    }, [productRaw, productsCategories, router]);
 
     const { isLoading, data } = useQuery({
         queryKey: ["specifications", tag],

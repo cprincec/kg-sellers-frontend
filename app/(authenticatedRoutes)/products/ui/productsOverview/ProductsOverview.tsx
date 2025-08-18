@@ -34,7 +34,7 @@ const ProductsOverview = ({ className }: { className?: string }) => {
                         <ProductsOverviewCard overViewItem={overViewItem} isFirst={isFirst} isLast={isLast} />
 
                         {/* divider */}
-                        {index !== data.length - 1 && (
+                        {!isLast && (
                             <div className="hidden lg:block">
                                 <Image
                                     src={IconVerticalLine}

@@ -31,11 +31,14 @@ const ProductVariantsFormWrapper = ({ className }: { className?: string }) => {
     const { productMetaData, isFetchingProductMetaData } = useGetProductMeta();
 
     if (isFetchingProductMetaData || isFetchingVariantFields || isFetchingProductRaw) return <Loader />;
-    if (!variantFields || !productMetaData || !productRaw) return null;
+    if (!productMetaData || !productRaw) return null;
+    if (!variantFields)
+        return <p>No variant fields for the selected category. Please selected another category</p>;
 
     const defaultValues = variantId
         ? generateProductVariantFormDefaults(productRaw, variantId)
         : productVariantsFormDefaultValues;
+
     return (
         <ProductVariantsForm
             product={productRaw}

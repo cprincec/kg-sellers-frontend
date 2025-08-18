@@ -1,24 +1,24 @@
-import { storeDetailsDefaultValues } from "@/app/(auth)/lib/validations/defaults";
 import { storeDetailsSchema } from "@/app/(auth)/lib/validations/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import StoreDetailsFormFields from "./StoreDetailsFomFields";
+import useEditStoreDetails from "../../hooks/useEditStoreDetails";
 
-const StoreDetailsForm = () => {
+const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }) => {
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm<IStoreDetailsDTO>({
-        defaultValues: storeDetailsDefaultValues,
+        defaultValues,
         resolver: yupResolver(storeDetailsSchema),
     });
 
-    const saveStoreDetails = () => {
-        // navigateToNextStep();
-        //
+    const { editStoreDetails, isEditingStoreDetails } = useEditStoreDetails();
+    const saveStoreDetails = (values: IStoreDetailsDTO) => {
+        editStoreDetails(values);
     };
 
     return (
@@ -30,6 +30,7 @@ const StoreDetailsForm = () => {
                 <FormNavButtons
                     cancelFunc={() => console.log("Store details changes cancelled")}
                     submitButtonText={"Save Changes"}
+                    disabled={isEditingStoreDetails}
                 />
             </form>
         </div>
