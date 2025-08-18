@@ -13,7 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
  */
 
 const useSavePaymentOption = () => {
-    const { setCurrentStep, setOnboardingData } = useStoreSetupContext();
+    const { setCurrentStep } = useStoreSetupContext();
     const { setModalContent, setShowModal } = useModalContext();
     const queryClient = useQueryClient();
 
@@ -24,14 +24,13 @@ const useSavePaymentOption = () => {
                 payload,
             }),
 
-        onSuccess: (data, variables) => {
+        onSuccess: (data) => {
             if (data.message?.toLowerCase() !== "success" || !data.response) {
                 showErrorToast({ title: data.message, description: "Something went wrong" });
                 return;
             }
 
             queryClient.invalidateQueries({ queryKey: ["store-info"] });
-            setOnboardingData((prev) => ({ ...prev, paymentOption: variables }));
             setCurrentStep((prev) => prev + 1);
             setShowModal(false);
             setModalContent(null);

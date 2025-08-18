@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 
 const ProductsCategoriesForm = ({ defaultValues }: { defaultValues: IProductsCategoriesDTO }) => {
     const { saveProductsCategories, isSavingProductsCategories } = useSaveProductsCategories();
-    const { setCurrentStep, setOnboardingData } = useStoreSetupContext();
+    const { setCurrentStep } = useStoreSetupContext();
 
     const {
         control,
@@ -27,9 +27,8 @@ const ProductsCategoriesForm = ({ defaultValues }: { defaultValues: IProductsCat
 
     const onSubmit = (values: IProductsCategoriesDTO) => {
         saveProductsCategories(values);
-        setOnboardingData((prev) => ({ ...prev, productsCategories: values }));
     };
-    
+
     return (
         <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} className="grid grid-cols-1 space-y-4">
             <div className="grid gap-2">

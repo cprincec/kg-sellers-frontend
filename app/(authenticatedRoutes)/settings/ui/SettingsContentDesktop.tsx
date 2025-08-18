@@ -1,11 +1,11 @@
 "use client";
 
-import StoreDetailsForm from "../../../(auth)/ui/register/storeSetup/storeDetails2/StoreDetailsForm";
 import StoreVacationForm from "../ui/StoreVacation";
 import TermsOfContractForm from "../../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tabs } from "../lib/data";
 import PaymentOptionFormWrapper from "@/app/(auth)/ui/register/storeSetup/paymentOption/PaymentOptionFormWrapper";
+import StoreDetailsFormWrapper from "./storeDetails2/StoreDetailsFormWrapper";
 
 const SettingsContentDesktop = ({
     activeTab,
@@ -40,7 +40,7 @@ const SettingsContentDesktop = ({
             {/* Tables */}
             <div className="py-6 lg:px-4">
                 <TabsContent value={tabs[0].value} className="overflow-auto">
-                    <StoreDetailsForm />
+                    <StoreDetailsFormWrapper />
                 </TabsContent>
                 <TabsContent value={tabs[1].value} className="overflow-auto">
                     <StoreVacationForm />

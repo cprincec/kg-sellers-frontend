@@ -4,16 +4,13 @@ import { patchRequest } from "@/lib/utils/apiCaller";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { handleError, showErrorToast, showSuccessToast } from "@/app/lib/utils/utils";
 import { IGenericResponse } from "../../lib/interfaces/response.interface";
-import { useAddProductContext } from "../../contexts/addProductContext";
 import { useRouter } from "next/navigation";
-import { flushSync } from "react-dom";
 
 /**
  * Custom hook to save a product variant.
  */
 
 const useUploadProduct = () => {
-    const { setProductDraft, setProductDraftDescription } = useAddProductContext();
     const queryClient = useQueryClient();
     const router = useRouter();
 
@@ -23,26 +20,23 @@ const useUploadProduct = () => {
                 url: `/product/upload-product?productID=${productId}`,
             }),
 
-        onSuccess: (data) => {
+        onSuccess: (data, productId) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
 
             // Instantly update cache
-            queryClient.invalidateQueries({ queryKey: ["product-raw"], exact: false });
-            queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
+            queryClient.removeQueries({ queryKey: ["product-raw", productId], exact: true });
+            queryClient.removeQueries({ queryKey: ["product-description", productId], exact: true });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
+            queryClient.invalidateQueries({ queryKey: ["products-stats"], exact: true });
 
-            flushSync(() => {
-                setProductDraft(null);
-                setProductDraftDescription("");
-            });
-
-            router.replace("/products");
             showSuccessToast({
                 title: "Your product upload was successful and being reviewed",
             });
+
+            router.replace("/products");
         },
 
         onError: (error) => {

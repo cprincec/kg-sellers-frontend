@@ -1,5 +1,6 @@
+import { IStoreInfo } from "@/app/(auth)/lib/interfaces/interface";
 import { StaticImageData } from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, FormEvent, SetStateAction } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
 export interface ProductDtO {
@@ -21,11 +22,7 @@ export interface IProductsContext {
 }
 
 export interface IAddProductContext {
-    storeId: string;
-    productDraft: IProduct | null;
-    setProductDraft: Dispatch<SetStateAction<IProduct | null>>;
-    productDraftDescription: string;
-    setProductDraftDescription: Dispatch<SetStateAction<string>>;
+    storeInfo: IStoreInfo;
 }
 
 export interface IProductVariant {
@@ -171,11 +168,21 @@ export interface IProductCategoryDTO {
     fifthSubCategory?: string;
 }
 
-export type IProductCategoryOptionsModalProps = {
+export type ProductCategoryFormProps = {
+    isFetchingProductRaw: boolean;
+    storeId: string;
+    productId: string;
+    productAction: string;
+    product: IProduct | undefined;
+    defaultValues: IProductCategoryDTO;
+    categories: IProductCategory[];
+    className?: string;
+};
+
+export type ProductCategoryOptionsModalProps = {
     categories: IProductCategory[];
     showModal: boolean;
     setShowModal: Dispatch<SetStateAction<boolean>>;
-    setCategoryFieldValue: Dispatch<SetStateAction<string>>;
     setValue: UseFormSetValue<IProductCategoryDTO>;
 };
 
@@ -250,6 +257,29 @@ export interface IProductSpecification {
  * Product variants interfaces starts
  ******************************************************************/
 
+export type ProductVariantsFormContentProps = {
+    productMeta: IProductMeta;
+    product: IProduct;
+    variantId: string;
+    formData: ProductVariantFormInterface;
+    setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
+    formErrors: ProductVariantFormErrors;
+    isSavingProductVariant: boolean;
+    isEditingProductVariant: boolean;
+    fields: IVariantField[];
+    handleSubmit: (e: FormEvent) => void;
+};
+
+export type ProductVariantsFormFieldProps = {
+    formData: ProductVariantFormInterface;
+    setFormData: Dispatch<SetStateAction<ProductVariantFormInterface>>;
+    productMeta: IProductMeta;
+    fields: IVariantField[];
+    findFieldIndex: (key: string) => number;
+    formErrors: ProductVariantFormErrors;
+    product: IProduct;
+};
+
 export interface ProductVariantFormInterface {
     attributes: {
         key: string;
@@ -285,6 +315,7 @@ export interface IProductVariantPriceDetail {
     attributes: IProductAttribute[];
     discount?: number;
     id?: string;
+    isPaused?: boolean;
     newPrice?: number;
     price: number;
     quantity: string;
@@ -322,6 +353,17 @@ export interface IEditProductVariant {
 /*******************************************************************
  * Product interfaces starts
  ******************************************************************/
+export type productVariantsFormProps = {
+    product: IProduct;
+    defaultValues: ProductVariantFormInterface;
+    productAction: string;
+    productId: string;
+    variantAction: string;
+    variantId: string | undefined | null;
+    fields: IVariantField[];
+    productMeta: IProductMeta;
+    className?: string;
+};
 
 export interface IProduct {
     category: string;
@@ -378,6 +420,7 @@ export interface IProductColor {
 
 export interface IProductPriceDetail {
     id: string;
+    isPaused: boolean;
     price: number;
     newPrice: number;
     discount: number;

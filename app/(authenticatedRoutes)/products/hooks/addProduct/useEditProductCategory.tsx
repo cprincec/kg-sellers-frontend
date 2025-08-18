@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IProductCategoryDTO } from "../../lib/interfaces/interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { IProductResponse } from "../../lib/interfaces/response.interface";
-import { useAddProductContext } from "../../contexts/addProductContext";
 import { startTransition } from "react";
 import { useRouter } from "next/navigation";
 
@@ -16,32 +15,33 @@ import { useRouter } from "next/navigation";
 const useEditProductCategory = () => {
     const router = useRouter();
     const queryClient = useQueryClient();
-    const { setProductDraft } = useAddProductContext();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: ({ productId, payload }: { productId: string; payload: IProductCategoryDTO }) => {
+        mutationFn: ({
+            productId,
+            payload,
+        }: {
+            productId: string;
+            payload: IProductCategoryDTO;
+            redirectUrl: string;
+        }) => {
             return patchRequest<IProductCategoryDTO, IProductResponse>({
                 url: `/product/edit-category/${productId}`,
                 payload,
             });
         },
-        onSuccess: (data) => {
+        onSuccess: (data, variables) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
 
             // update cache
-            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.setQueryData(["product-raw", data.response.id], data);
             queryClient.invalidateQueries({ queryKey: ["product-description"], exact: false });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
 
-            setProductDraft(data.response);
-            startTransition(() =>
-                router.replace(
-                    `/products/add-product?step=product-details&product-id=${data.response.id}&product-action=edit`
-                )
-            );
+            startTransition(() => router.replace(variables.redirectUrl));
         },
         onError: (error) => {
             console.error(error);

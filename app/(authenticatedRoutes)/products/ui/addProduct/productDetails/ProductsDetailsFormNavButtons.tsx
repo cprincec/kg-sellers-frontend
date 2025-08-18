@@ -1,8 +1,8 @@
 "use client";
 
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
+import { showErrorToast } from "@/app/lib/utils/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useAddProductContext } from "../../../contexts/addProductContext";
 
 const ProductsDetailsFormNavButtons = ({
     isSavingProductDetails,
@@ -14,14 +14,17 @@ const ProductsDetailsFormNavButtons = ({
     const router = useRouter();
     const searchParams = useSearchParams();
     const productAction = searchParams.get("product-action");
-    const { productDraft } = useAddProductContext();
+    const productId = searchParams.get("product-id");
 
-    if (!productDraft) return null;
+    if (!productId) {
+        showErrorToast({ title: "Invalid product id" });
+        return null;
+    }
 
     const prevStep =
         productAction === "edit"
-            ? `/products/add-product?step=product-category&product-id=${productDraft.id}&product-action=edit`
-            : `/products/add-product?step=product-category&product-id=${productDraft.id}`;
+            ? `/products/add-product?step=product-category&product-id=${productId}&product-action=edit`
+            : `/products/add-product?step=product-category&product-id=${productId}`;
 
     return (
         <div>
@@ -34,11 +37,7 @@ const ProductsDetailsFormNavButtons = ({
             />
             <FormNavButtons
                 cancelFunc={() => {
-                    if (productDraft)
-                        router.replace(
-                            `/products/add-product?step=product-category&product-id=${productDraft.id}`
-                        );
-                    else router.replace(`/products/add-product?step=product-category`);
+                    router.replace(`/products/add-product?step=product-category&product-id=${productId}`);
                 }}
                 cancelButtonText="Previous"
                 submitButtonText="Save & continue"

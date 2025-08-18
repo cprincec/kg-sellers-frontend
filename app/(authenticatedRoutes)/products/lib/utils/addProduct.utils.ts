@@ -20,7 +20,7 @@ import {
     ProductVariantFormInterface,
 } from "../interfaces/interface";
 import { PRODUCT_CATEGORY_KEYS } from "../constants";
-import { productDetailsFormDefaultValues, productVariantsFormDefaultValues } from "../defaults";
+import { productCategoryFormDefaultValues, productVariantsFormDefaultValues } from "../defaults";
 import { showErrorToast } from "@/app/lib/utils/utils";
 import { Dispatch, SetStateAction } from "react";
 import { Area } from "react-easy-crop";
@@ -31,37 +31,33 @@ import { Area } from "react-easy-crop";
  * category, subCatgory, secondSubCategory, thirdSubCategory,
  * fourthSubCategory, and fifthSubCategory
  * ********************************************************/
-export const generateProductCategoryDTO = (productRaw: IProduct | null): IProductCategoryDTO => {
-    const productCategoryTemp: IProductCategoryDTO = { category: "" };
-    if (!productRaw) return productCategoryTemp;
+export const generateProductCategoryDTO = (product: IProduct): IProductCategoryDTO => {
+    const productCategoryObj: IProductCategoryDTO = { ...productCategoryFormDefaultValues };
 
     PRODUCT_CATEGORY_KEYS.forEach((key) => {
-        productCategoryTemp[key] = productRaw[key] ?? "";
+        productCategoryObj[key] = product[key] ?? "";
     });
-    return productCategoryTemp;
+
+    return productCategoryObj;
 };
 
 /**************************************************************
  * Generate product details DTO from product draft
  * Product draft contains the product main image and other images,
- * specifications, seo.
+ * specifications, seo etc.
  * the product description is gotten from a seperate endpoint
  * ********************************************************/
 export const generateProductDetailsDTO = (
-    productRaw: IProduct | null,
+    productRaw: IProduct,
     productDescription: string
 ): IProductDetailsDTO => {
-    if (!productRaw || productDescription === null) return productDetailsFormDefaultValues;
+    const { name, productUrl, specifications, seo } = productRaw;
 
-    // Extract each non-main-image (ie other images) from product draft
-    // the images in product draft.productView that have colorCode are the ones
-    // that are associated to variants
+    // Extract each non-mainImage (ie other images) from product draft
     const otherImages =
         productRaw.productViews && productRaw.productViews.length
-            ? productRaw.productViews.filter((view) => !view.colorCode).map((view) => view.productUrl)
+            ? productRaw.productViews.map((v) => v.productUrl)
             : [];
-
-    const { name, productUrl, specifications, seo } = productRaw;
 
     return {
         productName: name,
@@ -69,7 +65,7 @@ export const generateProductDetailsDTO = (
         otherImages,
         description: productDescription,
         specifications: specifications,
-        seo: seo,
+        seo: seo ?? "",
     };
 };
 
@@ -106,6 +102,7 @@ export const generateProductVariantDTOs = (productRaw: IProduct): IProductVarian
                         sku: variant.productPriceDetails[0].sku,
                         stockLevel: variant.productPriceDetails[0].stockLevel,
                         storage: variant.productPriceDetails[0].storage,
+                        isPaused: variant.productPriceDetails[0].isPaused,
                     },
                 ],
             },
@@ -125,7 +122,7 @@ export const generateProductVariantFormDefaults = (
     product: IProduct,
     variantId: string
 ): ProductVariantFormInterface => {
-    if (!product.productColors?.length) return productVariantsFormDefaultValues;
+    if (!product.productColors?.length) return { ...productVariantsFormDefaultValues };
 
     const variant = product.productColors.find((v) => v.productPriceDetails[0].id === variantId);
     if (!variant) return productVariantsFormDefaultValues;
@@ -257,6 +254,7 @@ export const generateAddToSaleDTOFromProductVariant = (variant: IProductVariantD
                 sku: variant.productColor.productPriceDetails[0].sku ?? "",
                 stockLevel: variant.productColor.productPriceDetails[0].stockLevel ?? "IN_STOCK",
                 storage: variant.productColor.productPriceDetails[0].storage ?? "",
+                isPaused: variant.productColor.productPriceDetails[0].isPaused ?? false,
             },
         ],
     };
@@ -281,6 +279,7 @@ export const generateProductVariantDeleteDTOFromProduct = (
                     price: priceDetail.price,
                     quantity: priceDetail.quantity,
                     size: priceDetail.size ?? "",
+                    isPaused: priceDetail.isPaused ?? false,
                 },
             };
         }
@@ -290,12 +289,15 @@ export const generateProductVariantDeleteDTOFromProduct = (
 };
 
 // Return the leaf node (inner-most category/subCategory) in a product Draft
-export const getLeafCategoryName = (productDraft: IProduct): string => {
-    const categoriesObject = generateProductCategoryDTO(productDraft);
+export const getLeafCategoryName = (productCategoryDTO: IProductCategoryDTO): string => {
+    // const categoriesObject = generateProductCategoryDTO(productDraft);
+
+    // This reversal enables searching for leaf category by starting from fifthSubcategory,
+    // then upwards to category
     const categoriesKeysReversed = [...PRODUCT_CATEGORY_KEYS].reverse();
 
     for (const categorykey of categoriesKeysReversed) {
-        if (categoriesObject[categorykey]) return categoriesObject[categorykey];
+        if (productCategoryDTO[categorykey]) return productCategoryDTO[categorykey];
     }
 
     return "";

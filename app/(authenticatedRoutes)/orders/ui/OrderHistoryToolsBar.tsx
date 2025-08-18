@@ -9,12 +9,18 @@ const OrderHistoryToolsBar = ({
     showSort = true,
     showAction = true,
     actionText = "Download",
+    showSearchBarMobile = true,
+    showSearchBarDesktop = true,
+    dateFilterDisabled,
     className,
 }: {
     showSort?: boolean;
     showAction?: boolean;
     actionText?: string;
     className?: string;
+    showSearchBarMobile?: boolean;
+    showSearchBarDesktop?: boolean;
+    dateFilterDisabled?: boolean;
 }) => {
     return (
         <div
@@ -24,16 +30,18 @@ const OrderHistoryToolsBar = ({
             )}
         >
             {/* Search bar */}
-            <SearchBar placeholder="Search" className="lg:hidden" scroll={false} />
-            <SearchBar
-                placeholder="Search product by name or SKU"
-                className="hidden lg:block max-w-[350px]"
-                scroll={false}
-            />
+            {showSearchBarMobile && <SearchBar placeholder="Search" className="lg:hidden" scroll={false} />}
+            {showSearchBarDesktop && (
+                <SearchBar
+                    placeholder="Search product by name or SKU"
+                    className="hidden lg:block max-w-[350px]"
+                    scroll={false}
+                />
+            )}
 
-            <div className="flex-shrink-0 flex gap-3 justify-end">
+            <div className="flex-shrink-0 flex gap-3 justify-end lg:w-full">
                 {/* filter by date*/}
-                <DateRangePicker />
+                <DateRangePicker disabled={dateFilterDisabled} />
 
                 {/* Sort */}
                 {showSort && <SortButton alignDropDown={"end"} />}

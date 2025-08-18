@@ -1,8 +1,17 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { IWalletDTO } from "../../lib/interface";
+import { IWallet } from "../../lib/interface";
 import PaginationComponent from "@/components/shared/Pagination";
+import { format } from "date-fns";
 
-const WalletHistoryTable = ({ walletHistory }: { walletHistory: IWalletDTO[] }) => {
+const WalletHistoryTable = ({
+    walletHistory,
+    totalPages,
+    pageSize,
+}: {
+    totalPages: number;
+    pageSize: number;
+    walletHistory: IWallet[];
+}) => {
     return (
         <div className="overflow-auto">
             <Table className="w-[950px] lg:w-full lg:border lg:border-kaiglo_grey-200">
@@ -27,19 +36,17 @@ const WalletHistoryTable = ({ walletHistory }: { walletHistory: IWalletDTO[] }) 
                 </TableHeader>
 
                 <TableBody>
-                    {walletHistory.map((walletHistory: IWalletDTO, index: number) => {
-                        const { orderId, date, amount, status } = walletHistory;
+                    {walletHistory.map((walletHistory, index) => {
+                        const { orderNumber, inWalletDate, amount, status } = walletHistory;
                         return (
-                            <TableRow
-                                key={index}
-                                className="cursor-pointer"
-                                // onClick={() => handleShowOrderDetails(index)}
-                            >
+                            <TableRow key={index} className="cursor-pointer">
                                 <TableCell className="p-3 md:text-base max-w-[50px]">{index + 1}</TableCell>
-                                <TableCell className="p-3 text-sm text-center">{orderId}</TableCell>
-                                <TableCell className="p-3 text-sm md:text-base text-center">{date}</TableCell>
+                                <TableCell className="p-3 text-sm text-center">{orderNumber}</TableCell>
                                 <TableCell className="p-3 text-sm md:text-base text-center">
-                                    ₦{parseFloat(amount).toLocaleString()}
+                                    {format(inWalletDate, "dd MMM yyyy")}
+                                </TableCell>
+                                <TableCell className="p-3 text-sm md:text-base text-center">
+                                    ₦{amount.toLocaleString()}
                                 </TableCell>
                                 <TableCell className="p-3 text-center">
                                     <span className="py-1 px-2 bg-kaiglo_success-100 text-kaiglo_success-600 text-sm rounded-xl capitalize">
@@ -52,15 +59,7 @@ const WalletHistoryTable = ({ walletHistory }: { walletHistory: IWalletDTO[] }) 
                 </TableBody>
             </Table>
 
-            <PaginationComponent dataLength={walletHistory.length} />
-
-            {/* {showOrderDetails && isValidIndex && (
-                <OrderDetails
-                    showOrderDetail
-                    setShowOrderDetail={setShowOrderDetails}
-                    order={orders[orderIndex]}
-                />
-            )} */}
+            <PaginationComponent totalPages={totalPages} pageSize={pageSize} />
         </div>
     );
 };

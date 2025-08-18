@@ -1,20 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAddProductContext } from "../../../contexts/addProductContext";
+import { useRouter } from "next/navigation";
+import { IProduct } from "../../../lib/interfaces/interface";
 
-const ProductVariantsFormHeader = ({ showForm }: { showForm: boolean }) => {
-    const { productDraft } = useAddProductContext();
+const ProductVariantsFormHeader = ({
+    product,
+    productAction,
+    showForm,
+}: {
+    productAction: string;
+    product: IProduct;
+    showForm: boolean;
+}) => {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const productAction = searchParams.get("product-action");
 
-    if (!productDraft) return null;
     const addVarintURL =
         productAction === "edit"
-            ? `/products/add-product?step=product-variants&product-id=${productDraft.id}&action=add-variant&product-action=edit`
-            : `/products/add-product?step=product-variants&product-id=${productDraft.id}&action=add-variant`;
+            ? `/products/add-product?step=product-variants&product-id=${product.id}&action=add-variant&product-action=edit`
+            : `/products/add-product?step=product-variants&product-id=${product.id}&action=add-variant`;
 
     return (
         <div className="lg:w-full grid lg:flex lg:justify-between gap-4 p-4 lg:px-6 lg:pb-6">

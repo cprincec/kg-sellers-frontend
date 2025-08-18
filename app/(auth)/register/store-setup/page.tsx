@@ -11,15 +11,20 @@ import PaymentOptionFormWrapper from "../../ui/register/storeSetup/paymentOption
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { MotionConfig, motion } from "framer-motion";
+import useGetStoreInfo from "../../hooks/register/storeSetup/useGetStoreInfo";
+import Loader from "@/app/ui/Loader";
 
 const StoreSetup = () => {
     const router = useRouter();
-    const { onboardingData, currentStep, setCurrentStep } = useStoreSetupContext();
+    const { currentStep, setCurrentStep } = useStoreSetupContext();
+    const { storeInfo, isFetchingStoreInfo } = useGetStoreInfo();
 
     useEffect(() => {
         // If the user has completed the onboarding, redirect to the dashboard
-        if (onboardingData?.acceptTerms?.acceptTerms === true) return router.replace("/dashboard");
-    }, [onboardingData, router]);
+        if (storeInfo && storeInfo.termsAndCondition === true) router.replace("/dashboard");
+    }, [isFetchingStoreInfo, storeInfo, router]);
+
+    if (isFetchingStoreInfo) return <Loader />;
 
     return (
         <div>
@@ -41,13 +46,17 @@ const StoreSetup = () => {
 
             <div className="md:w-[60%] lg:w-[57%] md:ml-auto p-4 md:px-8 md:py-10 lg:p-10 mt-4 md:space-y-8">
                 {currentStep === 1 ? (
-                    <section>
+                    <motion.section
+                        initial={{ y: -70 }}
+                        animate={{ y: 0 }}
+                        transition={{ duration: 0.5, type: "spring" }}
+                    >
                         <h1>Name, Welcome to Kaiglo SellersHub!</h1>
                         <p className="mt-1">
                             Kaiglo is for the one who longs for an easier and convenient way to sell anything
                             at anytime. Kaiglo is for you.
                         </p>
-                    </section>
+                    </motion.section>
                 ) : (
                     <ArrowBackButton
                         type="button"
@@ -65,7 +74,7 @@ const StoreSetup = () => {
 
                 {/* forms */}
                 <MotionConfig transition={{ duration: 0.75, type: "spring" }}>
-                    <div className="">
+                    <div>
                         {currentStep === 1 && <StoreDetailsFormWrapper />}
                         {currentStep === 2 && <ProductsCategoriesFormWrapper />}
                         {currentStep === 3 && (

@@ -2,73 +2,49 @@
 
 import { cn } from "@/lib/utils/utils";
 import { FormEvent, useEffect, useState } from "react";
-import ProductVariantsFormFields from "./ProductVariantsFormFields";
 import {
-    IProductMeta,
-    IVariantField,
     ProductVariantFormErrors,
     ProductVariantFormInterface,
+    productVariantsFormProps,
 } from "../../../lib/interfaces/interface";
-import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import ProductVariantsTable from "./ProductVariantsTable";
-import {
-    productVariantFormErrorsDefaultValues,
-    productVariantsFormDefaultValues,
-} from "../../../lib/defaults";
-import { useAddProductContext } from "@/app/(authenticatedRoutes)/products/contexts/addProductContext";
+import { productVariantFormErrorsDefaultValues } from "../../../lib/defaults";
 import ProductsVariantsFormNavButtons from "./ProductsVariantsFormNavButtons";
 import { showErrorToast } from "@/app/lib/utils/utils";
 import useSaveProductVariant from "../../../hooks/addProduct/useSaveProductVariant";
 import {
     generateProductVariantDTOFromFormData,
     generateProductVariantEditDTOFromFormData,
-    generateProductVariantFormDefaults,
     validateProductVariantForm,
 } from "../../../lib/utils/addProduct.utils";
 import ProductVariantsFormHeader from "./ProductVariantsFormHeader";
 import useEditProductVariant from "../../../hooks/addProduct/useEditProductVariant";
-import useUpdateSearchParams from "@/hooks/useSetSearchParams";
+import ProductVariantsFormContent from "./ProductVariantsFormContent";
+import { AnimatePresence } from "framer-motion";
 
 const ProductVariantsForm = ({
+    product,
+    defaultValues,
+    productAction,
+    productId,
+    variantAction,
+    variantId,
     fields,
     productMeta,
     className,
-}: {
-    fields: IVariantField[];
-    productMeta: IProductMeta;
-    className?: string;
-}) => {
+}: productVariantsFormProps) => {
     const searchParams = useSearchParams();
     const action = searchParams.get("action");
-    const productAction = searchParams.get("product-action");
-    const variantId = searchParams.get("variant-id");
-    const variantAction = searchParams.get("variant-action");
-
-    // Hooks
-    const { deleteSearchParams } = useUpdateSearchParams();
-    const { productDraft } = useAddProductContext();
-    const { isSavingProductVariant, saveProductVariant } = useSaveProductVariant(productAction ?? "");
-    const { isEditingProductVariant, editProductVariant } = useEditProductVariant(productAction ?? "");
-
-    // States
-    const [formData, setFormData] = useState<ProductVariantFormInterface>(productVariantsFormDefaultValues);
-    // Required fields for product variant
+    const showForm = action === "add-variant" || variantAction === "edit";
+    const { isSavingProductVariant, saveProductVariant } = useSaveProductVariant();
+    const { isEditingProductVariant, editProductVariant } = useEditProductVariant();
+    const [formData, setFormData] = useState<ProductVariantFormInterface>(defaultValues);
     const [formErrors, setFormErrors] = useState<ProductVariantFormErrors>(
         productVariantFormErrorsDefaultValues
     );
-    const [showForm, setShowForm] = useState<boolean>(action === "add-variant" || false);
-
-    const findFieldIndex = (key: string) =>
-        formData.attributes.findIndex((a) => a.key.toLowerCase() === key.toLowerCase());
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-
-        if (!productDraft) {
-            showErrorToast({ title: "Invalid product id", description: "Please refresh the page" });
-            return;
-        }
 
         // The error state is updated here for display on the ui
         const formIsValid = validateProductVariantForm(formData, setFormErrors);
@@ -76,6 +52,12 @@ const ProductVariantsForm = ({
 
         //Reset form
         setFormErrors(productVariantFormErrorsDefaultValues);
+
+        // Url to navigate to after saving or editing a variant
+        const redirectUrl =
+            productAction === "edit"
+                ? `/products/add-product?step=product-variants&product-id=${productId}&product-action=edit`
+                : `/products/add-product?step=product-variants&product-id=${productId}`;
 
         // Handle editing of product variant
         if (variantAction === "edit") {
@@ -85,85 +67,52 @@ const ProductVariantsForm = ({
             }
 
             const updatedVariant = generateProductVariantEditDTOFromFormData(
-                productDraft.id,
+                productId,
                 variantId,
                 formData,
                 productMeta
             );
 
-            if (updatedVariant) editProductVariant(updatedVariant);
+            if (updatedVariant) editProductVariant({ payload: updatedVariant, redirectUrl });
             return;
         }
 
         // Handle creation of new variant
-        const newVariant = generateProductVariantDTOFromFormData(productDraft.id, formData, productMeta);
-        if (newVariant) saveProductVariant(newVariant);
+        const newVariant = generateProductVariantDTOFromFormData(productId, formData, productMeta);
+        if (newVariant) saveProductVariant({ payload: newVariant, redirectUrl });
     };
 
     useEffect(() => {
-        setShowForm(action === "add-variant" || variantAction === "edit");
-
-        if (!variantId) {
-            setFormData(productVariantsFormDefaultValues);
-            return;
-        }
-
-        // Initialize edit variant form with default values
-        if (variantId && productDraft) {
-            const defaultFormData = generateProductVariantFormDefaults(productDraft, variantId);
-            setFormData(defaultFormData);
-        }
-    }, [action, variantId, productDraft, searchParams]);
-
-    if (!productDraft) return <div>Product not found. Please refresh the page</div>;
+        setFormData(defaultValues);
+    }, [action, variantId]);
 
     return (
         <div className={cn("grid gap-6 overflow-hidden", className)}>
-            <ProductVariantsFormHeader showForm={showForm} />
+            <ProductVariantsFormHeader product={product} productAction={productAction} showForm={showForm} />
 
             {/* Product variant form  */}
-            {showForm && (
-                <form className="grid gap-5 p-4 lg:px-6 lg:pb-6 lg:border-b" onSubmit={handleSubmit}>
-                    <ProductVariantsFormFields
-                        findFieldIndex={findFieldIndex}
-                        productMeta={productMeta}
+            <AnimatePresence mode="wait">
+                {showForm && (
+                    <ProductVariantsFormContent
+                        product={product}
                         formData={formData}
-                        setFormData={setFormData}
-                        fields={fields}
                         formErrors={formErrors}
-                        product={productDraft}
+                        fields={fields}
+                        setFormData={setFormData}
+                        isEditingProductVariant={isEditingProductVariant}
+                        isSavingProductVariant={isSavingProductVariant}
+                        variantId={variantId ?? ""}
+                        productMeta={productMeta}
+                        handleSubmit={handleSubmit}
                     />
+                )}
+            </AnimatePresence>
 
-                    <div className="flex justify-self-end gap-4">
-                        <Button
-                            type="button"
-                            variant={"outline"}
-                            className="text-sm p-3 min-w-[100px] rounded-lg"
-                            disabled={isSavingProductVariant}
-                            onClick={() => deleteSearchParams(["action", "variant-id", "variant-action"])}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant={"secondary"}
-                            className="text-sm text-kaiglo_success-base p-3 bg-kaiglo_success-100 rounded-lg"
-                            disabled={isSavingProductVariant}
-                        >
-                            {isSavingProductVariant || isEditingProductVariant
-                                ? "Please wait..."
-                                : variantId
-                                ? "Edit variant"
-                                : "Add variant"}
-                        </Button>
-                    </div>
-                </form>
-            )}
-
+            {/* Product variants table */}
             <ProductVariantsTable className="p-4 lg:px-6" />
 
             {/* Navigation buttons */}
-            <ProductsVariantsFormNavButtons />
+            <ProductsVariantsFormNavButtons product={product} productAction={productAction} />
         </div>
     );
 };

@@ -16,7 +16,7 @@ const useGetAllOrders = () => {
     const searchParams = useSearchParams();
     const page = Number(searchParams.get("page")) || 1;
 
-    const { isLoading, data, error } = useQuery({
+    const { isLoading, data, error, isRefetching, refetch } = useQuery({
         queryKey: ["orders"],
         queryFn: () =>
             getRequest<IGetAllOrdersResponse>({
@@ -29,7 +29,13 @@ const useGetAllOrders = () => {
         staleTime: 1000 * 60 * 5,
     });
 
-    return { orders: data, isFetchingOrders: isLoading, errorFetchingOrders: error };
+    return {
+        orders: data,
+        isFetchingOrders: isLoading,
+        errorFetchingOrders: error,
+        isRefetchingOrders: isRefetching,
+        refetchOrders: refetch,
+    };
 };
 
 export default useGetAllOrders;

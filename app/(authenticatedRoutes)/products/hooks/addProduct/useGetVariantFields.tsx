@@ -4,24 +4,25 @@ import { getRequest } from "@/lib/utils/apiCaller";
 import { useQuery } from "@tanstack/react-query";
 import { IGetVariantFieldsResponse } from "../../lib/interfaces/response.interface";
 import { useEffect, useState } from "react";
-import { useAddProductContext } from "../../contexts/addProductContext";
 import useGetProductsCategories from "./useGetProductsCategories";
 import { generateProductCategoryDTO, getLeafSubCategoryFromDTO } from "../../lib/utils/addProduct.utils";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { showErrorToast } from "@/app/lib/utils/utils";
+import useGetRawProduct from "./useGetRawProduct";
 
 /**
  * Custom hook to fetch all form fields for a product's variant based on selected category input tag
  */
 const useGetVariantFields = () => {
-    const { productDraft } = useAddProductContext();
-    const { productsCategories } = useGetProductsCategories();
     const router = useRouter();
+    const productId = useSearchParams().get("product-id");
+    const { productRaw } = useGetRawProduct(productId ?? "");
+    const { productsCategories } = useGetProductsCategories();
     const [inputTag, setInputTag] = useState<string>("");
 
     useEffect(() => {
-        if (productDraft && productsCategories) {
-            const categoriesObj = generateProductCategoryDTO(productDraft);
+        if (productRaw && productsCategories) {
+            const categoriesObj = generateProductCategoryDTO(productRaw);
             const categoryInputTag =
                 getLeafSubCategoryFromDTO(categoriesObj, productsCategories)?.inputTag ?? "";
 
@@ -31,10 +32,10 @@ const useGetVariantFields = () => {
                     title: "No variant fields found for the selected product category",
                     description: "Please select another category",
                 });
-                router.replace(`/products/add-product?step=product-category&product-id=${productDraft?.id}`);
+                router.replace(`/products/add-product?step=product-category&product-id=${productRaw.id}`);
             }
         }
-    }, [productDraft, productsCategories]);
+    }, [productRaw, productsCategories]);
 
     const { isLoading, data } = useQuery({
         queryKey: ["variantFields", inputTag],
@@ -42,7 +43,7 @@ const useGetVariantFields = () => {
             getRequest<IGetVariantFieldsResponse>({
                 url: `/detail-option/${inputTag}`,
             }),
-        enabled: !!inputTag,
+        enabled: !!inputTag && !!productId,
         throwOnError: true,
         staleTime: 1000 * 60 * 60,
     });

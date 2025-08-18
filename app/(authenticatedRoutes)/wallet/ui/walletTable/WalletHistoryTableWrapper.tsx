@@ -2,38 +2,41 @@
 
 import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import WalletHistoryTable from "./WalletHistoryTable";
-import { useSearchParams } from "next/navigation";
-import { walletList } from "../../lib/data";
-import { RESULTS_PER_PAGE } from "@/lib/consts";
+import useGetWalletData from "../../hooks/useGetWalletData";
+import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
+import { TableError } from "@/app/ui/errors";
 
 /******************************************************************************
  * This component fetches wallet history
  * Filters the history data as needed and renders the wallet history table
  ******************************************************************************/
 const WalletHistoryTableWrapper = () => {
-    const searchParams = useSearchParams();
-    // const tab = searchParams.get("tab");
+    const {
+        walletData,
+        isFetchingWalletData,
+        errorFetchingWalletData,
+        refetchWalletData,
+        isRefetchingWalletData,
+    } = useGetWalletData();
 
-    // Get page number from Url
-    const pageParam = searchParams.get("page");
-    const page = pageParam !== null ? parseInt(pageParam) : 1;
-    const walletHistory = walletList ?? [];
+    // Data is yet to start fetching
+    // const isUndefined = walletData === undefined;
+    if (isFetchingWalletData || isRefetchingWalletData) return <TableSkeleton />;
 
-    let paginatedWalletHistory;
+    if (errorFetchingWalletData || walletData === null)
+        return (
+            <TableError title="There was an error fetching wallet data." retryFunction={refetchWalletData} />
+        );
 
-    if (walletHistory.length <= RESULTS_PER_PAGE) {
-        paginatedWalletHistory = walletHistory;
-    } else {
-        // Select 10 wallet history data
-        const start = (page - 1) * RESULTS_PER_PAGE;
-        const end = start + RESULTS_PER_PAGE;
-        paginatedWalletHistory = walletHistory.slice(start, end);
-    }
-
-    return walletHistory?.length ? (
-        <WalletHistoryTable walletHistory={paginatedWalletHistory} />
+    return walletData?.content.length ? (
+        <WalletHistoryTable
+            walletHistory={walletData.content}
+            totalPages={walletData.totalPages}
+            pageSize={walletData.pageable.pageSize}
+        />
     ) : (
-        <NoResultsIcon title={"No results"} />
+        <NoResultsIcon title={"No wallet data"} />
     );
 };
+
 export default WalletHistoryTableWrapper;

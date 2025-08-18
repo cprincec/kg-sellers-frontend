@@ -1,26 +1,27 @@
 "use client";
 
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAddProductContext } from "../../../contexts/addProductContext";
+import { useRouter } from "next/navigation";
+import { IProduct } from "../../../lib/interfaces/interface";
 
-const ProductsVariantsFormNavButtons = () => {
+const ProductsVariantsFormNavButtons = ({
+    product,
+    productAction,
+}: {
+    product: IProduct;
+    productAction: string;
+}) => {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const productAction = searchParams.get("product-action");
-    const { productDraft } = useAddProductContext();
-
-    if (!productDraft) return null;
 
     const nextStep =
         productAction === "edit"
-            ? `/products/add-product/preview?product-id=${productDraft.id}&product-action=edit`
-            : `/products/add-product/preview?product-id=${productDraft.id}`;
+            ? `/products/add-product/preview?product-id=${product.id}&product-action=edit`
+            : `/products/add-product/preview?product-id=${product.id}`;
 
     const prevStep =
         productAction === "edit"
-            ? `/products/add-product?step=product-details&product-id=${productDraft.id}&product-action=edit`
-            : `/products/add-product?step=product-details&product-id=${productDraft.id}`;
+            ? `/products/add-product?step=product-details&product-id=${product.id}&product-action=edit`
+            : `/products/add-product?step=product-details&product-id=${product.id}`;
 
     return (
         <div className="p-4">

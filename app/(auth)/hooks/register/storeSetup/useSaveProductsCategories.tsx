@@ -12,7 +12,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
  */
 
 const useSaveProductsCategories = () => {
-    const { setCurrentStep, setOnboardingData } = useStoreSetupContext();
+    const { setCurrentStep } = useStoreSetupContext();
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
@@ -21,14 +21,13 @@ const useSaveProductsCategories = () => {
                 url: `/onboarding/product-information/add`,
                 payload,
             }),
-        onSuccess: (data, variables) => {
+        onSuccess: (data) => {
             if (data.message?.toLowerCase() !== "success" || !data.response) {
                 showErrorToast({ title: data.message, description: "Something went wrong" });
                 return;
             }
 
             queryClient.invalidateQueries({ queryKey: ["store-info"] });
-            setOnboardingData((prev) => ({ ...prev, productsCategories: variables }));
             setCurrentStep((prev) => prev + 1);
         },
         onError(error) {

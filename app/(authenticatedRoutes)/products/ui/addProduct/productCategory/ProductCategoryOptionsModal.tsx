@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils/utils";
 import { ChevronLeft } from "lucide-react";
 import {
     IProductCategory,
-    IProductCategoryOptionsModalProps,
     IProductSubCategory,
+    ProductCategoryOptionsModalProps,
 } from "../../../lib/interfaces/interface";
 import { PRODUCT_CATEGORY_KEYS } from "../../../lib/constants";
 import { useRef, useState } from "react";
@@ -13,9 +13,8 @@ import { useRef, useState } from "react";
 const ProductCategoryOptionsModal = ({
     categories,
     setShowModal,
-    setCategoryFieldValue,
     setValue,
-}: IProductCategoryOptionsModalProps) => {
+}: ProductCategoryOptionsModalProps) => {
     const [path, setPath] = useState<(IProductCategory | IProductSubCategory)[]>([]);
     const currentDepth = useRef(0);
     // Compute current level dynamically from the path
@@ -33,7 +32,6 @@ const ProductCategoryOptionsModal = ({
             if (isSiblingNode) updatedPath = [...path.splice(0, currentDepth.current), option];
 
             // Display the clicked category name in the form field
-            setCategoryFieldValue(option.name);
             setShowModal(false);
 
             // Update all category field values

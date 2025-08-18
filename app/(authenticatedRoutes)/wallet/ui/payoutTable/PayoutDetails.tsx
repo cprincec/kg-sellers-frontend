@@ -7,9 +7,18 @@ import Image from "next/image";
 import { IconPrint } from "@/public/icons/icons";
 import { getPayoutStatusStyle } from "../../lib/utils/utils";
 import { cn } from "@/lib/utils/utils";
+import { format } from "date-fns";
 
 const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
-    const { reference, amount, channel, bank, name, accountNumber, date, status, purpose } = payout;
+    const {
+        reference,
+        amount,
+        channel,
+        accountDetails: { bankName, accountName, accountNumber },
+        date,
+        status,
+        purpose,
+    } = payout;
 
     return (
         <DialogContent
@@ -23,30 +32,28 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
             </DialogHeader>
             <div className="grid gap-4 lg:gap-6 mb-6 overflow-y-auto">
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
-                    <span className="">Amount</span>
-                    <span className="font-bold text-kaiglo_grey-900">
-                        ₦{parseFloat(amount).toLocaleString()}
-                    </span>
+                    <span>Amount</span>
+                    <span className="font-bold text-kaiglo_grey-900">₦{amount.toLocaleString()}</span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
-                    <span className="">Channel</span>
+                    <span>Channel</span>
                     <span className="flex gap-2 font-bold text-kaiglo_grey-900">
-                        {channel}
+                        Channel
                         <span className="font-medium text-xs px-2 py-1 rounded-full border border-kaiglo_grey-placeholder">
-                            Paystack
+                            {channel}
                         </span>
                     </span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
                     <span className="">Bank</span>
-                    <span className="font-bold text-kaiglo_grey-900 capitalize">{bank}</span>
+                    <span className="font-bold text-kaiglo_grey-900 capitalize">{bankName}</span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
                     <span className="">Name</span>
-                    <span className="font-bold text-kaiglo_grey-900 capitalize">{name}</span>
+                    <span className="font-bold text-kaiglo_grey-900 capitalize">{accountName}</span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
@@ -56,7 +63,9 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
                     <span className="">Date</span>
-                    <span className="font-bold text-kaiglo_grey-900 capitalize">{date}</span>
+                    <span className="font-bold text-kaiglo_grey-900 capitalize">
+                        {format(date, "MMM dd, yyyy - hh:mm a")}
+                    </span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
@@ -66,7 +75,7 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
 
                 <div className="flex justify-between gap-3 items-center text-sm md:text-base text-kaiglo_grey-base">
                     <span className="">Reference</span>
-                    <span className="font-bold text-kaiglo_grey-900 capitalize">PS_Android_{reference}</span>
+                    <span className="font-bold text-kaiglo_grey-900 capitalize">{reference}</span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm md:text-base text-kaiglo_grey-base">
@@ -78,6 +87,7 @@ const PayoutDetails = ({ payout }: PayoutDetailsProps) => {
             <Button
                 variant={"outline"}
                 className="flex gap-1 px-2 py-1 m-auto text-sm text-kaiglo_grey-900 rounded-lg"
+                disabled
             >
                 <Image src={IconPrint} alt="print icon" width={20} height={20} />
                 Print PDF

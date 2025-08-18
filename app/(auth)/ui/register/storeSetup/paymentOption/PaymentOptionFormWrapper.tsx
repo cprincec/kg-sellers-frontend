@@ -1,10 +1,11 @@
 "use client";
 
-import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import Loader from "@/app/ui/Loader";
 import { PaymentOptionForm } from "./PaymentOptionForm";
 import useGetAllBanks from "@/app/(auth)/hooks/register/storeSetup/useGetAllBanks";
-import { showErrorToast } from "@/app/lib/utils/utils";
+import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
+import { paymentOptionDefaultValues } from "@/app/(auth)/lib/validations/defaults";
+import { generatePaymentOptionDTO } from "@/app/(auth)/lib/utils/utils";
 
 const PaymentOptionFormWrapper = ({
     variant,
@@ -17,18 +18,16 @@ const PaymentOptionFormWrapper = ({
     cancelButtonText?: string;
     showNote?: boolean;
 }) => {
-    const { onboardingData } = useStoreSetupContext();
     const { banks, isFetchingBanks } = useGetAllBanks();
+    const { storeInfo, isFetchingStoreInfo } = useGetStoreInfo();
 
-    if (isFetchingBanks) return <Loader />;
-    if (!banks) showErrorToast({ title: "Error fetching banks", description: "Please refresh the page" });
-    if (!onboardingData?.paymentOption || !banks) return null;
-    if (!banks) showErrorToast({ title: "Error fetching banks", description: "Please refresh the page" });
+    if (isFetchingStoreInfo || isFetchingBanks) return <Loader />;
 
+    const defaultValues = storeInfo ? generatePaymentOptionDTO(storeInfo) : paymentOptionDefaultValues;
     return (
         <PaymentOptionForm
-            banks={banks}
-            defaultValues={onboardingData.paymentOption}
+            banks={banks ?? []}
+            defaultValues={defaultValues}
             variant={variant}
             showNote={showNote}
             cancelButtonText={cancelButtonText}

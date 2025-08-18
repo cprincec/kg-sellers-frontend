@@ -8,13 +8,11 @@ import StoreDetailsFormFields from "./StoreDetailsFomFields";
 import { useRouter } from "next/navigation";
 import useSaveStoreDetails from "@/app/(auth)/hooks/register/storeSetup/useSaveStoreDetails";
 import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
-import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
 import { motion } from "framer-motion";
 
 const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }) => {
     const router = useRouter();
     const { saveStoreDetails, isSavingStoreDetails } = useSaveStoreDetails();
-    const { setOnboardingData } = useStoreSetupContext();
 
     const {
         control,
@@ -27,7 +25,6 @@ const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }
 
     const onSubmit = (values: IStoreDetailsDTO) => {
         saveStoreDetails(values);
-        setOnboardingData((prev) => ({ ...prev, storeDetails: values }));
     };
 
     if (!defaultValues) throw new Error("Something went wrong");

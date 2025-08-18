@@ -13,7 +13,7 @@ import { handleDateChange } from "../lib/utils/datePicker.utils";
 import { useState } from "react";
 import clsx from "clsx";
 
-const DateRangePicker = ({ className }: { className?: string }) => {
+const DateRangePicker = ({ disabled, className }: { disabled?: boolean; className?: string }) => {
     const [date, setDate] = useState<DateRange | undefined>(undefined);
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const router = useRouter();
@@ -22,7 +22,7 @@ const DateRangePicker = ({ className }: { className?: string }) => {
     return (
         <div className={className}>
             <Popover open={showDropDown} onOpenChange={setShowDropDown}>
-                <PopoverTrigger asChild>
+                <PopoverTrigger asChild disabled={disabled}>
                     <Button
                         type="button"
                         id="date"

@@ -7,20 +7,20 @@ export const middleware = async (req: NextRequest) => {
     // User should only be redirectd to login if user is not signed in or
     // user is not already on any of these public routes
     const publicRoutes = ["/login", "/register", "/recover-account"];
-    const isPublicRoute = publicRoutes.includes(req.nextUrl.pathname);
+    const isRequestingPublicRoute = publicRoutes.includes(req.nextUrl.pathname);
 
     // Check if user is authenticated
-    const isAuth = !!token;
+    const isAuthenticated = !!token;
 
     // Redirect to dashboard if user is trying to visit login or recover account or register pages
     // when already signed in
-    if (isAuth && isPublicRoute) {
+    if (isAuthenticated && isRequestingPublicRoute) {
         return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
     // redirect user to login if user if not authenticated
     // attach the attempted route as callback url
-    if (!isAuth && !isPublicRoute) {
+    if (!isAuthenticated && !isRequestingPublicRoute) {
         const loginUrl = new URL("/login", req.url);
         loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname);
         return NextResponse.redirect(loginUrl);

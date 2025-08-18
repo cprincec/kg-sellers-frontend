@@ -1,90 +1,44 @@
-"use client";
+// "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { IAddProductContext, IProduct } from "@/app/(authenticatedRoutes)/products/lib/interfaces/interface";
-import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
-import Loader from "@/app/ui/Loader";
-import useGetRawProduct from "../hooks/addProduct/useGetRawProduct";
-import { useRouter, useSearchParams } from "next/navigation";
-import useGetProductDescription from "../hooks/addProduct/useGetProductDescription";
+// import React, { createContext, useContext, useEffect, useState } from "react";
+// import { IAddProductContext } from "@/app/(authenticatedRoutes)/products/lib/interfaces/interface";
+// import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
+// import Loader from "@/app/ui/Loader";
 
-// Create context
-const AddProductContext = createContext<IAddProductContext | undefined>(undefined);
+// // Create context
+// const AddProductContext = createContext<IAddProductContext | undefined>(undefined);
 
-// create context provider
-const AddProductContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const productId = searchParams.get("product-id") ?? "";
+// // create context provider
+// const AddProductContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+//     // API responses
+//     // const { storeInfo, isFetchingStoreInfo } = useGetStoreInfo();
 
-    // API responses
-    const { storeInfo, isFetchingStoreInfo } = useGetStoreInfo();
-    const { productRaw, isFetchingProductRaw } = useGetRawProduct(productId ?? "");
-    const { productDescription, isFetchingProductDescription } = useGetProductDescription(productId);
+//     // Handle loading state
+//     if (isFetchingStoreInfo) return <Loader />;
 
-    // Data states
-    const [productDraft, setProductDraft] = useState<IProduct | null>(null);
-    const [productDraftDescription, setProductDraftDescription] = useState<string>("");
-    const [storeId, setStoreId] = useState("");
+//     // No store means user does not own a store, so, cannot create a product
+//     if (storeInfo === undefined || storeInfo === null) return null;
 
-    // Set store id which assiociates product created to a store
-    useEffect(() => {
-        if (storeInfo) setStoreId(storeInfo.id);
-    }, [storeInfo]);
+//     return (
+//         <AddProductContext.Provider
+//             value={
+//                 {
+//                     // storeId,
+//                 }
+//             }
+//         >
+//             {children}
+//         </AddProductContext.Provider>
+//     );
+// };
 
-    // Reset forms
-    useEffect(() => {
-        if (!productId) {
-            setProductDraft(null);
-            setProductDraftDescription("");
-        }
-    }, [productId]);
+// const useAddProductContext = (): IAddProductContext => {
+//     const context = useContext(AddProductContext);
+//     if (!context) {
+//         throw new Error("useAddProductContext must be used within an AddProductContextProvider");
+//     }
 
-    // Initialize product draft and description
-    useEffect(() => {
-        if (productRaw) setProductDraft(productRaw);
-        if (productDescription) setProductDraftDescription(productDescription);
-    }, [productRaw, productId, productDescription]);
+//     return context;
+// };
 
-    useEffect(() => {
-        if (storeInfo === null) {
-            router.push("/create-store");
-        }
-    }, [storeInfo, router]);
-
-    // Handle loading state
-    if (
-        isFetchingStoreInfo ||
-        (productId && isFetchingProductRaw) ||
-        (productId && isFetchingProductDescription)
-    )
-        return <Loader />;
-
-    // No store means user does not own a store, so, cannot create a product
-    if (storeInfo === undefined || storeInfo === null) return null;
-
-    return (
-        <AddProductContext.Provider
-            value={{
-                storeId,
-                productDraft,
-                setProductDraft,
-                productDraftDescription,
-                setProductDraftDescription,
-            }}
-        >
-            {children}
-        </AddProductContext.Provider>
-    );
-};
-
-const useAddProductContext = (): IAddProductContext => {
-    const context = useContext(AddProductContext);
-    if (!context) {
-        throw new Error("useAddProductContext must be used within an AddProductContextProvider");
-    }
-
-    return context;
-};
-
-export { AddProductContextProvider, useAddProductContext };
+// export { AddProductContextProvider, useAddProductContext };

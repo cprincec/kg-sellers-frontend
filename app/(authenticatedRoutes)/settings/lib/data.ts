@@ -1,7 +1,7 @@
-import StoreDetailsForm from "../../../(auth)/ui/register/storeSetup/storeDetails2/StoreDetailsForm";
 import StoreVacationForm from "../ui/StoreVacation";
 import TermsOfContractForm from "../../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
 import PaymentOptionFormWrapper from "@/app/(auth)/ui/register/storeSetup/paymentOption/PaymentOptionFormWrapper";
+import StoreDetailsFormWrapper from "../ui/storeDetails2/StoreDetailsFormWrapper";
 
 export const tabs = [
     { label: "Store information", value: "store-information" },
@@ -13,7 +13,7 @@ export const tabs = [
 export const settingsMobileContents = [
     {
         id: "store-information",
-        component: StoreDetailsForm,
+        component: StoreDetailsFormWrapper,
     },
     {
         id: "store-vacation",

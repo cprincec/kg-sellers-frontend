@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IProductDetailsDTO } from "../../lib/interfaces/interface";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { IProductResponse } from "../../lib/interfaces/response.interface";
-import { useAddProductContext } from "../../contexts/addProductContext";
 import { startTransition } from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +14,6 @@ import { useRouter } from "next/navigation";
 
 const useEditProductDetails = () => {
     const router = useRouter();
-    const { setProductDraft } = useAddProductContext();
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
@@ -32,11 +30,10 @@ const useEditProductDetails = () => {
             }
 
             // Instantly update cache
-            queryClient.refetchQueries({ queryKey: ["product-raw"], exact: false });
+            queryClient.setQueryData(["product-raw", data.response.id], data);
             queryClient.refetchQueries({ queryKey: ["product-description"], exact: false });
             queryClient.invalidateQueries({ queryKey: ["products"], exact: false });
 
-            setProductDraft(data.response);
             startTransition(() =>
                 router.replace(
                     `/products/add-product?step=product-variants&product-id=${data.response.id}&product-action=edit`

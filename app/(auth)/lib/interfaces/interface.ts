@@ -192,12 +192,6 @@ export interface IStoreDetailsDTO {
 export interface IStoreSetupContext {
     currentStep: number;
     setCurrentStep: Dispatch<SetStateAction<number>>;
-    onboardingData: IOnboardingData | null;
-    setOnboardingData: Dispatch<SetStateAction<IOnboardingData | null>>;
-    navigateToPreviousStep?: () => void;
-    navigateToNextStep?: ({ trigger }: navigateTpNextStepProps) => void;
-    navigateToSpecificStep?: (step: number) => void;
-    // saveStoreSetup: (data: any) => void;
 }
 
 export interface IOnboardingData {

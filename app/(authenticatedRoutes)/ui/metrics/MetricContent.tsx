@@ -20,7 +20,7 @@ const MetricContent = ({
     actionClassName,
     comparism,
 }: MetricProps) => {
-    const [showData, setShowData] = useState(!canHideData);
+    const [showData, setShowData] = useState(canHideData);
 
     return (
         <section
