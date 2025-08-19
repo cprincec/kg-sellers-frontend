@@ -18,7 +18,7 @@ import useGetAccountSummary from "../hooks/useGetAccountSummary";
 import { format } from "date-fns";
 import { generateAccountSummaryData } from "../lib/utils/utils";
 import { AccountSummarySkeleton } from "./skeletons";
-import { Button } from "@/components/ui/button";
+import { SectionError } from "@/app/ui/errors";
 
 const AccountSummary = ({ className }: { className?: string }) => {
     const searchParams = useSearchParams();
@@ -68,14 +68,7 @@ const AccountSummary = ({ className }: { className?: string }) => {
 
     if (isFetchingAccountSummary || isRefetchingAccountSummary) return <AccountSummarySkeleton />;
     if (errorFetchingAccountSummary)
-        return (
-            <div className="flex gap-2 p-3 items-center">
-                <p>Error fetching account summary.</p>
-                <Button onClick={() => refetchAccountSummary()} variant="critical_solid">
-                    Try again
-                </Button>
-            </div>
-        );
+        return <SectionError title="Error fetching account summary." retryFunction={refetchAccountSummary} />;
     if (!accountSummary) return null;
 
     const accountSummaryData = generateAccountSummaryData(accountSummary);

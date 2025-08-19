@@ -10,7 +10,7 @@ import { IStoreDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 
 const useGetStoreDetails = () => {
     const { isPending, data, error, refetch, isRefetching } = useQuery({
-        queryKey: ["store-details-default"],
+        queryKey: ["store-details"],
         queryFn: () =>
             getRequest<IStoreDetailsDTO>({
                 url: "/store-setting/store-detail",

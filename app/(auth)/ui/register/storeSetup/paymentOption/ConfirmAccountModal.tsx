@@ -2,7 +2,7 @@
 
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
+import { IBankDetailsDTO, IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { VerticalLineIcon } from "../stepper/stepper-icons";
 import { useModalContext } from "@/app/contexts/modalContext";
 
@@ -10,12 +10,14 @@ const ConfirmAccountModal = ({
     bankDetails,
     isSavingPaymentOption,
     savePaymentOption,
+    editPaymentOption,
 }: {
     bankDetails: IPaymentOptionDTO & {
         bankName: string;
     };
     isSavingPaymentOption: boolean;
-    savePaymentOption: (values: IPaymentOptionDTO) => void;
+    savePaymentOption?: (values: IPaymentOptionDTO) => void;
+    editPaymentOption?: (values: IBankDetailsDTO) => void;
 }) => {
     const { setShowModal } = useModalContext();
     const { beneficiaryName, bankName, accountNumber, bankId } = bankDetails;
@@ -59,7 +61,10 @@ const ConfirmAccountModal = ({
                 <Button
                     type="button"
                     className="p-3 rounded-full"
-                    onClick={() => savePaymentOption({ bankId, beneficiaryName, accountNumber })}
+                    onClick={() => {
+                        if (savePaymentOption) savePaymentOption({ bankId, beneficiaryName, accountNumber });
+                        if (editPaymentOption) editPaymentOption(bankDetails);
+                    }}
                     disabled={isSavingPaymentOption}
                 >
                     {isSavingPaymentOption ? "Please wait..." : "Continue"}

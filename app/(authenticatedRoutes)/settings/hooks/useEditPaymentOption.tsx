@@ -1,46 +1,36 @@
 "use client";
 
-import { useStoreSetupContext } from "@/app/(auth)/contexts/storeSetupContext";
-import { IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
-import { IGetStoreInfoResponse } from "@/app/(auth)/lib/interfaces/response.interface";
+import { IBankDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { useModalContext } from "@/app/contexts/modalContext";
-import { handleError, showErrorToast } from "@/app/lib/utils/utils";
+import { handleError, showSuccessToast } from "@/app/lib/utils/utils";
 import { postRequest } from "@/lib/utils/apiCaller";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 /**
- * Custom hook to save bank details of a store
+ * Custom hook to edit bank details of a store
  */
 
 const useEditPaymentOption = () => {
-    const { setCurrentStep } = useStoreSetupContext();
     const { setModalContent, setShowModal } = useModalContext();
-    const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: IPaymentOptionDTO) =>
-            postRequest<IPaymentOptionDTO, IGetStoreInfoResponse>({
-                url: `/onboarding/bank-information/add`,
+        mutationFn: (payload: IBankDetailsDTO) =>
+            postRequest<IBankDetailsDTO, IBankDetailsDTO>({
+                url: "/store-setting/edit-bank-detail",
                 payload,
             }),
 
-        onSuccess: (data) => {
-            if (data.message?.toLowerCase() !== "success" || !data.response) {
-                showErrorToast({ title: data.message, description: "Something went wrong" });
-                return;
-            }
-
-            queryClient.invalidateQueries({ queryKey: ["store-info"] });
-            setCurrentStep((prev) => prev + 1);
+        onSuccess: () => {
             setShowModal(false);
             setModalContent(null);
+            showSuccessToast({ title: "Payment information updated successfully" });
         },
         onError(error) {
-            handleError(error, "Error saving store bank details");
+            handleError(error, "Error editing store bank details");
         },
     });
 
-    return { isSavingPaymentOption: isPending, savePaymentOption: mutate };
+    return { isEditingPaymentOption: isPending, editPaymentOption: mutate };
 };
 
 export default useEditPaymentOption;

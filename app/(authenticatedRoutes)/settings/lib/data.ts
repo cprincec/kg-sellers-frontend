@@ -1,7 +1,8 @@
 import StoreVacationForm from "../ui/StoreVacation";
-import TermsOfContractForm from "../../../(auth)/ui/register/storeSetup/termsOfContract/TermsOfContractForm";
-import PaymentOptionFormWrapper from "@/app/(auth)/ui/register/storeSetup/paymentOption/PaymentOptionFormWrapper";
+import PaymentOptionFormWrapper from "../ui/paymentOption2/PaymentOptionFormWrapper";
 import StoreDetailsFormWrapper from "../ui/storeDetails2/StoreDetailsFormWrapper";
+import TermsOfContractForm from "../ui/termsOfContract2/TermsOfContractForm";
+import { ISettingsMobileContent } from "./interface";
 
 export const tabs = [
     { label: "Store information", value: "store-information" },
@@ -10,7 +11,7 @@ export const tabs = [
     { label: "Terms of Contract", value: "terms-of-contract" },
 ];
 
-export const settingsMobileContents = [
+export const settingsMobileContents: ISettingsMobileContent[] = [
     {
         id: "store-information",
         component: StoreDetailsFormWrapper,
@@ -22,11 +23,9 @@ export const settingsMobileContents = [
     {
         id: "payment-information",
         component: PaymentOptionFormWrapper,
-        props: { showNote: false, variant: "settings" },
     },
     {
         id: "terms-of-contract",
         component: TermsOfContractForm,
-        props: { showMainTitle: false },
     },
 ];
