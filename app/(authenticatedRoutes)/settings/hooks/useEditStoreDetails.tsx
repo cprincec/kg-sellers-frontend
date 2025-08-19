@@ -21,6 +21,7 @@ const useEditStoreDetails = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["store-details"] });
+            queryClient.invalidateQueries({ queryKey: ["store-info"] });
             showSuccessToast({ title: "Store information updated successfully" });
         },
         onError(error) {

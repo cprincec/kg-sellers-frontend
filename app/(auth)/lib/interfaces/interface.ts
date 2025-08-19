@@ -237,6 +237,13 @@ export interface IBankDetails {
     account_name: string;
 }
 
+export interface IBankDetailsDTO {
+    accountNumber: string;
+    bankId: string;
+    bankName: string;
+    beneficiaryName: string;
+}
+
 export interface IPaymentOptionDTO {
     accountNumber: string;
     bankId: string;
