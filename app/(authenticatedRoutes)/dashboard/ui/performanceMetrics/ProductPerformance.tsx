@@ -3,11 +3,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NoResultsIcon } from "../icons";
 import ProductPerformanceTable from "./ProductPerformanceTable";
-import { usePerformanceMetricsContext } from "../../contexts/performanceMetricsContext";
 import ProductPerformanceSkeleton from "@/app/ui/skeletons/dashboard/ProductPerformanceSkeleton";
+import { productsList } from "../../lib/data";
 
 const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
-    const { productPerformanceData, loading } = usePerformanceMetricsContext();
+    const productPerformanceData = productsList;
+    const loading = false;
 
     if (loading) return <ProductPerformanceSkeleton />;
 

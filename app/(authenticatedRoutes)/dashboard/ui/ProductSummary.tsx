@@ -3,28 +3,26 @@ import { Fragment } from "react";
 import { IconVerticalLine } from "@/public/icons/icons";
 import Image from "next/image";
 import Metric from "../../ui/metrics/Metric";
+import useGetProductSummary from "../hooks/useGetProductSummary";
+import { SectionError } from "@/app/ui/errors";
+import { generateproductSummaryData } from "../lib/utils";
+import { ProductSummarySkeleton } from "./skeletons";
 
 const ProductSummary = ({ className, showEmptyState }: { className?: string; showEmptyState: boolean }) => {
-    const productSummaryMock = [
-        {
-            title: "ACTIVE INVENTORY",
-            body: "100",
-            tip: "Processing sales are orders that have been placed by a user",
-        },
+    const {
+        productSummary,
+        isFetchingProductSummary,
+        errorFetchingProductSummary,
+        isRefetchingProductSummary,
+        refetchProductSummary,
+    } = useGetProductSummary();
 
-        {
-            title: "LOW INVENTORY",
-            body: "76",
-            tip: "Processing sales are orders that have been placed by a user",
-            variant: "warning",
-        },
-        {
-            title: "OUT OF STOCK",
-            body: "24",
-            tip: "Processing sales are orders that have been placed by a user",
-            variant: "error",
-        },
-    ];
+    if (isFetchingProductSummary || isRefetchingProductSummary) return <ProductSummarySkeleton />;
+    if (errorFetchingProductSummary)
+        return <SectionError title="Error fetching product summary" retryFunction={refetchProductSummary} />;
+
+    const productSummaryMock = productSummary ? generateproductSummaryData(productSummary) : [];
+
     return (
         <section
             className={clsx(

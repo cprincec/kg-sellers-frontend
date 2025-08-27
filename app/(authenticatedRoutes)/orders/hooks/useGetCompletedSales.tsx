@@ -12,7 +12,7 @@ import { ICompletedSales } from "../lib/interfaces/interface";
 const useGetCompletedSales = () => {
     const { storeInfo } = useGetStoreInfo();
 
-    const { isLoading, data, error } = useQuery({
+    const { isLoading, data, error, refetch, isRefetching } = useQuery({
         queryKey: ["completed-sales"],
         queryFn: () =>
             getRequest<ICompletedSales>({
@@ -22,7 +22,13 @@ const useGetCompletedSales = () => {
         throwOnError: true,
     });
 
-    return { completedSales: data, isFetchingCompletedSales: isLoading, errorFetchingCompletedSales: error };
+    return {
+        completedSales: data,
+        isFetchingCompletedSales: isLoading,
+        errorFetchingCompletedSales: error,
+        refetchCompletedSales: refetch,
+        isRefetchingCompletedSales: isRefetching,
+    };
 };
 
 export default useGetCompletedSales;

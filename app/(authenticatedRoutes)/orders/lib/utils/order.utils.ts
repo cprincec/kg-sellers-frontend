@@ -34,7 +34,7 @@ export const generateSalesSummaryData = (completedSales: ICompletedSales, proces
             tip: "Completed sales",
             comparism: {
                 value: `${completedSales.percentageChange}%`,
-                isPositive: completedSales.percentageChange >= 0,
+                isPositive: completedSales.trend === "UP" ? true : false,
                 date: "last week",
             },
             isCurrency: true,
