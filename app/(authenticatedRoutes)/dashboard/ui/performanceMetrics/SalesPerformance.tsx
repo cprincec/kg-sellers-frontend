@@ -1,17 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { NoResultsIcon } from "../icons";
-import { usePerformanceMetricsContext } from "../../contexts/performanceMetricsContext";
 import SalesPerformanceChart from "./chart/SalesPerformanceChart";
 import SalesPerformanceSkeleton from "@/app/ui/skeletons/dashboard/SalesPerformanceSkeleton";
+import useGetSalesPerformance from "../../hooks/useGetSalesPerformance";
+import { TableError } from "@/app/ui/errors";
 
 const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
     const {
-        loading,
-        salesPerformance: { introData, chartData },
-    } = usePerformanceMetricsContext();
+        salesPerformance,
+        isFetchingSalesPerformance,
+        errorFetchingSalesPerformance,
+        isRefetchingSalesPerformance,
+        refetchSalesPerformance,
+    } = useGetSalesPerformance();
 
-    if (loading) return <SalesPerformanceSkeleton />;
+    if (isFetchingSalesPerformance || isRefetchingSalesPerformance) return <SalesPerformanceSkeleton />;
+    if (errorFetchingSalesPerformance)
+        return (
+            <TableError
+                title="Error fetching Sales performance data"
+                retryFunction={refetchSalesPerformance}
+            />
+        );
 
     return (
         <div className="relative grid rounded-xl border border-kaiglo_grey-200 p-3">
@@ -22,19 +33,24 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
                     </h3>
                     {!showEmptyState ? (
                         <div className="grid gap-1">
-                            <p className="text-2xl text-kaiglo_grey-900 font-medium">{introData?.amount}</p>
+                            {salesPerformance && (
+                                <p className="text-2xl text-kaiglo_grey-900 font-medium">
+                                    ₦{salesPerformance.currentWeek.totalSales.toLocaleString()}
+                                </p>
+                            )}
 
                             <p className="flex items-center gap-1 text-sm text-kaiglo_grey-700 font-medium">
-                                {introData?.isPositive ? (
+                                {salesPerformance?.trend === "UP" ? (
                                     <span className="flex items-center gap-0.5 text-kaiglo_success-light">
-                                        <ArrowUp className="w-4 h-4" /> {introData?.percentage}
+                                        <ArrowUp className="w-4 h-4" /> {salesPerformance?.percentageChange}%
                                     </span>
                                 ) : (
                                     <span className="flex items-center gap-0.5 text-kaiglo_critical-error">
-                                        <ArrowDown className="w-4 h-4" /> {introData?.percentage}
+                                        <ArrowDown className="w-4 h-4" /> {salesPerformance?.percentageChange}
+                                        %
                                     </span>
                                 )}
-                                <span>from {introData?.date}</span>
+                                <span>from last week</span>
                             </p>
                         </div>
                     ) : (
@@ -44,7 +60,7 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
 
                 {/* View Report Button */}
                 {!showEmptyState && (
-                    <Button type="button" className="">
+                    <Button type="button" disabled>
                         View report
                     </Button>
                 )}
@@ -52,7 +68,9 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
 
             {/* Bar Chart */}
             {!showEmptyState ? (
-                <SalesPerformanceChart data={chartData} className="mt-6 md:mt-10 lg:-mt-5" />
+                salesPerformance && (
+                    <SalesPerformanceChart data={salesPerformance} className="mt-6 md:mt-10 lg:-mt-5" />
+                )
             ) : (
                 <NoResultsIcon
                     className="grid items-center justify-center -mt-8 py-6"
@@ -63,4 +81,5 @@ const SalesPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => {
         </div>
     );
 };
+
 export default SalesPerformance;

@@ -32,7 +32,7 @@ export const PaymentOptionForm = ({
 
     const onSubmit = (values: IPaymentOptionDTO) => {
         const bankName = banks.find((bank) => bank.id === values.bankId)?.name;
-        console.log(values, bankName);
+
         if (!bankName) {
             showErrorToast({ title: "Invalid bank selected", description: "Please choose a valid bank" });
             return;

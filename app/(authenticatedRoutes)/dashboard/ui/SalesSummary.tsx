@@ -3,37 +3,48 @@ import { IconVerticalLine } from "@/public/icons/icons";
 import Image from "next/image";
 import { Fragment } from "react";
 import Metric from "../../ui/metrics/Metric";
-import { ISalesSummary } from "../../orders/lib/interfaces/interface";
+import useGetCompletedSales from "../../orders/hooks/useGetCompletedSales";
+import useGetProcessingSales from "../../orders/hooks/useGetProcessingSales";
+import { SalesSummarySkeleton } from "../../ui/skeletons";
+import { generateSalesSummaryData } from "../../orders/lib/utils/order.utils";
+import { SectionError } from "@/app/ui/errors";
 
-const SalesSummary = ({
-    salesSummaryData,
-    className,
-    showEmptyState,
-}: {
-    salesSummaryData?: ISalesSummary[];
-    className?: string;
-    showEmptyState: boolean;
-}) => {
-    const salesSummaryMock = salesSummaryData ?? [
-        {
-            title: "COMPLETED SALES",
-            body: "200000",
-            tip: "Processing sales are orders that have been placed by a user",
-            comparism: {
-                value: "1.3%",
-                isPositive: true,
-                date: "last week",
-            },
-            isCurrency: true,
-        },
+const SalesSummary = ({ className, showEmptyState }: { className?: string; showEmptyState: boolean }) => {
+    const {
+        isFetchingCompletedSales,
+        completedSales,
+        errorFetchingCompletedSales,
+        isRefetchingCompletedSales,
+        refetchCompletedSales,
+    } = useGetCompletedSales();
+    const {
+        isFetchingProcessingSales,
+        processingSales,
+        errorFetchingProcessingSales,
+        isRefetchingProcessingSales,
+        refetchProcessingSales,
+    } = useGetProcessingSales();
 
-        {
-            title: "PROCESSING SALES",
-            body: "100000",
-            tip: "Processing sales are orders that have been placed by a user",
-            isCurrency: true,
-        },
-    ];
+    if (
+        isFetchingCompletedSales ||
+        isFetchingProcessingSales ||
+        isRefetchingProcessingSales ||
+        isRefetchingCompletedSales
+    )
+        return <SalesSummarySkeleton />;
+    if (errorFetchingCompletedSales || errorFetchingProcessingSales)
+        return (
+            <SectionError
+                title="Error fetching sales summary data"
+                retryFunction={() => {
+                    refetchCompletedSales();
+                    refetchProcessingSales();
+                }}
+            />
+        );
+
+    const salesSummaryData =
+        completedSales && processingSales ? generateSalesSummaryData(completedSales, processingSales) : [];
 
     return (
         <section
@@ -47,7 +58,7 @@ const SalesSummary = ({
             </h2>
 
             <div className="grid lg:flex lg:items-center gap-2 lg:gap-0 px-2 lg:px-4 lg:py-3">
-                {salesSummaryMock.map((item, index) => (
+                {salesSummaryData.map((item, index) => (
                     <Fragment key={item.title}>
                         <Metric
                             title={item.title || ""}
@@ -60,7 +71,7 @@ const SalesSummary = ({
                         />
 
                         {/* divider */}
-                        {index !== salesSummaryMock.length - 1 && (
+                        {index !== salesSummaryData.length - 1 && (
                             <div className="hidden lg:block">
                                 <Image
                                     src={IconVerticalLine}

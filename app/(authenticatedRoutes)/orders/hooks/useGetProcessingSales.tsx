@@ -12,7 +12,7 @@ import { IGenericResponse } from "../../products/lib/interfaces/response.interfa
 const useGetProcessingSales = () => {
     const { storeInfo } = useGetStoreInfo();
 
-    const { isPending, data, error } = useQuery({
+    const { isPending, data, error, refetch, isRefetching } = useQuery({
         queryKey: ["processing-sales"],
         queryFn: () =>
             getRequest<IGenericResponse>({
@@ -26,6 +26,8 @@ const useGetProcessingSales = () => {
         processingSales: data?.response,
         isFetchingProcessingSales: isPending,
         errorFetchingProcessingSales: error,
+        refetchProcessingSales: refetch,
+        isRefetchingProcessingSales: isRefetching,
     };
 };
 
