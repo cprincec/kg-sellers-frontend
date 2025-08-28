@@ -12,11 +12,11 @@ import { IStorePerformance } from "../lib/interface";
 const useGetStorePerformance = () => {
     const { storeInfo } = useGetStoreInfo();
 
-    const { isLoading, data, error } = useQuery({
+    const { isLoading, data, error, isRefetching, refetch } = useQuery({
         queryKey: ["store-performance"],
         queryFn: () =>
             getRequest<IStorePerformance>({
-                url: `/store/order/completed-sales?storeId=${storeInfo?.id}`,
+                url: `/vendor/dashboard/store-product-performance?storeId=${storeInfo?.id}`,
             }),
         enabled: !!storeInfo?.id,
     });
@@ -25,6 +25,8 @@ const useGetStorePerformance = () => {
         storePerformance: data,
         isFetchingStorePerformance: isLoading,
         errorFetchingStorePerformance: error,
+        isRefetchingStorePerformance: isRefetching,
+        refetchStorePerformance: refetch,
     };
 };
 

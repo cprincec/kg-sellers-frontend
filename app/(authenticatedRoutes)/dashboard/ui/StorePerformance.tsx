@@ -3,34 +3,30 @@ import { Fragment } from "react";
 import Image from "next/image";
 import { IconVerticalLine } from "@/public/icons/icons";
 import Metric from "../../ui/metrics/Metric";
+import useGetStorePerformance from "../hooks/useGetStorePerformance";
+import { SectionError } from "@/app/ui/errors";
+import { StorePerformanceSkeleton } from "./skeletons";
+import { generateStorePerformanceData } from "../lib/utils";
 
 const StorePerformance = ({ className, showEmptyState }: { className?: string; showEmptyState: boolean }) => {
-    const weeklyPerformance = [
-        {
-            title: "STORE VISITORS",
-            body: "240",
-            comparism: {
-                value: "50%",
-                isPositive: false,
-                date: "last week",
-            },
-        },
-        {
-            title: "ORDERS",
-            body: "150",
-            isCurrency: false,
-        },
-        {
-            title: "PRODUCT SALES",
-            body: "3900000",
-            isCurrency: true,
-        },
-        {
-            title: "AVG. DAILY PRODUCT SALES",
-            body: "30",
-        },
-    ];
+    const {
+        storePerformance,
+        isFetchingStorePerformance,
+        isRefetchingStorePerformance,
+        refetchStorePerformance,
+        errorFetchingStorePerformance,
+    } = useGetStorePerformance();
 
+    if (isFetchingStorePerformance || isRefetchingStorePerformance) return <StorePerformanceSkeleton />;
+    if (errorFetchingStorePerformance)
+        return (
+            <SectionError
+                title="Error fetching store performance data"
+                retryFunction={refetchStorePerformance}
+            />
+        );
+
+    const weeklyPerformance = storePerformance ? generateStorePerformanceData(storePerformance) : [];
     return (
         <section
             className={clsx(

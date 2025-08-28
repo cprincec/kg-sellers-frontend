@@ -2,8 +2,6 @@
 // Navigation & UI Component Interfaces
 // ============================================================================
 
-import { StaticImageData } from "next/image";
-
 export interface NavLink {
     name: string;
     href: string;
@@ -16,25 +14,19 @@ export interface NavLink {
 // Perfomance Metrics Interfaces
 // ============================================================================
 
-export interface ISalesPerfomanceIntroData {
-    amount: string;
-    percentage: string;
-    date: string;
-    isPositive: boolean;
-}
 export interface ISalesPerformanceChartData {
     day: string;
     thisWeek: number;
     lastWeek: number;
 }
 
-export interface IProductPerformance {
-    productName: string;
-    orderId: string;
-    imageUrl: StaticImageData;
-    quantitySold: string;
-    amount: string;
-}
+// export interface IProductPerformance {
+//     productName: string;
+//     orderId: string;
+//     imageUrl: StaticImageData;
+//     quantitySold: string;
+//     amount: string;
+// }
 
 export interface ISalesPerformance {
     currentWeek: IWeekSales;
@@ -73,16 +65,15 @@ export interface IProductSummary {
     pendingInventory: string;
 }
 
-// export interface IWeeklyStorePerformance {
-//     leastSellingProducts: IProductPerformance[];
-//     topSellingProducts: IProductPerformance[];
-//     weekEndDate: string;
-//     weekStartDate: string;
-// }
+export interface IWeeklyProductPerformance {
+    leastSellingProducts: IProductPerformance[];
+    topSellingProducts: IProductPerformance[];
+}
 
-// interface IProductPerformance {
-//     amount: number;
-//     productName: string;
-//     qty: string;
-//     sku: string;
-// }
+export interface IProductPerformance {
+    amount: number;
+    productName: string;
+    productUrl: string;
+    qty: string;
+    sku: string;
+}

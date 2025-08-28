@@ -1,4 +1,9 @@
-import { IProductSummary, ISalesPerformance, ISalesPerformanceChartData } from "./interface";
+import {
+    IProductSummary,
+    ISalesPerformance,
+    ISalesPerformanceChartData,
+    IStorePerformance,
+} from "./interface";
 
 export const generateproductSummaryData = (productSummary: IProductSummary) => {
     return [
@@ -30,3 +35,31 @@ export function generateSalesPerformanceChartData(data: ISalesPerformance): ISal
         lastWeek: data.lastWeek.dailyData[index]?.salesAmount ?? 0,
     }));
 }
+
+export const generateStorePerformanceData = (storePerformance: IStorePerformance) => {
+    return [
+        {
+            title: "STORE VISITORS",
+            body: storePerformance.thisWeekStoreVisitors,
+            comparism: {
+                value: `${storePerformance.percentageChange}%`,
+                isPositive: storePerformance.trend.toLowerCase() === "up",
+                date: "last week",
+            },
+        },
+        {
+            title: "ORDERS",
+            body: storePerformance.orders,
+            isCurrency: false,
+        },
+        {
+            title: "PRODUCT SALES",
+            body: storePerformance.productSales,
+            isCurrency: true,
+        },
+        {
+            title: "AVG. DAILY PRODUCT SALES",
+            body: storePerformance.avgDailyProductSales,
+        },
+    ];
+};

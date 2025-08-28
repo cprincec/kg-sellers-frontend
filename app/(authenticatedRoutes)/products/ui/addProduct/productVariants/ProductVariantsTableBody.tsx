@@ -72,24 +72,26 @@ const ProductVariantsTableBody = ({
                         </TableCell>
                         {showActions && (
                             <TableCell className="p-3 text-sm text-center">
-                                <ActionButton
-                                    className="w-max m-auto"
-                                    variantId={variant.productColor.productPriceDetails[0].id}
-                                    productId={product.id}
-                                    actions={productVariantActions}
-                                    disabled={
-                                        productAction !== "edit" ||
-                                        ((action: string) => {
-                                            if (action.toLowerCase() === "pause variant") {
-                                                return (
-                                                    variant.productColor.productPriceDetails[0].isPaused ??
-                                                    false
-                                                );
-                                            }
-                                            return false;
-                                        })
-                                    }
-                                />
+                               <ActionButton
+  className="w-max m-auto"
+  variantId={variant.productColor.productPriceDetails[0].id}
+  productId={product.id}
+  actions={productVariantActions}
+  disabled={(action: string) => {
+    const isPauseAction = action.toLowerCase() === "pause variant";
+
+    if (productAction !== "edit" && isPauseAction) {
+      return true;
+    }
+
+    if (isPauseAction) {
+      return variant.productColor.productPriceDetails[0].isPaused ?? false;
+    }
+
+    return false;
+  }}
+/>
+
                             </TableCell>
                         )}
                     </TableRow>

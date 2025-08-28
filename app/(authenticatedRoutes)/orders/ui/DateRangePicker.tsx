@@ -1,6 +1,6 @@
 "use client";
 
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils/utils";
@@ -10,14 +10,27 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { IconCalendar2, IconExpand } from "@/public/icons/icons";
 import Image from "next/image";
 import { handleDateChange } from "../lib/utils/datePicker.utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 
 const DateRangePicker = ({ disabled, className }: { disabled?: boolean; className?: string }) => {
-    const [date, setDate] = useState<DateRange | undefined>(undefined);
-    const [showDropDown, setShowDropDown] = useState<boolean>(false);
     const router = useRouter();
     const searchParams = useSearchParams();
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
+    const [date, setDate] = useState<DateRange | undefined>(undefined);
+    const [showDropDown, setShowDropDown] = useState<boolean>(false);
+
+    useEffect(() => {
+        setDate(
+            from
+                ? {
+                      from: parse(from, "dd-MM-yyyy", new Date()),
+                      to: to ? parse(to, "dd-MM-yyyy", new Date()) : undefined,
+                  }
+                : undefined
+        );
+    }, [from, to]);
 
     return (
         <div className={className}>

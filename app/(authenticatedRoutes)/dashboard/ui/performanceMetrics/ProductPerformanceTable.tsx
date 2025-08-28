@@ -2,27 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Image from "next/image";
 import { IProductPerformance } from "../../lib/interface";
 
-const ProductPerformanceTable = ({
-    data,
-    sortBy,
-}: {
-    data: IProductPerformance[] | null;
-    sortBy: string;
-}) => {
-    if (!data) {
-        return null;
-    }
-
-    let products = data;
-
-    if (sortBy === "leastSelling") {
-        products = products.sort((a, b) => parseInt(a.quantitySold) - parseInt(b.quantitySold));
-    }
-
-    if (sortBy === "topSelling") {
-        products = products.sort((a, b) => parseInt(b.quantitySold) - parseInt(a.quantitySold));
-    }
-
+const ProductPerformanceTable = ({ data }: { data: IProductPerformance[] }) => {
     return (
         <Table>
             <TableHeader>
@@ -36,21 +16,21 @@ const ProductPerformanceTable = ({
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {products.map((product, index) => {
-                    const { productName, orderId, imageUrl, quantitySold, amount } = product;
+                {data.map((product, index) => {
+                    const { productName, sku, productUrl, qty, amount } = product;
                     return (
                         <TableRow key={index}>
                             <TableCell className="">
                                 <div className="flex gap-1.5">
-                                    <Image src={imageUrl} alt="headphone" width={40} height={40} />
+                                    <Image src={productUrl} alt="headphone" width={40} height={40} />
                                     <div className="grid">
                                         <h4 className="text-sm font-normal">{productName}</h4>
-                                        <p className="text-xs">{orderId}</p>
+                                        <p className="text-xs">{sku}</p>
                                     </div>
                                 </div>
                             </TableCell>
-                            <TableCell className="text-center">{quantitySold}</TableCell>
-                            <TableCell>{amount}</TableCell>
+                            <TableCell className="text-center">{qty}</TableCell>
+                            <TableCell>₦{amount.toLocaleString()}</TableCell>
                         </TableRow>
                     );
                 })}

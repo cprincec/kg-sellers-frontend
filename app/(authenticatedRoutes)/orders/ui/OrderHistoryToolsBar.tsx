@@ -34,12 +34,12 @@ const OrderHistoryToolsBar = ({
             {showSearchBarDesktop && (
                 <SearchBar
                     placeholder="Search product by name or SKU"
-                    className="hidden lg:block max-w-[350px]"
+                    className="hidden lg:block shrink-0 max-w-[350px]"
                     scroll={false}
                 />
             )}
 
-            <div className="flex-shrink-0 flex gap-3 justify-end lg:w-full">
+            <div className="flex-shrink-0 flex gap-3 justify-end">
                 {/* filter by date*/}
                 <DateRangePicker disabled={dateFilterDisabled} />
 

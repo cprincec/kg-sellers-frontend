@@ -1,6 +1,5 @@
 "use client";
-import { ImageProduct1, ImageProduct2 } from "@/public/images/landingPage/images";
-import { IProductPerformance, ISalesPerformanceChartData, NavLink } from "./interface";
+import { ISalesPerformanceChartData, NavLink } from "./interface";
 import {
     IconBox,
     IconBoxActive,
@@ -15,44 +14,6 @@ import {
     IconWallet,
     IconWalletActive,
 } from "@/public/icons/icons";
-
-export const productsList: IProductPerformance[] = [
-    {
-        productName: "Black Polo T-shirt",
-        orderId: "Order ID -KG10001",
-        imageUrl: ImageProduct1,
-        quantitySold: "15",
-        amount: "₦240,000",
-    },
-    {
-        productName: "Black Polo T-shirt",
-        orderId: "Order ID -KG10002",
-        imageUrl: ImageProduct2,
-        quantitySold: "13",
-        amount: "₦240,000",
-    },
-    {
-        productName: "Black Polo T-shirt",
-        orderId: "Order ID -KG10003",
-        imageUrl: ImageProduct1,
-        quantitySold: "12",
-        amount: "₦240,000",
-    },
-    {
-        productName: "Black Polo T-shirt",
-        orderId: "Order ID -KG10004",
-        imageUrl: ImageProduct2,
-        quantitySold: "10",
-        amount: "₦240,000",
-    },
-    {
-        productName: "Black Polo T-shirt",
-        orderId: "Order ID -KG10005",
-        imageUrl: ImageProduct1,
-        quantitySold: "6",
-        amount: "₦240,000",
-    },
-];
 
 export const links: NavLink[] = [
     {

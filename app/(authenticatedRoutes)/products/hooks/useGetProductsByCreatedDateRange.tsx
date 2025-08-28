@@ -23,7 +23,7 @@ const useGetProductsByCreatedDateRange = () => {
     const parsedEndDate = endDate ? format(parse(endDate, "dd-MM-yyyy", new Date()), "yyyy-MM-dd") : null;
 
     const { isLoading, data, error } = useQuery({
-        queryKey: ["products", startDate, endDate],
+        queryKey: ["products", startDate, endDate, page],
         queryFn: () =>
             getRequest<IGetPaginatedProducts>({
                 url: `/product/product-created?endDate=${parsedEndDate}&page=${
