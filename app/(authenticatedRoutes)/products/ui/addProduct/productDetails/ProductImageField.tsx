@@ -25,7 +25,7 @@ const ProductImageField = <T extends FieldValues>({
     className,
 }: Props<T>) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { setShowModal, setModalContent } = useModalContext();
+    const { setShowModal, setModalContent, setOnClose } = useModalContext();
 
     const {
         setError,
@@ -63,6 +63,7 @@ const ProductImageField = <T extends FieldValues>({
         const imageUrl = URL.createObjectURL(files[0]);
         setModalContent(<CropperModal uploadedFile={imageUrl} handleCrop={handleCrop} />);
         setShowModal(true);
+        setOnClose(() => () => setShowModal(false));
         e.target.value = "";
     };
 

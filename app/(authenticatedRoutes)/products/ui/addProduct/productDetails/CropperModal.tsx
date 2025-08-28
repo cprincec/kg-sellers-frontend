@@ -51,7 +51,7 @@ const CropperModal = ({
                     />
                 </div>
 
-                <div className="flex flex-col lg:flex-row gap-6 items-center">
+                <div className="flex flex-col gap-6 lg:gap-8 items-center">
                     <div className="flex flex-col md:flex-row gap-4 w-full">
                         <div className="flex flex-col flex-1 gap-2 justify-center">
                             <p className="font-medium">Zoom: {zoom}x</p>

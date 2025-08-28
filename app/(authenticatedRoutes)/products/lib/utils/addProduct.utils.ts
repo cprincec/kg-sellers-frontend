@@ -81,38 +81,40 @@ export const generateProductVariantDTOs = (productRaw: IProduct): IProductVarian
 
     const variants: IProductVariantDTO[] = [];
     for (const variant of productRaw.productColors) {
-        variants.push({
-            productColor: {
-                color: {
-                    color: variant.color.color,
-                    colorCode: variant.color.colorCode,
-                },
-                colorUrl: variant.colorUrl,
-
-                productPriceDetails: [
-                    {
-                        attributes: variant.productPriceDetails[0].attributes,
-                        price: variant.productPriceDetails[0].price,
-                        quantity: variant.productPriceDetails[0].quantity,
-                        newPrice: variant.productPriceDetails[0].newPrice,
-                        id: variant.productPriceDetails[0].id,
-                        discount: variant.productPriceDetails[0].discount,
-                        ramSize: variant.productPriceDetails[0].ramSize,
-                        size: variant.productPriceDetails[0].size,
-                        sku: variant.productPriceDetails[0].sku,
-                        stockLevel: variant.productPriceDetails[0].stockLevel,
-                        storage: variant.productPriceDetails[0].storage,
-                        isPaused: variant.productPriceDetails[0].isPaused,
+        for (const productPriceDetail of variant.productPriceDetails) {
+            variants.push({
+                productColor: {
+                    color: {
+                        color: variant.color.color,
+                        colorCode: variant.color.colorCode,
                     },
-                ],
-            },
-            productId: productRaw.id,
-            productView: {
-                colorCode: variant.color.colorCode,
-                productUrl: variant.colorUrl,
-            },
-            weightInKG: productRaw.weightInKG,
-        });
+                    colorUrl: variant.colorUrl,
+
+                    productPriceDetails: [
+                        {
+                            attributes: productPriceDetail.attributes,
+                            price: productPriceDetail.price,
+                            quantity: productPriceDetail.quantity,
+                            newPrice: productPriceDetail.newPrice,
+                            id: productPriceDetail.id,
+                            discount: productPriceDetail.discount,
+                            ramSize: productPriceDetail.ramSize,
+                            size: productPriceDetail.size,
+                            sku: productPriceDetail.sku,
+                            stockLevel: productPriceDetail.stockLevel,
+                            storage: productPriceDetail.storage,
+                            isPaused: productPriceDetail.isPaused,
+                        },
+                    ],
+                },
+                productId: productRaw.id,
+                productView: {
+                    colorCode: variant.color.colorCode,
+                    productUrl: variant.colorUrl,
+                },
+                weightInKG: productRaw.weightInKG,
+            });
+        }
     }
 
     return variants;
@@ -124,13 +126,20 @@ export const generateProductVariantFormDefaults = (
 ): ProductVariantFormInterface => {
     if (!product.productColors?.length) return { ...productVariantsFormDefaultValues };
 
-    const variant = product.productColors.find((v) => v.productPriceDetails[0].id === variantId);
-    if (!variant) return productVariantsFormDefaultValues;
+    for (const productColor of product.productColors) {
+        for (const productPriceDetail of productColor.productPriceDetails) {
+            if (productPriceDetail.id === variantId) {
+                return {
+                    productUrl: productColor.colorUrl,
+                    attributes: productPriceDetail.attributes,
+                };
+            }
+        }
+    }
 
-    return {
-        productUrl: variant.colorUrl,
-        attributes: variant.productPriceDetails[0].attributes,
-    };
+    
+
+    return { ...productVariantsFormDefaultValues };
 };
 
 export const validateProductVariantForm = (
@@ -290,8 +299,6 @@ export const generateProductVariantDeleteDTOFromProduct = (
 
 // Return the leaf node (inner-most category/subCategory) in a product Draft
 export const getLeafCategoryName = (productCategoryDTO: IProductCategoryDTO): string => {
-    // const categoriesObject = generateProductCategoryDTO(productDraft);
-
     // This reversal enables searching for leaf category by starting from fifthSubcategory,
     // then upwards to category
     const categoriesKeysReversed = [...PRODUCT_CATEGORY_KEYS].reverse();
@@ -391,7 +398,6 @@ export const validateImageDimensions = (
 
 // Upload product image
 // Validation added
-
 type HandleUploadParams<T extends FieldValues> = {
     e: React.ChangeEvent<HTMLInputElement>;
     mainImageKey: Path<T>;
