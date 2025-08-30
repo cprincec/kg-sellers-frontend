@@ -28,7 +28,7 @@ const Wallet = () => {
                                 showAction={false}
                                 showSearchBarDesktop={false}
                                 dateFilterDisabled={true}
-                                className="px-0 jlg:ustify-end border-none"
+                                className="px-0 lg:justify-end border-none"
                             />
 
                             {/* TABS */}

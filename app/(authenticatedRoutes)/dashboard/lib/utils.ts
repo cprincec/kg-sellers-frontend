@@ -11,19 +11,20 @@ export const generateproductSummaryData = (productSummary: IProductSummary) => {
             title: "ACTIVE INVENTORY",
             body: productSummary.activeInventory,
             tip: "Active inventory",
+            variant: "success",
         },
 
         {
-            title: "LOW INVENTORY",
-            body: productSummary.pendingInventory,
-            tip: "Low inventory",
-            variant: "warning",
+            title: "INVENTORY IN DRAFT",
+            body: productSummary.draftInventory,
+            tip: "Inventory in draft",
+            variant: "default",
         },
         {
-            title: "OUT OF STOCK",
-            body: productSummary.draftInventory,
-            tip: "Out of stock",
-            variant: "error",
+            title: "INVENTORY PENDING APPROVAL",
+            body: productSummary.pendingInventory,
+            tip: "Inventory pending approval",
+            variant: "warning",
         },
     ];
 };

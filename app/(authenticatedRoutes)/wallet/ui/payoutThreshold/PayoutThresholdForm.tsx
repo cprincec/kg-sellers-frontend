@@ -13,12 +13,15 @@ const PayoutThresholdForm = ({ cancel }: { cancel: () => void }) => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        defaultValues: { payoutThresholdAmount: "" },
         resolver: yupResolver(payoutThresholdSchema),
+        reValidateMode: "onSubmit",
     });
 
     const setThreshold = (values: IPayoutThresholdFormDTO) => {
-        console.log("submited", values);
+        const { payoutThresholdAmount } = values;
+        if (!payoutThresholdAmount || Number(payoutThresholdAmount) < 1000) return;
+
+        localStorage.setItem("payoutThresholdAmount", JSON.stringify(values.payoutThresholdAmount));
         cancel();
     };
 
@@ -28,6 +31,7 @@ const PayoutThresholdForm = ({ cancel }: { cancel: () => void }) => {
             <ControlledModifiedInput
                 label="Amount in Naira"
                 name="payoutThresholdAmount"
+                type="number"
                 control={control}
                 rules={{ required: true }}
                 placeholder="Enter amount"
@@ -36,9 +40,8 @@ const PayoutThresholdForm = ({ cancel }: { cancel: () => void }) => {
                 data-testid="payout-threshold-amount"
             />
 
-            {/* Navigation Buttons starts*/}
+            {/* Navigation Buttons*/}
             <FormNavButtons cancelFunc={cancel} />
-            {/* Navigation Buttons ends*/}
         </form>
     );
 };

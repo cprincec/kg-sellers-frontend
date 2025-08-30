@@ -60,9 +60,9 @@ const ModifiedBankSelect = ({
                                 return (
                                     <CommandItem
                                         key={id}
-                                        value={id}
-                                        onSelect={(value) => {
-                                            onChange(value);
+                                        value={name}
+                                        onSelect={() => {
+                                            onChange(id);
                                             setOpen(false);
                                         }}
                                     >
