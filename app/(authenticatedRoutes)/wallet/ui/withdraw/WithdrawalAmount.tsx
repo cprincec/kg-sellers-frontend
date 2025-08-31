@@ -1,18 +1,18 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
-import Link from "next/link";
 import { cn } from "@/lib/utils/utils";
 import { useState } from "react";
 import Image from "next/image";
 import { IconDelete, IconNaira } from "@/public/icons/icons";
+import { useRouter } from "next/navigation";
 
 const WithdrawalAmount = () => {
+    const router = useRouter();
     const [amount, setAmount] = useState("");
     const keypadNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "00", "0"];
 
     const handleKeyPress = (value: string) => {
-        if (amount.length >= 9) return;
+        if ((!amount && (value === "0" || value === "00")) || amount.length >= 8) return;
 
         setAmount((prev) => prev + value);
     };
@@ -33,7 +33,9 @@ const WithdrawalAmount = () => {
             <div className="w-full bg-[#F2F2F2] rounded-2xl p-7 flex items-center justify-start text-2xl font-medium gap-2">
                 <Image src={IconNaira} alt="naira" width={49} height={72} />
                 <div className="w-full max-w-[360px]">
-                    <div className="text-[#757575] text-wrap text-4xl">{amount || ""}</div>
+                    <div className="text-[#757575] text-wrap text-4xl">
+                        {amount ? parseFloat(amount).toLocaleString() : ""}
+                    </div>
                 </div>
             </div>
 
@@ -59,15 +61,18 @@ const WithdrawalAmount = () => {
             </div>
 
             {/* Withdraw Button */}
-            <Link
-                href={"/wallet?withdraw=otp"}
+            <Button
                 className={cn(
                     buttonVariants({ variant: "primary" }),
                     "w-full text-white py-3 text-base font-medium"
                 )}
+                onClick={() => {
+                    if (!amount) return;
+                    router.push("/wallet?withdraw=otp");
+                }}
             >
                 Withdraw
-            </Link>
+            </Button>
         </DialogContent>
     );
 };

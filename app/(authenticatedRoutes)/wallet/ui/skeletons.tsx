@@ -45,3 +45,31 @@ export const AccountSummarySkeleton = () => {
         </article>
     );
 };
+
+export const SelectAccountSkeleton = () => {
+    return (
+        <div className="grid gap-8 rounded-lg bg-white w-full">
+            <div className="h-36 grid gap-2 p-4 bg-gray-200 rounded-md animate-pulse shadow-none mt-0">
+                <div className="p-0">
+                    <div className="w-44 h-3 bg-gray-300 rounded-md"></div>
+                </div>
+                <div className="flex flex-col items-start justify-between gap-3 p-0">
+                    <div className="w-full flex justify-between gap-2 text-sm">
+                        <div className="flex flex-col gap-2">
+                            <div className="w-44 h-3 bg-gray-300 rounded-md"></div>
+                            <div className="w-44 h-3 bg-gray-300 rounded-md"></div>
+                        </div>
+                        <div className="w-6 h-6 rounded-full bg-gray-300"></div>
+                    </div>
+
+                    <div className="w-44 h-10 bg-gray-300 font-medium text-sm self-start px-2 py-1 rounded-md"></div>
+                </div>
+            </div>
+            <div className="w-full h-10 bg-gray-200 rounded-md font-medium text-base animate-pulse"></div>
+            <div className="flex justify-between">
+                <div className="w-24 h-9 bg-gray-200 rounded-md animate-pulse"></div>
+                <div className="w-24 h-9 bg-gray-200 rounded-md animate-pulse"></div>
+            </div>
+        </div>
+    );
+};

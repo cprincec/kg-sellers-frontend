@@ -22,6 +22,9 @@ const StoreDetailsFormImageFields = ({
                     error={errors.businessLogo}
                     rules={{ required: true }}
                     ShowMainVariant={false}
+                    height={600}
+                    width={600}
+                    isCroppable={true}
                 />
             </div>
 
@@ -36,6 +39,9 @@ const StoreDetailsFormImageFields = ({
                     error={errors.storeBanner}
                     rules={{ required: false }}
                     ShowMainVariant={false}
+                    isCroppable={true}
+                    width={1080}
+                    height={320}
                 />
             </div>
         </div>

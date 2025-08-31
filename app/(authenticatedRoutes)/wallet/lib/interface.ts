@@ -53,7 +53,7 @@ export interface PayoutDetailsProps {
 }
 
 export interface IPayoutThresholdFormDTO {
-    payoutThresholdAmount: string;
+    payoutThresholdAmount: number;
 }
 
 export interface FormNavButtonsProps {

@@ -31,7 +31,7 @@ export const generateAccountSummaryData = (data: IAccountSummary) => {
         },
         {
             title: "Payout Threshold",
-            body: 0.0,
+            body: JSON.parse(localStorage.getItem("payoutThresholdAmount") ?? "0") ?? 0,
             canHideData: false,
             actionText: "set threshold",
             tip: "Payout threshold",
