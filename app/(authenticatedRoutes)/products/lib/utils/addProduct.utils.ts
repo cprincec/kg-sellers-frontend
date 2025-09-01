@@ -54,10 +54,15 @@ export const generateProductDetailsDTO = (
     const { name, productUrl, specifications, seo } = productRaw;
 
     // Extract each non-mainImage (ie other images) from product draft
-    const otherImages =
+    const productViewImages =
         productRaw.productViews && productRaw.productViews.length
             ? productRaw.productViews.map((v) => v.productUrl)
             : [];
+    
+    // Include mainImage in otherImages array
+    const otherImages = productUrl 
+        ? [productUrl, ...productViewImages]
+        : productViewImages;
 
     return {
         productName: name,
