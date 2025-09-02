@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { useModalContext } from "@/app/contexts/modalContext";
 
 const SelectAccount = () => {
-    const { setSearchParams } = useUpdateSearchParams();
+    const { setSearchParams, deleteSearchParams } = useUpdateSearchParams();
     const { setModalContent, setShowModal } = useModalContext();
     const router = useRouter();
     const {
@@ -65,7 +65,7 @@ const SelectAccount = () => {
                                         {storeBankDetails?.accountNumber}
                                     </p>
                                     <p className="text-kaiglo_grey-900 text-sm lg:text-base">
-                                        {storeBankDetails?.beneficiaryName} Saint Morris & Sons hoodlum Store
+                                        {storeBankDetails?.beneficiaryName}
                                     </p>
                                 </div>
                                 <RadioGroup defaultValue="selected">
@@ -99,6 +99,7 @@ const SelectAccount = () => {
                             type="button"
                             variant="outline"
                             className="px-6 text-base border-kaiglo_grey-placeholder"
+                            onClick={() => deleteSearchParams(["withdraw"])}
                         >
                             Cancel
                         </Button>
