@@ -86,6 +86,9 @@ const ProductVariantsTableBody = ({
 
                                         return false;
                                     }}
+                                    productIsPaused={
+                                        variant.productColor.productPriceDetails[0].isPaused ?? false
+                                    }
                                 />
                             </TableCell>
                         )}

@@ -5,7 +5,7 @@ type Props = {
     placeholder: string;
     className?: string;
     placeholderClassName?: string;
-    readOnly: boolean;
+    readOnly?: boolean;
 };
 
 export function ContentEditable({
