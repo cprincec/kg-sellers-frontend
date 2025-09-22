@@ -53,27 +53,11 @@ const ProductPerformance = ({ showEmptyState }: { showEmptyState: boolean }) => 
                     {!showEmptyState && productPerformance && (
                         <>
                             <TabsContent value="topSelling" className="overflow-x-auto">
-                                {topSelling.length ? (
-                                    <ProductPerformanceTable data={topSelling} />
-                                ) : (
-                                    <NoResultsIcon
-                                        className="grid items-center justify-center -mt-8 py-6"
-                                        title="No results Yet"
-                                        description="Data will begin populating as soon as you commence making sales"
-                                    />
-                                )}
+                                <ProductPerformanceTable data={topSelling} />
                             </TabsContent>
 
                             <TabsContent value="leastSelling" className="overflow-x-auto">
-                                {leastSelling.length ? (
-                                    <ProductPerformanceTable data={leastSelling} />
-                                ) : (
-                                    <NoResultsIcon
-                                        className="grid items-center justify-center -mt-8 py-6"
-                                        title="No results Yet"
-                                        description="Data will begin populating as soon as you commence making sales"
-                                    />
-                                )}
+                                <ProductPerformanceTable data={leastSelling} />
                             </TabsContent>
                         </>
                     )}

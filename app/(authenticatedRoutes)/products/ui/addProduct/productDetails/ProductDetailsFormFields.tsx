@@ -2,15 +2,18 @@
 
 import { IProductDetailsDTO } from "../../../lib/interfaces/interface";
 import ControlledModifiedInput from "@/components/controlledElements/ControlledModifiedInput";
-import ControlledModifiedTextArea from "@/components/controlledElements/ControlledModifiedTextArea";
 import ProductImageField from "./ProductImageField";
 import ToolTip from "@/app/(authenticatedRoutes)/ui/ToolTip";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import ProductSpecificationsFieldsWrapper from "./ProductSpecificationsFieldsWrapper";
 import { useEffect, useRef } from "react";
+import { Editor } from "@/components/blocks/editor-00/editor";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils/utils";
 
 const ProductDetailsFormFields = () => {
     const imageFieldRef = useRef<HTMLDivElement>(null);
+
     const {
         control,
         formState: { errors },
@@ -27,7 +30,11 @@ const ProductDetailsFormFields = () => {
             {/* Images */}
             <div ref={imageFieldRef} className="grid gap-4 lg:px-6 lg:pt-4 pb-6 border-b">
                 <div className="grid gap-2">
-                    <h3 className="text-sm md:text-base font-medium">PRODUCT IMAGE</h3>
+                    <h3 className="text-sm md:text-base font-medium">
+                        <span>
+                            PRODUCT IMAGE <span className="text-kaiglo_critical-error font-medium">*</span>
+                        </span>
+                    </h3>
                     <p className="text-sm">
                         Image must not exceed 700kb and 600 x 600px (size).
                         <span className="text-kaiglo_critical-base"> Upload at least 3 images</span>
@@ -64,21 +71,36 @@ const ProductDetailsFormFields = () => {
             <div className="grid gap-3 lg:px-6 lg:pt-4 pb-6 border-b">
                 <div className="grid gap-2">
                     <h3 className="flex gap-3 items-center text-sm md:text-base font-medium text-kaiglo_grey-900">
-                        PRODUCT DESCRIPTION
-                        <ToolTip info="Product description tip" />
+                        <span>
+                            PRODUCT DESCRIPTION{" "}
+                            <span className="text-kaiglo_critical-error font-medium">*</span>
+                        </span>
+                        <ToolTip info="Product description" />
                     </h3>
-                    <ControlledModifiedTextArea
-                        label="Adding a product description helps potential buyers understand the features, and unique
-                     qualities of your product."
+                    <Label className={cn("md:text-base text-sm font-medium text-kaiglo_grey-600 mb-4")}>
+                        Adding a product description helps potential buyers understand the features, and
+                        unique qualities of your product.
+                    </Label>
+
+                    <Controller
                         name="description"
                         control={control}
-                        placeholder="Product Details"
-                        error={errors.description}
-                        isRequired={false}
-                        className="text-base"
-                        rows={10}
-                        labelClassNames="text-sm font-medium text-kaiglo_grey-600 mb-4"
                         rules={{ required: false }}
+                        render={({ field }) => (
+                            <div>
+                                <Editor
+                                    editorSerializedState={field.value ? JSON.parse(field.value) : null}
+                                    onSerializedChange={(value) => field.onChange(JSON.stringify(value))}
+                                    placeholder={"Enter product details here"}
+                                />
+
+                                {errors.description && (
+                                    <p className="text-sm md:text-base text-left mt-1 font-normal text-kaiglo_critical-error">
+                                        {errors.description.message}
+                                    </p>
+                                )}
+                            </div>
+                        )}
                     />
                 </div>
             </div>
@@ -90,10 +112,10 @@ const ProductDetailsFormFields = () => {
                         PRODUCT DESCRIPTION SUMMARY
                     </h3>
                     <ControlledModifiedInput
-                        label="Adding SEO to your product listings helps increase visibility in search engines, driving more organic traffic to your store"
+                        label="input good keywords here, separated by commas, to help people find your products when they search online."
                         name="seo"
                         control={control}
-                        placeholder="Product Description Summary"
+                        placeholder="(e.g., hats, scarves, gloves)"
                         type="text"
                         error={errors.seo}
                         isRequired={false}

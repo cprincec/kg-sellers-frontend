@@ -18,7 +18,10 @@ const ProductSpecificationsFields = ({ specifications }: { specifications: IProd
     return (
         <div className="grid gap-3 md:gap-4 lg:px-6 lg:pt-4 pb-6 border-b">
             <h3 className="flex gap-3 items-center text-sm md:text-base font-medium">
-                PRODUCT SPECIFICATIONS <ToolTip info="Product specifications tip" />
+                <span>
+                    PRODUCT SPECIFICATIONS <span className="text-kaiglo_critical-error font-medium">*</span>
+                </span>
+                <ToolTip info="Product specifications tip" />
             </h3>
 
             <div className="grid lg:grid-cols-2 gap-3 md:gap-4">

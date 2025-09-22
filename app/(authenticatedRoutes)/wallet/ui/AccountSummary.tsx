@@ -9,8 +9,6 @@ import { cn } from "@/lib/utils/utils";
 import PayoutThreshold from "./payoutThreshold/PayoutThreshold";
 import SelectAccount from "./withdraw/SelectAccount";
 import WithdrawalAmount from "./withdraw/WithdrawalAmount";
-import OtpModal from "@/app/(auth)/ui/otp/OtpModal";
-import WithdrawalSuccessful from "./withdraw/WithdrawalSuccessful";
 import Metric from "../../ui/metrics/Metric";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useUpdateSearchParams from "@/hooks/useSetSearchParams";
@@ -19,11 +17,14 @@ import { format } from "date-fns";
 import { generateAccountSummaryData } from "../lib/utils/utils";
 import { AccountSummarySkeleton } from "./skeletons";
 import { SectionError } from "@/app/ui/errors";
+import { useSession } from "next-auth/react";
+import Loader from "@/app/ui/Loader";
 
 const AccountSummary = ({ className }: { className?: string }) => {
     const searchParams = useSearchParams();
     const { showModal, setShowModal, setOnClose, setModalContent } = useModalContext();
     const { deleteSearchParams } = useUpdateSearchParams();
+    const session = useSession();
     const {
         accountSummary,
         isFetchingAccountSummary,
@@ -49,14 +50,6 @@ const AccountSummary = ({ className }: { className?: string }) => {
         } else if (withdrawStep === "amount") {
             content = <WithdrawalAmount />;
             clearKeys = ["withdraw"];
-        } else if (withdrawStep === "otp") {
-            content = (
-                <OtpModal email="" phone="" actionText="Confirm" actionLink="/wallet?withdraw=successful" />
-            );
-            clearKeys = ["withdraw"];
-        } else if (withdrawStep === "successful") {
-            content = <WithdrawalSuccessful />;
-            clearKeys = ["withdraw"];
         }
 
         if (content) {
@@ -65,6 +58,8 @@ const AccountSummary = ({ className }: { className?: string }) => {
             if (!showModal) setShowModal(true);
         }
     }, [withdrawStep, payoutStep]);
+
+    if (!session) return <Loader />;
 
     if (isFetchingAccountSummary || isRefetchingAccountSummary) return <AccountSummarySkeleton />;
     if (errorFetchingAccountSummary)
@@ -124,4 +119,5 @@ const AccountSummary = ({ className }: { className?: string }) => {
         </article>
     );
 };
+
 export default AccountSummary;

@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
  */
 
 const useGetPayoutData = () => {
-    const page = useSearchParams().get("page")?.trim() ?? 1;
+    const page = useSearchParams().get("page")?.trim() ?? 0;
 
     const { isLoading, data, error, refetch, isRefetching } = useQuery({
         queryKey: ["payout-data"],

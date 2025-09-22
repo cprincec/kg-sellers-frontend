@@ -20,7 +20,11 @@ export const NoResultsIcon = ({
         <div className={`text-center ${className}`}>
             <Image src={IconNoResults} alt="no results" className="mx-auto" width={200} height={112} />
             {title && <h3 className="mb-2 text-base text-kaiglo_grey-900 font-bold">{title}</h3>}
-            {description && <p className="text-base text-kaiglo_grey-900 text-center">{description}</p>}
+            {description && (
+                <p className="text-base text-kaiglo_grey-900 text-center whitespace-break-spaces">
+                    {description}
+                </p>
+            )}
         </div>
     );
 };

@@ -95,3 +95,13 @@ export interface IBasePaginatedDataResponse {
     totalElements: number;
     totalPages: number;
 }
+
+export interface IWithdrawDTO {
+    amount: number;
+    storeId: string;
+}
+
+export interface IWithdrawResponse {
+    response: IPayout;
+    message: string;
+}

@@ -69,7 +69,9 @@ const ModifiedSelect2 = <T extends { [K in keyof T]: string }>({
                             <SelectItem
                                 key={option[valueKey]}
                                 value={option[valueKey]}
-                                className={`min-w-full ${itemClassName || ""}`}
+                                className={`inline-block min-w-full first-letter:uppercase ${
+                                    itemClassName || ""
+                                }`}
                             >
                                 {option[labelKey]}
                             </SelectItem>

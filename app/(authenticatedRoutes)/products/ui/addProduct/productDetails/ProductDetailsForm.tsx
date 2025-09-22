@@ -33,6 +33,7 @@ const ProductDetailsForm = ({
 
     const onSubmit = (values: IProductDetailsDTO) => {
         const isEqual = JSON.stringify(defaultValues) === JSON.stringify(values);
+        console.log(values);
 
         if (isEqual) {
             const nextStep =

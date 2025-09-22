@@ -265,6 +265,19 @@ export const productActions: IProductAction[] = [
     },
     {
         type: "product",
+        name: "activate product",
+        icon: IconPause,
+        actionFunc: (
+            productId: string,
+            setSearchParams: (
+                array: {
+                    [key: string]: string;
+                }[]
+            ) => void
+        ) => setSearchParams([{ "product-action": "activate" }, { "product-id": productId }]),
+    },
+    {
+        type: "product",
         name: "duplicate product",
         icon: IconDuplicate,
     },

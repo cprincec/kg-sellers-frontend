@@ -15,10 +15,12 @@ const OrderHistoryTable = ({
     orders,
     size,
     totalPages,
+    noResultsMessage,
 }: {
     orders: IOrder[];
     size: number;
     totalPages: number;
+    noResultsMessage: string;
 }) => {
     const searchParams = useSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
@@ -41,10 +43,9 @@ const OrderHistoryTable = ({
             <div className="mx-3">
                 <Table className="w-[950px] lg:w-full">
                     <OrderHistoryTableHeader />
-                    <OrderHistoryTableBody orders={orders} />
+                    <OrderHistoryTableBody orders={orders} noResultsMessage={noResultsMessage} />
                 </Table>
             </div>
-
             <PaginationComponent pageSize={size} totalPages={totalPages} className="mx-5" />
         </div>
     );

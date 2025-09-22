@@ -58,7 +58,7 @@ const ConfirmProductAction = ({
 
                     <Button
                         type="button"
-                        variant={action === "PAUSE" ? "primary" : "critical_solid"}
+                        variant={action === "PAUSE" || action === "ACTIVATE" ? "primary" : "critical_solid"}
                         className="p-3 text-base capitalize"
                         onClick={() => {
                             if (confirmButtonAction) confirmButtonAction();

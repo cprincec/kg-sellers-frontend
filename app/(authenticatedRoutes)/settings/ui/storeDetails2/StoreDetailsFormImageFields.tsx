@@ -31,7 +31,7 @@ const StoreDetailsFormImageFields = ({
             {/* Banner */}
             <div>
                 <p className="text-sm md:text-base text-kaiglo_grey-900 mb-2 uppercase lg:capitalize">
-                    Store Banner<span className="text-kaiglo_critical-error font-medium">*</span>
+                    Store Banner
                 </p>
                 <ImageUploadInputField
                     name="storeBanner"

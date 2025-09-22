@@ -27,7 +27,7 @@ const ToolTip = ({
             />
 
             <div
-                className={`${
+                className={`z-50 ${
                     !showTip && "hidden group-hover:block"
                 } absolute left-1/2 transform -translate-x-1/2 animate-fadeIn ${
                     tipClassName && tipClassName

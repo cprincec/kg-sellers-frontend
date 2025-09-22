@@ -12,24 +12,25 @@ import AddToSales from "../addToSales/AddToSales";
 import { useModalContext } from "@/app/contexts/modalContext";
 import useDeleteProduct from "../../hooks/useDeleteProduct";
 import useGetRawProduct from "../../hooks/addProduct/useGetRawProduct";
-import usePauseProduct from "../../hooks/usePauseProduct";
-// import useGetProductDescription from "../../hooks/addProduct/useGetProductDescription";
+import usePauseProduct from "../../hooks/useToggleProductStatus";
+import Loader from "@/app/ui/Loader";
 
 const ProductsTable = ({
     products,
     ongoingSales,
+    noResultsMessage,
 }: {
     products: IProduct[];
     ongoingSales: IOngoingSale[];
+    noResultsMessage: string;
 }) => {
     const searchParams = useSearchParams();
     const productId = searchParams.get("product-id");
     const { deleteSearchParams } = useUpdateSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
     const { productRaw } = useGetRawProduct(productId || "");
-    // const { productDescription } = useGetProductDescription(productId || "");
     const { deleteProduct } = useDeleteProduct();
-    const { pauseProduct } = usePauseProduct();
+    const { toggleProductStatus, isTogglingProductStatus } = usePauseProduct();
 
     useEffect(() => {
         // Display relevant modal based on url parameters
@@ -37,7 +38,6 @@ const ProductsTable = ({
         let clearKeys: string[] = [];
 
         if (searchParams.get("product-action") === "delete" && searchParams.get("product-id")) {
-           
             content = (
                 <ConfirmProductAction
                     confirmButtonAction={() => {
@@ -57,13 +57,30 @@ const ProductsTable = ({
                     body="Product will be paused and will no longer appear to customers. You can activate it anytime"
                     confirmButtonText="Confirm"
                     confirmButtonAction={() => {
-                        if (productId) pauseProduct(productId);
+                        if (productId) toggleProductStatus({ productId, isPaused: true });
 
                         deleteSearchParams(["product-action", "product-id"]);
                         setModalContent(null);
                         setShowModal(false);
                     }}
                     action={"PAUSE"}
+                />
+            );
+            clearKeys = ["product-action", "product-id"];
+        } else if (searchParams.get("product-action") === "activate" && searchParams.get("product-id")) {
+            content = (
+                <ConfirmProductAction
+                    title="Activate product"
+                    body="Product will become active and will be visible to customers. You can pause it anytime"
+                    confirmButtonText="Confirm"
+                    confirmButtonAction={() => {
+                        if (productId) toggleProductStatus({ productId, isPaused: false });
+
+                        deleteSearchParams(["product-action", "product-id"]);
+                        setModalContent(null);
+                        setShowModal(false);
+                    }}
+                    action={"ACTIVATE"}
                 />
             );
             clearKeys = ["product-action", "product-id"];
@@ -86,8 +103,14 @@ const ProductsTable = ({
         <div className="overflow-auto lg:mx-2">
             <Table className="w-[1100px] lg:w-full">
                 <ProductsTableHeader />
-                <ProductsTableBody ongoingSales={ongoingSales} products={products} />
+                <ProductsTableBody
+                    ongoingSales={ongoingSales}
+                    products={products}
+                    noResultsMessage={noResultsMessage}
+                />
             </Table>
+
+            {isTogglingProductStatus && <Loader />}
         </div>
     );
 };

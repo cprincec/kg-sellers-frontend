@@ -15,10 +15,12 @@ const TransactionHistoryTable = ({
     transactions,
     totalPages,
     pageSize,
+    noResultsMessage,
 }: {
     transactions: ITransaction[];
     totalPages: number;
     pageSize: number;
+    noResultsMessage: string;
 }) => {
     const searchParams = useSearchParams();
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
@@ -40,7 +42,10 @@ const TransactionHistoryTable = ({
         <div className="overflow-auto">
             <Table className="w-[950px] lg:w-full border">
                 <TransactionHistoryTableHeader />
-                <TransactionHistoryTableBody transactions={transactions} />
+                <TransactionHistoryTableBody
+                    transactions={transactions}
+                    noResultsMessage={noResultsMessage}
+                />
             </Table>
 
             <PaginationComponent

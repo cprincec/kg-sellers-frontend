@@ -39,6 +39,7 @@ const StoreDetailsFormFields = ({
                 error={errors.email}
                 isRequired={true}
                 data-testid="email"
+                disabled={true} // The default email is always submitted on form submission regardless of the value of this field
             />
 
             {/* Phone */}

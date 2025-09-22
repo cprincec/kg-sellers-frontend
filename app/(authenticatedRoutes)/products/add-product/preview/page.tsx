@@ -73,6 +73,7 @@ const ProductPreview = () => {
                     <SeoSection product={productRaw} />
                 </div>
             )}
+
             <div>
                 <FormNavButtons
                     cancelFunc={() => handleCancel(productRaw?.id)}

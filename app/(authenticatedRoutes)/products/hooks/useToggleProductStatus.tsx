@@ -3,22 +3,26 @@
 import { postRequest } from "@/lib/utils/apiCaller";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IGenericResponse } from "../lib/interfaces/response.interface";
-import { handleError, showErrorToast } from "@/app/lib/utils/utils";
+import { handleError, showErrorToast, showSuccessToast } from "@/app/lib/utils/utils";
 
-const usePauseProduct = () => {
+const useToggleProductStatus = () => {
     const queryClient = useQueryClient();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (productId: string) =>
+        mutationFn: ({ productId, isPaused }: { productId: string; isPaused: boolean }) =>
             postRequest<{ handler: string; notes: string }, IGenericResponse>({
-                url: `/product/pause/${productId}?isPaused=true`,
+                url: `/product/pause/${productId}?isPaused=${isPaused}`,
                 payload: { handler: "", notes: "" },
             }),
-        onSuccess: (data) => {
+        onSuccess: (data, variables) => {
             if (!data.response) {
                 showErrorToast({ title: "Oh something went wrong" });
                 return;
             }
+
+            showSuccessToast({
+                title: `Product ${variables.isPaused === true ? "paused" : "activated"} successfully`,
+            });
 
             // Update queries
             queryClient.refetchQueries({ queryKey: ["products"], exact: false });
@@ -28,14 +32,14 @@ const usePauseProduct = () => {
         },
         onError: (error) => {
             console.error(error);
-            handleError(error, "Error pausing product");
+            handleError(error, "Error toggling product status");
         },
     });
 
     return {
-        isPausingProduct: isPending,
-        pauseProduct: mutate,
+        isTogglingProductStatus: isPending,
+        toggleProductStatus: mutate,
     };
 };
 
-export default usePauseProduct;
+export default useToggleProductStatus;
