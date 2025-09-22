@@ -1,4 +1,3 @@
-import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import ProductsTable from "./ProductsTable";
 import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
 import useGetProductsByRecentActivity from "../../hooks/useGetProductsByRecentActivity";
@@ -49,14 +48,17 @@ const ProductsTableWrapper = () => {
             </div>
         );
 
-    if (!productList?.content.length) return <NoResultsIcon title={noResultsMessage} />;
-
     return (
         <div className="overflow-auto">
-            <ProductsTable ongoingSales={ongoingSales.salesObjectList} products={productList.content} />
+            <ProductsTable
+                ongoingSales={ongoingSales.salesObjectList}
+                products={productList?.content ?? []}
+                noResultsMessage={noResultsMessage}
+            />
+
             <PaginationComponent
-                pageSize={productList.size}
-                totalPages={productList.totalPages}
+                pageSize={productList?.size ?? 0}
+                totalPages={productList?.totalPages ?? 0}
                 className="mx-5"
             />
         </div>

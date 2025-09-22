@@ -12,6 +12,7 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { useEffect } from "react";
 import { format } from "date-fns";
 import { showErrorToast } from "@/app/lib/utils/utils";
+import { NoResultsIcon } from "@/app/(authenticatedRoutes)/dashboard/ui/icons";
 
 const PayoutHistoryTable = ({
     payoutHistory,
@@ -27,8 +28,6 @@ const PayoutHistoryTable = ({
     const { setShowModal, setModalContent, setOnClose } = useModalContext();
 
     useEffect(() => {
-        // Check if payout index is present in the URL
-        // and if it is valid
         const payoutReference = searchParams.get("payout-reference");
 
         if (!payoutReference) return;
@@ -71,36 +70,48 @@ const PayoutHistoryTable = ({
                 </TableHeader>
 
                 <TableBody>
-                    {payoutHistory.map((history, index) => {
-                        const { reference, date, amount, status } = history;
-                        return (
-                            <TableRow
-                                key={index}
-                                className="cursor-pointer"
-                                onClick={() => setSearchParams([{ "payout-reference": reference }])}
-                            >
-                                <TableCell className="p-3 md:text-base max-w-[20px]">{index + 1}</TableCell>
-                                <TableCell className="p-3 text-sm text-center">{reference}</TableCell>
-                                <TableCell className="p-3 text-sm md:text-base text-center">
-                                    {format(date, "dd MMM yyyy hh:mm a")}
-                                </TableCell>
-                                <TableCell className="p-3 text-sm md:text-base text-center">
-                                    ₦{amount.toLocaleString()}
-                                </TableCell>
-                                <TableCell className="p-3 text-center">
-                                    <span className={getPayoutStatusStyle(status)}>{status}</span>
-                                </TableCell>
-                                <TableCell className="p-3 text-center">
-                                    <Button
-                                        variant={"outline"}
-                                        className="py-1 px-2 text-kaiglo_grey-900 border-kaiglo_grey-placeholder text-xs rounded-xl font-medium capitalize"
-                                    >
-                                        View
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
+                    {payoutHistory.length > 0 ? (
+                        payoutHistory.map((history, index) => {
+                            const { reference, date, amount, status } = history;
+                            return (
+                                <TableRow
+                                    key={index}
+                                    className="cursor-pointer"
+                                    onClick={() => setSearchParams([{ "payout-reference": reference }])}
+                                >
+                                    <TableCell className="p-3 md:text-base max-w-[20px]">
+                                        {index + 1}
+                                    </TableCell>
+                                    <TableCell className="p-3 text-sm text-center">{reference}</TableCell>
+                                    <TableCell className="p-3 text-sm md:text-base text-center">
+                                        {format(date, "dd MMM yyyy hh:mm a")}
+                                    </TableCell>
+                                    <TableCell className="p-3 text-sm md:text-base text-center">
+                                        ₦{amount.toLocaleString()}
+                                    </TableCell>
+                                    <TableCell className="p-3 text-center">
+                                        <span className={getPayoutStatusStyle(status)}>{status}</span>
+                                    </TableCell>
+                                    <TableCell className="p-3 text-center">
+                                        <Button
+                                            variant={"outline"}
+                                            className="py-1 px-2 text-kaiglo_grey-900 border-kaiglo_grey-placeholder text-xs rounded-xl font-medium capitalize"
+                                        >
+                                            View
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={6}>
+                                <div className="min-h-[350px] flex items-center justify-center">
+                                    <NoResultsIcon title="No payout data" />
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    )}
                 </TableBody>
             </Table>
 

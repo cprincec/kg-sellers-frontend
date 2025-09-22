@@ -24,6 +24,9 @@ import { productCategoryFormDefaultValues, productVariantsFormDefaultValues } fr
 import { showErrorToast } from "@/app/lib/utils/utils";
 import { Dispatch, SetStateAction } from "react";
 import { Area } from "react-easy-crop";
+import { createEditor } from "lexical";
+import { $generateHtmlFromNodes } from "@lexical/html";
+import { nodes } from "@/components/blocks/editor-00/nodes";
 
 /**************************************************************
  * Generate product category DTO from product draft
@@ -47,6 +50,27 @@ export const generateProductCategoryDTO = (product: IProduct): IProductCategoryD
  * specifications, seo etc.
  * the product description is gotten from a seperate endpoint
  * ********************************************************/
+// export const generateProductDetailsDTO = (
+//     productRaw: IProduct,
+//     productDescription: string
+// ): IProductDetailsDTO => {
+//     const { name, productUrl, specifications, seo } = productRaw;
+
+//     // Extract each non-mainImage (ie other images) from product draft
+//     const otherImages =
+//         productRaw.productViews && productRaw.productViews.length
+//             ? productRaw.productViews.map((v) => v.productUrl)
+//             : [];
+
+//     return {
+//         productName: name,
+//         mainImage: productUrl,
+//         otherImages,
+//         description: productDescription,
+//         specifications: specifications,
+//         seo: seo ?? "",
+//     };
+// };
 export const generateProductDetailsDTO = (
     productRaw: IProduct,
     productDescription: string
@@ -63,6 +87,9 @@ export const generateProductDetailsDTO = (
     const otherImages = productUrl 
         ? [productUrl, ...productViewImages]
         : productViewImages;
+
+    //Include mainImage in otherImages array
+    const otherImages = productUrl ? [productUrl, ...productViewImages] : productViewImages;
 
     return {
         productName: name,
@@ -141,8 +168,6 @@ export const generateProductVariantFormDefaults = (
             }
         }
     }
-
-    
 
     return { ...productVariantsFormDefaultValues };
 };
@@ -581,4 +606,15 @@ export const getCroppedImg = async (
             console.error(error);
         }
     });
+};
+
+export const renderLexicalToHtml = (serialized: string) => {
+    const editor = createEditor({ nodes });
+    const state = editor.parseEditorState(serialized);
+    editor.setEditorState(state);
+    let html = "";
+    editor.update(() => {
+        html = $generateHtmlFromNodes(editor);
+    });
+    return html;
 };

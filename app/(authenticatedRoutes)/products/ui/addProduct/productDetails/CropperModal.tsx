@@ -30,14 +30,16 @@ const CropperModal = ({
     }, []);
 
     return (
-        <DialogContent className="min-w-full h-full lg:min-w-[80%] lg:w-[80%] md:h-[90%] lg:h-[90%] outline-none border-none gap-5 px-4 md:px-6 py-6 rounded-none sm:rounded-none">
-            <DialogHeader className="hidden">
-                <DialogTitle />
-                <DialogDescription className="hidden" />
+        <DialogContent className="min-w-full h-full lg:min-w-[80%] lg:w-[80%] md:h-[90%] lg:h-[90%] outline-none border-none grid-rows-[auto_1fr] gap-5 px-4 md:px-6 py-6 rounded-none sm:rounded-none lg:rounded-xl">
+            <DialogHeader>
+                <DialogTitle className="">Crop your product image</DialogTitle>
+                <DialogDescription>
+                    Ensure that your image is within the visible square area
+                </DialogDescription>
             </DialogHeader>
 
             <div className="flex flex-col gap-8">
-                <div className="w-full h-full relative crop-container mt-12">
+                <div className="w-full h-full relative crop-container">
                     <Cropper
                         image={uploadedFile}
                         crop={crop}
@@ -93,7 +95,7 @@ const CropperModal = ({
                             }
                         }}
                         submitButtonType="button"
-                        submitButtonText="Crop image"
+                        submitButtonText="Save"
                     />
                 </div>
             </div>

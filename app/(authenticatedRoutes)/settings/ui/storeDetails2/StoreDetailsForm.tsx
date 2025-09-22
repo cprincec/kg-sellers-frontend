@@ -18,7 +18,10 @@ const StoreDetailsForm = ({ defaultValues }: { defaultValues: IStoreDetailsDTO }
 
     const { editStoreDetails, isEditingStoreDetails } = useEditStoreDetails();
     const saveStoreDetails = (values: IStoreDetailsDTO) => {
-        editStoreDetails(values);
+        // users should not be be able to change email
+        // email is gotton from default values instead of submitted values
+        // incase someone tries to bypass the disabled email field
+        editStoreDetails({ ...values, email: defaultValues.email });
     };
 
     return (

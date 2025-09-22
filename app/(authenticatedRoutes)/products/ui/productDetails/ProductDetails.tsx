@@ -16,6 +16,7 @@ import ProductDetailsImageSection from "./ProductDetailsImageSection";
 import ProductDetailsSpecificationsSection from "./ProductDetailsSpecificationsSection";
 import ProductDetailsIntroSection from "./ProductDetailsIntroSection";
 import useGetOngoingSales from "../../hooks/useGetOngoingSales";
+import { Editor } from "@/components/blocks/editor-00/editor";
 
 const ProductDetails = () => {
     const { deleteSearchParams } = useUpdateSearchParams();
@@ -40,7 +41,7 @@ const ProductDetails = () => {
 
     return (
         <DialogContent
-            className="w-[90%] md:w-[600px] md:max-w-[600px] max-h-[95%] m-auto overflow-y-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-5"
+            className="w-[90%] md:w-[80%] md:max-w-[80%] max-h-[95%] m-auto overflow-y-auto outline-none p-4 md:px-5 md:py-6 rounded-xl gap-5"
             closeBtnClassName="md:hidden left-4 -ml-1 mt-0.5"
         >
             <div className="flex items-center justify-end gap-4 max-md:mb-5">
@@ -82,7 +83,11 @@ const ProductDetails = () => {
                 <section className="grid gap-2">
                     <h2 className="text-sm ">Description</h2>
                     {productDescription ? (
-                        <p className="text-sm text-kaiglo_grey-600">{productDescription} </p>
+                        <Editor
+                            editorSerializedState={JSON.parse(productDescription)}
+                            readOnly={true}
+                            placeholder=""
+                        />
                     ) : (
                         <p>No description added</p>
                     )}

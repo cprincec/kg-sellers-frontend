@@ -1,6 +1,6 @@
 "use client";
 
-import { IconCog, IconHelpCenter, IconLogout } from "@/public/icons/icons";
+import { IconCog, IconHelpCenter, IconHome, IconLogout } from "@/public/icons/icons";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -54,6 +54,12 @@ const ProfileIconWithDropDown = ({ contentClassName }: { contentClassName?: stri
                         </div>
                     </div>
                     <div className="grid gap-2 px-2 py-3 font-medium text-sm text-kaiglo_grey-700">
+                        <Link
+                            href={"/dashboard"}
+                            className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100"
+                        >
+                            <Image src={IconHome} alt="dashboard icon" /> Dashboard
+                        </Link>
                         <Link
                             href={"/settings"}
                             className="flex gap-2 items-center justify-start p-2 rounded-lg cursor-pointer hover:bg-kaiglo_grey-100"

@@ -1,6 +1,5 @@
 "use client";
 
-import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import PayoutHistoryTable from "./PayoutHistoryTable";
 import { TableError } from "@/app/ui/errors";
 import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
@@ -26,14 +25,12 @@ const PayoutHistoryTableWrapper = () => {
             <TableError title="There was an error fetching payout data." retryFunction={refetchPayoutData} />
         );
 
-    return payoutData?.content.length ? (
+    return (
         <PayoutHistoryTable
-            payoutHistory={payoutData.content}
-            totalPages={payoutData.totalPages}
-            pageSize={payoutData.pageable.pageSize}
+            payoutHistory={payoutData?.content ?? []}
+            totalPages={payoutData?.totalPages ?? 0}
+            pageSize={payoutData?.pageable.pageSize ?? 0}
         />
-    ) : (
-        <NoResultsIcon title={"No payout data"} />
     );
 };
 

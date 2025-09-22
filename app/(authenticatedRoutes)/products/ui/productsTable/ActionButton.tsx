@@ -10,17 +10,20 @@ import useUpdateSearchParams from "@/hooks/useSetSearchParams";
 import { IProductAction, IVariantAction } from "../../lib/interfaces/interface";
 import { useRouter } from "next/navigation";
 import useDuplicateProduct from "../../hooks/useDuplicateProduct";
+import { Play } from "lucide-react";
 
 const ActionButton = ({
     actions,
     productId,
     variantId,
+    productIsPaused,
     className,
     disabled = false,
 }: {
     actions: IProductAction[] | IVariantAction[];
     productId: string;
     variantId?: string;
+    productIsPaused: boolean;
     className?: string;
     disabled?: boolean | ((action: string) => boolean);
 }) => {
@@ -47,6 +50,15 @@ const ActionButton = ({
                                     : link(productId)
                                 : undefined;
 
+                            const isDisabled = action.disabled
+                                ? action.disabled
+                                : typeof disabled === "boolean"
+                                ? disabled
+                                : disabled(action.name) || action.disabled || isDuplicatingProduct;
+
+                            if (action.name === "pause product" && productIsPaused) return;
+                            if (action.name === "activate product" && !productIsPaused) return;
+
                             return (
                                 <Button
                                     key={action.name + "-" + index}
@@ -70,15 +82,17 @@ const ActionButton = ({
                                             else actionFunc(productId, setSearchParams);
                                         }
                                     }}
-                                    disabled={
-                                        action.disabled
-                                            ? action.disabled
-                                            : typeof disabled === "boolean"
-                                            ? disabled
-                                            : disabled(action.name) || action.disabled || isDuplicatingProduct
-                                    }
+                                    disabled={isDisabled}
                                 >
-                                    <Image src={icon} alt="icon" className="w-6 h-6" />
+                                    {action.name === "activate product" ? (
+                                        <Play
+                                            className="text-kaiglo_grey-700 w-6 h-6 !size-6"
+                                            strokeWidth={1.2}
+                                        />
+                                    ) : (
+                                        <Image src={icon} alt="icon" className="w-6 h-6" />
+                                    )}
+
                                     <span className={cn(style)}>{name}</span>
                                 </Button>
                             );

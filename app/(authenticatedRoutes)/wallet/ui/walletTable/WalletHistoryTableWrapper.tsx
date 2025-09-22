@@ -1,6 +1,5 @@
 "use client";
 
-import { NoResultsIcon } from "../../../dashboard/ui/icons";
 import WalletHistoryTable from "./WalletHistoryTable";
 import useGetWalletData from "../../hooks/useGetWalletData";
 import TableSkeleton from "@/app/ui/skeletons/TableSkeleton";
@@ -28,14 +27,12 @@ const WalletHistoryTableWrapper = () => {
             <TableError title="There was an error fetching wallet data." retryFunction={refetchWalletData} />
         );
 
-    return walletData?.content.length ? (
+    return (
         <WalletHistoryTable
-            walletHistory={walletData.content}
-            totalPages={walletData.totalPages}
-            pageSize={walletData.pageable.pageSize}
+            walletHistory={walletData?.content ?? []}
+            totalPages={walletData?.totalPages ?? 0}
+            pageSize={walletData?.pageable.pageSize ?? 0}
         />
-    ) : (
-        <NoResultsIcon title={"No wallet data"} />
     );
 };
 

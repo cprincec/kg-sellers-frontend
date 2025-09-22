@@ -7,9 +7,14 @@
 import { ApiObjType, GetRequestProp, MutationRequestProp } from "@/interfaces/api.interface";
 import Api from "@/lib/utils/axiosInterceptorConfig";
 
-export const postRequest = async <TRequest, TResponse>({ url, payload }: MutationRequestProp<TRequest>) => {
+export const postRequest = async <TRequest, TResponse>({
+    url,
+    payload,
+    config,
+}: MutationRequestProp<TRequest>) => {
     try {
-        const response = await Api.post<TResponse>(url, payload);
+        console.log("config", config);
+        const response = await Api.post<TResponse>(url, payload, config);
         const { data: availData } = response;
 
         return availData;

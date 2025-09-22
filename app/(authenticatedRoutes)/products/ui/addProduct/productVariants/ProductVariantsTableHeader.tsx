@@ -16,6 +16,9 @@ const ProductVariantsTableHeader = ({
                     Product
                 </TableHead>
                 <TableHead className="text-xs md:text-base p-3 text-center font-medium text-kaiglo_grey-700 whitespace-nowrap">
+                    SKU
+                </TableHead>
+                <TableHead className="text-xs md:text-base p-3 text-center font-medium text-kaiglo_grey-700 whitespace-nowrap">
                     Color
                 </TableHead>
                 {showSize && (

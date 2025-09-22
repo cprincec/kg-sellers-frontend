@@ -108,7 +108,7 @@ export interface IProductsOverview {
 /*********************************
  * Action button interface
  *********************************/
-export type ProductActionTypes = "DELETE" | "PAUSE" | "DUPLICATE";
+export type ProductActionTypes = "DELETE" | "PAUSE" | "ACTIVATE" | "DUPLICATE";
 
 export interface IBaseAction {
     name: string;
@@ -363,6 +363,14 @@ export type productVariantsFormProps = {
     fields: IVariantField[];
     productMeta: IProductMeta;
     className?: string;
+};
+
+export type productVariantsTableProps = {
+    product: IProduct;
+    productAction: string;
+    productMetaData: IProductMeta;
+    showActions: boolean;
+    showSizeColumn: boolean;
 };
 
 export interface IProduct {

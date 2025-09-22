@@ -118,7 +118,6 @@ const PaginationComponent = ({
                             </PaginationItem>
                         );
                     })}
-
                     <PaginationItem className="h-9 w-9">
                         <PaginationNext
                             justIcon={true}

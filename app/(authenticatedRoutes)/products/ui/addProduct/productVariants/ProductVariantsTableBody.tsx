@@ -4,9 +4,8 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import ActionButton from "../../productsTable/ActionButton";
 import { productVariantActions } from "../../../lib/data/data";
-// import { Dispatch, SetStateAction } from "react";
 import { generateProductVariantDTOs } from "../../../lib/utils/addProduct.utils";
-import { IProduct, IProductMeta } from "../../../lib/interfaces/interface";
+import { productVariantsTableProps } from "../../../lib/interfaces/interface";
 
 const ProductVariantsTableBody = ({
     product,
@@ -14,13 +13,7 @@ const ProductVariantsTableBody = ({
     productMetaData,
     showSizeColumn,
     showActions,
-}: {
-    product: IProduct;
-    productAction: string;
-    productMetaData: IProductMeta;
-    showActions: boolean;
-    showSizeColumn: boolean;
-}) => {
+}: productVariantsTableProps) => {
     const productVariants = generateProductVariantDTOs(product);
 
     return (
@@ -29,8 +22,6 @@ const ProductVariantsTableBody = ({
                 const size = variant.productColor.productPriceDetails[0].attributes.find(
                     (a) => a.key === "size"
                 )?.value;
-
-                // if (!size) setShowSizeColumn(false);
 
                 const colorCode = variant.productColor.productPriceDetails[0].attributes.find(
                     (a) => a.key === "color"
@@ -57,6 +48,9 @@ const ProductVariantsTableBody = ({
                             </div>
                         </TableCell>
                         <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
+                            {variant.productColor.productPriceDetails[0].sku}
+                        </TableCell>
+                        <TableCell className="p-3 text-sm text-center font-medium capitalize text-kaiglo_grey-base">
                             {color ?? variant.productColor.color.color}
                         </TableCell>
                         {showSizeColumn && (
@@ -72,26 +66,30 @@ const ProductVariantsTableBody = ({
                         </TableCell>
                         {showActions && (
                             <TableCell className="p-3 text-sm text-center">
-                               <ActionButton
-  className="w-max m-auto"
-  variantId={variant.productColor.productPriceDetails[0].id}
-  productId={product.id}
-  actions={productVariantActions}
-  disabled={(action: string) => {
-    const isPauseAction = action.toLowerCase() === "pause variant";
+                                <ActionButton
+                                    className="w-max m-auto"
+                                    variantId={variant.productColor.productPriceDetails[0].id}
+                                    productId={product.id}
+                                    actions={productVariantActions}
+                                    disabled={(action: string) => {
+                                        const isPauseAction = action.toLowerCase() === "pause variant";
 
-    if (productAction !== "edit" && isPauseAction) {
-      return true;
-    }
+                                        if (productAction !== "edit" && isPauseAction) {
+                                            return true;
+                                        }
 
-    if (isPauseAction) {
-      return variant.productColor.productPriceDetails[0].isPaused ?? false;
-    }
+                                        if (isPauseAction) {
+                                            return (
+                                                variant.productColor.productPriceDetails[0].isPaused ?? false
+                                            );
+                                        }
 
-    return false;
-  }}
-/>
-
+                                        return false;
+                                    }}
+                                    productIsPaused={
+                                        variant.productColor.productPriceDetails[0].isPaused ?? false
+                                    }
+                                />
                             </TableCell>
                         )}
                     </TableRow>

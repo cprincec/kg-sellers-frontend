@@ -1,6 +1,5 @@
 "use client";
 
-import { NoResultsIcon } from "../../dashboard/ui/icons";
 import OrderHistoryTable from "./OrderHistoryTable";
 import { useSearchParams } from "next/navigation";
 import useGetAllOrders from "../hooks/useGetAllOrders";
@@ -77,14 +76,13 @@ const OrderHistoryTableWrapper = () => {
     if (errorFetchingOrders || errorFetchingOrdersByStatus || errorFetchingOrdersBySearchTerm)
         return <TableError title="There was an error fetching orders." retryFunction={refetchOrders} />;
 
-    return ordersResponse?.content.length ? (
+    return (
         <OrderHistoryTable
-            orders={ordersResponse.content}
-            totalPages={ordersResponse.totalPages}
-            size={ordersResponse.size}
+            orders={ordersResponse?.content ?? []}
+            totalPages={ordersResponse?.totalPages ?? 0}
+            size={ordersResponse?.size ?? 0}
+            noResultsMessage={noResultsMessage}
         />
-    ) : (
-        <NoResultsIcon title={noResultsMessage} />
     );
 };
 export default OrderHistoryTableWrapper;

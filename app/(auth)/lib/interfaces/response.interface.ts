@@ -46,7 +46,7 @@ export interface UserResponse {
     lastName: string;
     month?: number;
     newUser: boolean;
-    phone?: string;
+    phone: string;
     pictureUrl: string;
     platform: "MOBILE" | "WEB" | "OTHER";
     provider: string;

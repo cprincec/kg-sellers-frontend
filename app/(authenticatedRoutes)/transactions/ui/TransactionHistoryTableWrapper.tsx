@@ -1,6 +1,5 @@
 "use client";
 
-import { NoResultsIcon } from "../../dashboard/ui/icons";
 import TransactionHistoryTable from "./TransactionHistoryTable";
 import { useSearchParams } from "next/navigation";
 import useGetAllTransactions from "../hooks/useGetAllTransactions";
@@ -48,14 +47,13 @@ const TransactionHistoryTableWrapper = () => {
 
     if (isFetchingTransactions) return <TableSkeleton />;
 
-    return transactions?.content.length ? (
+    return (
         <TransactionHistoryTable
-            totalPages={transactions.totalPages}
-            pageSize={transactions.size}
-            transactions={transactions.content}
+            totalPages={transactions?.totalPages ?? 0}
+            pageSize={transactions?.size ?? 0}
+            transactions={transactions?.content ?? []}
+            noResultsMessage={noResultsMessage}
         />
-    ) : (
-        <NoResultsIcon title={noResultsMessage} />
     );
 };
 export default TransactionHistoryTableWrapper;

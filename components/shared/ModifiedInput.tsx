@@ -51,7 +51,7 @@ const ModifiedInput = ({
                 <div className={cn("", labelContainerClassName)}>
                     <Label
                         className={cn(
-                            "text-sm md:text-base text-kaiglo_grey-700 font-normal capitalize",
+                            "inline-block text-sm md:text-base text-kaiglo_grey-700 font-normal first-letter:uppercase",
                             labelClassNames
                         )}
                     >

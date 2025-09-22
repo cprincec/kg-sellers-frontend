@@ -20,8 +20,8 @@ const Wallet = () => {
             <div className="p-4 lg:p-0 md:max-lg:pl-3 grid gap-4 lg:gap-0 lg:bg-kaiglo_grey-100">
                 <AccountSummary className="lg:border-l-0 lg:border-t-0" />
 
-                <div className="grid gap-4 py-4 lg:px-6 lg:pt-6 lg:pb-0 bg-white">
-                    <Tabs defaultValue={activeTab || "wallet"} className="grid gap-2 lg:gap-0">
+                <div className="grid gap-4 py-4 lg:px-6 lg:pt-6 bg-white">
+                    <Tabs defaultValue={activeTab ?? "wallet"} className="grid gap-2 lg:gap-0">
                         <div className="grid md:grid-cols-2 lg:justify-between md:items-baseline lg:items-center gap-2 lg:gap-4 border-kaiglo_grey-200">
                             <OrderHistoryToolsBar
                                 showSort={false}
