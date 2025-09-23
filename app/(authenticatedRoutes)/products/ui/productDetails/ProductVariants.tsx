@@ -15,12 +15,12 @@ const ProductVariants = ({ productVariants }: { productVariants: IProductVariant
                                 <div key={"variant color-" + index + 1} className="flex items-center gap-1">
                                     <div
                                         className={cn("hidden md:block w-3 h-3 rounded-[2px]")}
-                                        style={{ backgroundColor: variant.productColor.color.color }}
+                                        style={{ backgroundColor: variant.productColor.color.colorCode }}
                                     ></div>
 
                                     <p
                                         className={cn("text-sm font-medium text-kaiglo_grey-700 capitalize")}
-                                        style={{ color: variant.productColor.color.color }}
+                                        style={{ color: variant.productColor.color.colorCode }}
                                     >
                                         {variant.productColor.color.color}
                                     </p>

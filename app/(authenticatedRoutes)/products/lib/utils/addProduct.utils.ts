@@ -613,3 +613,12 @@ export const renderLexicalToHtml = (serialized: string) => {
     });
     return html;
 };
+
+export const isSerializedState = (value: string) => {
+    try {
+        const parsed = JSON.parse(value);
+        return parsed && typeof parsed === "object" && parsed.root;
+    } catch {
+        return false;
+    }
+};

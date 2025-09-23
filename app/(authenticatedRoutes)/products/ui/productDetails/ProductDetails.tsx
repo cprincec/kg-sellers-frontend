@@ -10,7 +10,11 @@ import { useSearchParams } from "next/navigation";
 import useGetRawProduct from "../../hooks/addProduct/useGetRawProduct";
 import Loader from "@/app/ui/Loader";
 import useGetProductDescription from "../../hooks/addProduct/useGetProductDescription";
-import { generateProductDetailsDTO, generateProductVariantDTOs } from "../../lib/utils/addProduct.utils";
+import {
+    generateProductDetailsDTO,
+    generateProductVariantDTOs,
+    isSerializedState,
+} from "../../lib/utils/addProduct.utils";
 import Link from "next/link";
 import ProductDetailsImageSection from "./ProductDetailsImageSection";
 import ProductDetailsSpecificationsSection from "./ProductDetailsSpecificationsSection";
@@ -83,11 +87,15 @@ const ProductDetails = () => {
                 <section className="grid gap-2">
                     <h2 className="text-sm ">Description</h2>
                     {productDescription ? (
-                        <Editor
-                            editorSerializedState={JSON.parse(productDescription)}
-                            readOnly={true}
-                            placeholder=""
-                        />
+                        isSerializedState(productDescription) ? (
+                            <Editor
+                                editorSerializedState={JSON.parse(productDescription)}
+                                readOnly={true}
+                                placeholder=""
+                            />
+                        ) : (
+                            <p className="text-sm text-kaiglo_grey-600">{productDescription}</p>
+                        )
                     ) : (
                         <p>No description added</p>
                     )}

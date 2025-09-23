@@ -10,6 +10,7 @@ import { useEffect, useRef } from "react";
 import { Editor } from "@/components/blocks/editor-00/editor";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils/utils";
+import { isSerializedState } from "../../../lib/utils/addProduct.utils";
 
 const ProductDetailsFormFields = () => {
     const imageFieldRef = useRef<HTMLDivElement>(null);
@@ -89,7 +90,11 @@ const ProductDetailsFormFields = () => {
                         render={({ field }) => (
                             <div>
                                 <Editor
-                                    editorSerializedState={field.value ? JSON.parse(field.value) : null}
+                                    editorSerializedState={
+                                        field.value && isSerializedState(field.value)
+                                            ? JSON.parse(field.value)
+                                            : null
+                                    }
                                     onSerializedChange={(value) => field.onChange(JSON.stringify(value))}
                                     placeholder={"Enter product details here"}
                                 />

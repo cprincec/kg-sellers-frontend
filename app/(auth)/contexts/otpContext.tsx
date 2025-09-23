@@ -39,7 +39,7 @@ const OtpContextProvider: React.FC<OtpContextProviderProps> = ({ children }) => 
 const useOtpContext = (): IOtpContext => {
     const context = useContext(OtpContext);
     if (!context) {
-        throw new Error("useOtpContext must be used within a OtpContextProvider");
+        throw new Error("useOtpContext must be used within an OtpContextProvider");
     }
     return context;
 };

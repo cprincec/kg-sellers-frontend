@@ -26,6 +26,7 @@ const useGetWithdrawalOTP = () => {
         setResendOTPMutationFunc,
         setResendOTPMutationFuncIsPending,
     } = useOtpContext();
+
     const { isPending, mutate } = useMutation({
         mutationFn: (payload: { email: string; phone: string; userId: string; amount: number }) => {
             const { email, phone, userId } = payload;
@@ -61,7 +62,6 @@ const useGetWithdrawalOTP = () => {
             setResendOTPMutationFunc(() => () => mutate(variables));
             setResendOTPMutationFuncIsPending(isPending);
         },
-
         onError: (error) => {
             console.error(error);
             handleError(error, "Error requesting withdrawal otp");

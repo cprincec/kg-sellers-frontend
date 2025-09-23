@@ -24,7 +24,7 @@ const SelectTrigger = React.forwardRef<
         )}
         {...props}
     >
-        {children}
+        <span className="first-letter:uppercase">{children}</span>
         <SelectPrimitive.Icon asChild>
             <ChevronDown className="h-6 w-6 text-kaiglo_grey-900" />
         </SelectPrimitive.Icon>

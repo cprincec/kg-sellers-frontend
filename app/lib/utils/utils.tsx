@@ -9,16 +9,16 @@ type toastProps = {
 
 export const showSuccessToast = ({ title, description, showCloseButton = true }: toastProps) => {
     toast.success(title, {
-        className: "capitalize",
+        className: "first-letter:uppercase",
         description: description,
-        duration: 6000,
+        duration: 5000,
         closeButton: showCloseButton,
     });
 };
 
 export const showErrorToast = ({ title, description, showCloseButton = true }: toastProps) => {
     toast.error(title, {
-        className: "capitalize",
+        className: "first-letter:uppercase",
         description: description,
         duration: 5000,
         closeButton: showCloseButton,

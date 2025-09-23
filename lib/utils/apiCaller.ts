@@ -13,7 +13,6 @@ export const postRequest = async <TRequest, TResponse>({
     config,
 }: MutationRequestProp<TRequest>) => {
     try {
-        console.log("config", config);
         const response = await Api.post<TResponse>(url, payload, config);
         const { data: availData } = response;
 

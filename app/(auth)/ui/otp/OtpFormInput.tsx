@@ -18,7 +18,7 @@ const FormSchema = z.object({
 });
 
 const OtpFormInput = ({ email, phone, actionText = "Continue" }: OtpFormInputProps) => {
-    const { otpFormAction, otpFormActionIsPending } = useOtpContext();
+    const { otpFormAction, otpFormActionIsPending, resendOTPMutationFuncIsPending } = useOtpContext();
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -33,6 +33,7 @@ const OtpFormInput = ({ email, phone, actionText = "Continue" }: OtpFormInputPro
         // Call the otpFormAction with the payload
         if (otpFormAction) {
             otpFormAction(payload);
+            console.log(payload, otpFormActionIsPending, otpFormAction, resendOTPMutationFuncIsPending);
         }
 
         form.reset();
