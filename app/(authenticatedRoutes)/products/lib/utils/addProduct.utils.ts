@@ -44,12 +44,6 @@ export const generateProductCategoryDTO = (product: IProduct): IProductCategoryD
     return productCategoryObj;
 };
 
-/**************************************************************
- * Generate product details DTO from product draft
- * Product draft contains the product main image and other images,
- * specifications, seo etc.
- * the product description is gotten from a seperate endpoint
- * ********************************************************/
 // export const generateProductDetailsDTO = (
 //     productRaw: IProduct,
 //     productDescription: string
@@ -71,6 +65,13 @@ export const generateProductCategoryDTO = (product: IProduct): IProductCategoryD
 //         seo: seo ?? "",
 //     };
 // };
+
+/**************************************************************
+ * Generate product details DTO from product draft
+ * Product draft contains the product main image and other images,
+ * specifications, seo etc.
+ * the product description is gotten from a seperate endpoint
+ * ********************************************************/
 export const generateProductDetailsDTO = (
     productRaw: IProduct,
     productDescription: string
