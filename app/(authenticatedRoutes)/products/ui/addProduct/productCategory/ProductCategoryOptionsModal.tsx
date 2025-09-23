@@ -78,11 +78,11 @@ const ProductCategoryOptionsModal = ({
                             <Button
                                 key={`${option.name}-${index}`}
                                 className={cn(
-                                    "justify-start px-2 md:px-6 py-4 font-medium text-base text-kaiglo_grey-800 capitalized md:rounded-none bg-transparent hover:bg-kaiglo_grey-100"
+                                    "justify-start px-2 md:px-6 py-4 font-medium text-base text-kaiglo_grey-800 md:rounded-none bg-transparent hover:bg-kaiglo_grey-100"
                                 )}
                                 onClick={() => handleCategoryClick(option)}
                             >
-                                {option.name}
+                                <span className="inline-block first-letter:uppercase">{option.name}</span>
                             </Button>
                         );
                     })}

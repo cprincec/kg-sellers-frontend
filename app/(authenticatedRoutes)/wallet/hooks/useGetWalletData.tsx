@@ -14,10 +14,10 @@ const useGetWalletData = () => {
     const page = useSearchParams().get("page")?.trim() ?? 1;
 
     const { isLoading, data, error, refetch, isRefetching } = useQuery({
-        queryKey: ["wallet-data"],
+        queryKey: ["wallet-data", page],
         queryFn: () =>
             getRequest<IGetWalletDataResponse>({
-                url: `/seller-wallets/wallet?page=${Number(page) - 1}&size=${RESULTS_PER_PAGE}`,
+                url: `/seller-wallets/wallet?page=${Number(page)}&size=${RESULTS_PER_PAGE}`,
             }),
         staleTime: 1000 * 60 * 5,
     });

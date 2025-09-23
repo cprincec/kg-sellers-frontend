@@ -19,7 +19,7 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
     } = useFormContext<IProductCategoryDTO>();
     const searchParams = useSearchParams();
     const productAction = searchParams.get("product-action");
-    const { showModal, setShowModal, setModalContent } = useModalContext();
+    const { showModal, setShowModal, setModalContent, setOnClose } = useModalContext();
     // This is the value displayed on the form field as selected by the user
     const categoryFieldValue = getLeafCategoryName(watch());
 
@@ -43,6 +43,9 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
                                 />
                             );
                             setShowModal(true);
+                            setOnClose(() => () => {
+                                setShowModal(false);
+                            });
                         }}
                     >
                         <Label className="text-sm md:text-base font-normal text-kaiglo_grey-700">
@@ -55,7 +58,7 @@ const ProductCategoryFormFields = ({ categories }: { categories: IProductCategor
                             disabled={productAction === "edit"}
                         >
                             {categoryFieldValue ? (
-                                <span>{categoryFieldValue}</span>
+                                <span className="first-letter:uppercase">{categoryFieldValue}</span>
                             ) : (
                                 <span className="text-sm font-normal text-kaiglo_grey-placeholder">
                                     Select category

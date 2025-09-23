@@ -11,10 +11,10 @@ import { useSearchParams } from "next/navigation";
  */
 
 const useGetPayoutData = () => {
-    const page = useSearchParams().get("page")?.trim() ?? 0;
+    const page = useSearchParams().get("page")?.trim() ?? 1;
 
     const { isLoading, data, error, refetch, isRefetching } = useQuery({
-        queryKey: ["payout-data"],
+        queryKey: ["payout-data", page],
         queryFn: () =>
             postRequest<null, IGetPayoutDataResponse>({
                 url: `/payouts/histories?page=${Number(page)}&size=${RESULTS_PER_PAGE}`,
