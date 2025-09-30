@@ -33,6 +33,17 @@ export const patchRequest = async <TRequest, TResponse>({ url, payload }: Mutati
     }
 };
 
+export const putRequest = async <TRequest, TResponse>({ url, payload }: MutationRequestProp<TRequest>) => {
+    try {
+        const response = await Api.put<TResponse>(url, payload);
+        const { data: availData } = response;
+
+        return availData;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const deleteRequest = async <TRequest, TResponse>({
     url,
     payload,

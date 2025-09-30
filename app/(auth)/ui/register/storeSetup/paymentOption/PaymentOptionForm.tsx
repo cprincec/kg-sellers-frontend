@@ -27,8 +27,13 @@ export const PaymentOptionForm = ({
     const { isSavingPaymentOption, savePaymentOption } = useSavePaymentOption();
 
     const {
+        setValue,
+        getValues,
         control,
         handleSubmit,
+        watch,
+        setError,
+        clearErrors,
         formState: { errors },
     } = useForm<IPaymentOptionDTO>({
         defaultValues,
@@ -75,6 +80,11 @@ export const PaymentOptionForm = ({
                         errors={errors}
                         variant={variant}
                         banks={banks}
+                        watch={watch}
+                        setValue={setValue}
+                        getValues={getValues}
+                        setError={setError}
+                        clearErrors={clearErrors}
                     />
 
                     <FormNavButtons

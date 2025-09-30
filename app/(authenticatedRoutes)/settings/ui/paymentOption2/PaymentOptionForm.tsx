@@ -22,8 +22,13 @@ export const PaymentOptionForm = ({
     const { isEditingPaymentOption, editPaymentOption } = useEditPaymentOption();
 
     const {
+        setValue,
+        getValues,
         control,
         handleSubmit,
+        watch,
+        setError,
+        clearErrors,
         formState: { errors },
     } = useForm<IPaymentOptionDTO>({
         defaultValues,
@@ -62,7 +67,16 @@ export const PaymentOptionForm = ({
             <div className="grid gap-4">
                 <h3 className={cn("text-sm md:text-base font-normal")}>Bank Account Details</h3>
                 <form onSubmit={handleSubmit(onSubmit)} className={cn("grid", "gap-5")}>
-                    <PaymentOptionFormFields control={control} errors={errors} banks={banks} />
+                    <PaymentOptionFormFields
+                        control={control}
+                        errors={errors}
+                        banks={banks}
+                        watch={watch}
+                        setValue={setValue}
+                        getValues={getValues}
+                        setError={setError}
+                        clearErrors={clearErrors}
+                    />
 
                     <FormNavButtons
                         cancelFunc={() => {}}
