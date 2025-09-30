@@ -21,7 +21,7 @@ const StoreSetup = () => {
 
     useEffect(() => {
         // If the user has completed the onboarding, redirect to the dashboard
-        // if (storeInfo && storeInfo.termsAndCondition === true) router.replace("/dashboard");
+        if (storeInfo && storeInfo.termsAndCondition === true) router.replace("/dashboard");
     }, [isFetchingStoreInfo, storeInfo, router]);
 
     if (isFetchingStoreInfo) return <Loader />;
