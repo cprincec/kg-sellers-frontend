@@ -28,6 +28,15 @@ const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li"
 );
 PaginationItem.displayName = "PaginationItem";
 
+
+const LeftPagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
+    <nav
+        role="navigation"
+        aria-label="pagination"
+        className={cn("flex w-full justify-start", className)}
+        {...props}
+    />
+);
 // type PaginationLinkProps = {
 //     isActive?: boolean;
 // } & Pick<ButtonProps, "size"> &
@@ -124,6 +133,7 @@ PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {
     Pagination,
+    LeftPagination,
     PaginationContent,
     PaginationButton,
     PaginationItem,

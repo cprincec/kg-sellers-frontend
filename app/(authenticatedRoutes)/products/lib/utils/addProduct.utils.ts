@@ -90,7 +90,7 @@ export const generateProductDetailsDTO = (
         : productViewImages;
 
     //Include mainImage in otherImages array
-    const otherImages = productUrl ? [productUrl, ...productViewImages] : productViewImages;
+    // const otherImages = productUrl ? [productUrl, ...productViewImages] : productViewImages;
 
     return {
         productName: name,
