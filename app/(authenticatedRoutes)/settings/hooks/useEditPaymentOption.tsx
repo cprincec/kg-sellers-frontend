@@ -14,11 +14,14 @@ const useEditPaymentOption = () => {
     const { setModalContent, setShowModal } = useModalContext();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: IBankDetailsDTO) =>
-            putRequest<IBankDetailsDTO, IBankDetailsDTO>({
+        mutationFn: (payload: IBankDetailsDTO & { otp: string }) => {
+            const { otp, ...body } = payload;
+            return putRequest<IBankDetailsDTO, IBankDetailsDTO>({
                 url: "/store-setting/edit-bank-detail",
-                payload,
-            }),
+                payload: body,
+                config: { headers: { "x-otp-key": otp } },
+            });
+        },
 
         onSuccess: () => {
             setShowModal(false);

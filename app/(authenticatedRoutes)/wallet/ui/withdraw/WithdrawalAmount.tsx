@@ -8,12 +8,24 @@ import Image from "next/image";
 import { IconDelete, IconNaira } from "@/public/icons/icons";
 import useGetWithdrawalOTP from "../../hooks/useGetWithdrawalOTP";
 import { useSession } from "next-auth/react";
+import useWithdraw from "../../hooks/useWithdraw";
+import { useOtpContext } from "@/app/(auth)/contexts/otpContext";
+import { IOtpDTO } from "@/app/(auth)/lib/interfaces/interface";
+import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
 
 const WithdrawalAmount = () => {
     const session = useSession();
+    const { storeInfo } = useGetStoreInfo();
     const [amount, setAmount] = useState("");
     const keypadNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "00", "0"];
     const { requestWithdrawalOTP, isRequestingWithdrawalOTP } = useGetWithdrawalOTP();
+    const { isWithdrawing, withdraw } = useWithdraw();
+    const {
+        setOtpFormActionIsPending,
+        setOtpFormAction,
+        setResendOTPMutationFunc,
+        setResendOTPMutationFuncIsPending,
+    } = useOtpContext();
 
     const handleKeyPress = (value: string) => {
         if (value === "00" && amount.length >= 6) return;
@@ -77,11 +89,34 @@ const WithdrawalAmount = () => {
                         console.error("withdrawal button clicked while no active session");
                         return;
                     }
+                    if (!storeInfo) {
+                        console.error("Error fetching store information. Please relaod the page");
+                        return;
+                    }
+
+                    // update OTP context with functions to send withdrawal request after OTP confirmation
+                    setOtpFormAction(() => (payload: IOtpDTO) => {
+                        withdraw({
+                            amount: parseFloat(amount),
+                            storeId: storeInfo.id,
+                            otp: payload.otp,
+                        });
+                    });
+                    setOtpFormActionIsPending(isWithdrawing);
+                    setResendOTPMutationFunc(
+                        () => () =>
+                            requestWithdrawalOTP({
+                                email: session.data.user.email,
+                                phone: session.data.user.phone,
+                                userId: session.data.user.id,
+                            })
+                    );
+                    setResendOTPMutationFuncIsPending(isRequestingWithdrawalOTP);
+
                     requestWithdrawalOTP({
                         email: session.data.user.email,
                         phone: session.data.user.phone,
                         userId: session.data.user.id,
-                        amount: parseFloat(amount),
                     });
                 }}
                 disabled={isRequestingWithdrawalOTP}

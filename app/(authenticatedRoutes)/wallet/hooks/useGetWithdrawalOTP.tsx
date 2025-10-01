@@ -5,10 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { handleError, showErrorToast } from "@/app/lib/utils/utils";
 import { useModalContext } from "@/app/contexts/modalContext";
 import OtpModal from "@/app/(auth)/ui/otp/OtpModal";
-import { useOtpContext } from "@/app/(auth)/contexts/otpContext";
-import useWithdraw from "./useWithdraw";
 import useGetStoreInfo from "@/app/(auth)/hooks/register/storeSetup/useGetStoreInfo";
-import { IOtpDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { IGenericResponse } from "../../products/lib/interfaces/response.interface";
 import { requestOTPForWalletWithdrawal } from "../lib/endpoints";
 
@@ -19,16 +16,9 @@ import { requestOTPForWalletWithdrawal } from "../lib/endpoints";
 const useGetWithdrawalOTP = () => {
     const { storeInfo } = useGetStoreInfo();
     const { setModalContent, setShowModal } = useModalContext();
-    const { isWithdrawing, withdraw } = useWithdraw();
-    const {
-        setOtpFormActionIsPending,
-        setOtpFormAction,
-        setResendOTPMutationFunc,
-        setResendOTPMutationFuncIsPending,
-    } = useOtpContext();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: { email: string; phone: string; userId: string; amount: number }) => {
+        mutationFn: (payload: { email: string; phone: string; userId: string }) => {
             const { email, phone, userId } = payload;
             return getRequest<IGenericResponse>({
                 url: requestOTPForWalletWithdrawal(email, phone, userId),
@@ -49,18 +39,6 @@ const useGetWithdrawalOTP = () => {
                 />
             );
             setShowModal(true);
-
-            // update OTP context with functions to send withdrawal request after OTP confirmation
-            setOtpFormAction(() => (payload: IOtpDTO) => {
-                withdraw({
-                    amount: variables.amount,
-                    storeId: storeInfo.id,
-                    otp: payload.otp,
-                });
-            });
-            setOtpFormActionIsPending(isWithdrawing);
-            setResendOTPMutationFunc(() => () => mutate(variables));
-            setResendOTPMutationFuncIsPending(isPending);
         },
         onError: (error) => {
             console.error(error);

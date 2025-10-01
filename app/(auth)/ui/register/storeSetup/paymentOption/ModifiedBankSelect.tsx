@@ -65,6 +65,7 @@ const ModifiedBankSelect = ({
                                             onChange(id);
                                             setOpen(false);
                                         }}
+                                        className="cursor-pointer"
                                     >
                                         {name}
                                     </CommandItem>
