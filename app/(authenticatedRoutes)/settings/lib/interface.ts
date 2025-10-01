@@ -22,3 +22,12 @@ export interface IVerifyBankAccountResponse {
     message: string;
     data: Omit<IBankDetails, "id" | "bank"> & { bank_id: string };
 }
+
+/*********** ACCOUNT CHANGE REQUEST FORM DTO ***********/
+export interface IAccountChangeRequestFormDTO {
+    changeType: string;
+    currentValue: string;
+    requestedValue: string;
+    reason: string;
+    additionalNotes?: string;
+}

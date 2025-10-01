@@ -2,10 +2,13 @@
 
 import StoreVacationForm from "../ui/StoreVacation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { tabs } from "../lib/data";
 import StoreDetailsFormWrapper from "./storeDetails2/StoreDetailsFormWrapper";
 import PaymentOptionFormWrapper from "./paymentOption2/PaymentOptionFormWrapper";
 import TermsOfContractForm from "./termsOfContract2/TermsOfContractForm";
+import AccountChangeRequestModal from "./AccountChangeRequestModal";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const SettingsContentDesktop = ({
     activeTab,
@@ -14,28 +17,40 @@ const SettingsContentDesktop = ({
     activeTab: string;
     handleChangeActiveTab: (value: string) => void;
 }) => {
+    const { setModalContent, setShowModal } = useModalContext();
+    
+    const handleRequestAccountChanges = () => {
+        setModalContent(<AccountChangeRequestModal />);
+        setShowModal(true);
+    };
     return (
         <Tabs
             defaultValue={activeTab || "store-information"}
             className="hidden lg:grid p-4 md:py-6 md:px-4 md:max-lg:bg-white"
         >
             {/* TABS */}
-            <TabsList className="flex items-center justify-start pt-0 px-0 bg-transparent rounded-none">
-                {tabs.map((tab) => {
-                    const { label, value } = tab;
+            <div className="flex items-center justify-between pt-0 px-0">
+                <TabsList className="flex items-center justify-start bg-transparent rounded-none">
+                    {tabs.map((tab) => {
+                        const { label, value } = tab;
 
-                    return (
-                        <TabsTrigger
-                            key={label + "-tab"}
-                            value={value}
-                            className="px-4 py-2"
-                            onClick={() => handleChangeActiveTab(value)}
-                        >
-                            {label}
-                        </TabsTrigger>
-                    );
-                })}
-            </TabsList>
+                        return (
+                            <TabsTrigger
+                                key={label + "-tab"}
+                                value={value}
+                                className="px-4 py-2"
+                                onClick={() => handleChangeActiveTab(value)}
+                            >
+                                {label}
+                            </TabsTrigger>
+                        );
+                    })}
+                </TabsList>
+                
+                <Button className="text-base rounded-3xl" onClick={handleRequestAccountChanges}>
+                    <span className="text-base">Request Account Changes</span>
+                </Button>
+            </div>
 
             {/* Tables */}
             <div className="py-6 lg:px-4">

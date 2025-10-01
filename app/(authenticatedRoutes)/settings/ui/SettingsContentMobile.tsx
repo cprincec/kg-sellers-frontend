@@ -8,7 +8,10 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { settingsMobileContents, tabs } from "../lib/data";
+import AccountChangeRequestModal from "./AccountChangeRequestModal";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 const SettingsContentMobile = ({
     activeTab,
@@ -17,9 +20,15 @@ const SettingsContentMobile = ({
     activeTab: string;
     handleChangeActiveTab: (value: string) => void;
 }) => {
+    const { setModalContent, setShowModal } = useModalContext();
+    
+    const handleRequestAccountChanges = () => {
+        setModalContent(<AccountChangeRequestModal />);
+        setShowModal(true);
+    };
     return (
         <div className="grid lg:hidden gap-5 p-4 md:py-6 md:px-4 md:max-lg:bg-white">
-            <div>
+            <div className="flex flex-col gap-3">
                 <Select
                     onValueChange={(value: string) => handleChangeActiveTab(value)}
                     defaultValue={activeTab}
@@ -41,6 +50,13 @@ const SettingsContentMobile = ({
                         </SelectGroup>
                     </SelectContent>
                 </Select>
+                
+                <Button 
+                    className="text-base rounded-3xl" 
+                    onClick={handleRequestAccountChanges}
+                >
+                    <span className="text-base">Request Account Changes</span>
+                </Button>
             </div>
 
             {settingsMobileContents.map((content) => {
