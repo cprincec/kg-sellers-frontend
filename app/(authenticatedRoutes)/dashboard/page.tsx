@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { BlackFridaySalesNotice, TermsOfContractNotice } from "./ui/icons";
+import { TermsOfContractNotice } from "./ui/icons";
 import SalesSummary from "./ui/SalesSummary";
 import ProductSummary from "./ui/ProductSummary";
 import StorePerformance from "./ui/StorePerformance";
@@ -14,7 +14,9 @@ const Dashboard = () => {
     return (
         <div className="pb-4 lg:pb-0 grid gap-3 md:gap-0 border lg:bg-kaiglo_grey-200">
             {searchParams.get("from") === "register" && <TermsOfContractNotice />}
-            <BlackFridaySalesNotice />
+            
+            {/* Ongoing Sales Notice */}
+            {/* <BlackFridaySalesNotice /> */}
             <div className="grid gap-5 lg:gap-2 px-3 md:pl-1 md:pr-1 lg:pl-1 lg:py-2">
                 {/* Sales Summary */}
                 <SalesSummary className="bg-kaiglo_grey-100" showEmptyState={showEmptyState} />

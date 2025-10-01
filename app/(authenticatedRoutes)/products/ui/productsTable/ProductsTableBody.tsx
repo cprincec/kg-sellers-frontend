@@ -56,7 +56,7 @@ const ProductsTableBody = ({
                                 className="p-3 text-sm text-wrap max-w-[300px] cursor-pointer"
                                 onClick={() => setSearchParams([{ "product-id": product.id }])}
                             >
-                                <div className="flex gap-1.5 items-center min-w-max">
+                                <div className="flex gap-1.5 items-center w-full">
                                     {product.productUrl ? (
                                         <Image
                                             src={product.productUrl}
