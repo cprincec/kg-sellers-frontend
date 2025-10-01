@@ -1,3 +1,4 @@
+import { IBankDetails } from "@/app/(auth)/lib/interfaces/interface";
 import { FC } from "react";
 
 // ============================================================================
@@ -14,4 +15,10 @@ export interface ISettingsMobileContent {
     id: string;
     component: FC;
     props?: { [key: string]: string };
+}
+
+export interface IVerifyBankAccountResponse {
+    status: boolean;
+    message: string;
+    data: Omit<IBankDetails, "id" | "bank"> & { bank_id: string };
 }

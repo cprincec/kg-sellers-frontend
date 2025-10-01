@@ -1,6 +1,6 @@
 "use client";
 
-import { IPaymentOptionDTO, PaymentOptionFormProps } from "@/app/(auth)/lib/interfaces/interface";
+import { IOtpDTO, IPaymentOptionDTO, PaymentOptionFormProps } from "@/app/(auth)/lib/interfaces/interface";
 import { paymentoptionSchema } from "@/app/(auth)/lib/validations/schemas";
 import FormNavButtons from "@/app/(authenticatedRoutes)/wallet/ui/payoutThreshold/FormNavButtons";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +11,9 @@ import { cn } from "@/lib/utils/utils";
 import { showErrorToast } from "@/app/lib/utils/utils";
 import ConfirmAccountModal from "@/app/(auth)/ui/register/storeSetup/paymentOption/ConfirmAccountModal";
 import useEditPaymentOption from "../../hooks/useEditPaymentOption";
+import { useOtpContext } from "@/app/(auth)/contexts/otpContext";
+import useGetWithdrawalOTP from "@/app/(authenticatedRoutes)/wallet/hooks/useGetWithdrawalOTP";
+import { useSession } from "next-auth/react";
 
 export const PaymentOptionForm = ({
     banks,
@@ -18,12 +21,25 @@ export const PaymentOptionForm = ({
     submitButtonText = "Save Changes",
     cancelButtonText = "Cancel",
 }: PaymentOptionFormProps) => {
+    const session = useSession();
     const { setShowModal, setModalContent } = useModalContext();
+    const {
+        setOtpFormAction,
+        setOtpFormActionIsPending,
+        setResendOTPMutationFunc,
+        setResendOTPMutationFuncIsPending,
+    } = useOtpContext();
     const { isEditingPaymentOption, editPaymentOption } = useEditPaymentOption();
+    const { isRequestingWithdrawalOTP, requestWithdrawalOTP } = useGetWithdrawalOTP();
 
     const {
+        setValue,
+        getValues,
         control,
         handleSubmit,
+        watch,
+        setError,
+        clearErrors,
         formState: { errors },
     } = useForm<IPaymentOptionDTO>({
         defaultValues,
@@ -31,18 +47,44 @@ export const PaymentOptionForm = ({
     });
 
     const onSubmit = (values: IPaymentOptionDTO) => {
-        const bankName = banks.find((bank) => bank.id === values.bankId)?.name;
+        if (!session || !session.data) {
+            console.error("No active session");
+            return;
+        }
 
+        const bankName = banks.find((bank) => bank.id === values.bankId)?.name;
         if (!bankName) {
             showErrorToast({ title: "Invalid bank selected", description: "Please choose a valid bank" });
             return;
         }
 
+        // update OTP context with functions to send withdrawal request after OTP confirmation
+        setOtpFormAction(() => (payload: IOtpDTO) => {
+            editPaymentOption({
+                accountNumber: values.accountNumber,
+                bankId: values.bankId,
+                bankName: bankName,
+                beneficiaryName: values.beneficiaryName,
+                otp: payload.otp,
+            });
+        });
+        setOtpFormActionIsPending(isEditingPaymentOption);
+
+        setResendOTPMutationFunc(
+            () => () =>
+                requestWithdrawalOTP({
+                    email: session.data.user.email,
+                    phone: session.data.user.phone,
+                    userId: session.data.user.id,
+                })
+        );
+        setResendOTPMutationFuncIsPending(isRequestingWithdrawalOTP);
+
         setModalContent(
             <ConfirmAccountModal
                 isSavingPaymentOption={isEditingPaymentOption}
-                editPaymentOption={editPaymentOption}
                 bankDetails={{ ...values, bankName }}
+                otpIsRequired={true}
             />
         );
 
@@ -62,7 +104,16 @@ export const PaymentOptionForm = ({
             <div className="grid gap-4">
                 <h3 className={cn("text-sm md:text-base font-normal")}>Bank Account Details</h3>
                 <form onSubmit={handleSubmit(onSubmit)} className={cn("grid", "gap-5")}>
-                    <PaymentOptionFormFields control={control} errors={errors} banks={banks} />
+                    <PaymentOptionFormFields
+                        control={control}
+                        errors={errors}
+                        banks={banks}
+                        watch={watch}
+                        setValue={setValue}
+                        getValues={getValues}
+                        setError={setError}
+                        clearErrors={clearErrors}
+                    />
 
                     <FormNavButtons
                         cancelFunc={() => {}}

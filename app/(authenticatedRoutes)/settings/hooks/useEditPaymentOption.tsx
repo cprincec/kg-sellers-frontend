@@ -3,7 +3,7 @@
 import { IBankDetailsDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { useModalContext } from "@/app/contexts/modalContext";
 import { handleError, showSuccessToast } from "@/app/lib/utils/utils";
-import { postRequest } from "@/lib/utils/apiCaller";
+import { putRequest } from "@/lib/utils/apiCaller";
 import { useMutation } from "@tanstack/react-query";
 
 /**
@@ -14,11 +14,14 @@ const useEditPaymentOption = () => {
     const { setModalContent, setShowModal } = useModalContext();
 
     const { isPending, mutate } = useMutation({
-        mutationFn: (payload: IBankDetailsDTO) =>
-            postRequest<IBankDetailsDTO, IBankDetailsDTO>({
+        mutationFn: (payload: IBankDetailsDTO & { otp: string }) => {
+            const { otp, ...body } = payload;
+            return putRequest<IBankDetailsDTO, IBankDetailsDTO>({
                 url: "/store-setting/edit-bank-detail",
-                payload,
-            }),
+                payload: body,
+                config: { headers: { "x-otp-key": otp } },
+            });
+        },
 
         onSuccess: () => {
             setShowModal(false);

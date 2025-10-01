@@ -5,13 +5,17 @@ import { Button } from "@/components/ui/button";
 import { IBankDetailsDTO, IPaymentOptionDTO } from "@/app/(auth)/lib/interfaces/interface";
 import { VerticalLineIcon } from "../stepper/stepper-icons";
 import { useModalContext } from "@/app/contexts/modalContext";
+import useGetWithdrawalOTP from "@/app/(authenticatedRoutes)/wallet/hooks/useGetWithdrawalOTP";
+import { useSession } from "next-auth/react";
 
 const ConfirmAccountModal = ({
     bankDetails,
     isSavingPaymentOption,
     savePaymentOption,
     editPaymentOption,
+    otpIsRequired = false,
 }: {
+    otpIsRequired?: boolean;
     bankDetails: IPaymentOptionDTO & {
         bankName: string;
     };
@@ -19,8 +23,10 @@ const ConfirmAccountModal = ({
     savePaymentOption?: (values: IPaymentOptionDTO) => void;
     editPaymentOption?: (values: IBankDetailsDTO) => void;
 }) => {
+    const session = useSession();
     const { setShowModal } = useModalContext();
     const { beneficiaryName, bankName, accountNumber, bankId } = bankDetails;
+    const { requestWithdrawalOTP, isRequestingWithdrawalOTP } = useGetWithdrawalOTP();
 
     return (
         <DialogContent
@@ -62,10 +68,22 @@ const ConfirmAccountModal = ({
                     type="button"
                     className="p-3 rounded-full"
                     onClick={() => {
-                        if (savePaymentOption) savePaymentOption({ bankId, beneficiaryName, accountNumber });
-                        if (editPaymentOption) editPaymentOption(bankDetails);
+                        if (otpIsRequired) {
+                            if (!session || !session.data) return;
+
+                            requestWithdrawalOTP({
+                                email: session.data.user.email,
+                                phone: session.data.user.phone,
+                                userId: session.data.user.id,
+                            });
+                            return;
+                        } else {
+                            if (savePaymentOption)
+                                savePaymentOption({ bankId, beneficiaryName, accountNumber });
+                            if (editPaymentOption) editPaymentOption(bankDetails);
+                        }
                     }}
-                    disabled={isSavingPaymentOption}
+                    disabled={isSavingPaymentOption || isRequestingWithdrawalOTP}
                 >
                     {isSavingPaymentOption ? "Please wait..." : "Continue"}
                 </Button>
