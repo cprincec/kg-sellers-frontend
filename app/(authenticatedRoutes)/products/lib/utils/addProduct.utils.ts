@@ -24,8 +24,8 @@ import { productCategoryFormDefaultValues, productVariantsFormDefaultValues } fr
 import { showErrorToast } from "@/app/lib/utils/utils";
 import { Dispatch, SetStateAction } from "react";
 import { Area } from "react-easy-crop";
-import { createEditor } from "lexical";
-import { $generateHtmlFromNodes } from "@lexical/html";
+import { createEditor, $getRoot } from "lexical";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import { nodes } from "@/components/blocks/editor-00/nodes";
 
 /**************************************************************
@@ -627,4 +627,46 @@ export const isSerializedState = (value: string) => {
     } catch {
         return false;
     }
+};
+
+/**
+ * Check if a string contains HTML tags
+ */
+export const isHtmlString = (value: string): boolean => {
+    const htmlTagRegex = /<\/?[a-z][\s\S]*>/i;
+    return htmlTagRegex.test(value);
+};
+
+/**
+ * Convert HTML string to Lexical serialized state
+ */
+export const convertHtmlToLexicalState = (html: string) => {
+    const editor = createEditor({
+        namespace: "HTMLConverter",
+        nodes,
+        onError: (error: Error) => {
+            console.error(error);
+        },
+    });
+
+    let serializedState = null;
+
+    editor.update(
+        () => {
+            const parser = new DOMParser();
+            const dom = parser.parseFromString(html, "text/html");
+            const nodes = $generateNodesFromDOM(editor, dom);
+
+            const root = $getRoot();
+            root.clear();
+            root.append(...nodes);
+        },
+        { discrete: true }
+    );
+
+    editor.getEditorState().read(() => {
+        serializedState = editor.getEditorState().toJSON();
+    });
+
+    return serializedState;
 };

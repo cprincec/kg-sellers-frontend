@@ -14,6 +14,8 @@ import {
     generateProductDetailsDTO,
     generateProductVariantDTOs,
     isSerializedState,
+    isHtmlString,
+    convertHtmlToLexicalState,
 } from "../../lib/utils/addProduct.utils";
 import Link from "next/link";
 import ProductDetailsImageSection from "./ProductDetailsImageSection";
@@ -21,6 +23,7 @@ import ProductDetailsSpecificationsSection from "./ProductDetailsSpecificationsS
 import ProductDetailsIntroSection from "./ProductDetailsIntroSection";
 import useGetOngoingSales from "../../hooks/useGetOngoingSales";
 import { Editor } from "@/components/blocks/editor-00/editor";
+import { useMemo } from "react";
 
 const ProductDetails = () => {
     const { deleteSearchParams } = useUpdateSearchParams();
@@ -31,6 +34,19 @@ const ProductDetails = () => {
     const { productDescription, isFetchingProductDescription } = useGetProductDescription(productId ?? "");
     const { ongoingSales, isFetchingOngoingSales } = useGetOngoingSales();
 
+    // Convert HTML to Lexical state if needed (must be before early returns)
+    const descriptionLexicalState = useMemo(() => {
+        if (!productDescription) return null;
+        if (isSerializedState(productDescription)) {
+            return JSON.parse(productDescription);
+        }
+        if (isHtmlString(productDescription)) {
+            return convertHtmlToLexicalState(productDescription);
+        }
+        return null;
+    }, [productDescription]);
+
+    console.log("product description", productDescription, typeof productDescription);
     if (isRefetchingProductRaw || isFetchingProductDescription || isFetchingOngoingSales) return <Loader />;
     if (!productRaw || !ongoingSales) return null;
 
@@ -87,9 +103,9 @@ const ProductDetails = () => {
                 <section className="grid gap-2">
                     <h2 className="text-sm ">Description</h2>
                     {productDescription ? (
-                        isSerializedState(productDescription) ? (
+                        descriptionLexicalState ? (
                             <Editor
-                                editorSerializedState={JSON.parse(productDescription)}
+                                editorSerializedState={descriptionLexicalState}
                                 readOnly={true}
                                 placeholder=""
                             />

@@ -35,13 +35,15 @@ const ProductVariantsTableBody = ({
                     <TableRow key={index}>
                         <TableCell className="p-3 max-w-[300px] text-sm text-wrap text-kaiglo_grey-base">
                             <div className="flex gap-3 items-center">
+                                {variant.productColor.colorUrl && (
                                 <Image
                                     src={variant.productColor.colorUrl}
                                     alt={product.name + " variant" + index + 1}
                                     width={48}
                                     height={48}
-                                    className="w-12 h-12 object-cover"
-                                />
+                                        className="w-12 h-12 object-cover"
+                                    />
+                                )}
                                 <span className="mt-1.5 text-sm font-medium capitalize text-kaiglo_grey-base">
                                     {product.name}
                                 </span>

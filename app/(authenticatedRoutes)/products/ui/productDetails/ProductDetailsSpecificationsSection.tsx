@@ -8,9 +8,9 @@ const ProductDetailsSpecificationsSection = ({ product }: { product: IProductDet
             <h3 className="font-medium text-sm text-kaiglo_grey-900">Specifications</h3>
             {product.specifications?.length ? (
                 <ul className="grid gap-2 list-disc pl-7">
-                    {product.specifications?.map((specification) => (
+                    {product.specifications?.map((specification, index) => (
                         <li
-                            key={specification.name}
+                            key={`${specification.name}-${specification.option}-${index}`}
                             className="px-3 py-2 text-sm font-medium capitalize pl-0"
                         >
                             {specification.name}: {specification.option}

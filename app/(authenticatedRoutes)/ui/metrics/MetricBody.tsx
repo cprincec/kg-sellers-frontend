@@ -46,6 +46,7 @@ const MetricBody = ({
                                 setSearchParams([{ withdraw: "selected-bank" }]);
                             }
                         }}
+                        disabled={actionText.toLowerCase() === "set threshold"}
                     >
                         {actionText}
                     </Button>
